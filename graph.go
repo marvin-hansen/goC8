@@ -45,3 +45,12 @@ func (c Client) GetEdge(fabric, graphName, collectionName, edgeName string) (res
 	}
 	return response, nil
 }
+
+func (c Client) GetAllVertices(fabric, graphName string) (response *r.ResponseForGetAllVertices, err error) {
+	req := r.NewRequestForGetAllVertices(fabric, graphName)
+	response = r.NewResponseForGetAllVertices()
+	if err = c.request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}

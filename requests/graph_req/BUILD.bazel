@@ -13,6 +13,7 @@ go_library(
     srcs = [
         "get_all_edges.go",
         "get_all_graphs.go",
+        "get_all_vertices.go",
         "get_edge.go",
         "get_graph.go",
         "shared.go",
