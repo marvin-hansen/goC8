@@ -26,6 +26,9 @@ Currently, only API key authentication is supported.
 
 ## Config
 
+If you have not worked with macrometa's plattform before, you have to do a one-time setup. See this [guide](setup.md)
+for details about creating a data fabric for your project.
+
 The client config requires the following settings:
 
 * Api Key
@@ -33,39 +36,18 @@ The client config requires the following settings:
 * Fabric
 * Timeout
 
-Api Key refers to the generated key as a string. Endpoint refers to the POP provided by the GDN. Fabric refers to the
-GDN Geo Fabric. Timeout refers to the http connection timeout in seconds.
+Api Key refers to the generated api access key. Endpoint refers to the POP provided by the GDN. Fabric refers to the GDN
+Geo Fabric. Timeout refers to the http connection timeout in seconds.
 
-To get your API key:
+If you do not have these value at hand, please read the [setup guide](setup.md) for details.
 
-1. Create a free [macrometa account (https://www.macrometa.com/)
-2. Create new API Key:
-   - Log in
-   - Go to Account
-   - Click on API keys
-   - Click on New Api key (Top right corner)
-   - Give it a key ID i.e. TestKey & click create
-   - Copy the actual KEY
-   - Put it into a file that is .gitignored to prevent committing the key
-3. Add the API key to the config. See code example below.
+### Examples
 
-To get your endpoint URI:
+* [Collection](examples/collections)
+* [Documents](examples/documentstore)
+* [Tests](tests)
 
-1. Log in
-2. Go to Geo Fabrics
-3. Select _system
-4. Select the region closest to your location i.e. Fremont
-5. Copy the Endpoint URL and add it to the config
-
-To get your custom fabric:
-
-1. In the web console, go to Geo Fabrics
-2. Click "New Geo Fabric" (Top right corner)
-3. Give it a name
-4. Select some initial locations. You can add more later. 
-5. Copy the exact fabric name (case-sensitive) and add it to your config
-
-### Working with collections
+### Collections
 
 ```Go
 
@@ -105,13 +87,49 @@ func main() {
    
    println("Get all collections in the fabric: " + fabric)
    resGetAll, getAllErr := c.GetAllCollections(fabric)
-   checkError(getAllErr, "Failed to get all collections for fabric: "+fabric)
-   
-   println(resGetAll.String())
-   
-   println("Delete collection Info: " + collName)
-   delErr := c.DeleteCollection(fabric, collName, false)
-   checkError(delErr, "Failed to delete collection: "+collName)
+checkError(getAllErr, "Failed to get all collections for fabric: "+fabric)
+
+println(resGetAll.String())
+
+println("Delete collection Info: " + collName)
+delErr := c.DeleteCollection(fabric, collName, false)
+checkError(delErr, "Failed to delete collection: "+collName)
+}
+
+func checkError(err error, msg string) {
+if err != nil {
+log.Println("error: " + err.Error())
+log.Fatalf(msg)
+}
+}
+```
+
+### Documents
+
+* [Full document store example](examples/documentstore)
+
+```Go
+
+println("Create new document! ")
+silent := false // When true, an empty reply will be retruned. If false, the document ID will be returned
+jsonDocument := getTestInsertData()
+
+res, createDocErr := c.CreateNewDocument(fabric, collName, silent, jsonDocument, nil)
+checkError(createDocErr, "Failed to create a new document. "+collName)
+
+if verbose {
+if res != nil {
+for _, v := range *res {
+println(v.String())
+}
+}
+}
+
+println("Get a document! ")
+key := "4"
+getRes, getDocErr := c.GetDocument(fabric, collName, key)
+checkError(getDocErr, "Failed to get document: "+key)
+printJsonRes(getRes)
 
 }
 
@@ -119,6 +137,12 @@ func checkError(err error, msg string) {
 if err != nil {
 log.Println("error: " + err.Error())
 log.Fatalf(msg)
+}
+}
+
+func printJsonRes(res goC8.JsonResponder) {
+if verbose {
+println(res.String())
 }
 }
 ```

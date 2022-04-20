@@ -13,8 +13,6 @@ const (
 	timeout  = 5 // http connection timeout in seconds
 )
 
-const verbose = true
-
 func main() {
 	// Chose between document collection for storing JSON and edge collections that are used for graphs.
 	collType := collection_req.DocumentCollectionType
@@ -30,26 +28,14 @@ func main() {
 	createCollErr := c.CreateNewCollection(fabric, collName, false, collType)
 	checkError(createCollErr, "Failed to create a new collection. "+collName)
 
-	println("Create new document! ")
-	silent := false // When true, an empty reply will be retruned. If false, the document ID will be returned
-	jsonDocument := getTestInsertData()
+	println("Get collection Info: " + collName)
+	res, getCollErr := c.GetCollectionInfo(fabric, collName)
+	checkError(getCollErr, "Failed to get a new collection. ")
+	println(res.String())
 
-	res, createDocErr := c.CreateNewDocument(fabric, collName, silent, jsonDocument, nil)
-	checkError(createDocErr, "Failed to create a new document. "+collName)
-
-	if verbose {
-		if res != nil {
-			for _, v := range *res {
-				println(v.String())
-			}
-		}
-	}
-
-	println("Get a document! ")
-	key := "4"
-	getRes, getDocErr := c.GetDocument(fabric, collName, key)
-	checkError(getDocErr, "Failed to get document: "+key)
-	printJsonRes(getRes)
+	println("Delete collection Info: " + collName)
+	delErr := c.DeleteCollection(fabric, collName, false)
+	checkError(delErr, "Failed to delete collection: "+collName)
 
 }
 
@@ -57,11 +43,5 @@ func checkError(err error, msg string) {
 	if err != nil {
 		log.Println("error: " + err.Error())
 		log.Fatalf(msg)
-	}
-}
-
-func printJsonRes(res goC8.JsonResponder) {
-	if verbose {
-		println(res.String())
 	}
 }
