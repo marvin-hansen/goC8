@@ -8,7 +8,7 @@ set -o pipefail
 BF=$(find . -name '*.bazel' | wc -l)
 GF=$(find . -name '*.go' | wc -l)
 PF=$(find . -name '*.proto' | wc -l)
-gc=$(git rev-list --all --count master)
+gc=$(git rev-list --all --count main)
 
 echo "Nr. Git commits: "$gc
 echo "Nr. Go source files: "$GF

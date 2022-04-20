@@ -26,6 +26,8 @@ filegroup(
     name = "build",
     srcs = [
         "//requests:build",
+        "//examples:build",
+        # ":goc8", # throws weirdo error
     ],
     visibility = ["//visibility:public"],
 )
