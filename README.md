@@ -112,13 +112,26 @@ func main() {
    println("Delete collection Info: " + collName)
    delErr := c.DeleteCollection(fabric, collName, false)
    checkError(delErr, "Failed to delete collection: "+collName)
-   
-   }
-   
-   func checkError(err error, msg string) {
-      if err != nil {
-         log.Println("error: " + err.Error())
-         log.Fatalf(msg)
-      }
-   }
+
+}
+
+func checkError(err error, msg string) {
+if err != nil {
+log.Println("error: " + err.Error())
+log.Fatalf(msg)
+}
+}
 ```
+
+## Author
+
+* Marvin Hansen
+* GPG key ID: 210D39BC
+* Github key ID: 369D5A0B210D39BC
+* GPG Fingerprint: 4B18 F7B2 04B9 7A72 967E 663E 369D 5A0B 210D 39BC
+* Public key: [key](pubkey.txt)
+
+## Licence
+
+* [MIT Licence](LICENSE)
+* Software is "as is" without any warranty. 
