@@ -31,3 +31,7 @@ func NewClient(config *ClientConfig) *Client {
 func (c Client) getApiKey() string {
 	return c.apiKey
 }
+
+func (c Client) PubFunc() {
+	println("Pub")
+}
