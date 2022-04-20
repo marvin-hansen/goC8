@@ -37,8 +37,8 @@ func (c Client) GetAllEdges(fabric, graphName string) (response *r.ResponseForGe
 
 // GetEdge
 // Gets an edge from the given collection.
-func (c Client) GetEdge(fabric, graphName, collectionName, edgeName string) (response *r.ResponseForGetEdge, err error) {
-	req := r.NewRequestForGetEdge(fabric, graphName, collectionName, edgeName)
+func (c Client) GetEdge(fabric, graphName, collectionName, edgeKey string) (response *r.ResponseForGetEdge, err error) {
+	req := r.NewRequestForGetEdge(fabric, graphName, collectionName, edgeKey)
 	response = r.NewResponseForGetEdge()
 	if err = c.request(req, response); err != nil {
 		return nil, err
@@ -46,9 +46,22 @@ func (c Client) GetEdge(fabric, graphName, collectionName, edgeName string) (res
 	return response, nil
 }
 
+// GetAllVertices
+// Lists all vertex collections within this graph.
 func (c Client) GetAllVertices(fabric, graphName string) (response *r.ResponseForGetAllVertices, err error) {
 	req := r.NewRequestForGetAllVertices(fabric, graphName)
 	response = r.NewResponseForGetAllVertices()
+	if err = c.request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
+// GetVertex
+// Gets a vertex from the given collection.
+func (c Client) GetVertex(fabric, graphName, collectionName, vertexKey string) (response *r.ResponseForGetVertex, err error) {
+	req := r.NewRequestForGetVertex(fabric, graphName, collectionName, vertexKey)
+	response = r.NewResponseForGetVertex()
 	if err = c.request(req, response); err != nil {
 		return nil, err
 	}

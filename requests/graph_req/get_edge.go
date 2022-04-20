@@ -7,9 +7,9 @@ import (
 
 //**// Request //**//
 
-func NewRequestForGetEdge(fabric, graphName, collectionName, edgeName string) *RequestForGetEdge {
+func NewRequestForGetEdge(fabric, graphName, collectionName, edgeKey string) *RequestForGetEdge {
 	return &RequestForGetEdge{
-		path: fmt.Sprintf("_fabric/%v/_api/graph/%v/edge/%v/%v", fabric, graphName, collectionName, edgeName),
+		path: fmt.Sprintf("_fabric/%v/_api/graph/%v/edge/%v/%v", fabric, graphName, collectionName, edgeKey),
 	}
 }
 

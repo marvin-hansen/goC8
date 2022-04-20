@@ -63,3 +63,16 @@ func TestGetAllVertices(t *testing.T) {
 	assert.NotNil(t, res)
 	printRes(res, verbose)
 }
+
+func TestGetVertex(t *testing.T) {
+	c := goC8.NewClient(nil)
+	fabric := "_system"
+	graphName := "lectureteacher"
+	collectionID := "teachers"
+	edgeID := "Jean"
+
+	res, err := c.GetVertex(fabric, graphName, collectionID, edgeID)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	printRes(res, verbose)
+}

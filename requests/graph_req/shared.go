@@ -61,3 +61,17 @@ func (r Edge) String() string {
 		r.To,
 	)
 }
+
+type Vertex struct {
+	Id  string `json:"_id"`
+	Key string `json:"_key"`
+	Rev string `json:"_rev"`
+}
+
+func (r Vertex) String() string {
+	return fmt.Sprintf("ID: %v \n Key: %v \n Ref: %v",
+		r.Id,
+		r.Key,
+		r.Rev,
+	)
+}
