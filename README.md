@@ -125,9 +125,12 @@ const (
 	timeout  = 5 // http connection timeout in seconds
 )
 
+const verbose = true
+
 func main() {
-	collType := collection_req.DocumentCollectionType
 	collName := "TestCollection"
+	config := goC8.NewConfig(apiKey, endpoint, fabric, timeout)
+	c := goC8.NewClient(config)
 
 	println("Create new document! ")
 	silent := false // When true, an empty reply will be retruned. If false, the document ID will be returned
