@@ -12,6 +12,8 @@ go_library(
     name = "graph_req",
     srcs = [
         "get_all_graphs.go",
+        "get_edge.go",
+        "get_edges.go",
         "get_graph.go",
         "shared.go",
     ],

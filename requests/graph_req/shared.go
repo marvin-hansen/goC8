@@ -43,3 +43,21 @@ func (r EdgeDefinitions) String() string {
 		r.To,
 	)
 }
+
+type Edge struct {
+	Id   string `json:"_id"`
+	Key  string `json:"_key"`
+	Rev  string `json:"_rev"`
+	From string `json:"_from"`
+	To   string `json:"_to"`
+}
+
+func (r Edge) String() string {
+	return fmt.Sprintf("ID: %v \n Key: %v \n Ref: %v \n From: %v \n To: %v \n",
+		r.Id,
+		r.Key,
+		r.Rev,
+		r.From,
+		r.To,
+	)
+}

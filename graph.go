@@ -23,3 +23,25 @@ func (c Client) GetGraph(fabric, graphName string) (response *r.ResponseForGetGr
 	}
 	return response, nil
 }
+
+// GetAllEdges
+// Lists all edge collections within this graph.
+func (c Client) GetAllEdges(fabric, graphName string) (response *r.ResponseForGetAllEdges, err error) {
+	req := r.NewRequestForGetAllEdges(fabric, graphName)
+	response = r.NewResponseForGetAllEdges()
+	if err = c.request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
+// GetEdge
+// Gets an edge from the given collection.
+func (c Client) GetEdge(fabric, graphName, collectionName, edgeName string) (response *r.ResponseForGetEdge, err error) {
+	req := r.NewRequestForGetEdge(fabric, graphName, collectionName, edgeName)
+	response = r.NewResponseForGetEdge()
+	if err = c.request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
