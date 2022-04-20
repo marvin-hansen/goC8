@@ -3,7 +3,7 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 filegroup(
     name = "build",
     srcs = [
-        ":collection_req",
+        ":document_req",
     ],
     visibility = ["//visibility:public"],
 )
