@@ -31,14 +31,7 @@ func main() {
 	println("Get collection Info: " + collName)
 	res, getCollErr := c.GetCollectionInfo(fabric, collName)
 	checkError(getCollErr, "Failed to get a new collection. ")
-
 	println(res.String())
-
-	println("Get all collections in the fabric: " + fabric)
-	resGetAll, getAllErr := c.GetAllCollections(fabric)
-	checkError(getAllErr, "Failed to get all collections for fabric: "+fabric)
-
-	println(resGetAll.String())
 
 	println("Delete collection Info: " + collName)
 	delErr := c.DeleteCollection(fabric, collName, false)
