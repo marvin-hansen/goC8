@@ -24,7 +24,7 @@ go get github.com/marvin-hansen/goC8/client
 
 Currently, only API key authentication is supported.
 
-## Config
+## Configuration
 
 If you have not worked with macrometa's plattform before, you have to do a one-time setup. See this [guide](setup.md)
 for details about creating a data fabric for your project.
@@ -43,7 +43,7 @@ If you do not have these value at hand, please read the [setup guide](setup.md) 
 
 ### Examples
 
-* [Collection](examples/collections)
+* [Collections](examples/collections)
 * [Documents](examples/documentstore)
 * [Tests](tests)
 
@@ -110,40 +110,59 @@ log.Fatalf(msg)
 
 ```Go
 
-println("Create new document! ")
-silent := false // When true, an empty reply will be retruned. If false, the document ID will be returned
-jsonDocument := getTestInsertData()
+package main
 
-res, createDocErr := c.CreateNewDocument(fabric, collName, silent, jsonDocument, nil)
-checkError(createDocErr, "Failed to create a new document. "+collName)
+import (
+	"github.com/marvin-hansen/goC8"
+	"github.com/marvin-hansen/goC8/requests/collection_req"
+	"log"
+)
 
-if verbose {
-if res != nil {
-for _, v := range *res {
-println(v.String())
-}
-}
-}
+const (
+	apiKey   = "email.root.secretkey"
+	endpoint = "https://YOUR-ID-us-west.paas.macrometa.io"
+	fabric   = "uswest"
+	timeout  = 5 // http connection timeout in seconds
+)
 
-println("Get a document! ")
-key := "4"
-getRes, getDocErr := c.GetDocument(fabric, collName, key)
-checkError(getDocErr, "Failed to get document: "+key)
-printJsonRes(getRes)
+func main() {
+	collType := collection_req.DocumentCollectionType
+	collName := "TestCollection"
+
+	println("Create new document! ")
+	silent := false // When true, an empty reply will be retruned. If false, the document ID will be returned
+	jsonDocument := getTestInsertData()
+
+	res, createDocErr := c.CreateNewDocument(fabric, collName, silent, jsonDocument, nil)
+	checkError(createDocErr, "Failed to create a new document. "+collName)
+
+	if verbose {
+		if res != nil {
+			for _, v := range *res {
+				println(v.String())
+			}
+		}
+	}
+
+	println("Get a document! ")
+	key := "4"
+	getRes, getDocErr := c.GetDocument(fabric, collName, key)
+	checkError(getDocErr, "Failed to get document: "+key)
+	printJsonRes(getRes)
 
 }
 
 func checkError(err error, msg string) {
-if err != nil {
-log.Println("error: " + err.Error())
-log.Fatalf(msg)
-}
+	if err != nil {
+		log.Println("error: " + err.Error())
+		log.Fatalf(msg)
+	}
 }
 
 func printJsonRes(res goC8.JsonResponder) {
-if verbose {
-println(res.String())
-}
+	if verbose {
+		println(res.String())
+	}
 }
 ```
 
