@@ -12,6 +12,7 @@ go_library(
     name = "graph_req",
     srcs = [
         "get_all_graphs.go",
+        "get_graph.go",
         "shared.go",
     ],
     importpath = "goC8/requests/graph_req",

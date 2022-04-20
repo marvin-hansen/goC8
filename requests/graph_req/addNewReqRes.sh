@@ -58,7 +58,7 @@ func (req *RequestFor$name) HasQueryParameter() bool {
 }
 
 func (req *RequestFor$name) GetQueryParameter() string {
-	return "" //"?excludeSystem=true"
+	return ""
 }
 
 func (req *RequestFor$name) Payload() []byte {
@@ -90,9 +90,10 @@ func (r ResponseFor$name) String() string {
 
 EOF
 
+# Add new file to git
+command git add .
 ## Generate build files & update bazel dependencies
 command bazel run //:gazelle
 ## Build all sources
 command bazel build //:build
 
-git add .
