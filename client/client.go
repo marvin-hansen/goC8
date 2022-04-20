@@ -1,6 +1,7 @@
-package goC8
+package client
 
 import (
+	"github.com/marvin-hansen/goC8"
 	"github.com/valyala/fasthttp"
 	"time"
 )
@@ -21,7 +22,7 @@ func NewClient(config *ClientConfig) *Client {
 	timeOut := time.Duration(config.Timeout) * time.Second
 
 	return &Client{
-		apiKey:      apiKEY,
+		apiKey:      goC8.apiKEY,
 		Endpoint:    config.GetConnectionString(),
 		HTTPTimeout: timeOut,
 		HTTPC:       new(fasthttp.Client),
