@@ -1,13 +1,13 @@
 package document
 
 import (
+	"github.com/marvin-hansen/goC8"
 	"github.com/stretchr/testify/assert"
-	"scigraph/src/clients/gdn_client"
 	"testing"
 )
 
 func TestUpdateManyDocument(t *testing.T) {
-	c := gdn_client.NewClient(nil)
+	c := goC8.NewClient(nil)
 	fabric := "SouthEastAsia"
 	collName := "TestCollection"
 
@@ -29,7 +29,7 @@ func TestUpdateManyDocument(t *testing.T) {
 }
 
 func TestReplaceManyDocuments(t *testing.T) {
-	c := gdn_client.NewClient(nil)
+	c := goC8.NewClient(nil)
 	fabric := "SouthEastAsia"
 	collName := "TestCollection"
 	k1 := "1"
@@ -51,7 +51,7 @@ func TestReplaceManyDocuments(t *testing.T) {
 }
 
 func TestDeleteManyDocuments(t *testing.T) {
-	c := gdn_client.NewClient(nil)
+	c := goC8.NewClient(nil)
 	fabric := "SouthEastAsia"
 	collName := "TestCollection"
 
