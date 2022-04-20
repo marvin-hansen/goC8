@@ -1,4 +1,4 @@
-package src
+package client
 
 type Requester interface {
 	Path() string              // path relative to URI i.e. /data/function/

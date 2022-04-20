@@ -1,4 +1,4 @@
-package src
+package client
 
 import (
 	"github.com/valyala/fasthttp"
