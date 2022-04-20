@@ -1,4 +1,4 @@
-package client
+package c8
 
 type ClientConfig struct {
 	Fabric           string

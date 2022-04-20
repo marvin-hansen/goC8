@@ -1,4 +1,4 @@
-package client
+package c8
 
 import jsoniter "github.com/json-iterator/go"
 

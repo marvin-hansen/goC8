@@ -1,4 +1,4 @@
-package client
+package c8
 
 import (
 	"fmt"

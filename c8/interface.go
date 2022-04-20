@@ -1,4 +1,4 @@
-package client
+package c8
 
 type Requester interface {
 	Path() string              // path relative to URI i.e. /data/function/
