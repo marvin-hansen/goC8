@@ -1,0 +1,25 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+filegroup(
+    name = "build",
+    srcs = [
+        ":collection_req",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "collection_req",
+    srcs = [
+        "create_new_collection.go",
+        "delete_collection.go",
+        "get_all_collections.go",
+        "get_collection_info.go",
+        "shared.go",
+        "truncate_collection.go",
+        "update_collection.go",
+    ],
+    importpath = "scigraph/src/clients/gdn_client/requests/collection_req",
+    visibility = ["//visibility:public"],
+    deps = ["//src/clients/gdn_client/gdn_types"],
+)
