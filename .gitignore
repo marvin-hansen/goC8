@@ -37,3 +37,6 @@ Session.vim
 # Crash & log files
 crash.log
 output.log
+
+# Custom files to ignore
+key.go
