@@ -1,0 +1,14 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "graph_lib",
+    srcs = ["main.go"],
+    importpath = "goC8/examples/graph",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "graph",
+    embed = [":graph_lib"],
+    visibility = ["//visibility:public"],
+)

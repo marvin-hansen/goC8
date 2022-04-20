@@ -2,6 +2,7 @@ filegroup(
     name = "build",
     srcs = [
         "//requests/collection_req",
+        "//requests/document_req",
     ],
     visibility = ["//visibility:public"],
 )
