@@ -1,6 +1,19 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_test")
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 
 go_test(
     name = "graph_test",
     srcs = ["graph_test.go"],
+    embed = [":graph"],
+    deps = [
+        "@com_github_marvin_hansen_goc8//:goC8",
+        "@com_github_stretchr_testify//assert",
+    ],
+)
+
+go_library(
+    name = "graph",
+    srcs = ["utils.go"],
+    importpath = "goC8/tests/graph",
+    visibility = ["//visibility:public"],
+    deps = ["@com_github_marvin_hansen_goc8//:goC8"],
 )

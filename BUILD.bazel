@@ -55,6 +55,7 @@ go_library(
         "@com_github_json_iterator_go//:go",
         "@com_github_marvin_hansen_goc8//requests/collection_req",
         "@com_github_marvin_hansen_goc8//requests/document_req",
+        "@com_github_marvin_hansen_goc8//requests/graph_req",
         "@com_github_valyala_fasthttp//:fasthttp",
     ],
 )

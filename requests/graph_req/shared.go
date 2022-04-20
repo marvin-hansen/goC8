@@ -16,7 +16,7 @@ type Graph struct {
 }
 
 func (r Graph) String() string {
-	return fmt.Sprintf("Name: %v, ID: %v, Key: %v, Rec: %v, EdgeDefinitions: %v, IsSmart: %v, MinReplicationFactor: %v  Name: %v,  NumberOfShards: %v, OrphanCollections: %v,  ReplicationFactor: %v",
+	return fmt.Sprintf("ID: %v \n Key: %v \n Rec: %v \n EdgeDefinitions: %v \n IsSmart: %v \n MinReplicationFactor: %v \n Name: %v \n NumberOfShards: %v \n OrphanCollections: %v \n ReplicationFactor: %v \n",
 		r.Id,
 		r.Key,
 		r.Rev,
@@ -37,7 +37,7 @@ type EdgeDefinitions struct {
 }
 
 func (r EdgeDefinitions) String() string {
-	return fmt.Sprintf("Collection: %v, From: %v, To: %v",
+	return fmt.Sprintf("Collection: %v \n From: %v \n To: %v \n",
 		r.Collection,
 		r.From,
 		r.To,

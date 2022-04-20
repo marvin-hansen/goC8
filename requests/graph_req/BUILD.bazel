@@ -10,7 +10,10 @@ filegroup(
 
 go_library(
     name = "graph_req",
-    srcs = ["get_all_graphs.go"],
+    srcs = [
+        "get_all_graphs.go",
+        "shared.go",
+    ],
     importpath = "goC8/requests/graph_req",
     visibility = ["//visibility:public"],
 )
