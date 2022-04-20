@@ -1,0 +1,7 @@
+filegroup(
+    name = "build",
+    srcs = [
+        "//requests/collection_req",
+    ],
+    visibility = ["//visibility:public"],
+)

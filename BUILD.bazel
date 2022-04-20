@@ -23,7 +23,7 @@ buildifier(
 filegroup(
     name = "build",
     srcs = [
-        "//src:build",
+        "//requests:build",
     ],
     visibility = ["//visibility:public"],
 )
