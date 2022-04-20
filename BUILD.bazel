@@ -44,6 +44,7 @@ go_library(
         "collection.go",
         "document.go",
         "document_many.go",
+        "graph.go",
         "info.go",
         "interface.go",
         "key.go",

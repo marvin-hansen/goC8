@@ -1,0 +1,16 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+filegroup(
+    name = "build",
+    srcs = [
+        ":graph_req",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "graph_req",
+    srcs = ["get_all_graphs.go"],
+    importpath = "goC8/requests/graph_req",
+    visibility = ["//visibility:public"],
+)
