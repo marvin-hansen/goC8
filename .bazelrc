@@ -1,0 +1,14 @@
+# https://github.com/GoogleCloudPlatform/gke-bazel-demo/blob/master/.bazelrc
+
+# Don't create bazel-* symlinks in the WORKSPACE directory.
+# These require .gitignore and may scare users.
+# Also, it's a workaround for https://github.com/bazelbuild/rules_typescript/issues/12
+# Instead, you should run `bazel info bazel-bin` to find out where the outputs went.
+
+# Flags
+# suppresses some weirdo error messages in modules.
+# --incompatible_restrict_string_escapes
+
+build --symlink_prefix=dist/ --incompatible_restrict_string_escapes=false
+
+test --test_output=errors

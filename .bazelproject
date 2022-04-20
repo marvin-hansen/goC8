@@ -1,0 +1,9 @@
+# Project Views (*.bazelproject files)
+# https://ij.bazel.build/docs/project-views.html#derive_targets_from_directories
+
+targets:
+  //:gazelle
+
+derive_targets_from_directories: true
+
+workspace_type: go

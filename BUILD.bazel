@@ -1,0 +1,29 @@
+package(default_visibility = ["//visibility:public"])
+
+load("@bazel_gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
+load("@io_bazel_rules_k8s//k8s:objects.bzl", "k8s_objects")
+load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
+
+gazelle_binary(
+    name = "gazelle_binary",
+    languages = DEFAULT_LANGUAGES,
+    visibility = ["//visibility:public"],
+)
+
+# gazelle:prefix goC8/
+gazelle(
+    name = "gazelle",
+    gazelle = "//:gazelle_binary",
+)
+
+buildifier(
+    name = "buildifier",
+)
+
+filegroup(
+    name = "build",
+    srcs = [
+        "//src:build",
+    ],
+    visibility = ["//visibility:public"],
+)
