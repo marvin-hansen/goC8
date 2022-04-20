@@ -1,3 +1,5 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
 package(default_visibility = ["//visibility:public"])
 
 load("@bazel_gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
@@ -26,4 +28,30 @@ filegroup(
         "//requests:build",
     ],
     visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "goC8",
+    srcs = [
+        "access_api.go",
+        "client.go",
+        "client_config.go",
+        "client_error.go",
+        "client_request.go",
+        "client_response.go",
+        "collection.go",
+        "document.go",
+        "document_many.go",
+        "info.go",
+        "interface.go",
+        "key.go",
+        "util.go",
+    ],
+    importpath = "goC8/",
+    deps = [
+        "@com_github_json_iterator_go//:go",
+        "@com_github_marvin_hansen_goc8//requests/collection_req:go_default_library",
+        "@com_github_marvin_hansen_goc8//requests/document_req:go_default_library",
+        "@com_github_valyala_fasthttp//:fasthttp",
+    ],
 )

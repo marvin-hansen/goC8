@@ -7,3 +7,24 @@ filegroup(
     ],
     visibility = ["//visibility:public"],
 )
+
+go_library(
+    name = "document_req",
+    srcs = [
+        "create_document.go",
+        "create_parameters.go",
+        "delete_document.go",
+        "delete_many_documents.go",
+        "delete_parameters.go",
+        "get_document.go",
+        "replace_document.go",
+        "replace_many_document.go",
+        "replace_parameters.go",
+        "shared.go",
+        "update_document.go",
+        "update_many_document.go",
+        "update_parameters.go",
+    ],
+    importpath = "goC8/requests/document_req",
+    visibility = ["//visibility:public"],
+)

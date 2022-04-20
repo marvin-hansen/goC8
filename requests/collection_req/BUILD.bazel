@@ -7,3 +7,19 @@ filegroup(
     ],
     visibility = ["//visibility:public"],
 )
+
+go_library(
+    name = "collection_req",
+    srcs = [
+        "collection_types.go",
+        "create_new_collection.go",
+        "delete_collection.go",
+        "get_all_collections.go",
+        "get_collection_info.go",
+        "shared.go",
+        "truncate_collection.go",
+        "update_collection.go",
+    ],
+    importpath = "goC8/requests/collection_req",
+    visibility = ["//visibility:public"],
+)

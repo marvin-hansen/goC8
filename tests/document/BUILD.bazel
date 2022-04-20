@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "document",
+    srcs = ["utils.go"],
+    importpath = "goC8/tests/document",
+    visibility = ["//visibility:public"],
+    deps = ["@com_github_marvin_hansen_goc8//:go_default_library"],
+)
+
+go_test(
+    name = "document_test",
+    srcs = [
+        "document_many_test.go",
+        "document_test.go",
+    ],
+    embed = [":document"],
+    deps = [
+        "@com_github_marvin_hansen_goc8//:go_default_library",
+        "@com_github_marvin_hansen_goc8//requests/document_req:go_default_library",
+        "@com_github_stretchr_testify//assert",
+    ],
+)
