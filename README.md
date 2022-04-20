@@ -85,19 +85,18 @@ func main() {
    
    println("Get all collections in the fabric: " + fabric)
    resGetAll, getAllErr := c.GetAllCollections(fabric)
-checkError(getAllErr, "Failed to get all collections for fabric: "+fabric)
+   checkError(getAllErr, "Failed to get all collections for fabric: "+fabric)
+   println(resGetAll.String())
 
-println(resGetAll.String())
-
-println("Delete collection Info: " + collName)
-delErr := c.DeleteCollection(fabric, collName, false)
-checkError(delErr, "Failed to delete collection: "+collName)
+    println("Delete collection Info: " + collName)
+    delErr := c.DeleteCollection(fabric, collName, false)
+    checkError(delErr, "Failed to delete collection: "+collName)
 }
 
 func checkError(err error, msg string) {
-if err != nil {
-log.Println("error: " + err.Error())
-log.Fatalf(msg)
+    if err != nil {
+        log.Println("error: " + err.Error())
+        log.Fatalf(msg)
 }
 }
 ```
