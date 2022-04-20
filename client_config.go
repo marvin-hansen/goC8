@@ -1,32 +1,43 @@
 package goC8
 
+const (
+	defaultEndpoint = "https://api-chub-697f556b-ap-south.paas.macrometa.io/_fabric/"
+	defaultFabric   = "SouthEastAsia"
+	// 	collName := "TestCollection"
+	apiKEY = KEY
+)
+
 type ClientConfig struct {
+	apiKey           string
 	Fabric           string
-	Host             string
 	Timeout          int
 	connectionString string
 }
 
-func NewClientDefaultConfig() *ClientConfig {
+func NewDefaultConfig() *ClientConfig {
 	host := defaultEndpoint
 	fabric := defaultFabric
 	return &ClientConfig{
+		apiKey:           apiKEY,
 		Fabric:           fabric,
-		Host:             host,
 		Timeout:          5,
 		connectionString: host + fabric,
 	}
 }
 
-func NewClientConfig(host, fabric string, timeout int) *ClientConfig {
+func NewConfig(apiKey, endpoint, fabric string, timeout int) *ClientConfig {
 	return &ClientConfig{
-		Host:             host,
+		apiKey:           apiKey,
 		Fabric:           fabric,
 		Timeout:          timeout,
-		connectionString: host + fabric,
+		connectionString: endpoint + fabric,
 	}
 }
 
 func (c ClientConfig) GetConnectionString() string {
 	return c.connectionString
+}
+
+func (c ClientConfig) GetApiKey() string {
+	return c.apiKey
 }

@@ -1,8 +1,0 @@
-filegroup(
-    name = "build",
-    srcs = [
-        "//examples/documentstore:build",
-        "//examples/graph:build",
-    ],
-    visibility = ["//visibility:public"],
-)

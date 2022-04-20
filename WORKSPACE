@@ -64,6 +64,13 @@ http_archive(
 
 load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
 
+go_repository(
+    name = "com_github_marvin_hansen_goc8",
+    importpath = "github.com/marvin-hansen/goC8",
+    sum = "h1:iur+gk19mx2/xvxQeFJFR1JinGmBDdF0OYubxfCXnZg=",
+    version = "v0.0.2",
+)
+
 rules_proto_dependencies()
 
 rules_proto_toolchains()

@@ -15,23 +15,24 @@ type Client struct {
 func NewClient(config *ClientConfig) *Client {
 
 	if config == nil {
-		config = NewClientDefaultConfig()
+		config = NewDefaultConfig()
 	}
 
 	timeOut := time.Duration(config.Timeout) * time.Second
 
 	return &Client{
-		apiKey:      apiKEY,
+		apiKey:      config.GetApiKey(),
 		Endpoint:    config.GetConnectionString(),
 		HTTPTimeout: timeOut,
 		HTTPC:       new(fasthttp.Client),
 	}
 }
 
+// getApiKey is used internally to pass key to the request handler
 func (c Client) getApiKey() string {
 	return c.apiKey
 }
 
 func (c Client) Info() {
-	println("Pub")
+	println("")
 }

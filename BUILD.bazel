@@ -13,6 +13,7 @@ gazelle_binary(
 )
 
 # gazelle:prefix goC8/
+# gazelle:exclude examples/
 gazelle(
     name = "gazelle",
     gazelle = "//:gazelle_binary",
@@ -25,9 +26,8 @@ buildifier(
 filegroup(
     name = "build",
     srcs = [
+        #        ":goC8",  # throws weirdo error
         "//requests:build",
-        "//examples:build",
-        # ":goc8", # throws weirdo error
     ],
     visibility = ["//visibility:public"],
 )
@@ -52,8 +52,8 @@ go_library(
     importpath = "goC8/",
     deps = [
         "@com_github_json_iterator_go//:go",
-        "@com_github_marvin_hansen_goc8//requests/collection_req:go_default_library",
-        "@com_github_marvin_hansen_goc8//requests/document_req:go_default_library",
+        "@com_github_marvin_hansen_goc8//requests/collection_req",
+        "@com_github_marvin_hansen_goc8//requests/document_req",
         "@com_github_valyala_fasthttp//:fasthttp",
     ],
 )
