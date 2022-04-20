@@ -1,9 +1,8 @@
-package client
+package goC8
 
 import (
 	"fmt"
 	jsoniter "github.com/json-iterator/go"
-	"github.com/marvin-hansen/goC8"
 	"github.com/valyala/fasthttp"
 	"net/url"
 	"time"
@@ -22,7 +21,7 @@ func (c *Client) requestWithoutReturnValue(r Requester) error {
 	req := c.newRequest(r)
 	res := fasthttp.AcquireResponse()
 	err := c.HTTPC.DoTimeout(req, res, c.HTTPTimeout)
-	return goC8.checkError(err)
+	return checkError(err)
 }
 
 func (c *Client) requestJsonResponse(req Requester, results JsonResponder) error {

@@ -1,6 +1,4 @@
-package client
-
-import "github.com/marvin-hansen/goC8"
+package goC8
 
 type ClientConfig struct {
 	Fabric           string
@@ -10,8 +8,8 @@ type ClientConfig struct {
 }
 
 func NewClientDefaultConfig() *ClientConfig {
-	host := goC8.defaultEndpoint
-	fabric := goC8.defaultFabric
+	host := defaultEndpoint
+	fabric := defaultFabric
 	return &ClientConfig{
 		Fabric:           fabric,
 		Host:             host,

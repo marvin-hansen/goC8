@@ -1,4 +1,4 @@
-package client
+package goC8
 
 import (
 	"fmt"

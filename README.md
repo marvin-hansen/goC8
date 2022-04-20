@@ -4,7 +4,7 @@
 ## Install
 
 ```Bash
-go get github.com/marvin-hansen/goC8
+go get github.com/marvin-hansen/goC8/client
 
 ```
 
