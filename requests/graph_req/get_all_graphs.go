@@ -52,13 +52,17 @@ func NewResponseForGetAllGraphs() *ResponseForGetAllGraphs {
 }
 
 type ResponseForGetAllGraphs struct {
-	// @FIXME
-	Field string
+	Code   int     `json:"code"`
+	Error  bool    `json:"error"`
+	Graphs []Graph `json:"graphs"`
 }
 
 func (r *ResponseForGetAllGraphs) IsResponse() {}
 
 func (r ResponseForGetAllGraphs) String() string {
-	// @FIXME
-	return fmt.Sprintf("Bootfile: %v", r.Field)
+	return fmt.Sprintf("Code: %v, Error: %v, Graphs: %v",
+		r.Code,
+		r.Error,
+		r.Graphs,
+	)
 }
