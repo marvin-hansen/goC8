@@ -1,4 +1,4 @@
-package c8
+package goC8
 
 import (
 	"fmt"

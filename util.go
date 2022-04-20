@@ -1,4 +1,4 @@
-package c8
+package goC8
 
 func checkError(err error) error {
 	if err != nil {
