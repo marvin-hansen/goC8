@@ -9,6 +9,7 @@ search, functions, and 4 databases all through one single API.
 
 Supported databases:
 
+* Collections
 * Document store
 
 ## Install
