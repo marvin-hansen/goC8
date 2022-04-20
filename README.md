@@ -9,10 +9,7 @@ search, functions, and 4 databases all through one single API.
 
 Supported databases:
 
-* Key-value store
-* Document store,
-* Graph database,
-* Streaming database
+* Document store
 
 ## Install
 
