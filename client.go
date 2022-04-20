@@ -32,6 +32,6 @@ func (c Client) getApiKey() string {
 	return c.apiKey
 }
 
-func (c Client) PubFunc() {
+func (c Client) Info() {
 	println("Pub")
 }

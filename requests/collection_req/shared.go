@@ -2,7 +2,6 @@ package collection_req
 
 import (
 	"fmt"
-	"github.com/marvin-hansen/goC8/types"
 )
 
 type UpdateOptions struct {
@@ -10,7 +9,7 @@ type UpdateOptions struct {
 	WaitForSync bool `json:"waitForSync"`
 }
 
-func NewCollectionOption(name string, allowUserKeys bool, collectionType types.CollectionType) *CollectionOption {
+func NewCollectionOption(name string, allowUserKeys bool, collectionType CollectionType) *CollectionOption {
 	return &CollectionOption{
 		Name:     name,
 		Type:     collectionType.ToInt(),

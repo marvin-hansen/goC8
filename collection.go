@@ -2,7 +2,6 @@ package goC8
 
 import (
 	"github.com/marvin-hansen/goC8/requests/collection_req"
-	"github.com/marvin-hansen/goC8/types"
 )
 
 func (c Client) GetAllCollections(fabric string) (response *collection_req.ResponseForGetAllCollections, err error) {
@@ -14,7 +13,7 @@ func (c Client) GetAllCollections(fabric string) (response *collection_req.Respo
 	return response, nil
 }
 
-func (c Client) CreateNewCollection(fabric, collectionName string, allowUserKeys bool, collectionType types.CollectionType) (err error) {
+func (c Client) CreateNewCollection(fabric, collectionName string, allowUserKeys bool, collectionType collection_req.CollectionType) (err error) {
 	req := collection_req.NewRequestForCreateNewCollection(fabric, collectionName, allowUserKeys, collectionType)
 	response := collection_req.NewResponseForCreateNewCollection()
 	if err = c.request(req, response); err != nil {

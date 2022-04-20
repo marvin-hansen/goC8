@@ -3,14 +3,13 @@ package collection_req
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/marvin-hansen/goC8/types"
 	"log"
 	"net/http"
 )
 
 //**// Request //**//
 
-func NewRequestForCreateNewCollection(fabric, collectionName string, allowUserKeys bool, collectionType types.CollectionType) *RequestForCreateNewCollection {
+func NewRequestForCreateNewCollection(fabric, collectionName string, allowUserKeys bool, collectionType CollectionType) *RequestForCreateNewCollection {
 	return &RequestForCreateNewCollection{
 		path:    fmt.Sprintf("_fabric/%v/_api/collection", fabric),
 		payload: getCreatePayload(collectionName, allowUserKeys, collectionType),
@@ -22,7 +21,7 @@ type RequestForCreateNewCollection struct {
 	payload []byte
 }
 
-func getCreatePayload(collectionName string, allowUserKeys bool, collectionType types.CollectionType) []byte {
+func getCreatePayload(collectionName string, allowUserKeys bool, collectionType CollectionType) []byte {
 
 	opts := NewCollectionOption(collectionName, allowUserKeys, collectionType)
 	data, err := json.MarshalIndent(opts, "", "")

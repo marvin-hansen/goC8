@@ -3,7 +3,6 @@ package collection
 import (
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/requests/collection_req"
-	"github.com/marvin-hansen/goC8/types"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -26,7 +25,7 @@ func TestGetAllCollections(t *testing.T) {
 func TestCreateCollection(t *testing.T) {
 	c := goC8.NewClient(nil)
 	fabric := "SouthEastAsia"
-	collType := types.DocumentCollectionType
+	collType := collection_req.DocumentCollectionType
 	collName := "TestCollection"
 
 	err := c.CreateNewCollection(fabric, collName, false, collType)
