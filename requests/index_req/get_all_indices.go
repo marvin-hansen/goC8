@@ -69,28 +69,3 @@ func (r ResponseForGetAllIndices) String() string {
 		r.Indexes,
 	)
 }
-
-type T struct {
-	Error   bool `json:"error"`
-	Code    int  `json:"code"`
-	Indexes []struct {
-		Fields              []string `json:"fields"`
-		Id                  string   `json:"id"`
-		Name                string   `json:"name"`
-		SelectivityEstimate int      `json:"selectivityEstimate"`
-		Sparse              bool     `json:"sparse"`
-		Type                string   `json:"type"`
-		Unique              bool     `json:"unique"`
-	} `json:"indexes"`
-	Identifiers struct {
-		Teachers0 struct {
-			Fields              []string `json:"fields"`
-			Id                  string   `json:"id"`
-			Name                string   `json:"name"`
-			SelectivityEstimate int      `json:"selectivityEstimate"`
-			Sparse              bool     `json:"sparse"`
-			Type                string   `json:"type"`
-			Unique              bool     `json:"unique"`
-		} `json:"teachers/0"`
-	} `json:"identifiers"`
-}
