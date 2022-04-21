@@ -2,6 +2,7 @@ package goC8
 
 import (
 	r "github.com/marvin-hansen/goC8/requests/document_req"
+	"strings"
 )
 
 // CreateNewDocument
@@ -33,6 +34,22 @@ func (c Client) GetDocument(
 		return nil, err
 	}
 	return response, nil
+}
+
+func (c Client) CheckDocumentExists(
+	fabric string, collectionName string, key string) (exists bool, err error) {
+
+	req := r.NewRequestForGetDocument(fabric, collectionName, key)
+	response := r.NewResponseForGetJsonDocument()
+	if err = c.requestJsonResponse(req, response); err != nil {
+		if strings.Contains(err.Error(), "1202") { // Number=1202,  Error Message=document not found
+			return false, nil
+		} else {
+			return false, err // Any other error
+		}
+	}
+
+	return true, nil
 }
 
 func (c Client) UpdateDocument(

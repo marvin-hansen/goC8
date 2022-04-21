@@ -37,12 +37,33 @@ func TestGetDocument(t *testing.T) {
 	c := goC8.NewClient(nil)
 	fabric := "SouthEastAsia"
 	collName := "TestCollection"
-	key := "5"
+	key := "1"
 
 	res, err := c.GetDocument(fabric, collName, key)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	printJsonRes(res, verbose)
+}
+
+func TestCheckDocumentExists(t *testing.T) {
+	c := goC8.NewClient(nil)
+	fabric := "SouthEastAsia"
+	collName := "TestCollection"
+	key := "1"
+
+	exists, err := c.CheckDocumentExists(fabric, collName, key)
+	assert.NoError(t, err)
+	expected := true
+	actual := exists
+	assert.Equal(t, expected, actual, "Should exists")
+
+	key = "99"
+	exists, err = c.CheckDocumentExists(fabric, collName, key)
+	assert.NoError(t, err)
+	expected = false
+	actual = exists
+	assert.Equal(t, expected, actual, "Should not exist")
+
 }
 
 func TestUpdateDocument(t *testing.T) {

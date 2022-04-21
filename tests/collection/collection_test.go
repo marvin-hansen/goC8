@@ -43,6 +43,13 @@ func TestCheckCollectionExists(t *testing.T) {
 	actual := exists
 	assert.Equal(t, expected, actual, "Should be equal")
 
+	noCollName := "DoesNotExistsCollection"
+	exists, err = c.CheckCollectionExists(fabric, noCollName)
+	assert.NoError(t, err)
+	expected = false
+	actual = exists
+	assert.Equal(t, expected, actual, "Should be equal")
+
 }
 
 func TestGetCollectionInfo(t *testing.T) {

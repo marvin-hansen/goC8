@@ -37,7 +37,7 @@ func (c Client) CheckCollectionExists(fabric, collectionName string) (exists boo
 	response := collection_req.NewResponseForGetCollectionInfo()
 	if err = c.request(req, response); err != nil {
 		if strings.Contains(err.Error(), "1203") { // Number=1203,  Error Message=collection or view not found
-			return false, err
+			return false, nil
 		} else {
 			return false, err // Any other error
 		}
