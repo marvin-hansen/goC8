@@ -2,6 +2,7 @@ package goC8
 
 import (
 	"github.com/marvin-hansen/goC8/requests/collection_req"
+	"strings"
 )
 
 func (c Client) GetAllCollections(fabric string) (response *collection_req.ResponseForGetAllCollections, err error) {
@@ -29,6 +30,19 @@ func (c Client) GetCollectionInfo(fabric, collectionName string) (response *coll
 		return nil, err
 	}
 	return response, nil
+}
+
+func (c Client) CheckCollectionExists(fabric, collectionName string) (exists bool, err error) {
+	req := collection_req.NewRequestForGetCollectionInfo(fabric, collectionName)
+	response := collection_req.NewResponseForGetCollectionInfo()
+	if err = c.request(req, response); err != nil {
+		if strings.Contains(err.Error(), "1203") { // Number=1203,  Error Message=collection or view not found
+			return false, err
+		} else {
+			return false, err // Any other error
+		}
+	}
+	return true, nil
 }
 
 // UpdateCollectionProperties updates collection properties.

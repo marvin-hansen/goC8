@@ -32,6 +32,19 @@ func TestCreateCollection(t *testing.T) {
 	assert.NoError(t, err)
 }
 
+func TestCheckCollectionExists(t *testing.T) {
+	c := goC8.NewClient(nil)
+	fabric := "SouthEastAsia"
+	collName := "TestCollection"
+
+	exists, err := c.CheckCollectionExists(fabric, collName)
+	assert.NoError(t, err)
+	expected := true
+	actual := exists
+	assert.Equal(t, expected, actual, "Should be equal")
+
+}
+
 func TestGetCollectionInfo(t *testing.T) {
 	c := goC8.NewClient(nil)
 	fabric := "SouthEastAsia"

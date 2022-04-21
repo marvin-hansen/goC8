@@ -75,7 +75,7 @@ func (c *Client) requestQuery(req Requester, results Responder) error {
 // do build & executes the actual request from the rquester
 // requester - implementation
 // targetStatusCode the expected http status code i.e. 200
-func (c *Client) do(r Requester) (*fasthttp.Response, error) {
+func (c *Client) do(r Requester) (*fasthttp.Response, *APIError) {
 	req := c.newRequest(r)
 	// fmt.Printf("Path: %+v\n", r.Path())
 
