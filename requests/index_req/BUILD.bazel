@@ -3,6 +3,8 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "index_req",
     srcs = [
+        "create_fulltext_index.go",
+        "create_geo_index.go",
         "get_all_indices.go",
         "shared.go",
     ],

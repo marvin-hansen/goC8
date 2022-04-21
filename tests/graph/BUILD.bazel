@@ -6,6 +6,7 @@ go_test(
     embed = [":graph"],
     deps = [
         "@com_github_marvin_hansen_goc8//:goC8",
+        "@com_github_marvin_hansen_goc8//examples/sample_data",
         "@com_github_stretchr_testify//assert",
     ],
 )
