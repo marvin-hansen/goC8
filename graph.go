@@ -84,3 +84,14 @@ func (c Client) GetVertex(fabric, graphName, collectionName, vertexKey string) (
 	}
 	return response, nil
 }
+
+// DeleteGraph
+// Remove an existing graph object by name. Optionally all collections not used by other graphs can be removed as well.
+func (c Client) DeleteGraph(fabric, graphName string, dropCollections bool) (response *r.ResponseForDeleteGraph, err error) {
+	req := r.NewRequestForDeleteGraph(fabric, graphName, dropCollections)
+	response = r.NewResponseForDeleteGraph()
+	if err = c.request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}

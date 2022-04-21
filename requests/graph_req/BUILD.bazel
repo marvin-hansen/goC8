@@ -11,6 +11,8 @@ filegroup(
 go_library(
     name = "graph_req",
     srcs = [
+        "create_graph.go",
+        "delete_graph.go",
         "get_all_edges.go",
         "get_all_graphs.go",
         "get_all_vertices.go",

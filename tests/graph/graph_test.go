@@ -97,3 +97,15 @@ func TestGetVertex(t *testing.T) {
 	assert.NotNil(t, res)
 	printRes(res, verbose)
 }
+
+func TestDeleteGraph(t *testing.T) {
+	c := goC8.NewClient(nil)
+	fabric := "_system"
+	graphName := "lectureteacher"
+	dropCollections := false
+
+	res, err := c.DeleteGraph(fabric, graphName, dropCollections)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	printRes(res, verbose)
+}
