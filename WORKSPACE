@@ -11,15 +11,16 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 ################################################################################
 #  Go rules
+# https://github.com/bazelbuild/rules_go
 ################################################################################
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "io_bazel_rules_go",
-    sha256 = "d6b2513456fe2229811da7eb67a444be7785f5323c6708b38d851d2b51e54d83",
+    sha256 = "f2dcd210c7095febe54b804bb1cd3a58fe8435a909db2ec04e31542631cf715c",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.30.0/rules_go-v0.30.0.zip",
-        "https://github.com/bazelbuild/rules_go/releases/download/v0.30.0/rules_go-v0.30.0.zip",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.31.0/rules_go-v0.31.0.zip",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.31.0/rules_go-v0.31.0.zip",
     ],
 )
 
@@ -27,10 +28,11 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 
 go_rules_dependencies()
 
-go_register_toolchains(version = "1.18")
+go_register_toolchains(version = "1.18.1")
 
 ################################################################################
 #  gazelle
+# https://github.com/bazelbuild/rules_go
 ################################################################################
 http_archive(
     name = "bazel_gazelle",
@@ -46,45 +48,6 @@ load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies", "go_repository")
 gazelle_dependencies()
 
 ################################################################################
-# Protobuf dependencies
-# https://github.com/bazelbuild/rules_proto
-# https://github.com/protocolbuffers/protobuf/releases
-################################################################################
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
-http_archive(
-    name = "rules_proto",
-    sha256 = "66bfdf8782796239d3875d37e7de19b1d94301e8972b3cbd2446b332429b4df1",
-    strip_prefix = "rules_proto-4.0.0",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_proto/archive/refs/tags/4.0.0.tar.gz",
-        "https://github.com/bazelbuild/rules_proto/archive/refs/tags/4.0.0.tar.gz",
-    ],
-)
-
-load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
-
-go_repository(
-    name = "com_github_marvin_hansen_goc8",
-    importpath = "github.com/marvin-hansen/goC8",
-    sum = "h1:iur+gk19mx2/xvxQeFJFR1JinGmBDdF0OYubxfCXnZg=",
-    version = "v0.0.2",
-)
-
-rules_proto_dependencies()
-
-rules_proto_toolchains()
-
-http_archive(
-    name = "com_google_protobuf",
-    sha256 = "769bb7b97f89fda3d9cadcfd68e6f388d976ba8f0ea9be57601eef839a461898",
-    strip_prefix = "protobuf-3.19.3",
-    urls = ["https://github.com/protocolbuffers/protobuf/releases/download/v3.19.3/protobuf-all-3.19.3.zip"],
-)
-
-load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
-
-################################################################################
 #  Buildifier
 #  https://github.com/bazelbuild/buildtools/tree/master/buildifier#readme
 ################################################################################
@@ -95,19 +58,6 @@ http_archive(
     urls = [
         "https://github.com/bazelbuild/buildtools/archive/refs/tags/4.2.2.tar.gz",
     ],
-)
-
-################################################################################
-# golink | https://medium.com/goc0de/a-cute-bazel-proto-hack-for-golang-ides-2a4ef0415a7f
-# https://github.com/nikunjy/golink
-################################################################################
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-
-http_archive(
-    name = "golink",
-    sha256 = "ea728cfc9cb6e2ae024e1d5fbff185224592bbd4dad6516f3cc96d5155b69f0d",
-    strip_prefix = "golink-1.0.0",
-    urls = ["https://github.com/nikunjy/golink/archive/v1.0.0.tar.gz"],
 )
 
 ################################################################################
@@ -156,19 +106,6 @@ load(
 )
 
 ################################################################################
-# Containers to pull required to build.
-################################################################################
-# Digest must be updated in case of a repo change OR a push
-# docker pull gcr.io/future-309012/scratch:latest
-container_pull(
-    name = "scratch",
-    # tag = "latest", # Avoid tag as much as possible to ascertain hermetic build
-    digest = "sha256:1bbcd9993f5dbfa4f9b84740a37c20d2f98c620caef54d305651abf763367bf2",
-    registry = "gcr.io",
-    repository = "future-309012/scratch",
-)
-
-################################################################################
 # Kubernetes rules
 # https://github.com/bazelbuild/rules_k8s/releases/
 ################################################################################
@@ -195,6 +132,13 @@ go_repository(
     importpath = "github.com/andybalholm/brotli",
     sum = "h1:V7DdXeJtZscaqfNuAdSRuRFzuiKlHSC/Zh3zl9qY3JY=",
     version = "v1.0.4",
+)
+
+go_repository(
+    name = "com_github_marvin_hansen_goc8",
+    importpath = "github.com/marvin-hansen/goC8",
+    sum = "h1:iur+gk19mx2/xvxQeFJFR1JinGmBDdF0OYubxfCXnZg=",
+    version = "v0.0.2",
 )
 
 go_repository(
