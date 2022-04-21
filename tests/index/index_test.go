@@ -28,6 +28,13 @@ func TestSetup(t *testing.T) {
 		err = c.CreateNewCollection(fabric, collectionID, false, collType)
 		assert.NoError(t, err)
 
+		// We have to create a geo index before importing geoJson
+		field := "location"
+		geoJson := true
+		res, err := c.CreateGeoIndex(fabric, collectionID, field, geoJson)
+		assert.NoError(t, err)
+		assert.NotNil(t, res)
+
 		// import city data
 		silent := false
 		jsonDocument := sample_data.GetCityData()
@@ -55,10 +62,10 @@ func TestSetup(t *testing.T) {
 	exists, err = c.CheckGraphExists(fabric, graph)
 	assert.NoError(t, err)
 	if !exists {
-		// if not create graph
-		// TODO
+		jsonGraph := sample_data.GetAirlineGraph()
+		_, createErr := c.CreateGraph(fabric, jsonGraph)
+		assert.NoError(t, createErr)
 	}
-
 }
 
 func TestGetIndexes(t *testing.T) {
@@ -70,34 +77,33 @@ func TestGetIndexes(t *testing.T) {
 	printRes(res, verbose)
 }
 
-func TestTeardown(t *testing.T) {
+func TestCreateFulltextIndex(t *testing.T) {
+	//c := goC8.NewClient(nil)
+	//res, err := c.CreateFulltextIndex(fabric)
+	//assert.NoError(t, err)
+	//assert.NotNil(t, res)
+	//printRes(res, verbose)
+}
 
+func TestCreateGeoIndex(t *testing.T) {
+	c := goC8.NewClient(nil)
+	field := "location"
+	geoJson := true
+	res, err := c.CreateGeoIndex(fabric, collectionID, field, geoJson)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	printRes(res, verbose)
+}
+
+func TestTeardown(t *testing.T) {
 	c := goC8.NewClient(nil)
 
-	// test if city collection exists
-	exists, err := c.CheckCollectionExists(fabric, collectionID)
-	assert.NoError(t, err)
-	if exists {
-		// if so, delete
-		err = c.DeleteCollection(fabric, collectionID, false)
-		assert.NoError(t, err)
-	}
-
-	// test if edge collection exists
-	exists, err = c.CheckCollectionExists(fabric, edgecollectionID)
-	assert.NoError(t, err)
-	if exists {
-		// if so, delete
-		err = c.DeleteCollection(fabric, edgecollectionID, false)
-		assert.NoError(t, err)
-	}
-
 	// test if graph exists
-	exists, err = c.CheckGraphExists(fabric, graph)
+	exists, err := c.CheckGraphExists(fabric, graph)
 	assert.NoError(t, err)
 	if !exists {
 		// if so delete  graph
-		// TODO
+		_, delErr := c.DeleteGraph(fabric, graph, true)
+		assert.NoError(t, delErr)
 	}
-
 }
