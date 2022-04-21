@@ -5,6 +5,8 @@ import (
 	"time"
 )
 
+const version = "v.0.0.3"
+
 type Client struct {
 	apiKey      string
 	Endpoint    string
@@ -34,5 +36,10 @@ func (c Client) getApiKey() string {
 }
 
 func (c Client) Info() {
-	println("")
+	println("Golang driver for the Macrometa global data platform (GDN). "+
+		"\n Version: %v", version)
+}
+
+func (c Client) Version() string {
+	return version
 }
