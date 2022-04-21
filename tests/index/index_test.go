@@ -78,6 +78,7 @@ func TestGetIndexes(t *testing.T) {
 }
 
 func TestCreateFulltextIndex(t *testing.T) {
+	// Needs to be tested on a collection with text fields
 	//c := goC8.NewClient(nil)
 	//res, err := c.CreateFulltextIndex(fabric)
 	//assert.NoError(t, err)

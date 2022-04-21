@@ -2,8 +2,9 @@ package sample_data
 
 func GetTeacherData() []byte {
 	// Document collection named teachers.
-	return []byte(` 
-		{
+	return []byte(`
+[
+        {
             '_key': 'Jean',
             'firstname': 'Jean',
             'lastname': 'Picard',
@@ -27,23 +28,27 @@ func GetTeacherData() []byte {
             'lastname': 'Wayne',
             'email': 'bruce.wayne@macrometa.io'
         }
+    ]
 `)
 }
 
 func GetLecturesData() []byte {
 	// Document collection named lectures.
 	return []byte(` 
-		{'_id': 'lectures/CSC101', 'difficulty': 'easy', '_key': 'CSC101', 'firstname': 'Jean'},
+[
+        {'_id': 'lectures/CSC101', 'difficulty': 'easy', '_key': 'CSC101', 'firstname': 'Jean'},
         {'_id': 'lectures/CSC102', 'difficulty': 'hard', '_key': 'CSC102', 'firstname': 'Jean'},
         {'_id': 'lectures/CSC103', 'difficulty': 'hard', '_key': 'CSC103', 'firstname': 'Jean'},
-        {'_id': 'lectures/CSC104', 'difficulty': 'moderate', '_key': 'CSC104', 'firstname': 'Jean, Han'},
-        {'_id': 'lectures/CSC1020', 'difficulty': 'hard', '_key': 'CSC1020', 'firstname': 'Han, Bruce, James'},
+        {'_id': 'lectures/CSC104', 'difficulty': 'moderate', '_key': 'CSC104', 'firstname': 'Jean'},
+        {'_id': 'lectures/CSC104', 'difficulty': 'moderate', '_key': 'CSC105', 'firstname': 'Han'},
+    ]
 `)
 }
 
 func GetTeachEdgeData() []byte {
-	// Document collection named lectures.
+	// Document collection named teach.
 	return []byte(` 
+[
 		{
             '_key': 'Jean-CSC101',
             '_from': 'teachers/Jean',
@@ -103,7 +108,8 @@ func GetTeachEdgeData() []byte {
             '_from': 'teachers/Bruce',
             '_to': 'lectures/CSC1020',
             'online': False
-        },
+        }
+]	
 `)
 }
 
