@@ -45,7 +45,7 @@ go_library(
         "document.go",
         "document_many.go",
         "graph.go",
-        "info.go",
+        "index.go",
         "interface.go",
         "key.go",
         "util.go",
@@ -56,6 +56,7 @@ go_library(
         "@com_github_marvin_hansen_goc8//requests/collection_req",
         "@com_github_marvin_hansen_goc8//requests/document_req",
         "@com_github_marvin_hansen_goc8//requests/graph_req",
+        "@com_github_marvin_hansen_goc8//requests/index_req",
         "@com_github_valyala_fasthttp//:fasthttp",
     ],
 )

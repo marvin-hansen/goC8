@@ -1,0 +1,11 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "index_req",
+    srcs = [
+        "get_all_indices.go",
+        "shared.go",
+    ],
+    importpath = "goC8/requests/index_req",
+    visibility = ["//visibility:public"],
+)

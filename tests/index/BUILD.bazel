@@ -1,0 +1,19 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "index",
+    srcs = ["utils.go"],
+    importpath = "goC8/tests/index",
+    visibility = ["//visibility:public"],
+    deps = ["@com_github_marvin_hansen_goc8//:goC8"],
+)
+
+go_test(
+    name = "index_test",
+    srcs = ["index_test.go"],
+    embed = [":index"],
+    deps = [
+        "@com_github_marvin_hansen_goc8//:goC8",
+        "@com_github_stretchr_testify//assert",
+    ],
+)
