@@ -1,6 +1,6 @@
-package main
+package sample_data
 
-func getCityData() []byte {
+func GetCityData() []byte {
 	// Document collection named cities.
 	return []byte(` 
 		{"_key": "sanfrancisco", "location": [-122.416667, 37.783333]},
@@ -14,7 +14,7 @@ func getCityData() []byte {
 `)
 }
 
-func getFlightData() []byte {
+func GetFlightData() []byte {
 	return []byte(` 
 		{"_from": "cities/sanfrancisco", "_to": "cities/singapore", "distance": 13600},
 		{"_from": "cities/sanfrancisco", "_to": "cities/newyork", "distance": 4000},
@@ -41,7 +41,7 @@ func getFlightData() []byte {
 
 // getBreadthFirstQuery
 // Get all cities with a direct flight to New York:
-func getBreadthFirstQuery() string {
+func GetBreadthFirstQuery() string {
 	return `
 	WITH cities
      FOR city IN INBOUND "cities/newyork" flights
@@ -51,7 +51,7 @@ func getBreadthFirstQuery() string {
 
 // getShortestPathQuery
 // Get the shortest path from San Francisco to Paris:
-func getShortestPathQuery() string {
+func GetShortestPathQuery() string {
 	return `
 	WITH cities
 	LET path = (
@@ -66,7 +66,7 @@ func getShortestPathQuery() string {
 
 // getShortestDistanceQuery
 // Get the distance on the shortest path from San Francisco to Paris:
-func getShortestDistanceQuery() string {
+func GetShortestDistanceQuery() string {
 	return `
 	WITH cities
      LET path = (
@@ -81,7 +81,7 @@ func getShortestDistanceQuery() string {
 
 // getNearestCities
 // Get the 2 nearest cities to a specified latitude and longitude.
-func getNearestCities() string {
+func GetNearestCities() string {
 	return `
 	FOR loc IN NEAR(cities, 53.35, -6.26, 2, "distance")
 	RETURN {
@@ -95,7 +95,7 @@ func getNearestCities() string {
 
 // getCitiesMaxDistance
 // Get the cities that are no more than 2500km away from houston.
-func getCitiesMaxDistance() string {
+func GetCitiesMaxDistance() string {
 	return `
 	LET city = DOCUMENT("cities/houston")
 	FOR loc IN WITHIN(cities, city.location[1], city.location[0], 2500 * 1000, "distance")
