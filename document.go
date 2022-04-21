@@ -42,6 +42,7 @@ func (c Client) CheckDocumentExists(
 	req := r.NewRequestForGetDocument(fabric, collectionName, key)
 	response := r.NewResponseForGetJsonDocument()
 	if err = c.requestJsonResponse(req, response); err != nil {
+
 		if strings.Contains(err.Error(), "1202") { // Number=1202,  Error Message=document not found
 			return false, nil
 		} else {

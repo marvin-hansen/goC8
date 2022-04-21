@@ -1,6 +1,9 @@
 package goC8
 
-import r "github.com/marvin-hansen/goC8/requests/graph_req"
+import (
+	r "github.com/marvin-hansen/goC8/requests/graph_req"
+	"strings"
+)
 
 // GetAllGraphs
 // Lists all graphs stored in this GeoFabric.
@@ -22,6 +25,20 @@ func (c Client) GetGraph(fabric, graphName string) (response *r.ResponseForGetGr
 		return nil, err
 	}
 	return response, nil
+}
+
+func (c Client) CheckGraphExists(fabric, graphName string) (exists bool, err error) {
+	req := r.NewRequestForGetGraph(fabric, graphName)
+	response := r.NewResponseForGetGraph()
+	if err = c.request(req, response); err != nil {
+		if strings.Contains(err.Error(), "1924") { //  Number=1924,  Error Message=graph 'graphName' not found
+			return false, nil
+		} else {
+			return false, err // Any other error
+		}
+	}
+
+	return true, nil
 }
 
 // GetAllEdges

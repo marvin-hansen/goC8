@@ -29,6 +29,27 @@ func TestGetGraph(t *testing.T) {
 	printRes(res, verbose)
 }
 
+func TestCheckGraphExists(t *testing.T) {
+	c := goC8.NewClient(nil)
+	fabric := "_system"
+	graphName := "lectureteacher"
+
+	exists, err := c.CheckGraphExists(fabric, graphName)
+	assert.NoError(t, err)
+
+	expected := true
+	actual := exists
+	assert.Equal(t, expected, actual, "Should exists")
+
+	noneExistingGraphName := "noneExistingGraphName"
+	exists, err = c.CheckGraphExists(fabric, noneExistingGraphName)
+	assert.NoError(t, err)
+
+	expected = false
+	actual = exists
+	assert.Equal(t, expected, actual, "Should exists")
+}
+
 func TestGetAllEdges(t *testing.T) {
 	c := goC8.NewClient(nil)
 	fabric := "_system"
