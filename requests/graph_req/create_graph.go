@@ -7,15 +7,16 @@ import (
 
 //**// Request //**//
 
-func NewRequestForCreateGraph(fabric, graphName string) *RequestForCreateGraph {
-	// @FIXME: Add correct API path
+func NewRequestForCreateGraph(fabric string, jsonGraph []byte) *RequestForCreateGraph {
 	return &RequestForCreateGraph{
-		path: fmt.Sprintf("_fabric/%v/_api/NAME", fabric),
+		payload: jsonGraph,
+		path:    fmt.Sprintf("_fabric/%v/_api/graph", fabric),
 	}
 }
 
 type RequestForCreateGraph struct {
-	path string
+	path    string
+	payload []byte
 }
 
 func (req *RequestForCreateGraph) Path() string {
@@ -23,7 +24,7 @@ func (req *RequestForCreateGraph) Path() string {
 }
 
 func (req *RequestForCreateGraph) Method() string {
-	return http.MethodGet
+	return http.MethodPost
 }
 
 func (req *RequestForCreateGraph) Query() string {
@@ -39,11 +40,11 @@ func (req *RequestForCreateGraph) GetQueryParameter() string {
 }
 
 func (req *RequestForCreateGraph) Payload() []byte {
-	return nil
+	return req.payload
 }
 
 func (req *RequestForCreateGraph) ResponseCode() int {
-	return 200 // ok
+	return 201 // ok
 }
 
 //**// Response //**//
@@ -53,13 +54,37 @@ func NewResponseForCreateGraph() *ResponseForCreateGraph {
 }
 
 type ResponseForCreateGraph struct {
-	// @FIXME
-	Field string
+	Code  int      `json:"code"`
+	Error bool     `json:"error"`
+	Graph NewGraph `json:"graph"`
 }
 
 func (r *ResponseForCreateGraph) IsResponse() {}
 
 func (r ResponseForCreateGraph) String() string {
-	// @FIXME
-	return fmt.Sprintf("Bootfile: %v", r.Field)
+	return fmt.Sprintf(" Code: %v \n Error: %v \n Graph: %v",
+		r.Code,
+		r.Error,
+		r.Graph,
+	)
+}
+
+type NewGraph struct {
+	Id                string            `json:"_id"`
+	Key               string            `json:"_key"`
+	Rev               string            `json:"_rev"`
+	Edgedefinitions   []EdgeDefinitions `json:"edgedefinitions"`
+	Name              string            `json:"name"`
+	OrphanCollections []string          `json:"orphanCollections"`
+}
+
+func (r NewGraph) String() string {
+	return fmt.Sprintf("ID: %v \n Key: %v \n Rev: %v \n Edgedefinitions: %v \n  Name: %v \n  OrphanCollections: %v \n ",
+		r.Id,
+		r.Key,
+		r.Rev,
+		r.Edgedefinitions,
+		r.Name,
+		r.OrphanCollections,
+	)
 }

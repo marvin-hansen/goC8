@@ -2,15 +2,19 @@ package graph
 
 import (
 	"github.com/marvin-hansen/goC8"
+	"github.com/marvin-hansen/goC8/examples/sample_data"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
-const verbose = true
+const (
+	verbose   = true
+	fabric    = "_system"
+	graphName = "lectureteacher"
+)
 
 func TestGetAllGraphs(t *testing.T) {
 	c := goC8.NewClient(nil)
-	fabric := "_system"
 
 	res, err := c.GetAllGraphs(fabric)
 	assert.NoError(t, err)
@@ -18,10 +22,17 @@ func TestGetAllGraphs(t *testing.T) {
 	printRes(res, verbose)
 }
 
+func TestCreateGraph(t *testing.T) {
+	c := goC8.NewClient(nil)
+	graphDef := sample_data.GetGraphDefinition()
+	res, err := c.CreateGraph(fabric, graphDef)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	printRes(res, verbose)
+}
+
 func TestGetGraph(t *testing.T) {
 	c := goC8.NewClient(nil)
-	fabric := "_system"
-	graphName := "lectureteacher"
 
 	res, err := c.GetGraph(fabric, graphName)
 	assert.NoError(t, err)
@@ -31,8 +42,6 @@ func TestGetGraph(t *testing.T) {
 
 func TestCheckGraphExists(t *testing.T) {
 	c := goC8.NewClient(nil)
-	fabric := "_system"
-	graphName := "lectureteacher"
 
 	exists, err := c.CheckGraphExists(fabric, graphName)
 	assert.NoError(t, err)
@@ -52,8 +61,6 @@ func TestCheckGraphExists(t *testing.T) {
 
 func TestGetAllEdges(t *testing.T) {
 	c := goC8.NewClient(nil)
-	fabric := "_system"
-	graphName := "lectureteacher"
 
 	res, err := c.GetAllEdges(fabric, graphName)
 	assert.NoError(t, err)
@@ -63,8 +70,6 @@ func TestGetAllEdges(t *testing.T) {
 
 func TestGetEdge(t *testing.T) {
 	c := goC8.NewClient(nil)
-	fabric := "_system"
-	graphName := "lectureteacher"
 	collectionID := "teach"
 	edgeID := "Jean-CSC101"
 
@@ -76,8 +81,6 @@ func TestGetEdge(t *testing.T) {
 
 func TestGetAllVertices(t *testing.T) {
 	c := goC8.NewClient(nil)
-	fabric := "_system"
-	graphName := "lectureteacher"
 
 	res, err := c.GetAllVertices(fabric, graphName)
 	assert.NoError(t, err)
@@ -87,8 +90,6 @@ func TestGetAllVertices(t *testing.T) {
 
 func TestGetVertex(t *testing.T) {
 	c := goC8.NewClient(nil)
-	fabric := "_system"
-	graphName := "lectureteacher"
 	collectionID := "teachers"
 	edgeID := "Jean"
 
@@ -100,8 +101,6 @@ func TestGetVertex(t *testing.T) {
 
 func TestDeleteGraph(t *testing.T) {
 	c := goC8.NewClient(nil)
-	fabric := "_system"
-	graphName := "lectureteacher"
 	dropCollections := false
 
 	res, err := c.DeleteGraph(fabric, graphName, dropCollections)

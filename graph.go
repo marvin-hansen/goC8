@@ -16,6 +16,33 @@ func (c Client) GetAllGraphs(fabric string) (response *r.ResponseForGetAllGraphs
 	return response, nil
 }
 
+// CreateGraph
+// The creation of a graph requires the name of the graph and a definition of its edges.
+// Sample edge definition:
+// {
+//  "edgeDefinitions": [
+//    {
+//      "collection": "edgeName",
+//      "from": [
+//        "sourceNode"
+//      ],
+//      "to": [
+//        "destinationNode"
+//      ]
+//    }
+//  ],
+//  "name": "exampleGraph",
+//  "options": {}
+//}
+func (c Client) CreateGraph(fabric string, jsonGraph []byte) (response *r.ResponseForCreateGraph, err error) {
+	req := r.NewRequestForCreateGraph(fabric, jsonGraph)
+	response = r.NewResponseForCreateGraph()
+	if err = c.request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
 // GetGraph
 // Retrieve information for a graph. Returns the edge definitions and orphan collections.
 func (c Client) GetGraph(fabric, graphName string) (response *r.ResponseForGetGraph, err error) {
