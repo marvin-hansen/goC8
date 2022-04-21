@@ -9,9 +9,7 @@ func getTestInsertData() []byte {
 	return []byte(` 
 		[
 		  {
-			"item1": "data1",
-			"item2": "data2"
-
+			"item1": "data1"
 		  },
 		  {
 			"item2": "data2"
