@@ -8,6 +8,7 @@ import (
 //**// Request //**//
 
 func NewRequestForDeleteCursor(fabric, cursorID string) *RequestForDeleteCursor {
+	println("cursorID: " + cursorID)
 	return &RequestForDeleteCursor{
 		path: fmt.Sprintf("_fabric/%v/_api/cursor/%v", fabric, cursorID),
 	}

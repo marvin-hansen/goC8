@@ -41,6 +41,19 @@ func (c Cursor) Update(r *ResponseForReadNextCursor) {
 	c.Result = append(c.Result, r.Result)
 }
 
+func (c Cursor) String() string {
+	return fmt.Sprintf("Code: %v\n Error: %v\n Count: %v\n Extra: %v\n HasMore: %v\n Id: %v\n Cached: %v\n Result: %v\n",
+		c.Code,
+		c.Error,
+		c.Count,
+		c.Extra,
+		c.HasMore,
+		c.Id,
+		c.Cached,
+		c.Result,
+	)
+}
+
 type Extra struct {
 	Stats    `json:"stats"`
 	Warnings `json:"warnings"`
@@ -77,7 +90,7 @@ type Stats struct {
 }
 
 func (r Stats) String() string {
-	return fmt.Sprintf(" WritesExecuted: %v\n WritesIgnored: %v\n ScannedFull: %v\n ScannedIndex: %v\n Filtered: %v\n HttpRequests: %v\n ExecutionTime: %v\n PeakMemoryUsage: %v\n",
+	return fmt.Sprintf(" WritesExecuted: %v\n WritesIgnored: %v\n ScannedFull: %v\n ScannedIndex: %v\n Filtered: %v\n HttpRequests: %v\n ExecutionTime: %v\n PeakMemoryUsage: %v",
 		r.WritesExecuted,
 		r.WritesIgnored,
 		r.ScannedFull,
@@ -92,9 +105,14 @@ func (r Stats) String() string {
 type Warnings []interface{}
 
 func (r Warnings) String() string {
-	var s strings.Builder
-	for k, v := range r {
-		s.WriteString(fmt.Sprintf("%v: %v \n", k, v))
+
+	if len(r) == 0 {
+		return "[]"
+	} else {
+		var s strings.Builder
+		for k, v := range r {
+			s.WriteString(fmt.Sprintf("%v: %v \n", k, v))
+		}
+		return s.String()
 	}
-	return s.String()
 }

@@ -34,18 +34,20 @@ func (c Client) Query(fabric, query string, bindVars map[string]interface{}, opt
 			// updated cursor with next result
 			res.Update(responseNext)
 
-			// stop when there are no more results to come
+			// stop when there are no more results, delete cursor and stop
 			if responseNext.HasMore == false {
+
+				// Delete the cursor from the server
+				reqDel := r.NewRequestForDeleteCursor(fabric, response.Id)
+				resDel := r.NewResponseForDeleteCursor()
+				if err = c.request(reqDel, resDel); err != nil {
+					return nil, err
+				}
+
+				// stop the loop
 				break
 			}
 		}
-	}
-
-	// Delete the cursor from the server
-	reqDel := r.NewRequestForDeleteCursor(fabric, res.Id)
-	resDel := r.NewResponseForDeleteCursor()
-	if err = c.request(reqDel, resDel); err != nil {
-		return nil, err
 	}
 
 	return res, nil

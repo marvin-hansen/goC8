@@ -39,6 +39,7 @@ func (c *Client) request(req Requester, results Responder) error {
 	res, reqErr := c.do(req)
 	if reqErr != nil {
 		//println("Request error")
+		//println(reqErr.Error())
 		return reqErr
 	}
 

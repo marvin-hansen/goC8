@@ -65,6 +65,12 @@ func GetAirlineGraph() []byte {
 `)
 }
 
+// GetAllCitiesQuery
+// Returns all cities. Same as SELECT * FROM cities;
+func GetAllCitiesQuery() string {
+	return "for u in cities  return u"
+}
+
 // GetBreadthFirstQuery
 // Get all cities with a direct flight to New York:
 func GetBreadthFirstQuery() string {
