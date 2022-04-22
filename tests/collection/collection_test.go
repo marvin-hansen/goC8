@@ -3,6 +3,7 @@ package collection
 import (
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/requests/collection_req"
+	"github.com/marvin-hansen/goC8/tests/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -19,10 +20,8 @@ func TestGetAllCollections(t *testing.T) {
 	res, err := c.GetAllCollections(fabric)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
+	utils.PrintRes(res, verbose)
 
-	if verbose {
-		println(res.String())
-	}
 }
 
 func TestCreateCollection(t *testing.T) {
@@ -53,10 +52,7 @@ func TestGetCollectionInfo(t *testing.T) {
 	res, err := c.GetCollectionInfo(fabric, collName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-
-	if verbose {
-		println(res.String())
-	}
+	utils.PrintRes(res, verbose)
 }
 
 func TestUpdateCollection(t *testing.T) {
@@ -70,10 +66,7 @@ func TestUpdateCollection(t *testing.T) {
 	res, err := c.UpdateCollectionProperties(fabric, collName, properties)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-
-	if verbose {
-		println(res.String())
-	}
+	utils.PrintRes(res, verbose)
 }
 
 func TestTruncateCollection(t *testing.T) {
@@ -81,10 +74,7 @@ func TestTruncateCollection(t *testing.T) {
 	res, err := c.TruncateCollection(fabric, collName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-
-	if verbose {
-		println(res.String())
-	}
+	utils.PrintRes(res, verbose)
 }
 
 func TestDeleteCollection(t *testing.T) {

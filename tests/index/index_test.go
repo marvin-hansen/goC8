@@ -4,6 +4,7 @@ import (
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/examples/sample_data"
 	"github.com/marvin-hansen/goC8/requests/collection_req"
+	"github.com/marvin-hansen/goC8/tests/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -74,7 +75,7 @@ func TestGetIndexes(t *testing.T) {
 	res, err := c.GetIndexes(fabric, collectionID)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	printRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestCreateFulltextIndex(t *testing.T) {
@@ -83,7 +84,7 @@ func TestCreateFulltextIndex(t *testing.T) {
 	//res, err := c.CreateFulltextIndex(fabric)
 	//assert.NoError(t, err)
 	//assert.NotNil(t, res)
-	//printRes(res, verbose)
+	//PrintRes(res, verbose)
 }
 
 func TestCreateGeoIndex(t *testing.T) {
@@ -93,7 +94,7 @@ func TestCreateGeoIndex(t *testing.T) {
 	res, err := c.CreateGeoIndex(fabric, collectionID, field, geoJson)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	printRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestTeardown(t *testing.T) {

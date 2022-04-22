@@ -3,6 +3,7 @@ package document
 import (
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/requests/document_req"
+	"github.com/marvin-hansen/goC8/tests/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -42,7 +43,7 @@ func TestGetDocument(t *testing.T) {
 	res, err := c.GetDocument(fabric, collName, key)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	printJsonRes(res, verbose)
+	utils.PrintJsonRes(res, verbose)
 }
 
 func TestCheckDocumentExists(t *testing.T) {
@@ -77,13 +78,13 @@ func TestUpdateDocument(t *testing.T) {
 	res, err := c.UpdateDocument(fabric, collName, key, jsonDocument, silent, nil)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	//printRes(res, verbose) Nothing to print as we do silent update
+	//PrintRes(res, verbose) Nothing to print as we do silent update
 
 	silent = false
 	res, err = c.UpdateDocument(fabric, collName, key, jsonDocument, silent, nil)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	printRes(res, verbose)
+	utils.PrintRes(res, verbose)
 
 }
 
@@ -97,7 +98,7 @@ func TestReplaceDocuments(t *testing.T) {
 
 	res, err := c.ReplaceDocument(fabric, collName, key, jsonDocument, nil)
 	assert.NoError(t, err)
-	printRes(res, verbose)
+	utils.PrintRes(res, verbose)
 
 }
 
@@ -123,5 +124,5 @@ func TestDeleteDocumentNONSilent(t *testing.T) {
 	res, err := c.DeleteDocument(fabric, collName, key, para)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	printRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }

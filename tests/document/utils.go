@@ -2,7 +2,6 @@ package document
 
 import (
 	"fmt"
-	"github.com/marvin-hansen/goC8"
 )
 
 func getTestInsertData() []byte {
@@ -62,16 +61,4 @@ func getTestUpdateSingleData(key string) []byte {
 func getTestUpdateManyData(key string) []byte {
 	s := fmt.Sprintf("[ {\n   \"_key\": \"%v\",\n   \"item1\": \"data42\"\n} ]", key)
 	return []byte(s)
-}
-
-func printRes(res goC8.Responder, verbose bool) {
-	if verbose {
-		println(res.String())
-	}
-}
-
-func printJsonRes(res goC8.JsonResponder, verbose bool) {
-	if verbose {
-		println(res.String())
-	}
 }
