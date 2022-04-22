@@ -7,10 +7,9 @@ import (
 
 //**// Request //**//
 
-func NewRequestForReadNextCursor(fabric string) *RequestForReadNextCursor {
-  // @FIXME: Add correct API path
+func NewRequestForReadNextCursor(fabric, cursorID string) *RequestForReadNextCursor {
 	return &RequestForReadNextCursor{
-			path: fmt.Sprintf("_fabric/%v/_api/NAME", fabric),
+		path: fmt.Sprintf("_fabric/%v/_api/cursor/%v", fabric, cursorID),
 	}
 }
 
@@ -23,7 +22,7 @@ func (req *RequestForReadNextCursor) Path() string {
 }
 
 func (req *RequestForReadNextCursor) Method() string {
-	return http.MethodGet
+	return http.MethodPut
 }
 
 func (req *RequestForReadNextCursor) Query() string {
@@ -35,7 +34,7 @@ func (req *RequestForReadNextCursor) HasQueryParameter() bool {
 }
 
 func (req *RequestForReadNextCursor) GetQueryParameter() string {
-	return "" //"?excludeSystem=true"
+	return ""
 }
 
 func (req *RequestForReadNextCursor) Payload() []byte {
@@ -52,16 +51,19 @@ func NewResponseForReadNextCursor() *ResponseForReadNextCursor {
 	return new(ResponseForReadNextCursor)
 }
 
-type ResponseForReadNextCursor struct {
-  // @FIXME
-	Field string 
-}
+type ResponseForReadNextCursor CursorResponse
 
 func (r *ResponseForReadNextCursor) IsResponse() {}
 
 func (r ResponseForReadNextCursor) String() string {
-  // @FIXME
-	return fmt.Sprintf("Bootfile: %v", r.Field)
+	return fmt.Sprintf("Code: %v\n Error: %v\n Count: %v\n Extra: %v\n HasMore: %v\n Id: %v\n Cached: %v\n Result: %v\n",
+		r.Code,
+		r.Error,
+		r.Count,
+		r.Extra,
+		r.HasMore,
+		r.Id,
+		r.Cached,
+		r.Result,
+	)
 }
-
-

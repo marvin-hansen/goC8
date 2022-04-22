@@ -7,10 +7,9 @@ import (
 
 //**// Request //**//
 
-func NewRequestForDeleteCursor(fabric string) *RequestForDeleteCursor {
-  // @FIXME: Add correct API path
+func NewRequestForDeleteCursor(fabric, cursorID string) *RequestForDeleteCursor {
 	return &RequestForDeleteCursor{
-			path: fmt.Sprintf("_fabric/%v/_api/NAME", fabric),
+		path: fmt.Sprintf("_fabric/%v/_api/cursor/%v", fabric, cursorID),
 	}
 }
 
@@ -23,7 +22,7 @@ func (req *RequestForDeleteCursor) Path() string {
 }
 
 func (req *RequestForDeleteCursor) Method() string {
-	return http.MethodGet
+	return http.MethodDelete
 }
 
 func (req *RequestForDeleteCursor) Query() string {
@@ -35,7 +34,7 @@ func (req *RequestForDeleteCursor) HasQueryParameter() bool {
 }
 
 func (req *RequestForDeleteCursor) GetQueryParameter() string {
-	return "" //"?excludeSystem=true"
+	return ""
 }
 
 func (req *RequestForDeleteCursor) Payload() []byte {
@@ -53,15 +52,17 @@ func NewResponseForDeleteCursor() *ResponseForDeleteCursor {
 }
 
 type ResponseForDeleteCursor struct {
-  // @FIXME
-	Field string 
+	Code  int    `json:"code"`
+	Error bool   `json:"error"`
+	Id    string `json:"id"`
 }
 
 func (r *ResponseForDeleteCursor) IsResponse() {}
 
 func (r ResponseForDeleteCursor) String() string {
-  // @FIXME
-	return fmt.Sprintf("Bootfile: %v", r.Field)
+	return fmt.Sprintf("Code: %v, Error: %v, ID: %v",
+		r.Code,
+		r.Error,
+		r.Id,
+	)
 }
-
-
