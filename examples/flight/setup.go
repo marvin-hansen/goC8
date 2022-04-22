@@ -62,14 +62,12 @@ func setupFlights(c *goC8.Client) {
 }
 
 func setupGraph(c *goC8.Client) {
-
 	// test if graph exists
 	exists, err := c.CheckGraphExists(fabric, graph)
 	checkError(err, "Error CheckGraphExists: ")
 	if !exists {
 		// if so create graph
-
-		jsonGraph := sample_data.GetGraphDefinition()
+		jsonGraph := sample_data.GetAirlineGraph()
 		_, createGraphErr := c.CreateGraph(fabric, jsonGraph)
 		checkError(createGraphErr, "Error CreateGraph")
 		dbgPrint("Created Graph: " + graph)

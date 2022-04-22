@@ -18,5 +18,7 @@ func main() {
 
 	// query graph here
 
-	teardown(c)
+	//teardown(c)
+
+	//setupGraph(c)
 }

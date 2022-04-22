@@ -65,7 +65,7 @@ func GetAirlineGraph() []byte {
 `)
 }
 
-// getBreadthFirstQuery
+// GetBreadthFirstQuery
 // Get all cities with a direct flight to New York:
 func GetBreadthFirstQuery() string {
 	return `
@@ -75,7 +75,7 @@ func GetBreadthFirstQuery() string {
 `
 }
 
-// getShortestPathQuery
+// GetShortestPathQuery
 // Get the shortest path from San Francisco to Paris:
 func GetShortestPathQuery() string {
 	return `
@@ -90,7 +90,7 @@ func GetShortestPathQuery() string {
 `
 }
 
-// getShortestDistanceQuery
+// GetShortestDistanceQuery
 // Get the distance on the shortest path from San Francisco to Paris:
 func GetShortestDistanceQuery() string {
 	return `
@@ -105,7 +105,7 @@ func GetShortestDistanceQuery() string {
 `
 }
 
-// getNearestCities
+// GetNearestCities
 // Get the 2 nearest cities to a specified latitude and longitude.
 func GetNearestCities() string {
 	return `
@@ -119,7 +119,7 @@ func GetNearestCities() string {
 `
 }
 
-// getCitiesMaxDistance
+// GetCitiesMaxDistance
 // Get the cities that are no more than 2500km away from houston.
 func GetCitiesMaxDistance() string {
 	return `
