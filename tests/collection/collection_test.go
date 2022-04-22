@@ -7,12 +7,15 @@ import (
 	"testing"
 )
 
-const verbose = false
+const (
+	verbose  = true
+	fabric   = "SouthEastAsia"
+	collType = collection_req.DocumentCollectionType
+	collName = "TestCollection"
+)
 
 func TestGetAllCollections(t *testing.T) {
 	c := goC8.NewClient(nil)
-	fabric := "SouthEastAsia"
-
 	res, err := c.GetAllCollections(fabric)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -24,19 +27,12 @@ func TestGetAllCollections(t *testing.T) {
 
 func TestCreateCollection(t *testing.T) {
 	c := goC8.NewClient(nil)
-	fabric := "SouthEastAsia"
-	collType := collection_req.DocumentCollectionType
-	collName := "TestCollection"
-
 	err := c.CreateNewCollection(fabric, collName, false, collType)
 	assert.NoError(t, err)
 }
 
 func TestCheckCollectionExists(t *testing.T) {
 	c := goC8.NewClient(nil)
-	fabric := "SouthEastAsia"
-	collName := "TestCollection"
-
 	exists, err := c.CheckCollectionExists(fabric, collName)
 	assert.NoError(t, err)
 	expected := true
@@ -54,9 +50,6 @@ func TestCheckCollectionExists(t *testing.T) {
 
 func TestGetCollectionInfo(t *testing.T) {
 	c := goC8.NewClient(nil)
-	fabric := "SouthEastAsia"
-	collName := "TestCollection"
-
 	res, err := c.GetCollectionInfo(fabric, collName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -68,8 +61,6 @@ func TestGetCollectionInfo(t *testing.T) {
 
 func TestUpdateCollection(t *testing.T) {
 	c := goC8.NewClient(nil)
-	fabric := "SouthEastAsia"
-	collName := "TestCollection"
 	properties := &collection_req.UpdateOptions{
 		// Note: except for waitForSync and hasStream, collection properties cannot be changed once a collection is created.
 		HasStream:   true,
@@ -87,9 +78,6 @@ func TestUpdateCollection(t *testing.T) {
 
 func TestTruncateCollection(t *testing.T) {
 	c := goC8.NewClient(nil)
-	fabric := "SouthEastAsia"
-	collName := "TestCollection"
-
 	res, err := c.TruncateCollection(fabric, collName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -101,9 +89,6 @@ func TestTruncateCollection(t *testing.T) {
 
 func TestDeleteCollection(t *testing.T) {
 	c := goC8.NewClient(nil)
-	fabric := "SouthEastAsia"
-	collName := "TestCollection"
-
 	err := c.DeleteCollection(fabric, collName, false)
 	assert.NoError(t, err)
 }

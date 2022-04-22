@@ -89,7 +89,7 @@ func (c *Client) do(r Requester) (*fasthttp.Response, *APIError) {
 	}
 
 	if !checkStatusCode(res.StatusCode(), r.ResponseCode()) {
-		println("Not ok")
+		//println("Not ok")
 		var resp = new(Response)
 		if jsonErr := json.Unmarshal(res.Body(), resp); jsonErr != nil {
 			apiErr := getApiError(res)
@@ -97,7 +97,7 @@ func (c *Client) do(r Requester) (*fasthttp.Response, *APIError) {
 		}
 
 		if !resp.Success {
-			println("Response not success")
+			//println("Response not success")
 			apiErr := getApiError(res)
 			return nil, apiErr
 		}

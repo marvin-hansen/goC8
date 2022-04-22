@@ -1,9 +1,7 @@
 package collection_req
 
 import (
-	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 )
 
@@ -22,13 +20,14 @@ type RequestForCreateNewCollection struct {
 }
 
 func getCreatePayload(collectionName string, allowUserKeys bool, collectionType CollectionType) []byte {
-
-	opts := NewCollectionOption(collectionName, allowUserKeys, collectionType)
-	data, err := json.MarshalIndent(opts, "", "")
-	if err != nil {
-		log.Println(err.Error())
-	}
-	return data
+	// https://macrometa.com/docs/collections/documents/tutorials/using_rest_api/
+	s := fmt.Sprintf(`{
+      "name": "%v",
+      "type": %v
+	}`,
+		collectionName, collectionType.ToInt(),
+	)
+	return []byte(s)
 }
 
 func (req *RequestForCreateNewCollection) Path() string {
