@@ -3,7 +3,7 @@
 | Endpoint      | Implemented | Tested |
 |---------------|-------------|--------|
 | API Keys      | No          | No     |
-| Auth             | No          | No     |
+| Auth          | No          | No     |
 | Key Value     | No          | No     |
 | Dymamo        | No          | No     |
 | Documents     | Yes         | Yes    |

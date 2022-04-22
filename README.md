@@ -43,7 +43,28 @@ If you do not have these value at hand, please read the [setup guide](setup.md) 
 
 * [Collections](examples/collections)
 * [Documents](examples/documentstore)
+* [Flight example](examples/flight)
 * [Tests](tests)
+
+### Known issues and solutions
+
+##### Illegal key while creating .... 
+
+This error means that the provided key, name, or identifier in question does not adhere to the established convention.
+Names for collections, documents, graphs, and edges follow the same convention as keys, 
+there is a high chance that the identifier contains a blank or non-allowed character triggering this error. 
+When writing insert functions with custom primary keys, it is paramount to stick to the [naming convention](README_KEYS.md)
+to prevent runtime errors.
+
+For details, please look at the 
+
+* [key naming convention](README_KEYS.md) 
+* [Official Arango Docs](https://www.arangodb.com/docs/stable/data-modeling-naming-conventions-document-keys.html)
+* [Stack Overflow](https://stackoverflow.com/questions/68118693/arangodb-illegal-document-key-error-while-creating-graph)
+
+Notice, the problem in the Stack Overflow question was the blank in the graph name. 
+A fix would be eliminating the blank by renaming the graph from "Friends visit" to "FriendsVisit" to adhere to the naming convention. 
+
 
 ### Collections
 
