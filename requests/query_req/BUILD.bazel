@@ -1,0 +1,12 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "query_req",
+    srcs = [
+        "create_cursor.go",
+        "delete_cursor.go",
+        "read_next_cursor.go",
+    ],
+    importpath = "goC8/requests/query_req",
+    visibility = ["//visibility:public"],
+)
