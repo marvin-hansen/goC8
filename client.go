@@ -8,7 +8,7 @@ import (
 const version = "v.0.0.3"
 
 type Client struct {
-	apiKey      string
+	config      *ClientConfig
 	Endpoint    string
 	HTTPC       *fasthttp.Client
 	HTTPTimeout time.Duration
@@ -23,7 +23,7 @@ func NewClient(config *ClientConfig) *Client {
 	timeOut := time.Duration(config.Timeout) * time.Second
 
 	return &Client{
-		apiKey:      config.GetApiKey(),
+		config:      config,
 		Endpoint:    config.GetConnectionString(),
 		HTTPTimeout: timeOut,
 		HTTPC:       new(fasthttp.Client),
@@ -32,7 +32,11 @@ func NewClient(config *ClientConfig) *Client {
 
 // getApiKey is used internally to pass key to the request handler
 func (c Client) getApiKey() string {
-	return c.apiKey
+	return c.config.GetApiKey()
+}
+
+func (c Client) getQueryTTL() int {
+	return c.config.GetQueryTTL()
 }
 
 func (c Client) Info() {

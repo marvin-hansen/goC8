@@ -11,6 +11,7 @@ type ClientConfig struct {
 	apiKey           string
 	Fabric           string
 	Timeout          int
+	QueryTTL         int
 	connectionString string
 }
 
@@ -40,4 +41,8 @@ func (c ClientConfig) GetConnectionString() string {
 
 func (c ClientConfig) GetApiKey() string {
 	return c.apiKey
+}
+
+func (c ClientConfig) GetQueryTTL() int {
+	return c.QueryTTL
 }

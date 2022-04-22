@@ -1,16 +1,17 @@
 package query_req
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 )
 
 //**// Request //**//
 
-func NewRequestForCreateCursor(fabric string) *RequestForCreateCursor {
+func NewRequestForCreateCursor(fabric, query string, bindVars map[string]interface{}, options *CursorOptions, ttl int) *RequestForCreateCursor {
 	return &RequestForCreateCursor{
 		path:    fmt.Sprintf("_fabric/%v/_api/cursor", fabric),
-		payload: nil,
+		payload: constructQuery(query, bindVars, options, ttl),
 	}
 }
 
@@ -19,13 +20,34 @@ type RequestForCreateCursor struct {
 	payload []byte
 }
 
+func constructQuery(query string, bindVars map[string]interface{}, options *CursorOptions, ttl int) []byte {
+
+	q := Query{
+		BatchSize: 100,
+		BindVars:  bindVars,
+		Count:     false,
+		Options:   *options,
+		Query:     query,
+		TTL:       ttl,
+	}
+
+	b, err := json.Marshal(q)
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+
+	return b
+
+}
+
 type Query struct {
 	BatchSize int                    `json:"batchSize,omitempty"`
 	BindVars  map[string]interface{} `json:"bindVars,omitempty"`
 	Count     bool                   `json:"count,omitempty"`
 	Options   CursorOptions          `json:"options,omitempty"`
 	Query     string                 `json:"query,omitempty"`
-	Ttl       int                    `json:"ttl,omitempty"`
+	TTL       int                    `json:"ttl,omitempty"`
 }
 
 func (req *RequestForCreateCursor) Path() string {
@@ -62,8 +84,8 @@ func NewResponseForCreateCursor() *ResponseForCreateCursor {
 	return new(ResponseForCreateCursor)
 }
 
-// ResponseForCreateCursor see query_req/shared/CursorResponse for spec
-type ResponseForCreateCursor CursorResponse
+// ResponseForCreateCursor see query_req/shared/Cursor for spec
+type ResponseForCreateCursor Cursor
 
 func (r *ResponseForCreateCursor) IsResponse() {}
 

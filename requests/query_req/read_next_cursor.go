@@ -51,7 +51,7 @@ func NewResponseForReadNextCursor() *ResponseForReadNextCursor {
 	return new(ResponseForReadNextCursor)
 }
 
-type ResponseForReadNextCursor CursorResponse
+type ResponseForReadNextCursor Cursor
 
 func (r *ResponseForReadNextCursor) IsResponse() {}
 

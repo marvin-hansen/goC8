@@ -1,8 +1,24 @@
 package query_req
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
-type CursorResponse struct {
+func NewCursorFromCreateCursor(r *ResponseForCreateCursor) *Cursor {
+	return &Cursor{
+		Code:    r.Code,
+		Error:   r.Error,
+		Count:   r.Count,
+		Extra:   r.Extra,
+		HasMore: r.HasMore,
+		Id:      r.Id,
+		Cached:  r.Cached,
+		Result:  r.Result,
+	}
+}
+
+type Cursor struct {
 	Code    int    `json:"code"`
 	Error   bool   `json:"error"`
 	Count   int    `json:"count"`
@@ -11,6 +27,18 @@ type CursorResponse struct {
 	Id      string `json:"id"`
 	Cached  bool   `json:"cached"`
 	Result  Result `json:"result"`
+}
+
+func (c Cursor) Update(r *ResponseForReadNextCursor) {
+	c.Code = r.Code
+	c.Error = r.Error
+	c.Count = r.Count
+	c.Extra = r.Extra
+	c.HasMore = r.HasMore
+	c.Id = r.Id
+	c.Cached = r.Cached
+	// append results
+	c.Result = append(c.Result, r.Result)
 }
 
 type Extra struct {
@@ -25,10 +53,16 @@ func (r Extra) String() string {
 	)
 }
 
-type Result map[string]interface{}
+type Result []interface{}
 
 func (r Result) String() string {
-	return fmt.Sprintf("Result: %v", r.String())
+	// https://stackoverflow.com/questions/62055988/golang-a-map-interface-how-to-print-key-and-value
+	// https://pkg.go.dev/strings#Builder
+	var s strings.Builder
+	for k, v := range r {
+		s.WriteString(fmt.Sprintf("%v: %v \n", k, v))
+	}
+	return s.String()
 }
 
 type Stats struct {
@@ -58,5 +92,9 @@ func (r Stats) String() string {
 type Warnings []interface{}
 
 func (r Warnings) String() string {
-	return fmt.Sprintf("Warnings: %v", r.String())
+	var s strings.Builder
+	for k, v := range r {
+		s.WriteString(fmt.Sprintf("%v: %v \n", k, v))
+	}
+	return s.String()
 }
