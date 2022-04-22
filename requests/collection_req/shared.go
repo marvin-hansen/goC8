@@ -47,36 +47,36 @@ func NewCollectionOption(name string, allowUserKeys bool, collectionType Collect
 //stream: If true, create a local stream for collection. (The default is false)
 //shardKeys: The specified shard key determines in which shard a given document is to be stored. Choosing the right shard key can have significant impact on your performance can reduce network traffic and increase performance.
 type CollectionOption struct {
-	IsLocal      bool       `json:"isLocal"`
-	IsSystem     bool       `json:"isSystem"`
-	KeyOptions   KeyOptions `json:"keyOptions"`
-	Name         string     `json:"name"`
-	ShardKeys    []string   `json:"shardKeys"`
-	EnableShards bool       `json:"enableShards"`
-	Type         int        `json:"type"`
-	Stream       bool       `json:"stream"`
+	IsLocal      bool       `json:"isLocal,omitempty"`
+	IsSystem     bool       `json:"isSystem,omitempty"`
+	KeyOptions   KeyOptions `json:"keyOptions,omitempty"`
+	Name         string     `json:"name,omitempty"`
+	ShardKeys    []string   `json:"shardKeys,omitempty"`
+	EnableShards bool       `json:"enableShards,omitempty"`
+	Type         int        `json:"type,omitempty"`
+	Stream       bool       `json:"stream,omitempty"`
 }
 
 type KeyOptions struct {
-	AllowUserKeys bool   `json:"allowUserKeys"`
-	Increment     int    `json:"increment"`
-	Offset        int    `json:"offset"`
-	Type          string `json:"type"`
+	AllowUserKeys bool   `json:"allowUserKeys,omitempty"`
+	Increment     int    `json:"increment,omitempty"`
+	Offset        int    `json:"offset,omitempty"`
+	Type          string `json:"type,omitempty"`
 }
 
 type ResulFromCollections struct {
-	Id               string `json:"id"`
-	Name             string `json:"name"`
-	Status           int    `json:"status"`
-	Type             int    `json:"type"`
-	CollectionModel  string `json:"collectionModel"`
-	IsSpot           bool   `json:"isSpot"`
-	IsLocal          bool   `json:"isLocal"`
-	HasStream        bool   `json:"hasStream"`
-	WaitForSync      bool   `json:"waitForSync"`
-	IsSystem         bool   `json:"isSystem"`
-	GloballyUniqueId string `json:"globallyUniqueId"`
-	SearchEnabled    bool   `json:"searchEnabled"`
+	Id               string `json:"id,omitempty"`
+	Name             string `json:"name,omitempty"`
+	Status           int    `json:"status,omitempty"`
+	Type             int    `json:"type,omitempty"`
+	CollectionModel  string `json:"collectionModel,omitempty"`
+	IsSpot           bool   `json:"isSpot,omitempty"`
+	IsLocal          bool   `json:"isLocal,omitempty"`
+	HasStream        bool   `json:"hasStream,omitempty"`
+	WaitForSync      bool   `json:"waitForSync,omitempty"`
+	IsSystem         bool   `json:"isSystem,omitempty"`
+	GloballyUniqueId string `json:"globallyUniqueId,omitempty"`
+	SearchEnabled    bool   `json:"searchEnabled,omitempty"`
 }
 
 func (r ResulFromCollections) String() string {

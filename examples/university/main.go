@@ -20,14 +20,18 @@ const (
 
 func main() {
 	c := goC8.NewClient(nil)
-	setup(c)
+
+	setupTeachers(c)
+
+	//setup(c)
 
 }
 
 func setup(c *goC8.Client) {
-	setupCourses(c)
 	setupTeachers(c)
-	setupGraph(c)
+
+	//setupCourses(c)
+	//setupGraph(c)
 }
 
 func setupTeachers(c *goC8.Client) {
@@ -36,15 +40,18 @@ func setupTeachers(c *goC8.Client) {
 	if !exists {
 		// if not create collection
 		collType := collection_req.DocumentCollectionType
-		allowUserKeys := false
+		allowUserKeys := true
 		err = c.CreateNewCollection(fabric, collectionTeachers, allowUserKeys, collType)
 		checkError(err, "Error CreateNewCollection")
 
-		// import city data
-		silent := false
-		jsonDocument := sample_data.GetTeacherData()
-		_, err = c.CreateNewDocument(fabric, collectionTeachers, silent, jsonDocument, nil)
-		checkError(err, "Error CreateNewDocument")
+		//// wait a moment
+		//time.Sleep(100 * time.Millisecond)
+		//
+		//// import city data
+		//silent := false
+		//jsonDocument := sample_data.GetTeacherData()
+		//_, err = c.CreateNewDocument(fabric, collectionTeachers, silent, jsonDocument, nil)
+		//checkError(err, "Error CreateNewDocument")
 	}
 }
 
