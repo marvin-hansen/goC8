@@ -66,23 +66,23 @@ func GetAirlineGraph() []byte {
 }
 
 // GetAllCitiesQuery
-// Returns all cities. Same as SELECT * FROM cities;
+// Get all cities. Same as SELECT * FROM cities.
 func GetAllCitiesQuery() string {
-	return "for u in cities  return u"
+	return "for u in cities  return u._key"
 }
 
 // GetBreadthFirstQuery
-// Get all cities with a direct flight to New York:
+// Get all cities with a direct flight to New York.
 func GetBreadthFirstQuery() string {
 	return `
 	WITH cities
      FOR city IN INBOUND "cities/newyork" flights
-     RETURN city
+     RETURN city._key
 `
 }
 
 // GetShortestPathQuery
-// Get the shortest path from San Francisco to Paris:
+// Get the shortest path from San Francisco to Paris.
 func GetShortestPathQuery() string {
 	return `
 	WITH cities
@@ -90,14 +90,14 @@ func GetShortestPathQuery() string {
     FOR city IN OUTBOUND SHORTEST_PATH "cities/sanfrancisco" TO "cities/paris"
         GRAPH "airline"
         OPTIONS {"weightAttribute": "distance"}
-        RETURN city
+        RETURN city._key
      )
      RETURN path
 `
 }
 
 // GetShortestDistanceQuery
-// Get the distance on the shortest path from San Francisco to Paris:
+// Get the distance on the shortest path from San Francisco to Paris.
 func GetShortestDistanceQuery() string {
 	return `
 	WITH cities
@@ -118,8 +118,6 @@ func GetNearestCities() string {
 	FOR loc IN NEAR(cities, 53.35, -6.26, 2, "distance")
 	RETURN {
     name: loc._key,
-    latitude: loc.location[1],
-    longitude: loc.location[0],
     distance: loc.distance / 1000
     }
 `
@@ -133,8 +131,6 @@ func GetCitiesMaxDistance() string {
 	FOR loc IN WITHIN(cities, city.location[1], city.location[0], 2500 * 1000, "distance")
 	RETURN {
     name: loc._key,
-    latitude: loc.location[1],
-    longitude: loc.location[0],
     distance: loc.distance / 1000
     }
 `

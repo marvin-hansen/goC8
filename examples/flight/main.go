@@ -2,9 +2,12 @@ package main
 
 import (
 	"github.com/marvin-hansen/goC8"
+	"github.com/marvin-hansen/goC8/examples/sample_data"
+	"github.com/marvin-hansen/goC8/tests/utils"
 )
 
 const (
+	delete           = false
 	verbose          = true
 	fabric           = "SouthEastAsia"
 	graph            = "airline"
@@ -14,11 +17,54 @@ const (
 
 func main() {
 	c := goC8.NewClient(nil)
+
+	println("Setup")
 	setup(c)
 
-	// query graph here
+	println("Query")
+	query(c)
 
-	//teardown(c)
+	if delete {
+		println("Teardown")
+		teardown(c)
+	}
+}
 
-	//setupGraph(c)
+func query(c *goC8.Client) {
+	var q = ""
+	var msg = ""
+
+	q = sample_data.GetAllCitiesQuery()
+	msg = "Get all cities."
+	runQuery(c, q, msg)
+
+	q = sample_data.GetBreadthFirstQuery()
+	msg = "Get all cities with a direct flight to New York."
+	runQuery(c, q, msg)
+
+	q = sample_data.GetShortestPathQuery()
+	msg = "Get the shortest path from San Francisco to Paris."
+	runQuery(c, q, msg)
+
+	q = sample_data.GetShortestDistanceQuery()
+	msg = "Get the distance on the shortest path from San Francisco to Paris."
+	runQuery(c, q, msg)
+
+	q = sample_data.GetNearestCities()
+	msg = "Get the 2 nearest cities to a specified latitude and longitude."
+	runQuery(c, q, msg)
+
+	q = sample_data.GetCitiesMaxDistance()
+	msg = "Get the cities that are no more than 2500km away from houston."
+	runQuery(c, q, msg)
+
+}
+
+func runQuery(c *goC8.Client, q, msg string) {
+
+	println(msg)
+	res, err := c.Query(fabric, q, nil, nil)
+	checkError(err, "Error Query: "+q)
+	utils.PrintQuery(res, verbose)
+
 }
