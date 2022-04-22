@@ -18,9 +18,12 @@ notes/*.*
 bazel-out
 bazel-out/
 bazel-out/*.*
+
 dist
 dist/
 dist/*.*
+/dist/
+/dist/*
 
 # Emacs save files
 *~
