@@ -1,0 +1,12 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "utils",
+    srcs = ["utils.go"],
+    importpath = "goC8/tests/utils",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@com_github_marvin_hansen_goc8//:goC8",
+        "@com_github_marvin_hansen_goc8//requests/query_req",
+    ],
+)

@@ -5,7 +5,6 @@ go_library(
     srcs = ["utils.go"],
     importpath = "goC8/tests/document",
     visibility = ["//visibility:public"],
-    deps = ["@com_github_marvin_hansen_goc8//:goC8"],
 )
 
 go_test(
@@ -18,6 +17,7 @@ go_test(
     deps = [
         "@com_github_marvin_hansen_goc8//:goC8",
         "@com_github_marvin_hansen_goc8//requests/document_req",
+        "@com_github_marvin_hansen_goc8//tests/utils",
         "@com_github_stretchr_testify//assert",
     ],
 )

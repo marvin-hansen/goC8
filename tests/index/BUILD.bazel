@@ -1,21 +1,13 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
-
-go_library(
-    name = "index",
-    srcs = ["utils.go"],
-    importpath = "goC8/tests/index",
-    visibility = ["//visibility:public"],
-    deps = ["@com_github_marvin_hansen_goc8//:goC8"],
-)
+load("@io_bazel_rules_go//go:def.bzl", "go_test")
 
 go_test(
     name = "index_test",
     srcs = ["index_test.go"],
-    embed = [":index"],
     deps = [
         "@com_github_marvin_hansen_goc8//:goC8",
         "@com_github_marvin_hansen_goc8//examples/sample_data",
         "@com_github_marvin_hansen_goc8//requests/collection_req",
+        "@com_github_marvin_hansen_goc8//tests/utils",
         "@com_github_stretchr_testify//assert",
     ],
 )

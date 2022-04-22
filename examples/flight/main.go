@@ -18,14 +18,14 @@ const (
 func main() {
 	c := goC8.NewClient(nil)
 
-	println("Setup")
+	println("Setup: Create Graph, collections & import data")
 	setup(c)
 
-	println("Query")
+	println("Query: Document & Graph")
 	query(c)
 
 	if delete {
-		println("Teardown")
+		println("Teardown: Delete Graph & Data")
 		teardown(c)
 	}
 }
@@ -61,10 +61,8 @@ func query(c *goC8.Client) {
 }
 
 func runQuery(c *goC8.Client, q, msg string) {
-
 	println(msg)
 	res, err := c.Query(fabric, q, nil, nil)
 	checkError(err, "Error Query: "+q)
 	utils.PrintQuery(res, verbose)
-
 }

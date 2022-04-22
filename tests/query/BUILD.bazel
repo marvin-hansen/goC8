@@ -1,8 +1,8 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_test")
 
 go_test(
-    name = "graph_test",
-    srcs = ["graph_test.go"],
+    name = "query_test",
+    srcs = ["query_test.go"],
     deps = [
         "@com_github_marvin_hansen_goc8//:goC8",
         "@com_github_marvin_hansen_goc8//examples/sample_data",
