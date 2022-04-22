@@ -2,15 +2,15 @@
 
 Welcome to the GitHub page for goC8, a Golang driver for the macrometa global data platform (GDN).
 
-## About Macrometa
+## About
 
 [Macrometa](https://www.macrometa.com/) is a secure, global data platform with integrated pub/sub, stream processing,
-search, functions, and 4 databases all through one single API.
+search, functions, and 4 databases all through one single API. 
 
-Supported databases:
-
+goC8 is an open source client that implements the macrometa API. Currently, goC8 only supports the following datastores:
 * Collections
 * Documents
+* Graph
 
 ## Install
 
@@ -46,131 +46,79 @@ If you do not have these value at hand, please read the [setup guide](setup.md) 
 * [Flight example](examples/flight)
 * [Tests](tests)
 
-### Known issues and solutions
+### Usage
 
-##### Illegal key while creating .... 
-
-This error means that the provided key, name, or identifier in question does not adhere to the established convention.
-Names for collections, documents, graphs, and edges follow the same convention as keys, 
-there is a high chance that the identifier contains a blank or non-allowed character triggering this error. 
-When writing insert functions with custom primary keys, it is paramount to stick to the [naming convention](README_KEYS.md)
-to prevent runtime errors.
-
-For details, please look at the 
-
-* [key naming convention](README_KEYS.md) 
-* [Official Arango Docs](https://www.arangodb.com/docs/stable/data-modeling-naming-conventions-document-keys.html)
-* [Stack Overflow](https://stackoverflow.com/questions/68118693/arangodb-illegal-document-key-error-while-creating-graph)
-
-Notice, the problem in the Stack Overflow question was the blank in the graph name. 
-A fix would be eliminating the blank by renaming the graph from "Friends visit" to "FriendsVisit" to adhere to the naming convention. 
-
-
-### Collections
+Full code in [Flight example](examples/flight)
 
 ```Go
-
-import (
-   "github.com/marvin-hansen/goC8"
-   "github.com/marvin-hansen/goC8/requests/collection_req"
-   "log"
-)
-
-const (
-   apiKey   = "email.root.secretkey"
-   endpoint = "https://YOUR-ID-us-west.paas.macrometa.io"
-   fabric   = "uswest"
-   timeout  = 5 // http connection timeout in seconds
-)
-
-func main() {
-   // Chose between document collection for storing JSON and edge collections that are used for graphs.
-   collType := collection_req.DocumentCollectionType
-   collName := "TestCollection"
-   
-   println("Create new config ")
-   config := goC8.NewConfig(apiKey, endpoint, fabric, timeout)
-   
-   println("Create new client with config ")
-   c := goC8.NewClient(config)
-   
-   println("Create new collection: " + collName)
-   createCollErr := c.CreateNewCollection(fabric, collName, false, collType)
-   checkError(createCollErr, "Failed to create a new collection. "+collName)
-   
-   println("Get collection Info: " + collName)
-   res, getCollErr := c.GetCollectionInfo(fabric, collName)
-   checkError(getCollErr, "Failed to get a new collection. ")
-   
-   println(res.String())
-   
-   println("Get all collections in the fabric: " + fabric)
-   resGetAll, getAllErr := c.GetAllCollections(fabric)
-   checkError(getAllErr, "Failed to get all collections for fabric: "+fabric)
-   println(resGetAll.String())
-
-    println("Delete collection Info: " + collName)
-    delErr := c.DeleteCollection(fabric, collName, false)
-    checkError(delErr, "Failed to delete collection: "+collName)
-}
-
-func checkError(err error, msg string) {
-    if err != nil {
-        log.Println("error: " + err.Error())
-        log.Fatalf(msg)
-}
-}
-```
-
-### Documents
-
-* [Full document store example](examples/documentstore)
-
-```Go
-
 package main
 
 import (
-	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/requests/collection_req"
 	"log"
+	"github.com/marvin-hansen/goC8"
+	"github.com/marvin-hansen/goC8/examples/sample_data"
+	"github.com/marvin-hansen/goC8/tests/utils"
 )
 
 const (
-	apiKey   = "email.root.secretkey"
-	endpoint = "https://YOUR-ID-us-west.paas.macrometa.io"
-	fabric   = "uswest"
-	timeout  = 5 // http connection timeout in seconds
+	delete           = false
+	verbose          = true
+	fabric           = "SouthEastAsia"
+	graph            = "airline"
+	collectionID     = "cities"
+	edgeCollectionID = "flights"
 )
 
-const verbose = true
-
 func main() {
-	collName := "TestCollection"
-	config := goC8.NewConfig(apiKey, endpoint, fabric, timeout)
-	c := goC8.NewClient(config)
+	c := goC8.NewClient(nil)
 
-	println("Create new document! ")
-	silent := false // When true, an empty reply will be retruned. If false, the document ID will be returned
-	jsonDocument := getTestInsertData()
+	println("Setup: Create Graph, collections & import data")
+	setup(c)
 
-	res, createDocErr := c.CreateNewDocument(fabric, collName, silent, jsonDocument, nil)
-	checkError(createDocErr, "Failed to create a new document. "+collName)
+	println("Query: Document & Graph")
+	query(c)
 
-	if verbose {
-		if res != nil {
-			for _, v := range *res {
-				println(v.String())
-			}
-		}
+	if delete {
+		println("Teardown: Delete Graph & Data")
+		teardown(c)
 	}
+}
 
-	println("Get a document! ")
-	key := "4"
-	getRes, getDocErr := c.GetDocument(fabric, collName, key)
-	checkError(getDocErr, "Failed to get document: "+key)
-	printJsonRes(getRes)
+func query(c *goC8.Client) {
+	var q = ""
+	var msg = ""
 
+	q = sample_data.GetAllCitiesQuery()
+	msg = "Get all cities."
+	runQuery(c, q, msg)
+
+	q = sample_data.GetBreadthFirstQuery()
+	msg = "Get all cities with a direct flight to New York."
+	runQuery(c, q, msg)
+
+	q = sample_data.GetShortestPathQuery()
+	msg = "Get the shortest path from San Francisco to Paris."
+	runQuery(c, q, msg)
+
+	q = sample_data.GetShortestDistanceQuery()
+	msg = "Get the distance on the shortest path from San Francisco to Paris."
+	runQuery(c, q, msg)
+
+	q = sample_data.GetNearestCities()
+	msg = "Get the 2 nearest cities to a specified latitude and longitude."
+	runQuery(c, q, msg)
+
+	q = sample_data.GetCitiesMaxDistance()
+	msg = "Get the cities that are no more than 2500km away from houston."
+	runQuery(c, q, msg)
+
+}
+
+func runQuery(c *goC8.Client, q, msg string) {
+	println(msg)
+	res, err := c.Query(fabric, q, nil, nil)
+	checkError(err, "Error Query: "+q)
+	utils.PrintQuery(res, verbose)
 }
 
 func checkError(err error, msg string) {
@@ -179,13 +127,42 @@ func checkError(err error, msg string) {
 		log.Fatalf(msg)
 	}
 }
-
-func printJsonRes(res goC8.JsonResponder) {
-	if verbose {
-		println(res.String())
-	}
-}
 ```
+
+
+## Make reference
+
+```bash 
+Setup: 
+    make check                  Checks whether all project requirements are present.
+     
+Dev: 
+    make build                  Builds the code base incrementally (fast).
+    make rebuild                Rebuilds dependencies, build files, & code base (slow). Use after go mod changes.
+    make stats                  Shows the latest project stats. 
+```
+
+
+## Known issues and solutions
+
+### Illegal key while creating ....
+
+This error means that the provided key, name, or identifier in question does not adhere to the established convention.
+Names for collections, documents, graphs, and edges follow the same convention as keys,
+there is a high chance that the identifier contains a blank or non-allowed character triggering this error.
+When writing insert functions with custom primary keys, it is paramount to stick to the [naming convention](README_KEYS.md)
+to prevent runtime errors.
+
+For details, please look at the
+
+* [key naming convention](README_KEYS.md)
+* [Official Arango Docs](https://www.arangodb.com/docs/stable/data-modeling-naming-conventions-document-keys.html)
+* [Stack Overflow](https://stackoverflow.com/questions/68118693/arangodb-illegal-document-key-error-while-creating-graph)
+
+Notice, the problem in the Stack Overflow question was the blank in the graph name.
+A fix would be eliminating the blank by renaming the graph from "Friends visit" to "FriendsVisit" to adhere to the naming convention.
+
+
 
 ## Author
 

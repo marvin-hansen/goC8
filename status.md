@@ -8,10 +8,10 @@
 | Dymamo        | No          | No     |
 | Documents     | Yes         | Yes    |
 | Collections   | Yes         | Yes    |
-| Query         | No          | No     |
+| Query         | Yes         | Yes    |
 | Query Workers | No          | No     |
 | Indexes       | No          | No     |
-| Graphs        | No          | No     |
+| Graphs        | Yes         | No     |
 | Streams       | No          | No     |
 | Stream IO     | No          | No     |
 | Search        | No          | No     |
