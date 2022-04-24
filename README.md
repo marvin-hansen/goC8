@@ -46,6 +46,7 @@ If you do not have these value at hand, please read the [setup guide](setup.md) 
 
 * [Api usage](examples/api) 
 * [Flight example](examples/flight)
+* [University example](examples/university)
 * [Tests](tests)
 
 ### Usage
@@ -164,7 +165,20 @@ For details, please look at the
 Notice, the problem in the Stack Overflow question was the blank in the graph name.
 A fix would be eliminating the blank by renaming the graph from "Friends visit" to "FriendsVisit" to adhere to the naming convention.
 
+### VPackError error: Expecting digit
 
+Error number 400 / 600 
+
+This error means that the provided JSON doesn't conform to the standard. 
+
+Use a JSON [validator](https://jsonformatter.curiousconcept.com/) and check for common issues:
+
+* Missing comma between array values
+* Comma after last attribute
+* Singe quote ' instead of double " quote
+
+Notice, the JSON unpacker is rather fragile so whatever "small fixes" the validator suggests, 
+apply them otherwise the error persists. 
 
 ## Author
 
