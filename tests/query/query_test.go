@@ -3,7 +3,7 @@ package query
 import (
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/examples/flight"
-	"github.com/marvin-hansen/goC8/tests/utils"
+	"github.com/marvin-hansen/goC8/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

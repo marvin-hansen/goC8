@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/tests/utils"
+	"github.com/marvin-hansen/goC8/utils"
 )
 
 const (
