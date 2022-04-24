@@ -11,6 +11,7 @@ const (
 	endpoint = "https://YOUR-ID-us-west.paas.macrometa.io"
 	fabric   = "uswest"
 	timeout  = 5 // http connection timeout in seconds
+	collName = "TestCollection"
 )
 
 const verbose = true
@@ -18,7 +19,6 @@ const verbose = true
 func main() {
 	// Chose between document collection for storing JSON and edge collections that are used for graphs.
 	collType := collection_req.DocumentCollectionType
-	collName := "TestCollection"
 
 	println("Create new config ")
 	config := goC8.NewConfig(apiKey, endpoint, fabric, timeout)

@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/examples/sample_data"
 	"github.com/marvin-hansen/goC8/requests/collection_req"
 )
 
@@ -33,7 +32,7 @@ func setupCities(c *goC8.Client) {
 
 		// import city data
 		silent := false
-		jsonDocument := sample_data.GetCityData()
+		jsonDocument := GetCityData()
 		_, err = c.CreateNewDocument(fabric, collectionID, silent, jsonDocument, nil)
 		checkError(err, "Error CreateNewDocument")
 		dbgPrint("Imported data into: " + collectionID)
@@ -54,7 +53,7 @@ func setupFlights(c *goC8.Client) {
 
 		// import flight data
 		silent := false
-		jsonDocument := sample_data.GetFlightData()
+		jsonDocument := GetFlightData()
 		_, err = c.CreateNewDocument(fabric, edgeCollectionID, silent, jsonDocument, nil)
 		checkError(err, "Error CreateNewCollection")
 		dbgPrint("Imported data into: " + edgeCollectionID)
@@ -67,7 +66,7 @@ func setupGraph(c *goC8.Client) {
 	checkError(err, "Error CheckGraphExists: ")
 	if !exists {
 		// if so create graph
-		jsonGraph := sample_data.GetAirlineGraph()
+		jsonGraph := GetAirlineGraph()
 		_, createGraphErr := c.CreateGraph(fabric, jsonGraph)
 		checkError(createGraphErr, "Error CreateGraph")
 		dbgPrint("Created Graph: " + graph)

@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/examples/sample_data"
 	"github.com/marvin-hansen/goC8/tests/utils"
 )
 
@@ -34,27 +33,27 @@ func query(c *goC8.Client) {
 	var q = ""
 	var msg = ""
 
-	q = sample_data.GetAllCitiesQuery()
+	q = GetAllCitiesQuery()
 	msg = "Get all cities."
 	runQuery(c, q, msg)
 
-	q = sample_data.GetBreadthFirstQuery()
+	q = GetBreadthFirstQuery()
 	msg = "Get all cities with a direct flight to New York."
 	runQuery(c, q, msg)
 
-	q = sample_data.GetShortestPathQuery()
+	q = GetShortestPathQuery()
 	msg = "Get the shortest path from San Francisco to Paris."
 	runQuery(c, q, msg)
 
-	q = sample_data.GetShortestDistanceQuery()
+	q = GetShortestDistanceQuery()
 	msg = "Get the distance on the shortest path from San Francisco to Paris."
 	runQuery(c, q, msg)
 
-	q = sample_data.GetNearestCities()
+	q = GetNearestCities()
 	msg = "Get the 2 nearest cities to a specified latitude and longitude."
 	runQuery(c, q, msg)
 
-	q = sample_data.GetCitiesMaxDistance()
+	q = GetCitiesMaxDistance()
 	msg = "Get the cities that are no more than 2500km away from houston."
 	runQuery(c, q, msg)
 

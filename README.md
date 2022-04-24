@@ -41,8 +41,8 @@ If you do not have these value at hand, please read the [setup guide](setup.md) 
 
 ### Examples
 
-* [Collections](examples/collections)
-* [Documents](examples/documentstore)
+* [Collections](examples/api/collections)
+* [Documents](examples/api/documentstore)
 * [Flight example](examples/flight)
 * [Tests](tests)
 
