@@ -3,26 +3,16 @@ package goC8
 import (
 	"fmt"
 	jsoniter "github.com/json-iterator/go"
+	"github.com/marvin-hansen/goC8/utils"
 	"github.com/valyala/fasthttp"
 	"net/url"
 	"time"
 )
 
+const debug = true
+
 // used for JSON unmarshaling
 var json = jsoniter.ConfigCompatibleWithStandardLibrary
-
-// shutdownRequest doesn't get an actual response from the server and thus
-// doesn't process a server reply. It only returns an error if there was
-// 1) A network transmission error i.e. offline
-// 2) An incorrect server URI
-// 3) The server was already taken offline before
-// https://support.objectivity.com/sites/default/files/docs/ig/latest/index.html#page/topics%2Frest%2FrestVersionShutdownPOST.html%23
-func (c *Client) requestWithoutReturnValue(r Requester) error {
-	req := c.newRequest(r)
-	res := fasthttp.AcquireResponse()
-	err := c.HTTPC.DoTimeout(req, res, c.HTTPTimeout)
-	return checkError(err)
-}
 
 func (c *Client) requestJsonResponse(req Requester, results JsonResponder) error {
 	res, reqErr := c.do(req)
@@ -38,35 +28,15 @@ func (c *Client) requestJsonResponse(req Requester, results JsonResponder) error
 func (c *Client) request(req Requester, results Responder) error {
 	res, reqErr := c.do(req)
 	if reqErr != nil {
-		//println("Request error")
-		//println(reqErr.Error())
+		utils.DbgPrint("Request error", debug)
+		utils.DbgPrint(reqErr.Error(), debug)
 		return reqErr
 	}
 
-	//println(string(res.Body()))
+	utils.DbgPrint(string(res.Body()), debug)
 	decErr := decode(res.Body(), results)
 	if decErr != nil {
 		// println("Decode error")
-		return decErr
-	}
-
-	return nil
-}
-
-func (c *Client) requestQuery(req Requester, results Responder) error {
-	res, reqErr := c.do(req)
-	if reqErr != nil {
-		//println("Request Error")
-		return reqErr
-	}
-
-	// Query returns an array of various types, so we have to prefix
-	// an extra node "entries" to Marshal the result into a struct that contains the raw message
-	queryRes := []byte("{" + "\"entries\":" + string(res.Body()) + "}")
-
-	decErr := decode(queryRes, results)
-	if decErr != nil {
-		//println("Decode error")
 		return decErr
 	}
 
@@ -78,19 +48,21 @@ func (c *Client) requestQuery(req Requester, results Responder) error {
 // targetStatusCode the expected http status code i.e. 200
 func (c *Client) do(r Requester) (*fasthttp.Response, *APIError) {
 	req := c.newRequest(r)
-	// fmt.Printf("Path: %+v\n", r.Path())
+
+	utils.DbgPrint("URI:"+req.URI().String(), debug)
+	utils.DbgPrint("Payload: "+string(r.Payload()), debug)
 
 	// fasthttp for http2.0
 	res := fasthttp.AcquireResponse()
 	err := c.HTTPC.DoTimeout(req, res, c.HTTPTimeout)
 	if err != nil {
-		//println("http req error")
+		utils.DbgPrint("http req error", debug)
 		apiErr := getApiError(res)
 		return nil, apiErr
 	}
 
 	if !checkStatusCode(res.StatusCode(), r.ResponseCode()) {
-		//println("Not ok")
+		utils.DbgPrint("Status: Not ok", debug)
 		var resp = new(Response)
 		if jsonErr := json.Unmarshal(res.Body(), resp); jsonErr != nil {
 			apiErr := getApiError(res)
@@ -98,7 +70,7 @@ func (c *Client) do(r Requester) (*fasthttp.Response, *APIError) {
 		}
 
 		if !resp.Success {
-			//println("Response not success")
+			utils.DbgPrint("Response not success", debug)
 			apiErr := getApiError(res)
 			return nil, apiErr
 		}
@@ -141,7 +113,6 @@ func getUri(endpoint string, r Requester) *url.URL {
 }
 
 func (c *Client) newRequest(r Requester) *fasthttp.Request {
-
 	u := getUri(c.Endpoint, r)
 	req := fasthttp.AcquireRequest()
 	req.Header.SetMethod(r.Method())
