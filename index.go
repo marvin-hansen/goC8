@@ -120,6 +120,19 @@ func (c Client) CreatePersistentIndex(fabric, collectionName, field string, dedu
 	return response, nil
 }
 
+func (c Client) CreateSkipListIndex(fabric, collectionName, field string, deduplicate, sparse, unique bool) (response *r.ResponseForCreateSkipListIndex, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "CreateSkipListIndex")
+	}
+
+	req := r.NewRequestForCreateSkipListIndex(fabric, collectionName, field, deduplicate, sparse, unique)
+	response = r.NewResponseForCreateSkipListIndex()
+	if err = c.request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
 // DeleteIndex
 // Remove an index.
 // https://macrometa.com/docs/api#/operations/dropIndex
