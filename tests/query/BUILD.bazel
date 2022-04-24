@@ -5,8 +5,8 @@ go_test(
     srcs = ["query_test.go"],
     deps = [
         "@com_github_marvin_hansen_goc8//:goC8",
-        "@com_github_marvin_hansen_goc8//examples/sample_data",
-        "@com_github_marvin_hansen_goc8//tests/utils",
+        "@com_github_marvin_hansen_goc8//examples/flight",
+        "@com_github_marvin_hansen_goc8//utils",
         "@com_github_stretchr_testify//assert",
     ],
 )
