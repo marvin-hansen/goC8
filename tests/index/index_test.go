@@ -69,6 +69,16 @@ func TestCreateGeoIndex(t *testing.T) {
 	utils.PrintRes(res, verbose)
 }
 
+func TestDeleteIndex(t *testing.T) {
+	c := goC8.NewClient(nil)
+	indexName := ""
+
+	res, err := c.DeleteIndex(fabric, textCollection, indexName)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	utils.PrintRes(res, verbose)
+}
+
 func TestTeardown(t *testing.T) {
 	c := goC8.NewClient(nil)
 

@@ -11,7 +11,8 @@ func NewRequestForCreateGeoIndex(fabric, collectionName, field string, geoJson b
 	return &RequestForCreateGeoIndex{
 		path:       fmt.Sprintf("_fabric/%v/_api/index/geo", fabric),
 		parameters: fmt.Sprintf("?collection=%v", collectionName),
-		payload:    getGeoIndexPayload(field, geoJson)}
+		payload:    getGeoIndexPayload(field, geoJson),
+	}
 }
 
 // getGeoIndexPayload

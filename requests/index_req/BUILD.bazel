@@ -4,8 +4,11 @@ go_library(
     name = "index_req",
     srcs = [
         "create_fulltext_index.go",
+        "create_general_index.go",
         "create_geo_index.go",
+        "delete_index.go",
         "get_all_indices.go",
+        "get_index.go",
         "shared.go",
     ],
     importpath = "goC8/requests/index_req",

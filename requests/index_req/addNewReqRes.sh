@@ -58,7 +58,7 @@ func (req *RequestFor$name) HasQueryParameter() bool {
 }
 
 func (req *RequestFor$name) GetQueryParameter() string {
-	return "" //"?excludeSystem=true"
+	return ""
 }
 
 func (req *RequestFor$name) Payload() []byte {
