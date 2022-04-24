@@ -4,12 +4,8 @@ go_library(
     name = "utils",
     srcs = [
         "check_utils.go",
-        "utils.go",
+        "dbg.go",
     ],
     importpath = "goC8/utils",
     visibility = ["//visibility:public"],
-    deps = [
-        "@com_github_marvin_hansen_goc8//:goC8",
-        "@com_github_marvin_hansen_goc8//requests/query_req",
-    ],
 )
