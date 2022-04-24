@@ -107,6 +107,17 @@ func TestCreateSkipListIndex(t *testing.T) {
 	goC8.PrintRes(res, verbose)
 }
 
+func TestCreateTTLIndex(t *testing.T) {
+	c := goC8.NewClient(nil)
+	field := "requests"
+	expiration := 10
+
+	res, err := c.CreateTTLIndex(fabric, textCollection, field, expiration)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
 func TestDeleteIndex(t *testing.T) {
 	c := goC8.NewClient(nil)
 	indexName := ""

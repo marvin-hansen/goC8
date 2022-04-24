@@ -97,6 +97,7 @@ func (c Client) CreateGeoIndex(fabric, collectionName, field string, geoJson boo
 }
 
 // CreatePersistentIndex
+// Creates a persistent index for the collection collection-name, if it does not already exist. The call expects an object containing the index details.
 // field (string): An array of attribute paths.
 // unique: True if the index is unique.
 // type: Must be equal to "persistent".
@@ -106,7 +107,7 @@ func (c Client) CreateGeoIndex(fabric, collectionName, field string, geoJson boo
 //In a sparse index all documents are excluded from the index that do not contain at least one of the specified index attributes (i.e. fields) or that have a value of null in any of the specified index attributes. Such documents are not indexed and are not taken into account for uniqueness checks if the unique flag is set.
 //In a non-sparse index, these documents are indexed (for non-present indexed attributes, a value of null is used) and are taken into account for uniqueness checks if the unique flag is set.
 //unique indexes on non-shard keys are not supported in a cluster.
-// Creates a persistent index.
+// https://macrometa.com/docs/api#/operations/createIndex:persistent
 func (c Client) CreatePersistentIndex(fabric, collectionName, field string, deduplicate, sparse, unique bool) (response *r.ResponseForCreatePersistentIndex, err error) {
 	if benchmark {
 		defer TimeTrack(time.Now(), "CreatePersistentIndex")
@@ -120,6 +121,18 @@ func (c Client) CreatePersistentIndex(fabric, collectionName, field string, dedu
 	return response, nil
 }
 
+// CreateSkipListIndex
+// Creates a skiplist index for the collection collection-name, if it does not already exist. The call expects an object containing the index details.
+// fields (string): an array of attribute paths.
+//unique: if true, then create a unique index.
+//type: must be equal to "skiplist".
+//sparse: if true, then create a sparse index.
+//deduplicate: if false, the deduplication of array values is turned off.
+//
+// In a sparse index all documents will be excluded from the index that do not contain at least one of the specified index attributes (i.e. fields) or that have a value of null in any of the specified index attributes. Such documents will not be indexed, and not be taken into account for uniqueness checks if the unique flag is set.
+// In a non-sparse index, these documents will be indexed (for non-present indexed attributes, a value of null will be used) and will be taken into account for uniqueness checks if the unique flag is set.
+//Note: unique indexes on non-shard keys are not supported in a cluster.
+// https://macrometa.com/docs/api#/operations/createIndex:skiplist
 func (c Client) CreateSkipListIndex(fabric, collectionName, field string, deduplicate, sparse, unique bool) (response *r.ResponseForCreateSkipListIndex, err error) {
 	if benchmark {
 		defer TimeTrack(time.Now(), "CreateSkipListIndex")
@@ -127,6 +140,25 @@ func (c Client) CreateSkipListIndex(fabric, collectionName, field string, dedupl
 
 	req := r.NewRequestForCreateSkipListIndex(fabric, collectionName, field, deduplicate, sparse, unique)
 	response = r.NewResponseForCreateSkipListIndex()
+	if err = c.request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
+// CreateTTLIndex
+// Creates a TTL index for the collection collection-name if it does not already exist. The call expects an object containing the index details.
+// fields (string): An array with exactly one attribute path.
+// type: Must be equal to "ttl".
+// expireAfter: The time (in seconds) after a document's creation after which the documents count as "expired".
+// https://macrometa.com/docs/api#/operations/createIndex:ttl
+func (c Client) CreateTTLIndex(fabric, collectionName, field string, expireAfter int) (response *r.ResponseForCreateTTLIndex, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "CreateGeoIndex")
+	}
+
+	req := r.NewRequestForCreateTTLIndex(fabric, collectionName, field, expireAfter)
+	response = r.NewResponseForCreateTTLIndex()
 	if err = c.request(req, response); err != nil {
 		return nil, err
 	}

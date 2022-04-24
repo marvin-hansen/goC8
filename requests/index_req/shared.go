@@ -21,6 +21,7 @@ type IndexEntry struct {
 	Code                int      `json:"code,omitempty"`
 	Deduplicate         bool     `json:"deduplicate,omitempty"`
 	Error               bool     `json:"error,omitempty"`
+	ExpireAfter         int      `json:"expireAfter,omitempty"`
 	Fields              []string `json:"fields,omitempty"`
 	GeoJson             bool     `json:"geoJson,omitempty"`
 	Id                  string   `json:"id,omitempty"`
@@ -35,10 +36,11 @@ type IndexEntry struct {
 }
 
 func (r IndexEntry) String() string {
-	return fmt.Sprintf(" Code: %v\n Deduplicate: %v\n Error: %v\n Fields: %v\n  GeoJson: %v\n ID: %v\n Name: %v\n MinLength: %v\n SelectivityEstimate: %v\n Sparse: %v\n  Type: %v\n  Unique: %v\n MaxNumCoverCells: %v\n WorstIndexedLevel: %v\n",
+	return fmt.Sprintf(" Code: %v\n Deduplicate: %v\n Error: %v\n ExpireAfter: %v\n Fields: %v\n  GeoJson: %v\n ID: %v\n Name: %v\n MinLength: %v\n SelectivityEstimate: %v\n Sparse: %v\n  Type: %v\n  Unique: %v\n MaxNumCoverCells: %v\n WorstIndexedLevel: %v\n",
 		r.Code,
 		r.Deduplicate,
 		r.Error,
+		r.ExpireAfter,
 		r.Fields,
 		r.GeoJson,
 		r.Id,
