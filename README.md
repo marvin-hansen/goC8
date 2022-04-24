@@ -7,10 +7,13 @@ Welcome to the GitHub page for goC8, a Golang driver for the macrometa global da
 [Macrometa](https://www.macrometa.com/) is a secure, global data platform with integrated pub/sub, stream processing,
 search, functions, and 4 databases all through one single API. 
 
-goC8 is an open source client that implements the macrometa API. Currently, goC8 only supports the following datastores:
-* Collections
-* Documents
-* Graph
+goC8 is an open source client that implements the macrometa API. 
+Currently, goC8 supports the following data api:
+
+* Collections [Example](examples/api/collections)
+* Documents [Example](examples/api/documentstore)
+* Graph [Example](examples/api/graph)
+* Index [Example](examples/api/index)
 
 ## Install
 
@@ -39,10 +42,9 @@ Geo Fabric. Timeout refers to the http connection timeout in seconds.
 
 If you do not have these value at hand, please read the [setup guide](setup.md) for details.
 
-### Examples
+### Code examples
 
-* [Collections](examples/api/collections)
-* [Documents](examples/api/documentstore)
+* [Api usage](examples/api) 
 * [Flight example](examples/flight)
 * [Tests](tests)
 

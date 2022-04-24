@@ -10,7 +10,7 @@
 | Collections   | Yes         | Yes    |
 | Query         | Yes         | Yes    |
 | Query Workers | No          | No     |
-| Indexes       | No          | No     |
+| Indexes       | Yes         | Yes    |
 | Graphs        | Yes         | No     |
 | Streams       | No          | No     |
 | Stream IO     | No          | No     |
