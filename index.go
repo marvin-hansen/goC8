@@ -74,7 +74,7 @@ func (c Client) CreateGeoIndex(fabric, collectionName, field string, geoJson boo
 
 func (c Client) CreateHashIndex(fabric, collectionName, field string, deduplicate, sparse, unique bool) (response *r.ResponseForCreateHashIndex, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "CreateGeoIndex")
+		defer TimeTrack(time.Now(), "CreateHashIndex")
 	}
 
 	req := r.NewRequestForCreateHashIndex(fabric, collectionName, field, deduplicate, sparse, unique)

@@ -23,13 +23,13 @@ type RequestForCreateHashIndex struct {
 
 func getHashPayLoad(field string, deduplicate, sparse, unique bool) []byte {
 	str := fmt.Sprintf(`{
-	  "deduplicate": %v,
-	  "fields": [
-		"%v"
-	  ],
-	  "sparse": %v,
-	  "type": "hash",
-	  "unique": %v
+  "deduplicate": %v,
+  "fields": [
+    "%v"
+  ],
+  "sparse": %v,
+  "type": "hash",
+  "unique": %v
 }
 `,
 		deduplicate, field, sparse, unique)
