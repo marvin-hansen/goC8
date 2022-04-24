@@ -8,7 +8,7 @@ go_library(
         "create_hash_index.go",
         "create_persistent_index.go",
         "create_skip_list_index.go",
-        "create_ttlindex.go",
+        "create_ttl_index.go",
         "delete_index.go",
         "get_all_indices.go",
         "get_index.go",

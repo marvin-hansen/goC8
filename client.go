@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-const version = "v.0.0.3"
+const version = "v.0.0.5"
 
 type Client struct {
 	config      *ClientConfig
