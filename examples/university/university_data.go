@@ -28,95 +28,75 @@ func GetTeacherData() []byte {
             "lastname": "Wayne",
             "email": "bruce.wayne@macrometa.io"
         }
-    ]
+]
 `)
 }
 
 func GetLecturesData() []byte {
 	// Document collection named lectures.
-	return []byte(` 
-[
-        {"_id": "lectures/CSC101", "difficulty": "easy", "_key": "CSC101", "firstname": "Jean"},
-        {"_id": "lectures/CSC102", "difficulty": "hard", "_key": "CSC102", "firstname": "Jean"},
-        {"_id": "lectures/CSC103", "difficulty": "hard", "_key": "CSC103", "firstname": "Jean"},
-        {"_id": "lectures/CSC104", "difficulty": "moderate", "_key": "CSC104", "firstname": "Jean"},
-        {"_id": "lectures/CSC104", "difficulty": "moderate", "_key": "CSC105", "firstname": "Han"},
-    ]
-`)
+	return []byte(`[
+        {"_id": "lectures/CSC101", "difficulty": "easy", "_key":"CSC101", "firstname":"Jean"},
+        {"_id": "lectures/CSC102", "difficulty": "hard", "_key":"CSC102","firstname":"Jean"},
+        {"_id": "lectures/CSC103", "difficulty": "hard", "_key":"CSC103","firstname":"Jean"},
+        {"_id": "lectures/CSC104", "difficulty": "moderate", "_key":"CSC104","firstname":"Jean"},
+        {"_id": "lectures/CSC105", "difficulty": "hard", "_key":"CSC105","firstname":"Jean"}
+    ]`)
 }
 
 func GetTeachEdgeData() []byte {
 	// Document collection named teach.
-	return []byte(` 
+	str := `
 [
-		{
+        {
             "_key": "Jean-CSC101",
             "_from": "teachers/Jean",
             "_to": "lectures/CSC101",
-            "online": False
+            "online": false
         },
         {
             "_key": "Jean-CSC102",
             "_from": "teachers/Jean",
             "_to": "lectures/CSC102",
-            "online": True
+            "online": true
         },
         {
             "_key": "Jean-CSC103",
             "_from": "teachers/Jean",
             "_to": "lectures/CSC103",
-            "online": False
+            "online": false
         },
         {
             "_key": "Jean-CSC104",
             "_from": "teachers/Jean",
             "_to": "lectures/CSC104",
-            "online": False
+            "online": false
         },
         {
             "_key": "Han-CSC105",
             "_from": "teachers/Han",
             "_to": "lectures/CSC105",
-            "online": False
-        },
-	    {
-            "_key": "James-CSC105",
-            "_from": "teachers/James",
-            "_to": "lectures/CSC105",
-            "online": False
+            "online": false
         },
         {
             "_key": "Bruce-CSC101",
             "_from": "teachers/Bruce",
             "_to": "lectures/CSC101",
-            "online": True
+            "online": true
         },
-        {
-            "_key": "James-CSC1020",
+ 		{
+            "_key": "James-CSC105",
             "_from": "teachers/James",
-            "_to": "lectures/CSC1020",
-            "online": False
-        },
-        {
-            "_key": "Han-CSC1020",
-            "_from": "teachers/Han",
-            "_to": "lectures/CSC1020",
-            "online": False
-        },
-        {
-            "_key": "Bruce-CSC1020",
-            "_from": "teachers/Bruce",
-            "_to": "lectures/CSC1020",
-            "online": False
+            "_to": "lectures/CSC105",
+            "online": false
         }
-]	
-`)
+]`
+
+	return []byte(str)
 }
 
-func GetGraphDefinition() []byte {
+func GetUniversityGraphDefinition() []byte {
 	// Graph named lectureteacher.
-	return []byte(`
-{
+	return []byte(`{
   "edgeDefinitions": [
     {
       "collection": "teach",
@@ -130,8 +110,7 @@ func GetGraphDefinition() []byte {
   ],
   "name": "lectureteacher",
   "options": {}
-}
-`)
+}`)
 }
 
 func GetTutorialsData() []byte {
@@ -152,31 +131,31 @@ func GetTutorsData() []byte {
             "_key": "Han-TCS101",
             "_from": "teachers/Han",
             "_to": "tutorials/TCS101",
-            "mandatory": False
+            "mandatory": false
         },
         {
             "_key": "Han-TCS102",
             "_from": "teachers/Han",
             "_to": "tutorials/TCS102",
-            "mandatory": True
+            "mandatory": true
         },
         {
             "_key": "Han-TCS103",
             "_from": "teachers/Han",
             "_to": "tutorials/TCS103",
-            "online": False
+            "online": false
         },
         {
             "_key": "Han-TCS104",
             "_from": "teachers/Han",
             "_to": "tutorials/TCS104",
-            "mandatory": False
+            "mandatory": false
         },
         {
             "_key": "Han-TCS105",
             "_from": "teachers/Han",
             "_to": "tutorials/TCS105",
-            "mandatory": False
+            "mandatory": false
         }
 `)
 }

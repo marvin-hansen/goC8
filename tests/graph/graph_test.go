@@ -24,7 +24,7 @@ func TestGetAllGraphs(t *testing.T) {
 
 func TestCreateGraph(t *testing.T) {
 	c := goC8.NewClient(nil)
-	graphDef := main.GetGraphDefinition()
+	graphDef := main.GetUniversityGraphDefinition()
 	res, err := c.CreateGraph(fabric, graphDef)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)

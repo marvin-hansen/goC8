@@ -7,9 +7,9 @@ import (
 )
 
 const (
-	apiKey   = "email.root.secretkey"
+	apiKey   = "email.root.your-secret-key"
 	endpoint = "https://YOUR-ID-us-west.paas.macrometa.io"
-	fabric   = "uswest"
+	fabric   = "yourFabric"
 	timeout  = 5 // http connection timeout in seconds
 	collName = "TestCollection"
 	verbose  = true
