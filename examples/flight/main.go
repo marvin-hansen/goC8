@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/utils"
 )
 
 const (
@@ -63,5 +62,5 @@ func runQuery(c *goC8.Client, q, msg string) {
 	println(msg)
 	res, err := c.Query(fabric, q, nil, nil)
 	checkError(err, "Error Query: "+q)
-	utils.PrintQuery(res, verbose)
+	goC8.PrintQuery(res, verbose)
 }

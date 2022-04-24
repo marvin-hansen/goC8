@@ -3,7 +3,6 @@ package graph
 import (
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/examples/university"
-	"github.com/marvin-hansen/goC8/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -20,7 +19,7 @@ func TestGetAllGraphs(t *testing.T) {
 	res, err := c.GetAllGraphs(fabric)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 }
 
 func TestCreateGraph(t *testing.T) {
@@ -29,7 +28,7 @@ func TestCreateGraph(t *testing.T) {
 	res, err := c.CreateGraph(fabric, graphDef)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 }
 
 func TestGetGraph(t *testing.T) {
@@ -38,7 +37,7 @@ func TestGetGraph(t *testing.T) {
 	res, err := c.GetGraph(fabric, graphName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 }
 
 func TestCheckGraphExists(t *testing.T) {
@@ -66,7 +65,7 @@ func TestGetAllEdges(t *testing.T) {
 	res, err := c.GetAllEdges(fabric, graphName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 }
 
 func TestGetEdge(t *testing.T) {
@@ -77,7 +76,7 @@ func TestGetEdge(t *testing.T) {
 	res, err := c.GetEdge(fabric, graphName, collectionID, edgeID)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 }
 
 func TestGetAllVertices(t *testing.T) {
@@ -86,7 +85,7 @@ func TestGetAllVertices(t *testing.T) {
 	res, err := c.GetAllVertices(fabric, graphName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 }
 
 func TestGetVertex(t *testing.T) {
@@ -97,7 +96,7 @@ func TestGetVertex(t *testing.T) {
 	res, err := c.GetVertex(fabric, graphName, collectionID, edgeID)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 }
 
 func TestDeleteGraph(t *testing.T) {
@@ -107,5 +106,5 @@ func TestDeleteGraph(t *testing.T) {
 	res, err := c.DeleteGraph(fabric, graphName, dropCollections)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 }

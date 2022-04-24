@@ -41,7 +41,7 @@ func (req *RequestForCreateHashIndex) Path() string {
 }
 
 func (req *RequestForCreateHashIndex) Method() string {
-	return http.MethodGet
+	return http.MethodPost
 }
 
 func (req *RequestForCreateHashIndex) Query() string {
