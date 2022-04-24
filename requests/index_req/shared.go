@@ -2,11 +2,27 @@ package index_req
 
 import "fmt"
 
+func getIndexPayLoad(indexType, field string, deduplicate, sparse, unique bool) []byte {
+	str := fmt.Sprintf(`{
+  "deduplicate": %v,
+  "fields": [
+    "%v"
+  ],
+  "sparse": %v,
+  "type": "%v",
+  "unique": %v
+}
+`,
+		deduplicate, field, sparse, indexType, unique)
+	return []byte(str)
+}
+
 type IndexEntry struct {
+	Code                int      `json:"code,omitempty"`
 	Deduplicate         bool     `json:"deduplicate,omitempty"`
 	Error               bool     `json:"error,omitempty"`
-	Code                int      `json:"code,omitempty"`
 	Fields              []string `json:"fields,omitempty"`
+	GeoJson             bool     `json:"geoJson,omitempty"`
 	Id                  string   `json:"id,omitempty"`
 	Name                string   `json:"name,omitempty"`
 	MinLength           int      `json:"minLength,omitempty"`
@@ -14,6 +30,8 @@ type IndexEntry struct {
 	Sparse              bool     `json:"sparse,omitempty"`
 	Type                string   `json:"type,omitempty"`
 	Unique              bool     `json:"unique,omitempty"`
+	MaxNumCoverCells    int      `json:"maxNumCoverCells,omitempty"`
+	WorstIndexedLevel   int      `json:"worstIndexedLevel,omitempty"`
 }
 
 func (r IndexEntry) String() string {

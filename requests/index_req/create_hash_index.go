@@ -8,10 +8,11 @@ import (
 //**// Request //**//
 
 func NewRequestForCreateHashIndex(fabric, collectionName, field string, deduplicate, sparse, unique bool) *RequestForCreateHashIndex {
+	indexType := "hash"
 	return &RequestForCreateHashIndex{
-		path:       fmt.Sprintf("_fabric/%v/_api/index/hash", fabric),
+		path:       fmt.Sprintf("_fabric/%v/_api/index/%v", fabric, indexType),
 		parameters: fmt.Sprintf("?collection=%v", collectionName),
-		payload:    getHashPayLoad(field, deduplicate, sparse, unique),
+		payload:    getIndexPayLoad(indexType, field, deduplicate, sparse, unique),
 	}
 }
 
@@ -19,21 +20,6 @@ type RequestForCreateHashIndex struct {
 	path       string
 	parameters string
 	payload    []byte
-}
-
-func getHashPayLoad(field string, deduplicate, sparse, unique bool) []byte {
-	str := fmt.Sprintf(`{
-  "deduplicate": %v,
-  "fields": [
-    "%v"
-  ],
-  "sparse": %v,
-  "type": "hash",
-  "unique": %v
-}
-`,
-		deduplicate, field, sparse, unique)
-	return []byte(str)
 }
 
 func (req *RequestForCreateHashIndex) Path() string {

@@ -8,8 +8,9 @@ import (
 //**// Request //**//
 
 func NewRequestForCreateFulltextIndex(fabric, collectionName, field string, minLength int) *RequestForCreateFulltextIndex {
+	indexType := "fulltext"
 	return &RequestForCreateFulltextIndex{
-		path:       fmt.Sprintf("_fabric/%v/_api/index/fulltext", fabric),
+		path:       fmt.Sprintf("_fabric/%v/_api/index/%v", fabric, indexType),
 		parameters: fmt.Sprintf("?collection=%v", collectionName),
 		payload:    getFulltextPayLoad(field, minLength),
 	}
@@ -71,17 +72,7 @@ func NewResponseForCreateFulltextIndex() *ResponseForCreateFulltextIndex {
 	return new(ResponseForCreateFulltextIndex)
 }
 
-type ResponseForCreateFulltextIndex struct {
-	Code                int      `json:"code,omitempty"`
-	Error               bool     `json:"error,omitempty"`
-	Fields              []string `json:"fields,omitempty"`
-	Id                  string   `json:"id,omitempty"`
-	Name                string   `json:"name,omitempty"`
-	SelectivityEstimate int      `json:"selectivityEstimate,omitempty"`
-	Sparse              bool     `json:"sparse,omitempty"`
-	Type                string   `json:"type,omitempty"`
-	Unique              bool     `json:"unique,omitempty"`
-}
+type ResponseForCreateFulltextIndex IndexEntry
 
 func (r *ResponseForCreateFulltextIndex) IsResponse() {}
 

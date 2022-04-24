@@ -81,6 +81,19 @@ func TestCreateHashIndex(t *testing.T) {
 	goC8.PrintRes(res, verbose)
 }
 
+func TestCreatePersistentIndex(t *testing.T) {
+	c := goC8.NewClient(nil)
+	field := "Text"
+	deduplicate := true
+	sparse := true
+	unique := true
+
+	res, err := c.CreatePersistentIndex(fabric, textCollection, field, deduplicate, sparse, unique)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
 func TestDeleteIndex(t *testing.T) {
 	c := goC8.NewClient(nil)
 	indexName := ""

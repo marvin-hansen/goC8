@@ -8,8 +8,9 @@ import (
 //**// Request //**//
 
 func NewRequestForCreateGeoIndex(fabric, collectionName, field string, geoJson bool) *RequestForCreateGeoIndex {
+	indexType := "geo"
 	return &RequestForCreateGeoIndex{
-		path:       fmt.Sprintf("_fabric/%v/_api/index/geo", fabric),
+		path:       fmt.Sprintf("_fabric/%v/_api/index/%v", fabric, indexType),
 		parameters: fmt.Sprintf("?collection=%v", collectionName),
 		payload:    getGeoIndexPayload(field, geoJson),
 	}
@@ -75,20 +76,7 @@ func NewResponseForCreateGeoIndex() *ResponseForCreateGeoIndex {
 	return new(ResponseForCreateGeoIndex)
 }
 
-type ResponseForCreateGeoIndex struct {
-	Code                int      `json:"code"`
-	Error               bool     `json:"error"`
-	GeoJson             bool     `json:"geoJson"`
-	Fields              []string `json:"fields"`
-	MaxNumCoverCells    int      `json:"maxNumCoverCells"`
-	WorstIndexedLevel   int      `json:"worstIndexedLevel"`
-	Id                  string   `json:"id"`
-	Name                string   `json:"name"`
-	SelectivityEstimate int      `json:"selectivityEstimate"`
-	Sparse              bool     `json:"sparse"`
-	Type                string   `json:"type"`
-	Unique              bool     `json:"unique"`
-}
+type ResponseForCreateGeoIndex IndexEntry
 
 func (r *ResponseForCreateGeoIndex) IsResponse() {}
 

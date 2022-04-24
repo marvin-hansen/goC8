@@ -7,15 +7,19 @@ import (
 
 //**// Request //**//
 
-func NewRequestForCreatePersistentIndex(fabric string) *RequestForCreatePersistentIndex {
-	// @FIXME: Add correct API path
+func NewRequestForCreatePersistentIndex(fabric, collectionName, field string, deduplicate, sparse, unique bool) *RequestForCreatePersistentIndex {
+	indexType := "persistent"
 	return &RequestForCreatePersistentIndex{
-		path: fmt.Sprintf("_fabric/%v/_api/NAME", fabric),
+		path:       fmt.Sprintf("_fabric/%v/_api/index/%v", fabric, indexType),
+		parameters: fmt.Sprintf("?collection=%v", collectionName),
+		payload:    getIndexPayLoad(indexType, field, deduplicate, sparse, unique),
 	}
 }
 
 type RequestForCreatePersistentIndex struct {
-	path string
+	path       string
+	parameters string
+	payload    []byte
 }
 
 func (req *RequestForCreatePersistentIndex) Path() string {
@@ -31,15 +35,15 @@ func (req *RequestForCreatePersistentIndex) Query() string {
 }
 
 func (req *RequestForCreatePersistentIndex) HasQueryParameter() bool {
-	return false
+	return true
 }
 
 func (req *RequestForCreatePersistentIndex) GetQueryParameter() string {
-	return ""
+	return req.parameters
 }
 
 func (req *RequestForCreatePersistentIndex) Payload() []byte {
-	return nil
+	return req.payload
 }
 
 func (req *RequestForCreatePersistentIndex) ResponseCode() int {
@@ -52,14 +56,23 @@ func NewResponseForCreatePersistentIndex() *ResponseForCreatePersistentIndex {
 	return new(ResponseForCreatePersistentIndex)
 }
 
-type ResponseForCreatePersistentIndex struct {
-	// @FIXME
-	Field string
-}
+type ResponseForCreatePersistentIndex IndexEntry
 
 func (r *ResponseForCreatePersistentIndex) IsResponse() {}
 
 func (r ResponseForCreatePersistentIndex) String() string {
-	// @FIXME
-	return fmt.Sprintf("Bootfile: %v", r.Field)
+	return fmt.Sprintf(" Code: %v\n Error: %v\n GeoJson: %v\n Fields: %v\n MaxNumCoverCells: %v\n WorstIndexedLevel: %v\n Id: %v\n Name: %v\n SelectivityEstimate: %v\n Sparse: %v\n Type: %v\n, Unique: %v\n",
+		r.Code,
+		r.Error,
+		r.GeoJson,
+		r.Fields,
+		r.MaxNumCoverCells,
+		r.WorstIndexedLevel,
+		r.Id,
+		r.Name,
+		r.SelectivityEstimate,
+		r.Sparse,
+		r.Type,
+		r.Unique,
+	)
 }
