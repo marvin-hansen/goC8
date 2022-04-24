@@ -7,15 +7,33 @@ import (
 
 //**// Request //**//
 
-func NewRequestForCreateHashIndex(fabric string) *RequestForCreateHashIndex {
-  // @FIXME: Add correct API path
+func NewRequestForCreateHashIndex(fabric, collectionName, field string, deduplicate, sparse, unique bool) *RequestForCreateHashIndex {
 	return &RequestForCreateHashIndex{
-			path: fmt.Sprintf("_fabric/%v/_api/NAME", fabric),
+		path:       fmt.Sprintf("_fabric/%v/_api/index/hash", fabric),
+		parameters: fmt.Sprintf("?collection=%v", collectionName),
+		payload:    getHashPayLoad(field, deduplicate, sparse, unique),
 	}
 }
 
 type RequestForCreateHashIndex struct {
-	path string
+	path       string
+	parameters string
+	payload    []byte
+}
+
+func getHashPayLoad(field string, deduplicate, sparse, unique bool) []byte {
+	str := fmt.Sprintf(`{
+	  "deduplicate": %v,
+	  "fields": [
+		"%v"
+	  ],
+	  "sparse": %v,
+	  "type": "hash",
+	  "unique": %v
+}
+`,
+		deduplicate, field, sparse, unique)
+	return []byte(str)
 }
 
 func (req *RequestForCreateHashIndex) Path() string {
@@ -31,15 +49,15 @@ func (req *RequestForCreateHashIndex) Query() string {
 }
 
 func (req *RequestForCreateHashIndex) HasQueryParameter() bool {
-	return false
+	return true
 }
 
 func (req *RequestForCreateHashIndex) GetQueryParameter() string {
-	return ""
+	return req.parameters
 }
 
 func (req *RequestForCreateHashIndex) Payload() []byte {
-	return nil
+	return req.payload
 }
 
 func (req *RequestForCreateHashIndex) ResponseCode() int {
@@ -52,16 +70,22 @@ func NewResponseForCreateHashIndex() *ResponseForCreateHashIndex {
 	return new(ResponseForCreateHashIndex)
 }
 
-type ResponseForCreateHashIndex struct {
-  // @FIXME
-	Field string 
-}
+type ResponseForCreateHashIndex IndexEntry
 
 func (r *ResponseForCreateHashIndex) IsResponse() {}
 
 func (r ResponseForCreateHashIndex) String() string {
-  // @FIXME
-	return fmt.Sprintf("Bootfile: %v", r.Field)
+	return fmt.Sprintf(" Deduplicate: %v\n Error: %v\n Code: %v\n Fields: %v\n ID: %v\n Name: %v\n MinLength: %v\n SelectivityEstimate: %v\n Sparse: %v\n  Type: %v\n  Unique: %v\n",
+		r.Deduplicate,
+		r.Error,
+		r.Code,
+		r.Fields,
+		r.Id,
+		r.Name,
+		r.MinLength,
+		r.SelectivityEstimate,
+		r.Sparse,
+		r.Type,
+		r.Unique,
+	)
 }
-
-

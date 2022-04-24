@@ -72,6 +72,19 @@ func (c Client) CreateGeoIndex(fabric, collectionName, field string, geoJson boo
 	return response, nil
 }
 
+func (c Client) CreateHashIndex(fabric, collectionName, field string, deduplicate, sparse, unique bool) (response *r.ResponseForCreateHashIndex, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "CreateGeoIndex")
+	}
+
+	req := r.NewRequestForCreateHashIndex(fabric, collectionName, field, deduplicate, sparse, unique)
+	response = r.NewResponseForCreateHashIndex()
+	if err = c.request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
 // DeleteIndex
 // Remove an index.
 // https://macrometa.com/docs/api#/operations/dropIndex

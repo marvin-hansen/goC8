@@ -3,6 +3,7 @@ package index_req
 import "fmt"
 
 type IndexEntry struct {
+	Deduplicate         bool     `json:"deduplicate,omitempty"`
 	Error               bool     `json:"error,omitempty"`
 	Code                int      `json:"code,omitempty"`
 	Fields              []string `json:"fields,omitempty"`
@@ -16,7 +17,8 @@ type IndexEntry struct {
 }
 
 func (r IndexEntry) String() string {
-	return fmt.Sprintf(" Error: %v\n Code: %v\n Fields: %v\n ID: %v\n Name: %v\n MinLength: %v\n SelectivityEstimate: %v\n Sparse: %v\n  Type: %v\n  Unique: %v\n",
+	return fmt.Sprintf(" Deduplicate: %v\n Error: %v\n Code: %v\n Fields: %v\n ID: %v\n Name: %v\n MinLength: %v\n SelectivityEstimate: %v\n Sparse: %v\n  Type: %v\n  Unique: %v\n",
+		r.Deduplicate,
 		r.Error,
 		r.Code,
 		r.Fields,
