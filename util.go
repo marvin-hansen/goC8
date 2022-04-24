@@ -1,6 +1,7 @@
 package goC8
 
 import (
+	"github.com/marvin-hansen/goC8/requests/query_req"
 	"log"
 	"time"
 )
@@ -20,4 +21,22 @@ func TimeTrack(start time.Time, name string) {
 	elapsed := time.Since(start)
 	log.Printf("%s took %s", name, elapsed)
 	println()
+}
+
+func PrintQuery(res *query_req.Cursor, verbose bool) {
+	if verbose {
+		println(res.Result.String())
+	}
+}
+
+func PrintRes(res Responder, verbose bool) {
+	if verbose {
+		println(res.String())
+	}
+}
+
+func PrintJsonRes(res JsonResponder, verbose bool) {
+	if verbose {
+		println(res.String())
+	}
 }
