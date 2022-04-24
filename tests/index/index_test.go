@@ -83,12 +83,25 @@ func TestCreateHashIndex(t *testing.T) {
 
 func TestCreatePersistentIndex(t *testing.T) {
 	c := goC8.NewClient(nil)
-	field := "Text"
+	field := "Keywords"
 	deduplicate := true
 	sparse := true
 	unique := true
 
 	res, err := c.CreatePersistentIndex(fabric, textCollection, field, deduplicate, sparse, unique)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
+func TestCreateSkipListIndex(t *testing.T) {
+	c := goC8.NewClient(nil)
+	field := "SkipText"
+	deduplicate := true
+	sparse := false
+	unique := true
+
+	res, err := c.CreateSkipListIndex(fabric, textCollection, field, deduplicate, sparse, unique)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	goC8.PrintRes(res, verbose)

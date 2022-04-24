@@ -35,11 +35,12 @@ type IndexEntry struct {
 }
 
 func (r IndexEntry) String() string {
-	return fmt.Sprintf(" Deduplicate: %v\n Error: %v\n Code: %v\n Fields: %v\n ID: %v\n Name: %v\n MinLength: %v\n SelectivityEstimate: %v\n Sparse: %v\n  Type: %v\n  Unique: %v\n",
+	return fmt.Sprintf(" Code: %v\n Deduplicate: %v\n Error: %v\n Fields: %v\n  GeoJson: %v\n ID: %v\n Name: %v\n MinLength: %v\n SelectivityEstimate: %v\n Sparse: %v\n  Type: %v\n  Unique: %v\n MaxNumCoverCells: %v\n WorstIndexedLevel: %v\n",
+		r.Code,
 		r.Deduplicate,
 		r.Error,
-		r.Code,
 		r.Fields,
+		r.GeoJson,
 		r.Id,
 		r.Name,
 		r.MinLength,
@@ -47,6 +48,8 @@ func (r IndexEntry) String() string {
 		r.Sparse,
 		r.Type,
 		r.Unique,
+		r.MaxNumCoverCells,
+		r.WorstIndexedLevel,
 	)
 }
 
