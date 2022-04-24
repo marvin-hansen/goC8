@@ -22,7 +22,7 @@ func (req *RequestForDeleteIndex) Path() string {
 }
 
 func (req *RequestForDeleteIndex) Method() string {
-	return http.MethodDelete
+	return http.MethodGet
 }
 
 func (req *RequestForDeleteIndex) Query() string {
@@ -34,7 +34,7 @@ func (req *RequestForDeleteIndex) HasQueryParameter() bool {
 }
 
 func (req *RequestForDeleteIndex) GetQueryParameter() string {
-	return "" //"?excludeSystem=true"
+	return ""
 }
 
 func (req *RequestForDeleteIndex) Payload() []byte {
