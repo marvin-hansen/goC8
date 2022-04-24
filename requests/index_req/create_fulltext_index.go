@@ -11,22 +11,22 @@ func NewRequestForCreateFulltextIndex(fabric, collectionName, field string, minL
 	return &RequestForCreateFulltextIndex{
 		path:       fmt.Sprintf("_fabric/%v/_api/index/fulltext", fabric),
 		parameters: fmt.Sprintf("?collection=%v", collectionName),
-		payload:    getPayLoad(field, minLength),
+		payload:    getFulltextPayLoad(field, minLength),
 	}
 }
 
-// getPayLoad constructs a JSON object with these properties:
+// getFulltextPayLoad constructs a JSON object with these properties:
 // * fields: An array of attribute names. Currently, the array is limited to exactly one attribute.
 // * type: Must be equal to "fulltext".
 // * minLength: Minimum character length of words to index.Default take server-defined value if unspecified. Thus it is recommended to set this value explicitly when creating the index.
-func getPayLoad(field string, minLength int) []byte {
+func getFulltextPayLoad(field string, minLength int) []byte {
 	str := fmt.Sprintf(`{
-			  "fields": [
-				"%v"
-			  ],
-			  "minLength": %v,
-			  "type": "fulltext"
-			}`,
+	  "fields": [
+		"%v"
+	  ],
+	  "minLength": %v,
+	  "type": "fulltext"
+}`,
 		field, minLength)
 	return []byte(str)
 }
@@ -58,7 +58,7 @@ func (req *RequestForCreateFulltextIndex) GetQueryParameter() string {
 }
 
 func (req *RequestForCreateFulltextIndex) Payload() []byte {
-	return nil
+	return req.payload
 }
 
 func (req *RequestForCreateFulltextIndex) ResponseCode() int {

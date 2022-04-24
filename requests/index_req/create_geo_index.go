@@ -30,8 +30,7 @@ func getGeoIndexPayload(field string, geoJson bool) []byte {
   "geoJson": %v,
   "type": "geo"
 }
-`,
-		field, geoJson)
+`, field, geoJson)
 	return []byte(str)
 }
 

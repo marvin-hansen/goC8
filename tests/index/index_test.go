@@ -10,9 +10,11 @@ import (
 
 const (
 	verbose          = true
-	fabric           = "_system"
+	fabric           = "SouthEastAsia"
 	graph            = "airline"
 	citiesCollection = "cities"
+	textCollection   = "textCollection"
+	collType         = collection_req.DocumentCollectionType
 )
 
 func TestSetup(t *testing.T) {
@@ -23,18 +25,18 @@ func TestSetup(t *testing.T) {
 	assert.NoError(t, err)
 	if !exists {
 		// if not create collection
-		collType := collection_req.DocumentCollectionType
 		err = c.CreateNewCollection(fabric, citiesCollection, false, collType)
 		assert.NoError(t, err)
-
-		// We have to create a geo index before importing geoJson
-		field := "location"
-		geoJson := true
-		res, err := c.CreateGeoIndex(fabric, citiesCollection, field, geoJson)
-		assert.NoError(t, err)
-		assert.NotNil(t, res)
 	}
 
+	// test if text collection exists
+	exists, err = c.CheckCollectionExists(fabric, textCollection)
+	assert.NoError(t, err)
+	if !exists {
+		// if not create collection
+		err = c.CreateNewCollection(fabric, textCollection, false, collType)
+		assert.NoError(t, err)
+	}
 }
 
 func TestGetIndexes(t *testing.T) {
@@ -46,18 +48,21 @@ func TestGetIndexes(t *testing.T) {
 }
 
 func TestCreateFulltextIndex(t *testing.T) {
-	// Needs to be tested on a collection with text fields
-	//c := goC8.NewClient(nil)
-	//res, err := c.CreateFulltextIndex(fabric)
-	//assert.NoError(t, err)
-	//assert.NotNil(t, res)
-	//PrintRes(res, verbose)
+	c := goC8.NewClient(nil)
+	field := "Summary"
+	minLength := 3
+
+	res, err := c.CreateFulltextIndex(fabric, textCollection, field, minLength)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	utils.PrintRes(res, verbose)
 }
 
 func TestCreateGeoIndex(t *testing.T) {
 	c := goC8.NewClient(nil)
 	field := "location"
 	geoJson := true
+
 	res, err := c.CreateGeoIndex(fabric, citiesCollection, field, geoJson)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
