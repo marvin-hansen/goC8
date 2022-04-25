@@ -2,13 +2,12 @@ package goC8
 
 import (
 	r "github.com/marvin-hansen/goC8/requests/graph_req"
-	"github.com/marvin-hansen/goC8/requests/graph_req/edge_req"
-	"github.com/marvin-hansen/goC8/requests/graph_req/vertex_req"
 	"strings"
 )
 
 // GetAllGraphs
 // Lists all graphs stored in this GeoFabric.
+// https://macrometa.com/docs/api#/operations/ListAllGraphs
 func (c Client) GetAllGraphs(fabric string) (response *r.ResponseForGetAllGraphs, err error) {
 	req := r.NewRequestForGetAllGraphs(fabric)
 	response = r.NewResponseForGetAllGraphs()
@@ -36,6 +35,7 @@ func (c Client) GetAllGraphs(fabric string) (response *r.ResponseForGetAllGraphs
 //  "name": "exampleGraph",
 //  "options": {}
 //}
+// https://macrometa.com/docs/api#/operations/CreateAGraph
 func (c Client) CreateGraph(fabric string, jsonGraph []byte) (response *r.ResponseForCreateGraph, err error) {
 	req := r.NewRequestForCreateGraph(fabric, jsonGraph)
 	response = r.NewResponseForCreateGraph()
@@ -47,6 +47,7 @@ func (c Client) CreateGraph(fabric string, jsonGraph []byte) (response *r.Respon
 
 // GetGraph
 // Retrieve information for a graph. Returns the edge definitions and orphan collections.
+// https://macrometa.com/docs/api#/operations/GetAGraph
 func (c Client) GetGraph(fabric, graphName string) (response *r.ResponseForGetGraph, err error) {
 	req := r.NewRequestForGetGraph(fabric, graphName)
 	response = r.NewResponseForGetGraph()
@@ -56,6 +57,8 @@ func (c Client) GetGraph(fabric, graphName string) (response *r.ResponseForGetGr
 	return response, nil
 }
 
+// CheckGraphExists
+// returns true if a graph for the given name exists
 func (c Client) CheckGraphExists(fabric, graphName string) (exists bool, err error) {
 	req := r.NewRequestForGetGraph(fabric, graphName)
 	response := r.NewResponseForGetGraph()
@@ -70,61 +73,9 @@ func (c Client) CheckGraphExists(fabric, graphName string) (exists bool, err err
 	return true, nil
 }
 
-// GetAllEdges
-// Lists all edge collections within this graph.
-func (c Client) GetAllEdges(fabric, graphName string) (response *edge_req.ResponseForGetAllEdges, err error) {
-	req := edge_req.NewRequestForGetAllEdges(fabric, graphName)
-	response = edge_req.NewResponseForGetAllEdges()
-	if err = c.request(req, response); err != nil {
-		return nil, err
-	}
-	return response, nil
-}
-
-func (c Client) AddEdgeCollection(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex string) (response *edge_req.ResponseForAddEdgeCollection, err error) {
-	req := edge_req.NewRequestForAddEdgeCollection(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex)
-	response = edge_req.NewResponseForAddEdgeCollection()
-	if err = c.request(req, response); err != nil {
-		return nil, err
-	}
-	return response, nil
-}
-
-// GetEdge
-// Gets an edge from the given collection.
-func (c Client) GetEdge(fabric, graphName, collectionName, edgeKey string) (response *edge_req.ResponseForGetEdge, err error) {
-	req := edge_req.NewRequestForGetEdge(fabric, graphName, collectionName, edgeKey)
-	response = edge_req.NewResponseForGetEdge()
-	if err = c.request(req, response); err != nil {
-		return nil, err
-	}
-	return response, nil
-}
-
-// GetAllVertices
-// Lists all vertex collections within this graph.
-func (c Client) GetAllVertices(fabric, graphName string) (response *vertex_req.ResponseForGetAllVertices, err error) {
-	req := vertex_req.NewRequestForGetAllVertices(fabric, graphName)
-	response = vertex_req.NewResponseForGetAllVertices()
-	if err = c.request(req, response); err != nil {
-		return nil, err
-	}
-	return response, nil
-}
-
-// GetVertex
-// Gets a vertex from the given collection.
-func (c Client) GetVertex(fabric, graphName, collectionName, vertexKey string) (response *vertex_req.ResponseForGetVertex, err error) {
-	req := vertex_req.NewRequestForGetVertex(fabric, graphName, collectionName, vertexKey)
-	response = vertex_req.NewResponseForGetVertex()
-	if err = c.request(req, response); err != nil {
-		return nil, err
-	}
-	return response, nil
-}
-
 // DeleteGraph
 // Remove an existing graph object by name. Optionally all collections not used by other graphs can be removed as well.
+// https://macrometa.com/docs/api#/operations/DropAGraph
 func (c Client) DeleteGraph(fabric, graphName string, dropCollections bool) (response *r.ResponseForDeleteGraph, err error) {
 	req := r.NewRequestForDeleteGraph(fabric, graphName, dropCollections)
 	response = r.NewResponseForDeleteGraph()
