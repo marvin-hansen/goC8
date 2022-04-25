@@ -159,15 +159,3 @@ func GetTutorsEdgeData() []byte {
         }
 ]`)
 }
-
-func GetUpdateGraphDefinition() []byte {
-	return []byte(`
-        "collection": tutors,
-            "from": [
-                "teachers",
-            ],
-            "to": [
-                "tutorials",
-            ]
-`)
-}

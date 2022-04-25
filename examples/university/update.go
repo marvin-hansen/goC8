@@ -9,7 +9,7 @@ import (
 func update(c *goC8.Client) {
 	addTutorials(c)
 	addTutorEdge(c)
-	updateAddEdge(c)
+	addEdge(c)
 }
 
 func addTutorials(c *goC8.Client) {
@@ -49,7 +49,7 @@ func addTutorEdge(c *goC8.Client) {
 	}
 }
 
-func updateAddEdge(c *goC8.Client) {
+func addEdge(c *goC8.Client) {
 	// check if collection exists. It should, just in case
 	exists, err := c.CheckCollectionExists(fabric, edgeCollectionTutors)
 	utils.CheckError(err, "Error CheckCollectionExists")
