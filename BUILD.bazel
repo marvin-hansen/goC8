@@ -46,6 +46,8 @@ go_library(
         "document.go",
         "document_many.go",
         "graph.go",
+        "graph_edge.go",
+        "graph_vertex.go",
         "index.go",
         "interface.go",
         "key.go",

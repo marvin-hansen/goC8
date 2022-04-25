@@ -2,7 +2,11 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 
 go_test(
     name = "graph_test",
-    srcs = ["graph_test.go"],
+    srcs = [
+        "graph_edge_test.go",
+        "graph_test.go",
+        "graph_vertex_test.go",
+    ],
     embed = [":graph"],
     deps = [
         "@com_github_marvin_hansen_goc8//:goC8",
