@@ -25,3 +25,7 @@ func TestGetEdge(t *testing.T) {
 	assert.NotNil(t, res)
 	goC8.PrintRes(res, verbose)
 }
+
+func TestAddEdge(t *testing.T) {
+
+}

@@ -13,7 +13,7 @@ const (
 )
 
 const (
-	delete               = true
+	delete               = false
 	verbose              = true
 	collectionTeachers   = "teachers"
 	collectionLectures   = "lectures"
@@ -24,11 +24,11 @@ const (
 )
 
 func main() {
-	println("Create new config ")
-	config := goC8.NewConfig(apiKey, endpoint, fabric, timeout)
+	//println("Create new config ")
+	//config := goC8.NewConfig(apiKey, endpoint, fabric, timeout)
 
 	println("Create new client with config ")
-	c := goC8.NewClient(config)
+	c := goC8.NewClient(nil)
 
 	println("Run setup")
 	setup(c)
