@@ -44,11 +44,9 @@ func TestCheckGraphExists(t *testing.T) {
 
 	exists, err := c.CheckGraphExists(fabric, graphName)
 	assert.NoError(t, err)
-
 	expected := true
 	actual := exists
 	assert.Equal(t, expected, actual, "Should exists")
-
 	noneExistingGraphName := "noneExistingGraphName"
 	exists, err = c.CheckGraphExists(fabric, noneExistingGraphName)
 	assert.NoError(t, err)
@@ -56,46 +54,6 @@ func TestCheckGraphExists(t *testing.T) {
 	expected = false
 	actual = exists
 	assert.Equal(t, expected, actual, "Should exists")
-}
-
-func TestGetAllEdges(t *testing.T) {
-	c := goC8.NewClient(nil)
-
-	res, err := c.GetAllEdges(fabric, graphName)
-	assert.NoError(t, err)
-	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
-}
-
-func TestGetEdge(t *testing.T) {
-	c := goC8.NewClient(nil)
-	collectionID := "teach"
-	edgeID := "Jean-CSC101"
-
-	res, err := c.GetEdge(fabric, graphName, collectionID, edgeID)
-	assert.NoError(t, err)
-	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
-}
-
-func TestGetAllVertices(t *testing.T) {
-	c := goC8.NewClient(nil)
-
-	res, err := c.GetAllVertices(fabric, graphName)
-	assert.NoError(t, err)
-	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
-}
-
-func TestGetVertex(t *testing.T) {
-	c := goC8.NewClient(nil)
-	collectionID := "teachers"
-	edgeID := "Jean"
-
-	res, err := c.GetVertex(fabric, graphName, collectionID, edgeID)
-	assert.NoError(t, err)
-	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
 }
 
 func TestDeleteGraph(t *testing.T) {
