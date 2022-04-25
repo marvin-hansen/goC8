@@ -3,12 +3,17 @@ package goC8
 import (
 	r "github.com/marvin-hansen/goC8/requests/graph_req"
 	"strings"
+	"time"
 )
 
 // GetAllGraphs
 // Lists all graphs stored in this GeoFabric.
 // https://macrometa.com/docs/api#/operations/ListAllGraphs
 func (c Client) GetAllGraphs(fabric string) (response *r.ResponseForGetAllGraphs, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "GetAllGraphs")
+	}
+
 	req := r.NewRequestForGetAllGraphs(fabric)
 	response = r.NewResponseForGetAllGraphs()
 	if err = c.request(req, response); err != nil {
@@ -37,6 +42,10 @@ func (c Client) GetAllGraphs(fabric string) (response *r.ResponseForGetAllGraphs
 //}
 // https://macrometa.com/docs/api#/operations/CreateAGraph
 func (c Client) CreateGraph(fabric string, jsonGraph []byte) (response *r.ResponseForCreateGraph, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "CreateGraph")
+	}
+
 	req := r.NewRequestForCreateGraph(fabric, jsonGraph)
 	response = r.NewResponseForCreateGraph()
 	if err = c.request(req, response); err != nil {
@@ -49,6 +58,10 @@ func (c Client) CreateGraph(fabric string, jsonGraph []byte) (response *r.Respon
 // Retrieve information for a graph. Returns the edge definitions and orphan collections.
 // https://macrometa.com/docs/api#/operations/GetAGraph
 func (c Client) GetGraph(fabric, graphName string) (response *r.ResponseForGetGraph, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "GetGraph")
+	}
+
 	req := r.NewRequestForGetGraph(fabric, graphName)
 	response = r.NewResponseForGetGraph()
 	if err = c.request(req, response); err != nil {
@@ -60,6 +73,10 @@ func (c Client) GetGraph(fabric, graphName string) (response *r.ResponseForGetGr
 // CheckGraphExists
 // returns true if a graph for the given name exists
 func (c Client) CheckGraphExists(fabric, graphName string) (exists bool, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "CheckGraphExists")
+	}
+
 	req := r.NewRequestForGetGraph(fabric, graphName)
 	response := r.NewResponseForGetGraph()
 	if err = c.request(req, response); err != nil {
@@ -77,6 +94,10 @@ func (c Client) CheckGraphExists(fabric, graphName string) (exists bool, err err
 // Remove an existing graph object by name. Optionally all collections not used by other graphs can be removed as well.
 // https://macrometa.com/docs/api#/operations/DropAGraph
 func (c Client) DeleteGraph(fabric, graphName string, dropCollections bool) (response *r.ResponseForDeleteGraph, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "DeleteGraph")
+	}
+
 	req := r.NewRequestForDeleteGraph(fabric, graphName, dropCollections)
 	response = r.NewResponseForDeleteGraph()
 	if err = c.request(req, response); err != nil {

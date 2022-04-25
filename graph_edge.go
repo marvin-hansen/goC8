@@ -3,12 +3,17 @@ package goC8
 import (
 	"github.com/marvin-hansen/goC8/requests/graph_req/edge_req"
 	"strings"
+	"time"
 )
 
 // GetAllEdges
 // Lists all edge collections within this graph.
 // https://macrometa.com/docs/api#/operations/ListEdgedefinitions
 func (c Client) GetAllEdges(fabric, graphName string) (response *edge_req.ResponseForGetAllEdges, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "GetAllEdges")
+	}
+
 	req := edge_req.NewRequestForGetAllEdges(fabric, graphName)
 	response = edge_req.NewResponseForGetAllEdges()
 	if err = c.request(req, response); err != nil {
@@ -25,6 +30,10 @@ func (c Client) GetAllEdges(fabric, graphName string) (response *edge_req.Respon
 // *  destinationVertex (string): One or many vertex collections that can contain target vertices.
 // https://macrometa.com/docs/api#/operations/AddEdgedefinition
 func (c Client) AddEdgeCollection(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex string) (response *edge_req.ResponseForAddEdgeCollection, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "AddEdgeCollection")
+	}
+
 	req := edge_req.NewRequestForAddEdgeCollection(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex)
 	response = edge_req.NewResponseForAddEdgeCollection()
 	if err = c.request(req, response); err != nil {
@@ -37,6 +46,10 @@ func (c Client) AddEdgeCollection(fabric, graphName, edgeCollectionName, sourceV
 // Gets an edge from the given collection.
 // https://macrometa.com/docs/api#/operations/GetAnEdge
 func (c Client) GetEdge(fabric, graphName, collectionName, edgeKey string) (response *edge_req.ResponseForGetEdge, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "GetEdge")
+	}
+
 	req := edge_req.NewRequestForGetEdge(fabric, graphName, collectionName, edgeKey)
 	response = edge_req.NewResponseForGetEdge()
 	if err = c.request(req, response); err != nil {
@@ -48,6 +61,10 @@ func (c Client) GetEdge(fabric, graphName, collectionName, edgeKey string) (resp
 // CheckEdgeExists
 // returns true if the edge exists in the given collection
 func (c Client) CheckEdgeExists(fabric, graphName, collectionName, edgeKey string) (exists bool, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "CheckEdgeExists")
+	}
+
 	req := edge_req.NewRequestForGetEdge(fabric, graphName, collectionName, edgeKey)
 	response := edge_req.NewResponseForGetEdge()
 	if err = c.request(req, response); err != nil {
@@ -58,4 +75,17 @@ func (c Client) CheckEdgeExists(fabric, graphName, collectionName, edgeKey strin
 		}
 	}
 	return true, nil
+}
+
+func (c Client) CreateEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex string, returnNew bool) (response *edge_req.ResponseForCreateEdge, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "CreateEdge")
+	}
+
+	req := edge_req.NewRequestForCreateEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex, returnNew)
+	response = edge_req.NewResponseForCreateEdge()
+	if err = c.request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
 }

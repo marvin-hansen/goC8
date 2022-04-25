@@ -2,6 +2,7 @@ package graph
 
 import (
 	"github.com/marvin-hansen/goC8"
+	"github.com/marvin-hansen/goC8/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -40,5 +41,18 @@ func TestCheckEdgeExists(t *testing.T) {
 }
 
 func TestAddEdge(t *testing.T) {
+	c := goC8.NewClient(nil)
+	collectionID := "teach"
+	edgeID := "Bruce-CSC105"
 
+	// check if edge already exits
+	exists, err := c.CheckEdgeExists(fabric, graphName, collectionID, edgeID)
+	utils.CheckError(err, "Error CheckEdgeExists")
+	if !exists {
+		// if not, add a new edge to the edge collection
+		from := "teachers/Bruce"
+		to := "lectures/CSC105"
+		_, createErr := c.CreateEdge(fabric, graphName, collectionID, from, to, false)
+		utils.CheckError(createErr, "Error CreateEdge")
+	}
 }

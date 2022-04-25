@@ -2,20 +2,32 @@ package edge_req
 
 import (
 	"fmt"
+	"github.com/marvin-hansen/goC8/requests/graph_req"
 	"net/http"
 )
 
 //**// Request //**//
 
-func NewRequestForCreateEdge(fabric string) *RequestForCreateEdge {
-	// @FIXME: Add correct API path
+func NewRequestForCreateEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex string, returnNew bool) *RequestForCreateEdge {
 	return &RequestForCreateEdge{
-		path: fmt.Sprintf("_fabric/%v/_api/NAME", fabric),
+		path:       fmt.Sprintf("_fabric/%v/_api/graph/%v/edge/%v", fabric, graphName, edgeCollectionName),
+		parameters: fmt.Sprintf("?returnNew=%v", returnNew),
+		payload:    getCreateEdgePayload(sourceVertex, destinationVertex),
 	}
 }
 
+func getCreateEdgePayload(sourceVertex, destinationVertex string) []byte {
+	str := fmt.Sprintf(`{
+  "_from": "%v",
+  "_to": "%v"
+}`, sourceVertex, destinationVertex)
+	return []byte(str)
+}
+
 type RequestForCreateEdge struct {
-	path string
+	path       string
+	parameters string
+	payload    []byte
 }
 
 func (req *RequestForCreateEdge) Path() string {
@@ -23,7 +35,7 @@ func (req *RequestForCreateEdge) Path() string {
 }
 
 func (req *RequestForCreateEdge) Method() string {
-	return http.MethodGet
+	return http.MethodPost
 }
 
 func (req *RequestForCreateEdge) Query() string {
@@ -31,19 +43,19 @@ func (req *RequestForCreateEdge) Query() string {
 }
 
 func (req *RequestForCreateEdge) HasQueryParameter() bool {
-	return false
+	return true
 }
 
 func (req *RequestForCreateEdge) GetQueryParameter() string {
-	return ""
+	return req.parameters
 }
 
 func (req *RequestForCreateEdge) Payload() []byte {
-	return nil
+	return req.payload
 }
 
 func (req *RequestForCreateEdge) ResponseCode() int {
-	return 200 // ok
+	return 201 // ok
 }
 
 //**// Response //**//
@@ -53,13 +65,19 @@ func NewResponseForCreateEdge() *ResponseForCreateEdge {
 }
 
 type ResponseForCreateEdge struct {
-	// @FIXME
-	Field string
+	Code  int            `json:"code,omitempty"`
+	Error bool           `json:"error,omitempty"`
+	Edge  graph_req.Edge `json:"edge,omitempty"`
+	New   graph_req.Edge `json:"new,omitempty"`
 }
 
 func (r *ResponseForCreateEdge) IsResponse() {}
 
 func (r ResponseForCreateEdge) String() string {
-	// @FIXME
-	return fmt.Sprintf("Bootfile: %v", r.Field)
+	return fmt.Sprintf("Code: %v\n, Error: %v\n Edge: %v\n New: %v\n",
+		r.Code,
+		r.Error,
+		r.Edge,
+		r.New,
+	)
 }

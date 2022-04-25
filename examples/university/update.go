@@ -9,7 +9,8 @@ import (
 func update(c *goC8.Client) {
 	addTutorials(c)
 	addTutorEdge(c)
-	addEdge(c)
+	addEdgeCollection(c)
+	addSingleEdge(c)
 }
 
 func addTutorials(c *goC8.Client) {
@@ -49,7 +50,7 @@ func addTutorEdge(c *goC8.Client) {
 	}
 }
 
-func addEdge(c *goC8.Client) {
+func addEdgeCollection(c *goC8.Client) {
 	// check if collection exists. It should, just in case
 	exists, err := c.CheckCollectionExists(fabric, edgeCollectionTutors)
 	utils.CheckError(err, "Error CheckCollectionExists")
@@ -65,5 +66,20 @@ func addEdge(c *goC8.Client) {
 		}
 	} else {
 		println("Can't update graph. Add edge collection: " + edgeCollectionTutors)
+	}
+}
+
+func addSingleEdge(c *goC8.Client) {
+	collectionID := "teach"
+	edgeID := "Bruce-CSC105"
+	// check if edge exits
+	exists, err := c.CheckEdgeExists(fabric, graph, collectionID, edgeID)
+	utils.CheckError(err, "Error CheckEdgeExists")
+	if !exists {
+		// if not, add a new edge to the edge collection
+		from := "teachers/Bruce"
+		to := "lectures/CSC105"
+		_, createErr := c.CreateEdge(fabric, graph, collectionID, from, to, false)
+		utils.CheckError(createErr, "Error CreateEdge")
 	}
 }
