@@ -52,9 +52,9 @@ func NewResponseForGetGraph() *ResponseForGetGraph {
 }
 
 type ResponseForGetGraph struct {
-	Code   int   `json:"code"`
-	Error  bool  `json:"error"`
-	Graphs Graph `json:"graph"`
+	Code   int   `json:"code,omitempty"`
+	Error  bool  `json:"error,omitempty"`
+	Graphs Graph `json:"graph,omitempty"`
 }
 
 func (r *ResponseForGetGraph) IsResponse() {}

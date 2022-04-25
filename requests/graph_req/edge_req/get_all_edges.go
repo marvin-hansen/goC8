@@ -52,9 +52,9 @@ func NewResponseForGetAllEdges() *ResponseForGetAllEdges {
 }
 
 type ResponseForGetAllEdges struct {
-	Code        int      `json:"code"`
-	Error       bool     `json:"error"`
-	Collections []string `json:"collections"`
+	Code        int      `json:"code,omitempty"`
+	Error       bool     `json:"error,omitempty"`
+	Collections []string `json:"collections,omitempty"`
 }
 
 func (r *ResponseForGetAllEdges) IsResponse() {}

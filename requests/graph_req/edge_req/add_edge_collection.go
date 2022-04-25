@@ -68,9 +68,9 @@ func NewResponseForAddEdgeCollection() *ResponseForAddEdgeCollection {
 }
 
 type ResponseForAddEdgeCollection struct {
-	Code  int                `json:"code"`
-	Error bool               `json:"error"`
-	Graph graph_req.NewGraph `json:"graph"`
+	Code  int                `json:"code,omitempty"`
+	Error bool               `json:"error,omitempty"`
+	Graph graph_req.NewGraph `json:"graph,omitempty"`
 }
 
 func (r *ResponseForAddEdgeCollection) IsResponse() {}

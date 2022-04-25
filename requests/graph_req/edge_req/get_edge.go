@@ -53,9 +53,9 @@ func NewResponseForGetEdge() *ResponseForGetEdge {
 }
 
 type ResponseForGetEdge struct {
-	Code  int            `json:"code"`
-	Error bool           `json:"error"`
-	Edge  graph_req.Edge `json:"edge"`
+	Code  int            `json:"code,omitempty"`
+	Error bool           `json:"error,omitempty"`
+	Edge  graph_req.Edge `json:"edge,omitempty"`
 }
 
 func (r *ResponseForGetEdge) IsResponse() {}

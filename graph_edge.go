@@ -77,6 +77,10 @@ func (c Client) CheckEdgeExists(fabric, graphName, collectionName, edgeKey strin
 	return true, nil
 }
 
+// CreateEdge
+// Creates a new edge in the collection
+// sourceVertex: The source vertex of this edge. Has to be valid within the used edge definition.
+// destinationVertex: The target vertex of this edge. Has to be valid within the used edge definition.
 func (c Client) CreateEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex string, returnNew bool) (response *edge_req.ResponseForCreateEdge, err error) {
 	if benchmark {
 		defer TimeTrack(time.Now(), "CreateEdge")
