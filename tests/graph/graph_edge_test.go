@@ -26,6 +26,19 @@ func TestGetEdge(t *testing.T) {
 	goC8.PrintRes(res, verbose)
 }
 
+func TestCheckEdgeExists(t *testing.T) {
+	c := goC8.NewClient(nil)
+	collectionID := "teach"
+	edgeID := "Jean-CSC101"
+
+	res, err := c.CheckEdgeExists(fabric, graphName, collectionID, edgeID)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	expected := true
+	actual := res
+	assert.Equal(t, expected, actual)
+}
+
 func TestAddEdge(t *testing.T) {
 
 }

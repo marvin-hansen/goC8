@@ -27,11 +27,14 @@ func main() {
 	//println("Create new config ")
 	//config := goC8.NewConfig(apiKey, endpoint, fabric, timeout)
 
-	println("Create new client with config ")
+	println("Create new client")
 	c := goC8.NewClient(nil)
 
 	println("Run setup")
 	setup(c)
+
+	println("Update graph")
+	update(c)
 
 	if delete {
 		println("Run teardown")

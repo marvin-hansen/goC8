@@ -1,6 +1,9 @@
 package goC8
 
-import "github.com/marvin-hansen/goC8/requests/graph_req/edge_req"
+import (
+	"github.com/marvin-hansen/goC8/requests/graph_req/edge_req"
+	"strings"
+)
 
 // GetAllEdges
 // Lists all edge collections within this graph.
@@ -40,4 +43,19 @@ func (c Client) GetEdge(fabric, graphName, collectionName, edgeKey string) (resp
 		return nil, err
 	}
 	return response, nil
+}
+
+// CheckEdgeExists
+// returns true if the edge exists in the given collection
+func (c Client) CheckEdgeExists(fabric, graphName, collectionName, edgeKey string) (exists bool, err error) {
+	req := edge_req.NewRequestForGetEdge(fabric, graphName, collectionName, edgeKey)
+	response := edge_req.NewResponseForGetEdge()
+	if err = c.request(req, response); err != nil {
+		if strings.Contains(err.Error(), "1202") { //  Code=404, Number=1202,  Error Message=document not found
+			return false, nil
+		} else {
+			return false, err // Any other error
+		}
+	}
+	return true, nil
 }

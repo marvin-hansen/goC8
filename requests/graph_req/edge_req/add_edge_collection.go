@@ -54,7 +54,7 @@ func (req *RequestForAddEdgeCollection) GetQueryParameter() string {
 }
 
 func (req *RequestForAddEdgeCollection) Payload() []byte {
-	return nil
+	return req.payload
 }
 
 func (req *RequestForAddEdgeCollection) ResponseCode() int {

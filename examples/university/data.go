@@ -115,19 +115,19 @@ func GetUniversityGraphDefinition() []byte {
 
 func GetTutorialsData() []byte {
 	// Document collection named tutorials.
-	return []byte(` 
+	return []byte(`[
 		{"_id": "tutorials/TCS101", "difficulty": "easy", "_key": "TCS101", "firstname": "Han"},
         {"_id": "tutorials/TCS102", "difficulty": "hard", "_key": "TCS102", "firstname": "Han"},
         {"_id": "tutorials/TCS103", "difficulty": "hard", "_key": "TCS103", "firstname": "Han"},
         {"_id": "tutorials/TCS104", "difficulty": "moderate", "_key": "TCS104", "firstname": "Han"},
-        {"_id": "tutorials/TCS105", "difficulty": "moderate", "_key": "TCS105", "firstname": "Han"},
-`)
+        {"_id": "tutorials/TCS105", "difficulty": "moderate", "_key": "TCS105", "firstname": "Han"}
+]`)
 }
 
-func GetTutorsData() []byte {
+func GetTutorsEdgeData() []byte {
 	// Document collection named tutors.
-	return []byte(`
-		 {
+	return []byte(`[		 
+		{
             "_key": "Han-TCS101",
             "_from": "teachers/Han",
             "_to": "tutorials/TCS101",
@@ -157,7 +157,7 @@ func GetTutorsData() []byte {
             "_to": "tutorials/TCS105",
             "mandatory": false
         }
-`)
+]`)
 }
 
 func GetUpdateGraphDefinition() []byte {
