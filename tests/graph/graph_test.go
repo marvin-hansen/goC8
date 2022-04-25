@@ -2,7 +2,6 @@ package graph
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/examples/university"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -24,7 +23,7 @@ func TestGetAllGraphs(t *testing.T) {
 
 func TestCreateGraph(t *testing.T) {
 	c := goC8.NewClient(nil)
-	graphDef := main.GetUniversityGraphDefinition()
+	graphDef := getGraphDefinition()
 	res, err := c.CreateGraph(fabric, graphDef)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)

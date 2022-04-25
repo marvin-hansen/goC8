@@ -1,0 +1,13 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "edge_req",
+    srcs = [
+        "add_edge_collection.go",
+        "get_all_edges.go",
+        "get_edge.go",
+    ],
+    importpath = "goC8/requests/graph_req/edge_req",
+    visibility = ["//visibility:public"],
+    deps = ["@com_github_marvin_hansen_goc8//requests/graph_req"],
+)

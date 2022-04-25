@@ -1,4 +1,4 @@
-package graph_req
+package edge_req
 
 import (
 	"fmt"

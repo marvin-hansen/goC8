@@ -57,6 +57,8 @@ go_library(
         "@com_github_marvin_hansen_goc8//requests/collection_req",
         "@com_github_marvin_hansen_goc8//requests/document_req",
         "@com_github_marvin_hansen_goc8//requests/graph_req",
+        "@com_github_marvin_hansen_goc8//requests/graph_req/edge_req",
+        "@com_github_marvin_hansen_goc8//requests/graph_req/vertex_req",
         "@com_github_marvin_hansen_goc8//requests/index_req",
         "@com_github_marvin_hansen_goc8//requests/query_req",
         "@com_github_marvin_hansen_goc8//utils",
