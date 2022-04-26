@@ -3,6 +3,7 @@ package index
 import (
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/requests/collection_req"
+	config "github.com/marvin-hansen/goC8/tests/conf"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -17,7 +18,7 @@ const (
 )
 
 func TestSetup(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 
 	// test if city collection exists
 	exists, err := c.CheckCollectionExists(fabric, citiesCollection)
@@ -39,7 +40,7 @@ func TestSetup(t *testing.T) {
 }
 
 func TestGetIndexes(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	res, err := c.GetIndexes(fabric, citiesCollection)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -47,7 +48,7 @@ func TestGetIndexes(t *testing.T) {
 }
 
 func TestCreateFulltextIndex(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	field := "Summary"
 	minLength := 3
 
@@ -58,7 +59,7 @@ func TestCreateFulltextIndex(t *testing.T) {
 }
 
 func TestCreateGeoIndex(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	field := "location"
 	geoJson := true
 
@@ -69,7 +70,7 @@ func TestCreateGeoIndex(t *testing.T) {
 }
 
 func TestCreateHashIndex(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	field := "Text"
 	deduplicate := true
 	sparse := true
@@ -82,7 +83,7 @@ func TestCreateHashIndex(t *testing.T) {
 }
 
 func TestCreatePersistentIndex(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	field := "Keywords"
 	deduplicate := true
 	sparse := true
@@ -95,7 +96,7 @@ func TestCreatePersistentIndex(t *testing.T) {
 }
 
 func TestCreateSkipListIndex(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	field := "SkipText"
 	deduplicate := true
 	sparse := false
@@ -108,7 +109,7 @@ func TestCreateSkipListIndex(t *testing.T) {
 }
 
 func TestCreateTTLIndex(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	field := "requests"
 	expiration := 10
 
@@ -119,7 +120,7 @@ func TestCreateTTLIndex(t *testing.T) {
 }
 
 func TestDeleteIndex(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	indexName := ""
 
 	res, err := c.DeleteIndex(fabric, textCollection, indexName)
@@ -129,7 +130,7 @@ func TestDeleteIndex(t *testing.T) {
 }
 
 func TestTeardown(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 
 	// test if graph exists
 	exists, err := c.CheckGraphExists(fabric, graph)

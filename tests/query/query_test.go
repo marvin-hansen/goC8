@@ -3,6 +3,7 @@ package query
 import (
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/examples/flight"
+	config "github.com/marvin-hansen/goC8/tests/conf"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -13,7 +14,7 @@ const (
 )
 
 func TestGetIndexes(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	query := main.GetBreadthFirstQuery()
 	res, err := c.Query(fabric, query, nil, nil)
 	assert.NoError(t, err)

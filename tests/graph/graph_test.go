@@ -2,6 +2,7 @@ package graph
 
 import (
 	"github.com/marvin-hansen/goC8"
+	config "github.com/marvin-hansen/goC8/tests/conf"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -13,7 +14,7 @@ const (
 )
 
 func TestGetAllGraphs(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 
 	res, err := c.GetAllGraphs(fabric)
 	assert.NoError(t, err)
@@ -22,7 +23,7 @@ func TestGetAllGraphs(t *testing.T) {
 }
 
 func TestCreateGraph(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	graphDef := getGraphDefinition()
 	res, err := c.CreateGraph(fabric, graphDef)
 	assert.NoError(t, err)
@@ -31,7 +32,7 @@ func TestCreateGraph(t *testing.T) {
 }
 
 func TestGetGraph(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 
 	res, err := c.GetGraph(fabric, graphName)
 	assert.NoError(t, err)
@@ -40,7 +41,7 @@ func TestGetGraph(t *testing.T) {
 }
 
 func TestCheckGraphExists(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 
 	exists, err := c.CheckGraphExists(fabric, graphName)
 	assert.NoError(t, err)
@@ -57,7 +58,7 @@ func TestCheckGraphExists(t *testing.T) {
 }
 
 func TestDeleteGraph(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	dropCollections := false
 
 	res, err := c.DeleteGraph(fabric, graphName, dropCollections)

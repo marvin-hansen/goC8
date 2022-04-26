@@ -2,12 +2,13 @@ package document
 
 import (
 	"github.com/marvin-hansen/goC8"
+	config "github.com/marvin-hansen/goC8/tests/conf"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestUpdateManyDocument(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	fabric := "SouthEastAsia"
 	collName := "TestCollection"
 
@@ -29,7 +30,7 @@ func TestUpdateManyDocument(t *testing.T) {
 }
 
 func TestReplaceManyDocuments(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	fabric := "SouthEastAsia"
 	collName := "TestCollection"
 	k1 := "1"
@@ -51,7 +52,7 @@ func TestReplaceManyDocuments(t *testing.T) {
 }
 
 func TestDeleteManyDocuments(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	fabric := "SouthEastAsia"
 	collName := "TestCollection"
 

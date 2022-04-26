@@ -5,8 +5,10 @@ go_library(
     srcs = [
         "add_edge_collection.go",
         "create_edge.go",
+        "delete_edge.go",
         "get_all_edges.go",
         "get_edge.go",
+        "replace_edge.go",
     ],
     importpath = "goC8/requests/graph_req/edge_req",
     visibility = ["//visibility:public"],

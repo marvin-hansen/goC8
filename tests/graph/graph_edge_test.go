@@ -2,13 +2,14 @@ package graph
 
 import (
 	"github.com/marvin-hansen/goC8"
+	config "github.com/marvin-hansen/goC8/tests/conf"
 	"github.com/marvin-hansen/goC8/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestGetAllEdges(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 
 	res, err := c.GetAllEdges(fabric, graphName)
 	assert.NoError(t, err)
@@ -17,7 +18,7 @@ func TestGetAllEdges(t *testing.T) {
 }
 
 func TestGetEdge(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	collectionID := "teach"
 	edgeID := "Jean-CSC101"
 
@@ -28,7 +29,7 @@ func TestGetEdge(t *testing.T) {
 }
 
 func TestCheckEdgeExists(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	collectionID := "teach"
 	edgeID := "Jean-CSC101"
 
@@ -41,9 +42,10 @@ func TestCheckEdgeExists(t *testing.T) {
 }
 
 func TestAddEdge(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	collectionID := "teach"
 	edgeID := "Bruce-CSC105"
+	returnNew := false
 
 	// check if edge already exits
 	exists, err := c.CheckEdgeExists(fabric, graphName, collectionID, edgeID)
@@ -52,7 +54,25 @@ func TestAddEdge(t *testing.T) {
 		// if not, add a new edge to the edge collection
 		from := "teachers/Bruce"
 		to := "lectures/CSC105"
-		_, createErr := c.CreateEdge(fabric, graphName, collectionID, from, to, false)
+		_, createErr := c.CreateEdge(fabric, graphName, collectionID, from, to, returnNew)
+		utils.CheckError(createErr, "Error CreateEdge")
+	}
+}
+
+func TestReplaceEdge(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	collectionID := "teach"
+	edgeID := "Bruce-CSC105"
+	dropCollections := false
+
+	// check if edge exits
+	exists, err := c.CheckEdgeExists(fabric, graphName, collectionID, edgeID)
+	utils.CheckError(err, "Error CheckEdgeExists")
+	if exists {
+		// if exists, replace edge with a new edge to the edge collection
+		from := "teachers/Bruce"
+		to := "lectures/CSC105"
+		_, createErr := c.ReplaceEdge(fabric, graphName, collectionID, from, to, dropCollections)
 		utils.CheckError(createErr, "Error CreateEdge")
 	}
 }

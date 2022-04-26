@@ -17,7 +17,7 @@ type Client struct {
 func NewClient(config *ClientConfig) *Client {
 
 	if config == nil {
-		config = NewDefaultConfig()
+		panic("No config provided!")
 	}
 
 	timeOut := time.Duration(config.Timeout) * time.Second

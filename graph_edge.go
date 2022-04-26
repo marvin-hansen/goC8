@@ -93,3 +93,16 @@ func (c Client) CreateEdge(fabric, graphName, edgeCollectionName, sourceVertex, 
 	}
 	return response, nil
 }
+
+func (c Client) ReplaceEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex string, dropCollections bool) (response *edge_req.ResponseForReplaceEdge, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "ReplaceEdge")
+	}
+
+	req := edge_req.NewRequestForReplaceEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex, dropCollections)
+	response = edge_req.NewResponseForReplaceEdge()
+	if err = c.request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}

@@ -3,6 +3,7 @@ package document
 import (
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/requests/document_req"
+	config "github.com/marvin-hansen/goC8/tests/conf"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -10,7 +11,7 @@ import (
 const verbose = true
 
 func TestCreateNewDocument(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	fabric := "SouthEastAsia"
 	collName := "TestCollection"
 	silent := false
@@ -34,7 +35,7 @@ func TestCreateNewDocument(t *testing.T) {
 }
 
 func TestGetDocument(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	fabric := "SouthEastAsia"
 	collName := "TestCollection"
 	key := "1"
@@ -46,7 +47,7 @@ func TestGetDocument(t *testing.T) {
 }
 
 func TestCheckDocumentExists(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	fabric := "SouthEastAsia"
 	collName := "TestCollection"
 	key := "1"
@@ -67,7 +68,7 @@ func TestCheckDocumentExists(t *testing.T) {
 }
 
 func TestUpdateDocument(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	fabric := "SouthEastAsia"
 	collName := "TestCollection"
 	key := "7"
@@ -88,7 +89,7 @@ func TestUpdateDocument(t *testing.T) {
 }
 
 func TestReplaceDocuments(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	fabric := "SouthEastAsia"
 	collName := "TestCollection"
 	key := "5"
@@ -102,7 +103,7 @@ func TestReplaceDocuments(t *testing.T) {
 }
 
 func TestDeleteDocument(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	fabric := "SouthEastAsia"
 	collName := "TestCollection"
 	key := "1"
@@ -114,7 +115,7 @@ func TestDeleteDocument(t *testing.T) {
 
 func TestDeleteDocumentNONSilent(t *testing.T) {
 
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	fabric := "SouthEastAsia"
 	collName := "TestCollection"
 	key := "2"

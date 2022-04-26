@@ -2,12 +2,13 @@ package graph
 
 import (
 	"github.com/marvin-hansen/goC8"
+	config "github.com/marvin-hansen/goC8/tests/conf"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 func TestGetAllVertices(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 
 	res, err := c.GetAllVertices(fabric, graphName)
 	assert.NoError(t, err)
@@ -16,7 +17,7 @@ func TestGetAllVertices(t *testing.T) {
 }
 
 func TestGetVertex(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	collectionID := "teachers"
 	edgeID := "Jean"
 
