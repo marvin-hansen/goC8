@@ -10,10 +10,10 @@ search, functions, and 4 databases all through one single API.
 goC8 is an open source client that implements the macrometa API. 
 Currently, goC8 supports the following data api:
 
-* Collections [Example](examples/api/collections)
-* Documents [Example](examples/api/documentstore)
-* Graph [Example](examples/api/graph)
-* Index [Example](examples/api/index)
+* Collections [Code Example](examples/api/collections)
+* Documents [Code Example](examples/api/documentstore)
+* Graph [Code Example](examples/api/graph)
+* Index [Code Example](examples/api/index)
 
 ## Install
 
