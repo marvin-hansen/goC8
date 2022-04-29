@@ -50,7 +50,6 @@ go_library(
         "graph_vertex.go",
         "index.go",
         "interface.go",
-        "key.go",
         "util.go",
     ],
     importpath = "goC8/",
