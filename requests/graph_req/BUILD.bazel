@@ -11,10 +11,18 @@ filegroup(
 go_library(
     name = "graph_req",
     srcs = [
+        "add_edge_collection.go",
+        "create_edge.go",
         "create_graph.go",
+        "delete_edge.go",
         "delete_graph.go",
+        "get_all_edges.go",
         "get_all_graphs.go",
+        "get_all_vertices.go",
+        "get_edge.go",
         "get_graph.go",
+        "get_vertex.go",
+        "replace_edge.go",
         "shared.go",
     ],
     importpath = "goC8/requests/graph_req",

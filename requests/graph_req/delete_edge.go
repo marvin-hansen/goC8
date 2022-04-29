@@ -1,4 +1,4 @@
-package edge_req
+package graph_req
 
 import (
 	"fmt"
@@ -8,9 +8,9 @@ import (
 //**// Request //**//
 
 func NewRequestForDeleteEdge(fabric string) *RequestForDeleteEdge {
-  // @FIXME: Add correct API path
+	// @FIXME: Add correct API path
 	return &RequestForDeleteEdge{
-			path: fmt.Sprintf("_fabric/%v/_api/NAME", fabric),
+		path: fmt.Sprintf("_fabric/%v/_api/NAME", fabric),
 	}
 }
 
@@ -53,15 +53,13 @@ func NewResponseForDeleteEdge() *ResponseForDeleteEdge {
 }
 
 type ResponseForDeleteEdge struct {
-  // @FIXME
-	Field string 
+	// @FIXME
+	Field string
 }
 
 func (r *ResponseForDeleteEdge) IsResponse() {}
 
 func (r ResponseForDeleteEdge) String() string {
-  // @FIXME
+	// @FIXME
 	return fmt.Sprintf("Bootfile: %v", r.Field)
 }
-
-

@@ -1,4 +1,4 @@
-package vertex_req
+package graph_req
 
 import (
 	"fmt"
