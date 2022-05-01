@@ -5,8 +5,6 @@ import (
 	"time"
 )
 
-const benchmark = true
-
 // GetIndexes
 // Fetches the list of all indexes of a collection.
 // https://macrometa.com/docs/api#/operations/getIndexes

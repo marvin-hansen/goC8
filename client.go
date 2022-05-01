@@ -5,7 +5,8 @@ import (
 	"time"
 )
 
-const version = "v.0.0.9"
+const benchmark = false
+const version = "v1.2"
 
 type Client struct {
 	config      *ClientConfig
