@@ -5,6 +5,13 @@ import (
 	"time"
 )
 
+// SetKeyValuePairs
+// Set one or more key-value pairs in key-value collection.
+// If the input is an array of objects then key-value pairs are created in batch.
+// If the key does not exist the key-value pairs are created. Otherwise the entry for the key is updated.
+// Specify expiration in UTC timestamp.
+// Max limit is 100 key-value pairs per request.
+// https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv--collection--value/put
 func (c Client) SetKeyValuePairs(fabric, collectionName string, kvPairs kv_req.KVPairCollection) (response *kv_req.KVPairCollection, err error) {
 	if benchmark {
 		defer TimeTrack(time.Now(), "SetKeyValuePairs")
