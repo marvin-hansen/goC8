@@ -9,7 +9,7 @@ import (
 
 func NewRequestForSetKeyValue(fabric, collectionName string, kvPairs KVPairCollection) *RequestForSetKeyValue {
 	return &RequestForSetKeyValue{
-		path:    fmt.Sprintf("_fabric/%v/_api/kv/%v", fabric, collectionName),
+		path:    fmt.Sprintf("_fabric/%v/_api/kv/%v/value", fabric, collectionName),
 		payload: kvPairs.Json(),
 	}
 }
@@ -49,4 +49,4 @@ func (req *RequestForSetKeyValue) ResponseCode() int {
 
 //**// Response //**//
 
-// call NewKVResponse() instead
+// call NewKVPairCollection() instead
