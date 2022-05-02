@@ -5,10 +5,8 @@ Welcome to the GitHub page for goC8, a Golang driver for the macrometa global da
 ## About
 
 [Macrometa](https://www.macrometa.com/) is a secure, global data platform with integrated pub/sub, stream processing,
-search, functions, and 4 databases all through one single API. 
-
-goC8 is an open source client that implements the macrometa API. 
-Currently, goC8 supports the following data api:
+search, functions, and 4 databases all through one single API. goC8 is an open source client that implements the macrometa API.  
+Currently, goC8 supports the following:
 
 * Collections [Code Example](examples/api/collections)
 * Documents [Code Example](examples/api/documentstore)
@@ -22,7 +20,7 @@ Currently, goC8 supports the following data api:
 * Microservice storage
 * Kubernetes storage
 * Mobile app storage 
-* Single, globally distributed & fail-safe, storage backend shared between web, mobile & cluster applications
+* Single, globally distributed & fail-safe, storage backend shared between web, mobile, & cluster applications
 * Event storage & streaming for real-time data analytics wth real-time client updates
 
 ## Install
