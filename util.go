@@ -6,7 +6,14 @@ import (
 	"time"
 )
 
-func checkError(err error) error {
+func CheckErrorLog(err error, msg string) {
+	if err != nil {
+		log.Println("error: " + err.Error())
+		log.Fatalf(msg)
+	}
+}
+
+func CheckError(err error) error {
 	if err != nil {
 		return err
 	} else {

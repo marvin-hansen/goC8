@@ -20,7 +20,7 @@ func (c Client) SetKeyValuePairs(fabric, collectionName string, kvPairs kv_req.K
 	req := kv_req.NewRequestForSetKeyValue(fabric, collectionName, kvPairs)
 	response = kv_req.NewKVPairCollection()
 	err = c.request(req, response)
-	return response, checkError(err)
+	return response, CheckError(err)
 }
 
 func (c Client) GetAllKeys(fabric, collectionName string, offset, limit int, order kv_req.Order) (response *kv_req.ResponseForGetAllKeys, err error) {
@@ -31,7 +31,7 @@ func (c Client) GetAllKeys(fabric, collectionName string, offset, limit int, ord
 	req := kv_req.NewRequestForGetAllKeys(fabric, collectionName, offset, limit, order)
 	response = kv_req.NewResponseForGetAllKeys()
 	err = c.request(req, response)
-	return response, checkError(err)
+	return response, CheckError(err)
 }
 
 func (c Client) GetAllValues(fabric, collectionName string, offset, limit int, keys kv_req.KeyCollection) (response *kv_req.ResponseForGetAllValues, err error) {
@@ -42,7 +42,7 @@ func (c Client) GetAllValues(fabric, collectionName string, offset, limit int, k
 	req := kv_req.NewRequestForGetAllValues(fabric, collectionName, keys, offset, limit)
 	response = kv_req.NewResponseForGetAllValues()
 	err = c.request(req, response)
-	return response, checkError(err)
+	return response, CheckError(err)
 }
 
 func (c Client) DeleteKeyValuePairs(fabric, collectionName string, keys kv_req.KeyCollection) (response *kv_req.KVPairCollection, err error) {
@@ -53,7 +53,7 @@ func (c Client) DeleteKeyValuePairs(fabric, collectionName string, keys kv_req.K
 	req := kv_req.NewRequestForDeleteKeyValue(fabric, collectionName, keys)
 	response = kv_req.NewKVPairCollection()
 	err = c.request(req, response)
-	return response, checkError(err)
+	return response, CheckError(err)
 }
 
 func (c Client) GetValue(fabric, collectionName, key string) (response *kv_req.KVPair, err error) {
@@ -64,7 +64,7 @@ func (c Client) GetValue(fabric, collectionName, key string) (response *kv_req.K
 	req := kv_req.NewRequestForGetValue(fabric, collectionName, key)
 	response = kv_req.NewEmptyKVPair()
 	err = c.request(req, response)
-	return response, checkError(err)
+	return response, CheckError(err)
 }
 
 func (c Client) DeleteValue(fabric, collectionName, key string) (response *kv_req.KVPair, err error) {
@@ -75,5 +75,5 @@ func (c Client) DeleteValue(fabric, collectionName, key string) (response *kv_re
 	req := kv_req.NewRequestForDeleteValue(fabric, collectionName, key)
 	response = kv_req.NewEmptyKVPair()
 	err = c.request(req, response)
-	return response, checkError(err)
+	return response, CheckError(err)
 }

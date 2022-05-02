@@ -12,6 +12,7 @@ const (
 	timeout  = 5 // http connection timeout in seconds
 )
 
+// collection & graph config
 const (
 	delete           = false
 	verbose          = true

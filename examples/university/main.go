@@ -24,11 +24,11 @@ const (
 )
 
 func main() {
-	//println("Create new config ")
-	//config := goC8.NewConfig(apiKey, endpoint, fabric, timeout)
+	println("Create new config ")
+	config := goC8.NewConfig(apiKey, endpoint, fabric, timeout)
 
 	println("Create new client")
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config)
 
 	println("Run setup")
 	setup(c)
