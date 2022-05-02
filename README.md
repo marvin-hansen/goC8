@@ -8,10 +8,11 @@ Welcome to the GitHub page for goC8, a Golang driver for the macrometa global da
 search, functions, and 4 databases all through one single API. goC8 is an open source client that implements the macrometa API.  
 Currently, goC8 supports the following:
 
-* Collections [Code Example](examples/api/collections)
-* Documents [Code Example](examples/api/documentstore)
-* Graph [Code Example](examples/api/graph)
-* Index [Code Example](examples/api/index)
+* Collections [code example](examples/api/collections) and [tests](tests/collection)
+* Documents [code example](examples/api/documentstore) and [tests](tests/document)
+* Graph [code example](examples/api/graph) and [tests](tests/graph)
+* Index [code example](examples/api/index) and [tests](tests/index)
+* KeyValue [tests](tests/kv)
 
 GDN clients for [Python](https://github.com/Macrometacorp/pyC8), [Java](https://github.com/Macrometacorp/c84j), and [Javascript](https://github.com/Macrometacorp/jsC8) are available from [Macrometa](https://github.com/Macrometacorp). 
 
