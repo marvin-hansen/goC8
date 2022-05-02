@@ -15,10 +15,8 @@ func (c Client) GetAllKVCollections(fabric string) (response *kv_req.KVResult, e
 
 	req := kv_req.NewRequestForGetAllKVCollections(fabric)
 	response = kv_req.NewKVResponse()
-	if err = c.request(req, response); err != nil {
-		return nil, err
-	}
-	return response, nil
+	err = c.request(req, response)
+	return response, checkError(err)
 }
 
 // CreateNewKVCollection
@@ -35,10 +33,8 @@ func (c Client) CreateNewKVCollection(fabric, collectionName string, expiration 
 
 	req := kv_req.NewRequestForCreateKVCollection(fabric, collectionName, expiration, options)
 	response = kv_req.NewKVResponse()
-	if err = c.request(req, response); err != nil {
-		return nil, err
-	}
-	return response, nil
+	err = c.request(req, response)
+	return response, checkError(err)
 }
 
 // CountKVCollection
@@ -51,10 +47,8 @@ func (c Client) CountKVCollection(fabric, collectionName string) (response *kv_r
 
 	req := kv_req.NewRequestForCount(fabric, collectionName)
 	response = kv_req.NewKVResponse()
-	if err = c.request(req, response); err != nil {
-		return nil, err
-	}
-	return response, nil
+	err = c.request(req, response)
+	return response, checkError(err)
 }
 
 // TruncateKVCollection
@@ -67,10 +61,8 @@ func (c Client) TruncateKVCollection(fabric, collectionName string) (response *k
 
 	req := kv_req.NewRequestForTruncateKVCollection(fabric, collectionName)
 	response = kv_req.NewKVResponse()
-	if err = c.request(req, response); err != nil {
-		return nil, err
-	}
-	return response, nil
+	err = c.request(req, response)
+	return response, checkError(err)
 }
 
 // DeleteKVCollection
@@ -83,8 +75,6 @@ func (c Client) DeleteKVCollection(fabric, collectionName string) (response *kv_
 
 	req := kv_req.NewRequestForDeleteKVCollection(fabric, collectionName)
 	response = kv_req.NewKVResponse()
-	if err = c.request(req, response); err != nil {
-		return nil, err
-	}
-	return response, nil
+	err = c.request(req, response)
+	return response, checkError(err)
 }

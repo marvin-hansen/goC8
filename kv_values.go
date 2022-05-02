@@ -19,34 +19,39 @@ func (c Client) SetKeyValuePairs(fabric, collectionName string, kvPairs kv_req.K
 
 	req := kv_req.NewRequestForSetKeyValue(fabric, collectionName, kvPairs)
 	response = kv_req.NewKVPairCollection()
-	if err = c.request(req, response); err != nil {
-		return nil, err
+	err = c.request(req, response)
+	return response, checkError(err)
+}
+
+func (c Client) GetAllKeys(fabric, collectionName string, offset, limit int, order kv_req.Order) (response *kv_req.ResponseForGetAllKeys, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "GetAllKeys")
 	}
-	return response, nil
+
+	req := kv_req.NewRequestForGetAllKeys(fabric, collectionName, offset, limit, order)
+	response = kv_req.NewResponseForGetAllKeys()
+	err = c.request(req, response)
+	return response, checkError(err)
 }
 
 func (c Client) GetValue(fabric, collectionName, key string) (response *kv_req.KVPair, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "SetKeyValuePairs")
+		defer TimeTrack(time.Now(), "GetValue")
 	}
 
 	req := kv_req.NewRequestForGetValue(fabric, collectionName, key)
 	response = kv_req.NewEmptyKVPair()
-	if err = c.request(req, response); err != nil {
-		return nil, err
-	}
-	return response, nil
+	err = c.request(req, response)
+	return response, checkError(err)
 }
 
 func (c Client) DeleteValue(fabric, collectionName, key string) (response *kv_req.KVPair, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "SetKeyValuePairs")
+		defer TimeTrack(time.Now(), "DeleteValue")
 	}
 
 	req := kv_req.NewRequestForDeleteValue(fabric, collectionName, key)
 	response = kv_req.NewEmptyKVPair()
-	if err = c.request(req, response); err != nil {
-		return nil, err
-	}
-	return response, nil
+	err = c.request(req, response)
+	return response, checkError(err)
 }
