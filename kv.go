@@ -5,6 +5,9 @@ import (
 	"time"
 )
 
+// GetAllKVCollections
+// Lists all collections.
+// https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv/get
 func (c Client) GetAllKVCollections(fabric string) (response *kv_req.KVResult, err error) {
 	if benchmark {
 		defer TimeTrack(time.Now(), "GetAllKVCollections")
@@ -18,6 +21,9 @@ func (c Client) GetAllKVCollections(fabric string) (response *kv_req.KVResult, e
 	return response, nil
 }
 
+// CreateNewKVCollection
+// Create key-value collection.
+// https://macrometa.com/docs/api#/operations/CreateNamespace
 func (c Client) CreateNewKVCollection(fabric, collectionName string, expiration bool, options *kv_req.CreateKVOptions) (response *kv_req.KVResult, err error) {
 	if benchmark {
 		defer TimeTrack(time.Now(), "CreateNewKVCollection")
@@ -35,6 +41,9 @@ func (c Client) CreateNewKVCollection(fabric, collectionName string, expiration 
 	return response, nil
 }
 
+// CountKVCollection
+// Get number of key-value pairs in collection.
+// https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv--collection--count/get
 func (c Client) CountKVCollection(fabric, collectionName string) (response *kv_req.KVResult, err error) {
 	if benchmark {
 		defer TimeTrack(time.Now(), "CountKVCollection")
@@ -48,6 +57,9 @@ func (c Client) CountKVCollection(fabric, collectionName string) (response *kv_r
 	return response, nil
 }
 
+// DeleteKVCollection
+// Delete collection.
+// https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv--collection/delete
 func (c Client) DeleteKVCollection(fabric, collectionName string) (response *kv_req.KVResult, err error) {
 	if benchmark {
 		defer TimeTrack(time.Now(), "DeleteKVCollection")
