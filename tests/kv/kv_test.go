@@ -45,6 +45,19 @@ func TestSetKeyValuePairs(t *testing.T) {
 	goC8.PrintRes(res, verbose)
 }
 
+func TestGetValue(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	key := "key1"
+	res, err := c.GetValue(fabric, collectionName, key)
+
+	expected := "value1"
+	actual := res.Value
+	assert.Equal(t, expected, actual, "Should be equal")
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
 func TestCountKVCollections(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	res, err := c.CountKVCollection(fabric, collectionName)

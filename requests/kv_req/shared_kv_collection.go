@@ -39,6 +39,10 @@ func (r KVPairCollection) Json() []byte {
 	return jsonArray
 }
 
+func NewEmptyKVPair() *KVPair {
+	return new(KVPair)
+}
+
 func NewKVPair(key, value string, expiration int) *KVPair {
 	return &KVPair{
 		Key:      key,

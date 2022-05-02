@@ -8,6 +8,8 @@ go_library(
         "create_options.go",
         "delete_kvcollection.go",
         "get_all_kvcollections.go",
+        "get_all_values.go",
+        "get_value.go",
         "set_key_value.go",
         "shared_kv_collection.go",
         "shared_kv_result.go",
