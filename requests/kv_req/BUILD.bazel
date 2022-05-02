@@ -6,6 +6,7 @@ go_library(
         "count.go",
         "create_kvcollection.go",
         "create_options.go",
+        "delete_kvcollection.go",
         "get_all_kvcollections.go",
         "shared.go",
     ],
