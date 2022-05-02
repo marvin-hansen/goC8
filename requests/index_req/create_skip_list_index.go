@@ -53,29 +53,6 @@ func (req *RequestForCreateSkipListIndex) ResponseCode() int {
 
 //**// Response //**//
 
-func NewResponseForCreateSkipListIndex() *ResponseForCreateSkipListIndex {
-	return new(ResponseForCreateSkipListIndex)
-}
-
-type ResponseForCreateSkipListIndex IndexEntry
-
-func (r *ResponseForCreateSkipListIndex) IsResponse() {}
-
-func (r ResponseForCreateSkipListIndex) String() string {
-	return fmt.Sprintf(" Code: %v\n Deduplicate: %v\n Error: %v\n Fields: %v\n  GeoJson: %v\n ID: %v\n Name: %v\n MinLength: %v\n SelectivityEstimate: %v\n Sparse: %v\n  Type: %v\n  Unique: %v\n MaxNumCoverCells: %v\n WorstIndexedLevel: %v\n",
-		r.Code,
-		r.Deduplicate,
-		r.Error,
-		r.Fields,
-		r.GeoJson,
-		r.Id,
-		r.Name,
-		r.MinLength,
-		r.SelectivityEstimate,
-		r.Sparse,
-		r.Type,
-		r.Unique,
-		r.MaxNumCoverCells,
-		r.WorstIndexedLevel,
-	)
+func NewResponseForCreateSkipListIndex() *IndexEntry {
+	return new(IndexEntry)
 }

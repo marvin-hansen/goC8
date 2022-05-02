@@ -47,25 +47,6 @@ func (req *RequestForGetIndex) ResponseCode() int {
 
 //**// Response //**//
 
-func NewResponseForGetIndex() *ResponseForGetIndex {
-	return new(ResponseForGetIndex)
-}
-
-type ResponseForGetIndex IndexEntry
-
-func (r *ResponseForGetIndex) IsResponse() {}
-
-func (r ResponseForGetIndex) String() string {
-	return fmt.Sprintf(" Error: %v\n Code: %v\n Fields: %v\n ID: %v\n Name: %v\n MinLength: %v\n SelectivityEstimate: %v\n Sparse: %v\n  Type: %v\n  Unique: %v\n",
-		r.Error,
-		r.Code,
-		r.Fields,
-		r.Id,
-		r.Name,
-		r.MinLength,
-		r.SelectivityEstimate,
-		r.Sparse,
-		r.Type,
-		r.Unique,
-	)
+func NewResponseForGetIndex() *IndexEntry {
+	return new(IndexEntry)
 }

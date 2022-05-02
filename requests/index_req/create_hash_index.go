@@ -52,26 +52,6 @@ func (req *RequestForCreateHashIndex) ResponseCode() int {
 
 //**// Response //**//
 
-func NewResponseForCreateHashIndex() *ResponseForCreateHashIndex {
-	return new(ResponseForCreateHashIndex)
-}
-
-type ResponseForCreateHashIndex IndexEntry
-
-func (r *ResponseForCreateHashIndex) IsResponse() {}
-
-func (r ResponseForCreateHashIndex) String() string {
-	return fmt.Sprintf(" Deduplicate: %v\n Error: %v\n Code: %v\n Fields: %v\n ID: %v\n Name: %v\n MinLength: %v\n SelectivityEstimate: %v\n Sparse: %v\n  Type: %v\n  Unique: %v\n",
-		r.Deduplicate,
-		r.Error,
-		r.Code,
-		r.Fields,
-		r.Id,
-		r.Name,
-		r.MinLength,
-		r.SelectivityEstimate,
-		r.Sparse,
-		r.Type,
-		r.Unique,
-	)
+func NewResponseForCreateHashIndex() *IndexEntry {
+	return new(IndexEntry)
 }

@@ -72,27 +72,6 @@ func (req *RequestForCreateGeoIndex) ResponseCode() int {
 
 //**// Response //**//
 
-func NewResponseForCreateGeoIndex() *ResponseForCreateGeoIndex {
-	return new(ResponseForCreateGeoIndex)
-}
-
-type ResponseForCreateGeoIndex IndexEntry
-
-func (r *ResponseForCreateGeoIndex) IsResponse() {}
-
-func (r ResponseForCreateGeoIndex) String() string {
-	return fmt.Sprintf(" Code: %v\n Error: %v\n GeoJson: %v\n Fields: %v\n MaxNumCoverCells: %v\n WorstIndexedLevel: %v\n Id: %v\n Name: %v\n SelectivityEstimate: %v\n Sparse: %v\n Type: %v\n, Unique: %v\n",
-		r.Code,
-		r.Error,
-		r.GeoJson,
-		r.Fields,
-		r.MaxNumCoverCells,
-		r.WorstIndexedLevel,
-		r.Id,
-		r.Name,
-		r.SelectivityEstimate,
-		r.Sparse,
-		r.Type,
-		r.Unique,
-	)
+func NewResponseForCreateGeoIndex() *IndexEntry {
+	return new(IndexEntry)
 }

@@ -52,27 +52,6 @@ func (req *RequestForCreatePersistentIndex) ResponseCode() int {
 
 //**// Response //**//
 
-func NewResponseForCreatePersistentIndex() *ResponseForCreatePersistentIndex {
-	return new(ResponseForCreatePersistentIndex)
-}
-
-type ResponseForCreatePersistentIndex IndexEntry
-
-func (r *ResponseForCreatePersistentIndex) IsResponse() {}
-
-func (r ResponseForCreatePersistentIndex) String() string {
-	return fmt.Sprintf(" Code: %v\n Error: %v\n GeoJson: %v\n Fields: %v\n MaxNumCoverCells: %v\n WorstIndexedLevel: %v\n Id: %v\n Name: %v\n SelectivityEstimate: %v\n Sparse: %v\n Type: %v\n, Unique: %v\n",
-		r.Code,
-		r.Error,
-		r.GeoJson,
-		r.Fields,
-		r.MaxNumCoverCells,
-		r.WorstIndexedLevel,
-		r.Id,
-		r.Name,
-		r.SelectivityEstimate,
-		r.Sparse,
-		r.Type,
-		r.Unique,
-	)
+func NewResponseForCreatePersistentIndex() *IndexEntry {
+	return new(IndexEntry)
 }

@@ -55,6 +55,8 @@ func (r IndexEntry) String() string {
 	)
 }
 
+func (r *IndexEntry) IsResponse() {}
+
 type Identifiers = IndexEntry
 
 type Index = IndexEntry
