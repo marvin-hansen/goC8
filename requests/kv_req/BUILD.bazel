@@ -8,6 +8,7 @@ go_library(
         "create_options.go",
         "delete_kvcollection.go",
         "delete_value.go",
+        "get_all_keys.go",
         "get_all_kvcollections.go",
         "get_all_values.go",
         "get_value.go",

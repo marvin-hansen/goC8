@@ -45,6 +45,18 @@ func TestSetKeyValuePairs(t *testing.T) {
 	goC8.PrintRes(res, verbose)
 }
 
+func TestGetAllKeys(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	offset := 0
+	limit := 20
+	order := kv_req.Ascending
+
+	res, err := c.GetAllKeys(fabric, collectionName, offset, limit, order)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
 func TestGetValue(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	key := "key1"
