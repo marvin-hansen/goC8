@@ -15,6 +15,16 @@ Currently, goC8 supports the following data api:
 * Graph [Code Example](examples/api/graph)
 * Index [Code Example](examples/api/index)
 
+## Golang & GDN use cases 
+
+* [Web Assembly (WASM) storage](https://itnext.io/webassemply-with-golang-by-scratch-e05ec5230558)
+* Unified single storage API 
+* Microservice storage
+* Kubernetes storage
+* Mobile app storage 
+* Single, globally distributed & fail-safe, storage backend shared between web, mobile & cluster applications
+* Event storage & streaming for real-time data analytics wth real-time client updates
+
 ## Install
 
 ```Bash
