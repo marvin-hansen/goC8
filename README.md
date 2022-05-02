@@ -20,7 +20,7 @@ GDN clients for [Python](https://github.com/Macrometacorp/pyC8), [Java](https://
 * Global low latency web applications  
 * Global data to cluster co-location for low latency data access
 
-Suppose an e-commerce site wants to serve customers in the US, EU, and Asia. However, EU regulations require GPDR compliance
+Suppose an e-commerce site wants to serve customers in the US, EU, and Asia. However, EU regulations require GDPR compliance
 that do not apply to the US & Asia. Chine, however, has strict data residency requirements that do not apply to any other country, but must
 be respected to enter the Chinese market. With the GDN, a dedicated EU data fabric allows the company to comply with EU regulations while
 storing and processing data of EU customers only on EU territory. Likewise, a dedicated US data fabric ensures low latency especially when 
