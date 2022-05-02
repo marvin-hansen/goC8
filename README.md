@@ -15,7 +15,7 @@ Currently, goC8 supports the following:
 
 GDN clients for [Python](https://github.com/Macrometacorp/pyC8), [Java](https://github.com/Macrometacorp/c84j), and [Javascript](https://github.com/Macrometacorp/jsC8) are available from [Macrometa](https://github.com/Macrometacorp). 
 
-## General GDN use case
+## GDN use case
 * Legal compliance with [data residency regulations](https://incountry.com/blog/data-residency-laws-by-country-overview/) & [EU GDPR regulations](https://www.omnitas.se/data-residency-affected-by-gdpr-and-schrems/)
 * Global low latency web applications  
 * Global data to cluster co-location for low latency data access
