@@ -55,16 +55,18 @@ type KVPair struct {
 	Id       string `json:"_id,omitempty"`
 	Key      string `json:"_key,omitempty"`
 	Value    string `json:"value,omitempty"`
-	ExpireAt int    `json:"expireAt,omitempty"`
 	Revision string `json:"_rev,omitempty"`
+	ExpireAt int    `json:"expireAt,omitempty"`
 }
 
 func (r *KVPair) IsResponse() {}
 
 func (r KVPair) String() string {
-	return fmt.Sprintf(" Key: %v\n Value: %v\n Expiration: %v\n",
+	return fmt.Sprintf(" ID: %v\n Key: %v\n Value: %v\n Revision: %v\n Expiration: %v\n",
+		r.Id,
 		r.Key,
 		r.Value,
+		r.Revision,
 		r.ExpireAt,
 	)
 }

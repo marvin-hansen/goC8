@@ -37,7 +37,10 @@ func TestSetKeyValuePairs(t *testing.T) {
 	kvPair1 := kv_req.NewKVPair("key1", "value1", -1)
 	kvPair2 := kv_req.NewKVPair("key2", "value2", -1)
 	kvPair3 := kv_req.NewKVPair("key3", "value3", -1)
-	kvCollection := kv_req.NewKVPairCollection(*kvPair1, *kvPair2, *kvPair3)
+	kvPair4 := kv_req.NewKVPair("key4", "value4", -1)
+	kvPair5 := kv_req.NewKVPair("key5", "value5", -1)
+
+	kvCollection := kv_req.NewKVPairCollection(*kvPair1, *kvPair2, *kvPair3, *kvPair4, *kvPair5)
 
 	res, err := c.SetKeyValuePairs(fabric, collectionName, *kvCollection)
 	assert.NoError(t, err)
@@ -85,7 +88,7 @@ func TestCountKVCollections(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	res, err := c.CountKVCollection(fabric, collectionName)
 
-	expected := 3
+	expected := 5
 	actual := res.Count
 	assert.Equal(t, expected, actual, "Should be equal")
 	assert.NoError(t, err)
@@ -95,7 +98,7 @@ func TestCountKVCollections(t *testing.T) {
 
 func TestDeleteValue(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-	key := "key3"
+	key := "key5"
 	res, err := c.DeleteValue(fabric, collectionName, key)
 
 	expected := key
@@ -107,10 +110,20 @@ func TestDeleteValue(t *testing.T) {
 	resC, errC := c.CountKVCollection(fabric, collectionName)
 	assert.NoError(t, errC)
 
-	expectedCount := 2
+	expectedCount := 4
 	actualCount := resC.Count
 	assert.Equal(t, expectedCount, actualCount, "Should be equal")
 
+	goC8.PrintRes(res, verbose)
+}
+
+func TestDeleteKeyValuePairs(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	keyPairs := kv_req.KeyCollection{"key1", "key2", "key3"}
+
+	res, err := c.DeleteKeyValuePairs(fabric, collectionName, keyPairs)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
 	goC8.PrintRes(res, verbose)
 }
 

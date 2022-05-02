@@ -6,6 +6,7 @@ go_library(
         "count.go",
         "create_kvcollection.go",
         "create_options.go",
+        "delete_key_value.go",
         "delete_kvcollection.go",
         "delete_value.go",
         "get_all_keys.go",

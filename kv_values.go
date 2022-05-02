@@ -45,6 +45,17 @@ func (c Client) GetAllValues(fabric, collectionName string, offset, limit int, k
 	return response, checkError(err)
 }
 
+func (c Client) DeleteKeyValuePairs(fabric, collectionName string, keys kv_req.KeyCollection) (response *kv_req.KVPairCollection, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "SetKeyValuePairs")
+	}
+
+	req := kv_req.NewRequestForDeleteKeyValue(fabric, collectionName, keys)
+	response = kv_req.NewKVPairCollection()
+	err = c.request(req, response)
+	return response, checkError(err)
+}
+
 func (c Client) GetValue(fabric, collectionName, key string) (response *kv_req.KVPair, err error) {
 	if benchmark {
 		defer TimeTrack(time.Now(), "GetValue")
