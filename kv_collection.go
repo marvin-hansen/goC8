@@ -57,6 +57,22 @@ func (c Client) CountKVCollection(fabric, collectionName string) (response *kv_r
 	return response, nil
 }
 
+// TruncateKVCollection
+// Remove all key-value pairs in a collection.
+// https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv--collection--truncate/put
+func (c Client) TruncateKVCollection(fabric, collectionName string) (response *kv_req.KVResult, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "TruncateKVCollection")
+	}
+
+	req := kv_req.NewRequestForTruncateKVCollection(fabric, collectionName)
+	response = kv_req.NewKVResponse()
+	if err = c.request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
 // DeleteKVCollection
 // Delete collection.
 // https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv--collection/delete

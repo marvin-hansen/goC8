@@ -38,6 +38,14 @@ func TestCountKVCollections(t *testing.T) {
 	goC8.PrintRes(res, verbose)
 }
 
+func TestTruncateKVCollection(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	res, err := c.TruncateKVCollection(fabric, collectionName)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
 func TestDeleteKVCollection(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	res, err := c.DeleteKVCollection(fabric, collectionName)
