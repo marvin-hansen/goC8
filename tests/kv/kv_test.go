@@ -70,6 +70,27 @@ func TestCountKVCollections(t *testing.T) {
 	goC8.PrintRes(res, verbose)
 }
 
+func TestDeleteValue(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	key := "key3"
+	res, err := c.DeleteValue(fabric, collectionName, key)
+
+	expected := key
+	actual := res.Key
+	assert.Equal(t, expected, actual, "Should be equal")
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+
+	resC, errC := c.CountKVCollection(fabric, collectionName)
+	assert.NoError(t, errC)
+
+	expectedCount := 2
+	actualCount := resC.Count
+	assert.Equal(t, expectedCount, actualCount, "Should be equal")
+
+	goC8.PrintRes(res, verbose)
+}
+
 func TestTruncateKVCollection(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	res, err := c.TruncateKVCollection(fabric, collectionName)

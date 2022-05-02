@@ -37,3 +37,16 @@ func (c Client) GetValue(fabric, collectionName, key string) (response *kv_req.K
 	}
 	return response, nil
 }
+
+func (c Client) DeleteValue(fabric, collectionName, key string) (response *kv_req.KVPair, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "SetKeyValuePairs")
+	}
+
+	req := kv_req.NewRequestForDeleteValue(fabric, collectionName, key)
+	response = kv_req.NewEmptyKVPair()
+	if err = c.request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
