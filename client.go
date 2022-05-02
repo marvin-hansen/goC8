@@ -6,8 +6,8 @@ import (
 )
 
 const (
-	debug     = true
-	benchmark = true
+	debug     = false
+	benchmark = false
 	version   = "v1.2"
 )
 
