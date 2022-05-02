@@ -12,7 +12,7 @@ Currently, goC8 supports the following:
 * Documents [code example](examples/api/documentstore) and [tests](tests/document)
 * Graph [code example](examples/api/graph) and [tests](tests/graph)
 * Index [code example](examples/api/index) and [tests](tests/index)
-* KeyValue [tests](tests/kv)
+* KeyValue [code example](examples/api/kv) and [tests](tests/kv)
 
 GDN clients for [Python](https://github.com/Macrometacorp/pyC8), [Java](https://github.com/Macrometacorp/c84j), and [Javascript](https://github.com/Macrometacorp/jsC8) are available from [Macrometa](https://github.com/Macrometacorp). 
 
