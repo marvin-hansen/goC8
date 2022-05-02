@@ -57,6 +57,17 @@ func TestGetAllKeys(t *testing.T) {
 	goC8.PrintRes(res, verbose)
 }
 
+func TestGetAllValues(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	offset := 0
+	limit := 20
+
+	res, err := c.GetAllValues(fabric, collectionName, offset, limit, nil)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
 func TestGetValue(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	key := "key1"

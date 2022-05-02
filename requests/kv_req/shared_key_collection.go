@@ -1,6 +1,9 @@
 package kv_req
 
-import "bytes"
+import (
+	"bytes"
+	"encoding/json"
+)
 
 type KeyCollection []string
 
@@ -13,4 +16,12 @@ func (r KeyCollection) String() string {
 		s.WriteString(" \n ")
 	}
 	return s.String()
+}
+
+func (r KeyCollection) Json() []byte {
+	b, err := json.Marshal(r)
+	if err != nil {
+		panic(err)
+	}
+	return b
 }

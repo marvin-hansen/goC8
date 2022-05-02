@@ -34,6 +34,17 @@ func (c Client) GetAllKeys(fabric, collectionName string, offset, limit int, ord
 	return response, checkError(err)
 }
 
+func (c Client) GetAllValues(fabric, collectionName string, offset, limit int, keys kv_req.KeyCollection) (response *kv_req.ResponseForGetAllValues, err error) {
+	if benchmark {
+		defer TimeTrack(time.Now(), "GetAllKeys")
+	}
+
+	req := kv_req.NewRequestForGetAllValues(fabric, collectionName, keys, offset, limit)
+	response = kv_req.NewResponseForGetAllValues()
+	err = c.request(req, response)
+	return response, checkError(err)
+}
+
 func (c Client) GetValue(fabric, collectionName, key string) (response *kv_req.KVPair, err error) {
 	if benchmark {
 		defer TimeTrack(time.Now(), "GetValue")

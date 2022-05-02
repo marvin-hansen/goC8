@@ -7,15 +7,18 @@ import (
 
 //**// Request //**//
 
-func NewRequestForGetAllValues(fabric string) *RequestForGetAllValues {
-  // @FIXME: Add correct API path
+func NewRequestForGetAllValues(fabric, collectionName string, keys KeyCollection, offset, limit int) *RequestForGetAllValues {
 	return &RequestForGetAllValues{
-			path: fmt.Sprintf("_fabric/%v/_api/NAME", fabric),
+		path:       fmt.Sprintf("_fabric/%v/_api/kv/%v/values", fabric, collectionName),
+		parameters: fmt.Sprintf("?offset=%v&limit=%v", offset, limit),
+		payload:    keys.Json(),
 	}
 }
 
 type RequestForGetAllValues struct {
-	path string
+	path       string
+	parameters string
+	payload    []byte
 }
 
 func (req *RequestForGetAllValues) Path() string {
@@ -23,7 +26,7 @@ func (req *RequestForGetAllValues) Path() string {
 }
 
 func (req *RequestForGetAllValues) Method() string {
-	return http.MethodGet
+	return http.MethodPost
 }
 
 func (req *RequestForGetAllValues) Query() string {
@@ -31,15 +34,15 @@ func (req *RequestForGetAllValues) Query() string {
 }
 
 func (req *RequestForGetAllValues) HasQueryParameter() bool {
-	return false
+	return true
 }
 
 func (req *RequestForGetAllValues) GetQueryParameter() string {
-	return ""
+	return req.parameters
 }
 
 func (req *RequestForGetAllValues) Payload() []byte {
-	return nil
+	return req.payload
 }
 
 func (req *RequestForGetAllValues) ResponseCode() int {
@@ -53,15 +56,21 @@ func NewResponseForGetAllValues() *ResponseForGetAllValues {
 }
 
 type ResponseForGetAllValues struct {
-  // @FIXME
-	Field string 
+	Error  bool `json:"error"`
+	Code   int  `json:"code"`
+	Result []struct {
+		Key      string `json:"_key"`
+		Value    string `json:"value"`
+		ExpireAt int    `json:"expireAt"`
+	} `json:"result"`
 }
 
 func (r *ResponseForGetAllValues) IsResponse() {}
 
 func (r ResponseForGetAllValues) String() string {
-  // @FIXME
-	return fmt.Sprintf("Bootfile: %v", r.Field)
+	return fmt.Sprintf(" Code: %v\n Error: %v\n Result: %v\n  ",
+		r.Code,
+		r.Error,
+		r.Result,
+	)
 }
-
-

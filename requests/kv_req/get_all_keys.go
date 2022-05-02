@@ -17,7 +17,6 @@ func NewRequestForGetAllKeys(fabric, collectionName string, offset, limit int, o
 type RequestForGetAllKeys struct {
 	path       string
 	parameters string
-	payload    []byte
 }
 
 func (req *RequestForGetAllKeys) Path() string {
@@ -37,7 +36,7 @@ func (req *RequestForGetAllKeys) HasQueryParameter() bool {
 }
 
 func (req *RequestForGetAllKeys) GetQueryParameter() string {
-	return ""
+	return req.parameters
 }
 
 func (req *RequestForGetAllKeys) Payload() []byte {

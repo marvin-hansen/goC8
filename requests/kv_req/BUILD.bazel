@@ -16,6 +16,7 @@ go_library(
         "shared_key_collection.go",
         "shared_kv_collection.go",
         "shared_kv_result.go",
+        "shared_order.go",
         "truncate_kvcollection.go",
     ],
     importpath = "goC8/requests/kv_req",
