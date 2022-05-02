@@ -23,6 +23,9 @@ func (c Client) SetKeyValuePairs(fabric, collectionName string, kvPairs kv_req.K
 	return response, CheckError(err)
 }
 
+// GetAllKeys
+// Get keys from key-value collection.
+// https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv--collection--keys/get
 func (c Client) GetAllKeys(fabric, collectionName string, offset, limit int, order kv_req.Order) (response *kv_req.ResponseForGetAllKeys, err error) {
 	if benchmark {
 		defer TimeTrack(time.Now(), "GetAllKeys")
@@ -34,9 +37,13 @@ func (c Client) GetAllKeys(fabric, collectionName string, offset, limit int, ord
 	return response, CheckError(err)
 }
 
+// GetAllValues
+// Get key-value pairs from collection.
+//Optional list of keys. Max limit is 100 keys per request.
+// https://macrometa.com/docs/api#/operations/GetValues
 func (c Client) GetAllValues(fabric, collectionName string, offset, limit int, keys kv_req.KeyCollection) (response *kv_req.ResponseForGetAllValues, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "GetAllKeys")
+		defer TimeTrack(time.Now(), "GetAllValues")
 	}
 
 	req := kv_req.NewRequestForGetAllValues(fabric, collectionName, keys, offset, limit)
@@ -45,9 +52,12 @@ func (c Client) GetAllValues(fabric, collectionName string, offset, limit int, k
 	return response, CheckError(err)
 }
 
+// DeleteKeyValuePairs
+// Remove key-value collection.
+// https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv--collection--values/delete
 func (c Client) DeleteKeyValuePairs(fabric, collectionName string, keys kv_req.KeyCollection) (response *kv_req.KVPairCollection, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "SetKeyValuePairs")
+		defer TimeTrack(time.Now(), "DeleteKeyValuePairs")
 	}
 
 	req := kv_req.NewRequestForDeleteKeyValue(fabric, collectionName, keys)
@@ -56,6 +66,9 @@ func (c Client) DeleteKeyValuePairs(fabric, collectionName string, keys kv_req.K
 	return response, CheckError(err)
 }
 
+// GetValue
+// Get value from key-value collection.
+// https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv--collection--value--key/get
 func (c Client) GetValue(fabric, collectionName, key string) (response *kv_req.KVPair, err error) {
 	if benchmark {
 		defer TimeTrack(time.Now(), "GetValue")
@@ -67,6 +80,9 @@ func (c Client) GetValue(fabric, collectionName, key string) (response *kv_req.K
 	return response, CheckError(err)
 }
 
+// DeleteValue
+// Remove key-value pair.
+// https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv--collection--value--key/delete
 func (c Client) DeleteValue(fabric, collectionName, key string) (response *kv_req.KVPair, err error) {
 	if benchmark {
 		defer TimeTrack(time.Now(), "DeleteValue")
