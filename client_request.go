@@ -9,8 +9,6 @@ import (
 	"time"
 )
 
-const debug = false
-
 // used for JSON unmarshaling
 var json = jsoniter.ConfigCompatibleWithStandardLibrary
 

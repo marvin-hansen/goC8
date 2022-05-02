@@ -35,7 +35,6 @@ filegroup(
 go_library(
     name = "goC8",
     srcs = [
-        "access_api.go",
         "client.go",
         "client_config.go",
         "client_error.go",
@@ -50,6 +49,7 @@ go_library(
         "graph_vertex.go",
         "index.go",
         "interface.go",
+        "kv.go",
         "util.go",
     ],
     importpath = "goC8/",
@@ -59,6 +59,7 @@ go_library(
         "@com_github_marvin_hansen_goc8//requests/document_req",
         "@com_github_marvin_hansen_goc8//requests/graph_req",
         "@com_github_marvin_hansen_goc8//requests/index_req",
+        "@com_github_marvin_hansen_goc8//requests/kv_req",
         "@com_github_marvin_hansen_goc8//requests/query_req",
         "@com_github_marvin_hansen_goc8//utils",
         "@com_github_valyala_fasthttp//:fasthttp",

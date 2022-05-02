@@ -1,0 +1,11 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_test")
+
+go_test(
+    name = "kv_test",
+    srcs = ["kv_test.go"],
+    deps = [
+        "@com_github_marvin_hansen_goc8//:goC8",
+        "@com_github_marvin_hansen_goc8//tests/conf",
+        "@com_github_stretchr_testify//assert",
+    ],
+)

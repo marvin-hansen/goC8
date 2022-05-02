@@ -1,0 +1,14 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "kv_req",
+    srcs = [
+        "count.go",
+        "create_kvcollection.go",
+        "create_options.go",
+        "get_all_kvcollections.go",
+        "shared.go",
+    ],
+    importpath = "goC8/requests/kv_req",
+    visibility = ["//visibility:public"],
+)
