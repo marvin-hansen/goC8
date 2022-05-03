@@ -37,12 +37,12 @@ func main() {
 		utils.CheckError(err, "Error CreateNewCollection")
 		utils.DbgPrint("Create collection: "+collectionID, verbose)
 
-		// We have to create a geo index before importing geoJson
+		// Create a geo index
 		field := "location"
 		geoJson := true
 		_, err = c.Index.CreateGeoIndex(fabric, collectionID, field, geoJson)
 		utils.CheckError(err, "Error CreateNewDocument")
 		utils.DbgPrint("Create GeoIndex on: "+field, verbose)
 	}
-
+	
 }
