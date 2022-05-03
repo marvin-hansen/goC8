@@ -1,4 +1,4 @@
-package goC8
+package src
 
 type Requester interface {
 	Path() string              // path relative to URI i.e. /data/function/

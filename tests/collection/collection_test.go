@@ -4,6 +4,7 @@ import (
 	"github.com/marvin-hansen/goC8"
 	collection_req2 "github.com/marvin-hansen/goC8/src/requests/collection_req"
 	"github.com/marvin-hansen/goC8/src/utils"
+	config "github.com/marvin-hansen/goC8/tests/conf"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -16,7 +17,7 @@ const (
 )
 
 func TestGetAllCollections(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	res, err := c.Collection.GetAllCollections(fabric)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -24,13 +25,13 @@ func TestGetAllCollections(t *testing.T) {
 }
 
 func TestCreateCollection(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	err := c.Collection.CreateNewCollection(fabric, collName, false, collType)
 	assert.NoError(t, err)
 }
 
 func TestCheckCollectionExists(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	exists, err := c.Collection.CheckCollectionExists(fabric, collName)
 	assert.NoError(t, err)
 	expected := true
@@ -47,7 +48,7 @@ func TestCheckCollectionExists(t *testing.T) {
 }
 
 func TestGetCollectionInfo(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	res, err := c.Collection.GetCollectionInfo(fabric, collName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -55,7 +56,7 @@ func TestGetCollectionInfo(t *testing.T) {
 }
 
 func TestUpdateCollection(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	properties := &collection_req2.UpdateOptions{
 		// Note: except for waitForSync and hasStream, collection properties cannot be changed once a collection is created.
 		HasStream:   true,
@@ -69,7 +70,7 @@ func TestUpdateCollection(t *testing.T) {
 }
 
 func TestTruncateCollection(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	res, err := c.Collection.TruncateCollection(fabric, collName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -77,7 +78,7 @@ func TestTruncateCollection(t *testing.T) {
 }
 
 func TestDeleteCollection(t *testing.T) {
-	c := goC8.NewClient(nil)
+	c := goC8.NewClient(config.GetDefaultConfig())
 	err := c.Collection.DeleteCollection(fabric, collName, false)
 	assert.NoError(t, err)
 }
