@@ -17,7 +17,7 @@ const (
 func TestGetAllGraphs(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 
-	res, err := c.GetAllGraphs(fabric)
+	res, err := c.Graph.GetAllGraphs(fabric)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	utils.PrintRes(res, verbose)
@@ -26,7 +26,7 @@ func TestGetAllGraphs(t *testing.T) {
 func TestCreateGraph(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	graphDef := getGraphDefinition()
-	res, err := c.CreateGraph(fabric, graphDef)
+	res, err := c.Graph.CreateGraph(fabric, graphDef)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	utils.PrintRes(res, verbose)
@@ -35,7 +35,7 @@ func TestCreateGraph(t *testing.T) {
 func TestGetGraph(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 
-	res, err := c.GetGraph(fabric, graphName)
+	res, err := c.Graph.GetGraph(fabric, graphName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	utils.PrintRes(res, verbose)
@@ -44,13 +44,13 @@ func TestGetGraph(t *testing.T) {
 func TestCheckGraphExists(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 
-	exists, err := c.CheckGraphExists(fabric, graphName)
+	exists, err := c.Graph.CheckGraphExists(fabric, graphName)
 	assert.NoError(t, err)
 	expected := true
 	actual := exists
 	assert.Equal(t, expected, actual, "Should exists")
 	noneExistingGraphName := "noneExistingGraphName"
-	exists, err = c.CheckGraphExists(fabric, noneExistingGraphName)
+	exists, err = c.Graph.CheckGraphExists(fabric, noneExistingGraphName)
 	assert.NoError(t, err)
 
 	expected = false
@@ -62,7 +62,7 @@ func TestDeleteGraph(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	dropCollections := false
 
-	res, err := c.DeleteGraph(fabric, graphName, dropCollections)
+	res, err := c.Graph.DeleteGraph(fabric, graphName, dropCollections)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	utils.PrintRes(res, verbose)

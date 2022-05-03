@@ -11,7 +11,7 @@ import (
 func TestGetAllVertices(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 
-	res, err := c.GetAllVertices(fabric, graphName)
+	res, err := c.Graph.GetAllVertices(fabric, graphName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	utils.PrintRes(res, verbose)
@@ -22,7 +22,7 @@ func TestGetVertex(t *testing.T) {
 	collectionID := "teachers"
 	edgeID := "Jean"
 
-	res, err := c.GetVertex(fabric, graphName, collectionID, edgeID)
+	res, err := c.Graph.GetVertex(fabric, graphName, collectionID, edgeID)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	utils.PrintRes(res, verbose)
