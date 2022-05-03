@@ -26,7 +26,7 @@ func addTutorials(c *goC8.Client) {
 		// import data
 		silent := false
 		jsonDocument := GetTutorialsData()
-		_, err = c.CreateNewDocument(fabric, collectionTutorials, silent, jsonDocument, nil)
+		_, err = c.Document.CreateNewDocument(fabric, collectionTutorials, silent, jsonDocument, nil)
 		utils.CheckError(err, "Error CreateNewDocument")
 	}
 }
@@ -45,7 +45,7 @@ func addTutorEdge(c *goC8.Client) {
 		// import data
 		silent := false
 		jsonDocument := GetTutorsEdgeData()
-		_, err = c.CreateNewDocument(fabric, edgeCollectionTutors, silent, jsonDocument, nil)
+		_, err = c.Document.CreateNewDocument(fabric, edgeCollectionTutors, silent, jsonDocument, nil)
 		utils.CheckError(err, "Error CreateNewCollection")
 	}
 }
@@ -60,7 +60,7 @@ func addEdgeCollection(c *goC8.Client) {
 		sourceVertex := "teachers"
 		destinationVertex := "tutorials"
 
-		_, addErr := c.AddEdgeCollection(fabric, graph, collectionName, sourceVertex, destinationVertex)
+		_, addErr := c.Graph.AddEdgeCollection(fabric, graph, collectionName, sourceVertex, destinationVertex)
 		if addErr != nil {
 			return
 		}
@@ -73,13 +73,13 @@ func addSingleEdge(c *goC8.Client) {
 	collectionID := "teach"
 	edgeID := "Bruce-CSC105"
 	// check if edge exits
-	exists, err := c.CheckEdgeExists(fabric, graph, collectionID, edgeID)
+	exists, err := c.Graph.CheckEdgeExists(fabric, graph, collectionID, edgeID)
 	utils.CheckError(err, "Error CheckEdgeExists")
 	if !exists {
 		// if not, add a new edge to the edge collection
 		from := "teachers/Bruce"
 		to := "lectures/CSC105"
-		_, createErr := c.CreateEdge(fabric, graph, collectionID, from, to, false)
+		_, createErr := c.Graph.CreateEdge(fabric, graph, collectionID, from, to, false)
 		utils.CheckError(createErr, "Error CreateEdge")
 	}
 }

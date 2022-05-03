@@ -40,21 +40,21 @@ func main() {
 	setup(c)
 
 	println("Get all indices for collection: " + collName)
-	res, getIndexErr := c.GetIndexes(fabric, collName)
+	res, getIndexErr := c.Index.GetIndexes(fabric, collName)
 	utils.CheckError(getIndexErr, "Failed to fetch all indices for "+collName)
 	utils.PrintRes(res, verbose)
 
 	println("Create Fulltext index for: " + collName)
 	fulltextIndexField := "Summary"
 	fulltextMinLength := 3
-	ftRes, createFTErr := c.CreateFulltextIndex(fabric, collName, fulltextIndexField, fulltextMinLength)
+	ftRes, createFTErr := c.Index.CreateFulltextIndex(fabric, collName, fulltextIndexField, fulltextMinLength)
 	utils.CheckError(createFTErr, "Failed to create fulltext index for "+collName)
 	utils.PrintRes(ftRes, verbose)
 
 	println("Create Geo index for: " + collName)
 	geoField := "location"
 	geoJson := true
-	geoRes, geoErr := c.CreateGeoIndex(fabric, collName, geoField, geoJson)
+	geoRes, geoErr := c.Index.CreateGeoIndex(fabric, collName, geoField, geoJson)
 	utils.CheckError(geoErr, "Failed to create geo index for "+collName)
 	utils.PrintRes(geoRes, verbose)
 
@@ -63,26 +63,26 @@ func main() {
 	deduplicate := true
 	sparse := true
 	unique := true
-	hashRes, hashErr := c.CreateHashIndex(fabric, collName, hashField, deduplicate, sparse, unique)
+	hashRes, hashErr := c.Index.CreateHashIndex(fabric, collName, hashField, deduplicate, sparse, unique)
 	utils.CheckError(hashErr, "Failed to create hash index for "+collName)
 	utils.PrintRes(hashRes, verbose)
 
 	println("Create persistent index for: " + collName)
 	persistentField := "Content"
-	perRes, perErr := c.CreatePersistentIndex(fabric, collName, persistentField, deduplicate, sparse, unique)
+	perRes, perErr := c.Index.CreatePersistentIndex(fabric, collName, persistentField, deduplicate, sparse, unique)
 	utils.CheckError(perErr, "Failed to create persistent index for "+collName)
 	utils.PrintRes(perRes, verbose)
 
 	println("Create SkipList index for: " + collName)
 	skipField := "SkipText"
-	skipRes, skipErr := c.CreateSkipListIndex(fabric, collName, skipField, deduplicate, sparse, unique)
+	skipRes, skipErr := c.Index.CreateSkipListIndex(fabric, collName, skipField, deduplicate, sparse, unique)
 	utils.CheckError(skipErr, "Failed to create SkipList index for "+collName)
 	utils.PrintRes(skipRes, verbose)
 
 	println("Create TTL index for: " + collName)
 	ttlField := "requests"
 	ttl := 10
-	ttlRes, ttlErr := c.CreateTTLIndex(fabric, collName, ttlField, ttl)
+	ttlRes, ttlErr := c.Index.CreateTTLIndex(fabric, collName, ttlField, ttl)
 	utils.CheckError(ttlErr, "Failed to create TTL index for "+collName)
 	utils.PrintRes(ttlRes, verbose)
 

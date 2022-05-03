@@ -26,7 +26,7 @@ func setupCities(c *goC8.Client) {
 		// We have to create a geo index before importing geoJson
 		field := "location"
 		geoJson := true
-		_, err = c.CreateGeoIndex(fabric, collectionID, field, geoJson)
+		_, err = c.Index.CreateGeoIndex(fabric, collectionID, field, geoJson)
 		checkError(err, "Error CreateNewDocument")
 		dbgPrint("Create GeoIndex on: " + field)
 
