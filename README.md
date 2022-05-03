@@ -159,6 +159,21 @@ func checkError(err error, msg string) {
 }
 ```
 
+## Make reference
+
+```bash 
+Setup: 
+    make check                  Checks all requirements.
+ 
+Test: 
+    make test-all               Runs all API tests.
+    make test-collection        Tests collection API. 
+    make test-document          Tests document API. 
+    make test-index             Tests index API. 
+    make test-kv                Tests key-value API. 
+```
+
+
 ## Known issues and solutions
 
 ### Illegal key while creating ....
