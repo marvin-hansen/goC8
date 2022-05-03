@@ -8,7 +8,7 @@ import (
 const (
 	debug     = false
 	benchmark = false
-	version   = "v1.2"
+	version   = "v1.3"
 )
 
 type Client struct {
@@ -20,6 +20,7 @@ type Client struct {
 	Collection *CollectionManager
 	Document   *DocumentManager
 	Graph      *GraphManager
+	Index      *IndexManager
 	KV         *KVManager
 }
 
@@ -42,6 +43,7 @@ func NewClient(config *ClientConfig) *Client {
 	c.Collection = NewCollectionManager(c)
 	c.Document = NewDocumentManager(c)
 	c.Graph = NewGraphManager(c)
+	c.Index = NewIndexManager(c)
 	c.KV = NewKVManager(c)
 
 	return c
