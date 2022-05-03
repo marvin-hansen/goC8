@@ -44,5 +44,5 @@ func main() {
 		utils.CheckError(err, "Error CreateNewDocument")
 		utils.DbgPrint("Create GeoIndex on: "+field, verbose)
 	}
-	
+
 }
