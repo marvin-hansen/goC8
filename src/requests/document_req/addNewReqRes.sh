@@ -4,7 +4,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-source "../../scripts/bash_shared/convert_functions.sh"
+source "../../../scripts/bash_shared/convert_functions.sh"
 
 [ $# -eq 0 ] && {
   echo "Usage: package (lowercase) Entity (CamelCase):"; exit 1;
@@ -90,9 +90,5 @@ func (r ResponseFor$name) String() string {
 
 EOF
 
-## Generate build files & update bazel dependencies
-command bazel run //:gazelle
-## Build all sources
-command bazel build //:build
 
-git add .
+command git add .

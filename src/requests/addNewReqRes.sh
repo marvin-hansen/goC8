@@ -90,9 +90,5 @@ func (r ResponseFor$name) String() string {
 
 EOF
 
-## Generate build files & update bazel dependencies
-command bazel run //:gazelle
-## Build all sources
-command bazel build //:build
 
 git add .
