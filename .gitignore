@@ -44,3 +44,5 @@ output.log
 # Custom files to ignore
 key.go
 /.idea/.gitignore
+/acc/
+/acc/*.*
