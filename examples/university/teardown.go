@@ -6,11 +6,11 @@ import (
 )
 
 func teardown(c *goC8.Client) {
-	exists, err := c.CheckGraphExists(fabric, graph)
+	exists, err := c.Graph.CheckGraphExists(fabric, graph)
 	utils.CheckError(err, "Error CheckGraphExists: ")
 	if exists {
 		// if so delete graph
-		_, createGraphErr := c.DeleteGraph(fabric, graph, true)
+		_, createGraphErr := c.Graph.DeleteGraph(fabric, graph, true)
 		utils.CheckError(createGraphErr, "Error CreateGraph")
 	}
 }

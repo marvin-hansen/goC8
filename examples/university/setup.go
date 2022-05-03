@@ -71,12 +71,12 @@ func setupEdges(c *goC8.Client) {
 
 func setupGraph(c *goC8.Client) {
 	// test if graph exists
-	exists, err := c.CheckGraphExists(fabric, graph)
+	exists, err := c.Graph.CheckGraphExists(fabric, graph)
 	utils.CheckError(err, "Error CheckGraphExists: ")
 	if !exists {
 		// if so create graph
 		jsonGraph := GetUniversityGraphDefinition()
-		_, createGraphErr := c.CreateGraph(fabric, jsonGraph)
+		_, createGraphErr := c.Graph.CreateGraph(fabric, jsonGraph)
 		utils.CheckError(createGraphErr, "Error CreateGraph")
 	}
 }

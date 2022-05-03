@@ -4,11 +4,11 @@ import "github.com/marvin-hansen/goC8"
 
 func teardown(c *goC8.Client) {
 	// test if graph exists
-	exists, err := c.CheckGraphExists(fabric, graph)
+	exists, err := c.Graph.CheckGraphExists(fabric, graph)
 	checkError(err, "Error CheckGraphExists: ")
 	if exists {
 		// if so delete  graph
-		_, delErr := c.DeleteGraph(fabric, graph, true)
+		_, delErr := c.Graph.DeleteGraph(fabric, graph, true)
 		checkError(delErr, "Error DeleteGraph: ")
 		dbgPrint("Deleted graph and all of its collections: " + graph)
 	}
