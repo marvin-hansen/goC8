@@ -33,7 +33,7 @@ func setupCities(c *goC8.Client) {
 		// import city data
 		silent := false
 		jsonDocument := GetCityData()
-		_, err = c.CreateNewDocument(fabric, collectionID, silent, jsonDocument, nil)
+		_, err = c.Document.CreateNewDocument(fabric, collectionID, silent, jsonDocument, nil)
 		checkError(err, "Error CreateNewDocument")
 		dbgPrint("Imported data into: " + collectionID)
 	}
@@ -54,7 +54,7 @@ func setupFlights(c *goC8.Client) {
 		// import flight data
 		silent := false
 		jsonDocument := GetFlightData()
-		_, err = c.CreateNewDocument(fabric, edgeCollectionID, silent, jsonDocument, nil)
+		_, err = c.Document.CreateNewDocument(fabric, edgeCollectionID, silent, jsonDocument, nil)
 		checkError(err, "Error CreateNewCollection")
 		dbgPrint("Imported data into: " + edgeCollectionID)
 	}
