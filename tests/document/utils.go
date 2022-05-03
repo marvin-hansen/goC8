@@ -27,19 +27,15 @@ func getTestReplaceSingleData(key string) []byte {
 	return []byte(str)
 }
 
-func getTestReplaceManyData(key1, key2 string) []byte {
+func getTestReplaceManyData(key1 string) []byte {
 	str := fmt.Sprintf(` 
 		[
 		  {
 			"_key": "%v",
 			"item1": "dataReplaced"
-		  },
-		 {
-			"_key": "%v",
-			"item1": "dataReplaced"
 		  }
 	]
-	`, key1, key2)
+	`, key1)
 	return []byte(str)
 }
 
