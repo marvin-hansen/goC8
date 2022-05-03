@@ -8,7 +8,7 @@ Welcome to the GitHub page for goC8, a Golang client for the macrometa global da
 search, functions, and 4 databases all through one single API. GDN clients for [Python](https://github.com/Macrometacorp/pyC8), [Java](https://github.com/Macrometacorp/c84j), and [Javascript](https://github.com/Macrometacorp/jsC8) are available from [Macrometa](https://github.com/Macrometacorp).
 goC8 is an open source client that implements the Macrometa API for Golang. 
 
-## Golang & GDN use cases
+## Use cases
 
 * Legal compliance with [data residency regulations](https://incountry.com/blog/data-residency-laws-by-country-overview/) & [EU GDPR regulations](https://www.omnitas.se/data-residency-affected-by-gdpr-and-schrems/)
 * Global data to cluster co-location for low latency data access
