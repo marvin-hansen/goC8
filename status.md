@@ -26,6 +26,19 @@
 | Support       | No          | No     |
 
 
+## Collection API
+
+| http   | Endpoint                                 | Function                                           | Implemented | Tested | Done |
+|--------|------------------------------------------|----------------------------------------------------|-------------|--------|------|
+| Get    | /collection                              | Fetches the list of all collections.               | Yes         | Yes    | Yes  |
+| Post   | /collection                              | Create collection.                                 | Yes         | Yes    | Yes  |
+| Get    | /collection/{collection-name}            | Fetches the information about collection.          | Yes         | Yes    | Yes  |
+| Delete | /collection/{collection-name}            | Remove the collection.                             | Yes         | Yes    | Yes  |
+| Get    | /collection/{collection-name}/count      | Returns the number of documents in the collection. | Yes         | Yes    | Yes  |
+| Put    | /collection/{collection-name}/truncate   | Truncate collection                                | Yes         | Yes    | Yes  |
+| Put    | /collection/{collection-name}/properties | Changes the properties of a collection.            | Yes         | Yes    | Yes  |
+
+
 ## KV API 
 
 | Http   | Endpoint                | Function                                                 | Implemented | Tested | Done |

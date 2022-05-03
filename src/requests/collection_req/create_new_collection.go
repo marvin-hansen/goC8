@@ -69,7 +69,7 @@ func (r ResponseForCreateNewCollection) String() string {
 }
 
 type ResponseForCreateNewCollection struct {
-	Result []ResulFromCollections `json:"result"`
+	Result []ResultFromCollection `json:"result"`
 }
 
 func (r *ResponseForCreateNewCollection) IsResponse() {}

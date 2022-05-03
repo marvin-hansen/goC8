@@ -51,7 +51,7 @@ func NewResponseForGetAllCollections() *ResponseForGetAllCollections {
 }
 
 type ResponseForGetAllCollections struct {
-	Result []ResulFromCollections `json:"result"`
+	Result []ResultFromCollection `json:"result"`
 }
 
 func (r *ResponseForGetAllCollections) IsResponse() {}

@@ -64,7 +64,13 @@ type KeyOptions struct {
 	Type          string `json:"type,omitempty"`
 }
 
-type ResulFromCollections struct {
+func NewResultFromCollection() *ResultFromCollection {
+	return new(ResultFromCollection)
+}
+
+type ResultFromCollection struct {
+	Code             int    `json:"code,omitempty"`
+	Error            bool   `json:"error,omitempty"`
 	Id               string `json:"id,omitempty"`
 	Name             string `json:"name,omitempty"`
 	Status           int    `json:"status,omitempty"`
@@ -77,10 +83,13 @@ type ResulFromCollections struct {
 	IsSystem         bool   `json:"isSystem,omitempty"`
 	GloballyUniqueId string `json:"globallyUniqueId,omitempty"`
 	SearchEnabled    bool   `json:"searchEnabled,omitempty"`
+	Count            int    `json:"count,omitempty"`
 }
 
-func (r ResulFromCollections) String() string {
-	return fmt.Sprintf("ID: %v, Name: %v,  Status: %v, Type: %v, CollectionModel: %v, IsSpot: %v, IsLocal: %v, HasStream: %v, WaitForSync: %v, IsSystem: %v, GloballyUniqueId: %v, SearchEnabled: %v",
+func (r *ResultFromCollection) IsResponse() {}
+
+func (r ResultFromCollection) String() string {
+	return fmt.Sprintf(" ID: %v\n, Name: %v\n,  Status: %v\n, Type: %v\n, CollectionModel: %v\n, IsSpot: %v\n, IsLocal: %v\n, HasStream: %v\n, WaitForSync: %v\n, IsSystem: %v\n, GloballyUniqueId: %v\n, SearchEnabled: %v\n Count: %v",
 		r.Id,
 		r.Name,
 		r.Status,
@@ -93,6 +102,7 @@ func (r ResulFromCollections) String() string {
 		r.IsSystem,
 		r.GloballyUniqueId,
 		r.SearchEnabled,
+		r.Count,
 	)
 }
 

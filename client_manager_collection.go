@@ -53,6 +53,15 @@ func (c CollectionManager) CheckCollectionExists(fabric, collectionName string) 
 	return true, nil
 }
 
+func (c CollectionManager) CountCollection(fabric, collectionName string) (response *collection_req.ResultFromCollection, err error) {
+	req := collection_req.NewRequestForCountCollection(fabric, collectionName)
+	response = collection_req.NewResultFromCollection()
+	if err = c.client.Request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
 // UpdateCollectionProperties updates collection properties.
 // Note: except for waitForSync and hasStream, collection properties cannot be changed once a collection is created.
 func (c CollectionManager) UpdateCollectionProperties(fabric, collectionName string, properties *collection_req.UpdateOptions) (response *collection_req.ResponseForUpdateCollection, err error) {

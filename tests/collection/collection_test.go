@@ -1,6 +1,7 @@
 package collection
 
 import (
+	"fmt"
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/src/requests/collection_req"
 	"github.com/marvin-hansen/goC8/src/utils"
@@ -44,7 +45,15 @@ func TestCheckCollectionExists(t *testing.T) {
 	expected = false
 	actual = exists
 	assert.Equal(t, expected, actual, "Should be equal")
+}
 
+func TestCountCollection(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	res, err := c.Collection.CountCollection(fabric, collName)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	//utils.PrintRes(res, verbose)
+	println("Count: " + fmt.Sprint(res.Count))
 }
 
 func TestGetCollectionInfo(t *testing.T) {
