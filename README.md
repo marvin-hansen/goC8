@@ -1,11 +1,12 @@
 # goC8
 
-Welcome to the GitHub page for goC8, a Golang driver for the macrometa global data platform (GDN).
+Welcome to the GitHub page for goC8, a Golang client for the macrometa global data platform (GDN).
 
 ## About
 
 [Macrometa](https://www.macrometa.com/) is a secure, global data platform with integrated pub/sub, stream processing,
-search, functions, and 4 databases all through one single API. goC8 is an open source client that implements the macrometa API.  
+search, functions, and 4 databases all through one single API. GDN clients for [Python](https://github.com/Macrometacorp/pyC8), [Java](https://github.com/Macrometacorp/c84j), and [Javascript](https://github.com/Macrometacorp/jsC8) are available from [Macrometa](https://github.com/Macrometacorp).
+goC8 is an open source client that implements the Macrometa API for Golang. 
 
 ## Golang & GDN use cases
 
@@ -42,9 +43,7 @@ The client config requires the following settings:
 * Timeout
 
 Api Key refers to the generated api access key. Endpoint refers to the POP provided by the GDN. Fabric refers to the GDN
-Geo Fabric. Timeout refers to the http connection timeout in seconds.
-
-If you do not have these value at hand, please read the [setup guide](setup.md) for details.
+Geo Fabric. Timeout refers to the http connection timeout in seconds. If you do not have these value at hand, please read the [setup guide](setup.md) for details.
 
 ## Code examples
 
@@ -80,8 +79,8 @@ const (
 	apiKey   = "email.root.secretkey.xxxxxxxxxxxxxxxxx"
 	endpoint = "https://YOUR-ID-us-west.paas.macrometa.io"
 	fabric   = "MyFabric"
-	timeout  = 5 // http connection timeout in seconds
-    // collection, document & graph config
+	timeout  = 5 // http connection timeout in seconds 
+	// collection, document & graph config
 	delete           = false
 	verbose          = true
 	graph            = "airline"
