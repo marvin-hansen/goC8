@@ -43,6 +43,23 @@ func (c GraphManager) AddEdgeCollection(fabric, graphName, edgeCollectionName, s
 	return response, nil
 }
 
+// CreateEdge
+// Creates a new edge in the collection
+// sourceVertex: The source vertex of this edge. Has to be valid within the used edge definition.
+// destinationVertex: The target vertex of this edge. Has to be valid within the used edge definition.
+func (c GraphManager) CreateEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex string, returnNew bool) (response *graph_req.ResponseForCreateEdge, err error) {
+	if benchmark {
+		defer utils.TimeTrack(time.Now(), "CreateEdge")
+	}
+
+	req := graph_req.NewRequestForCreateEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex, returnNew)
+	response = graph_req.NewResponseForCreateEdge()
+	if err = c.client.Request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
 // GetEdge
 // Gets an edge from the given collection.
 // https://macrometa.com/docs/api#/operations/GetAnEdge
@@ -76,23 +93,6 @@ func (c GraphManager) CheckEdgeExists(fabric, graphName, collectionName, edgeKey
 		}
 	}
 	return true, nil
-}
-
-// CreateEdge
-// Creates a new edge in the collection
-// sourceVertex: The source vertex of this edge. Has to be valid within the used edge definition.
-// destinationVertex: The target vertex of this edge. Has to be valid within the used edge definition.
-func (c GraphManager) CreateEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex string, returnNew bool) (response *graph_req.ResponseForCreateEdge, err error) {
-	if benchmark {
-		defer utils.TimeTrack(time.Now(), "CreateEdge")
-	}
-
-	req := graph_req.NewRequestForCreateEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex, returnNew)
-	response = graph_req.NewResponseForCreateEdge()
-	if err = c.client.Request(req, response); err != nil {
-		return nil, err
-	}
-	return response, nil
 }
 
 func (c GraphManager) ReplaceEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex string, dropCollections bool) (response *graph_req.ResponseForReplaceEdge, err error) {

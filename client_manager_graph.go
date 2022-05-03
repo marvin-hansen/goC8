@@ -33,6 +33,7 @@ func (c GraphManager) GetAllGraphs(fabric string) (response *graph_req.ResponseF
 
 // CreateGraph
 // The creation of a graph requires the name of the graph and a definition of its edges.
+// Note: Requires Administrator permissions to access the GeoFabric and Read Only access on every collection used within this graph.
 // Sample edge definition:
 // {
 //  "edgeDefinitions": [

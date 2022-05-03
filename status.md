@@ -39,6 +39,33 @@
 | Put    | /collection/{collection-name}/properties | Changes the properties of a collection.            | Yes         | Yes    | Yes  |
 
 
+## Graph API
+| http   | Endpoint                                    | Function                                         | Implemented | Tested | Done |
+|--------|---------------------------------------------|--------------------------------------------------|-------------|--------|------|
+| Get    | /graph                                      | Lists all graphs stored in this database.        | Yes         | Yes    | Yes  |
+| Post   | /graph                                      | Create a graph                                   | Yes         | Yes    | Yes  |
+| Delete | /graph/{graph}                              | Deletes an existing graph object by name.        | Yes         | Yes    | Yes  |
+| Get    | graph/{graph}                               | Get a graph                                      | Yes         | Yes    | Yes  |
+| Get    | graph/{graph}/edge                          | Lists all edge collections within this graph.    | Yes         | Yes    | Yes  |
+| Post   | /graph/{graph}/edge                         | Adds an additional edge definition to the graph. | Yes         | Yes    | Yes  |
+| Post   | /graph/{graph}/edge/{edgeCollection}        | Creates a new edge in the collection.            | Yes         | Yes    | Yes  |
+| Put    | /graph/{graph}/edge/{edgeCollection}        | Replace an edge definition                       | Yes         | Yes    | Yes  |
+| Delete | /graph/{graph}/edge/{edgeCollection}        | Remove an edge definition                        |             |        |      |
+| Delete | /graph/{graph}/edge/{collection}/{edge}     | Remove an edge                                   |             |        |      |
+| Get    | /graph/{graph}/edge/{collection}/{edge}     | Get an Edge                                      | Yes         | Yes    | Yes  |
+| Path   | /graph/{graph}/edge/{collection}/{edge}     | Modify an edge                                   |             |        |      |
+| Put    | /graph/{graph}/edge/{collection}/{edge}     | Replace an edge                                  | Yes         | Yes    | Yes  |
+| Get    | /graph/{graph}/vertex                       | List vertex collections                          | Yes         | Yes    | Yes  |
+| Post   | /graph/{graph}/vertex                       | Add vertex collection                            |             |        |      |
+| Delete | /graph/{graph}/vertex/{collection}          | Remove vertex collection                         |             |        |      |
+| Post   | /graph/{graph}/vertex/{collection}          | Create a vertex                                  |             |        |      |
+| Delete | /graph/{graph}/vertex/{collection}/{vertex} | Remove a vertex                                  |             |        |      |
+| Get    | /graph/{graph}/vertex/{collection}/{vertex} | Get a vertex                                     | Yes         | Yes    | Yes  |
+| patch  | /graph/{graph}/vertex/{collection}/{vertex} | Update a vertex                                  |             |        |      |
+| Put    | /graph/{graph}/vertex/{collection}/{vertex} | Replace a vertex                                 |             |        |      |
+| Get    | /edges/{collection-id}                      | Read in- or outbound edges                       |             |        |      |
+| Post   | /graphs/traversal                           | executes a traversal                             |             |        |      |
+
 ## KV API 
 
 | Http   | Endpoint                | Function                                                 | Implemented | Tested | Done |
