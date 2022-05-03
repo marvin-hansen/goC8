@@ -1,7 +1,5 @@
 # Make will use bash instead of sh
 SHELL := /usr/bin/env bash
-CC=clang # required by bazel
-#ENV=LOCAL # Required by auto-config.
 
 # GNU make man page
 # http://www.gnu.org/software/make/manual/make.html
@@ -30,7 +28,6 @@ check:
 # "---------------------------------------------------------"
 # Test
 # "---------------------------------------------------------"
-
 .PHONY: test-all
 test-all:
 	@source scripts/test/test-all.sh
