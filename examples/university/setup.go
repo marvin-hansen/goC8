@@ -26,7 +26,7 @@ func setupTeachers(c *goC8.Client) {
 		// import city data
 		silent := false
 		jsonDocument := GetTeacherData()
-		_, err = c.CreateNewDocument(fabric, collectionTeachers, silent, jsonDocument, nil)
+		_, err = c.Document.CreateNewDocument(fabric, collectionTeachers, silent, jsonDocument, nil)
 		utils.CheckError(err, "Error CreateNewDocument")
 	}
 }
@@ -45,7 +45,7 @@ func setupCourses(c *goC8.Client) {
 		// import  data
 		silent := false
 		jsonDocument := GetLecturesData()
-		_, err = c.CreateNewDocument(fabric, collectionLectures, silent, jsonDocument, nil)
+		_, err = c.Document.CreateNewDocument(fabric, collectionLectures, silent, jsonDocument, nil)
 		utils.CheckError(err, "Error CreateNewDocument")
 	}
 }
@@ -64,7 +64,7 @@ func setupEdges(c *goC8.Client) {
 		// import  data
 		silent := false
 		jsonDocument := GetTeachEdgeData()
-		_, err = c.CreateNewDocument(fabric, edgeCollectionTeach, silent, jsonDocument, nil)
+		_, err = c.Document.CreateNewDocument(fabric, edgeCollectionTeach, silent, jsonDocument, nil)
 		utils.CheckError(err, "Error CreateNewDocument")
 	}
 }

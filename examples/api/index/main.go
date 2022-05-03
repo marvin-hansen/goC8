@@ -19,11 +19,11 @@ const (
 )
 
 func setup(c *goC8.Client) {
-	exists, err := c.CheckCollectionExists(fabric, collName)
+	exists, err := c.Collection.CheckCollectionExists(fabric, collName)
 	utils.CheckError(err, "Error CheckCollectionExists: ")
 	if !exists {
 		println("Create new collection: " + collName)
-		createCollErr := c.CreateNewCollection(fabric, collName, false, collType)
+		createCollErr := c.Collection.CreateNewCollection(fabric, collName, false, collType)
 		utils.CheckError(createCollErr, "Failed to create a new collection. "+collName)
 	}
 

@@ -27,14 +27,14 @@ func main() {
 	c := goC8.NewClient(config)
 
 	println("Create new collection: " + collName)
-	createCollErr := c.CreateNewCollection(fabric, collName, false, collType)
+	createCollErr := c.Collection.CreateNewCollection(fabric, collName, false, collType)
 	utils.CheckError(createCollErr, "Failed to create a new collection. "+collName)
 
 	println("Create new document! ")
 	silent := false // When true, an empty reply will be retruned. If false, the document ID will be returned
 	jsonDocument := getTestInsertData()
 
-	res, createDocErr := c.CreateNewDocument(fabric, collName, silent, jsonDocument, nil)
+	res, createDocErr := c.Document.CreateNewDocument(fabric, collName, silent, jsonDocument, nil)
 	utils.CheckError(createDocErr, "Failed to create a new document. "+collName)
 
 	if verbose {
@@ -47,7 +47,7 @@ func main() {
 
 	println("Get a document! ")
 	key := "4"
-	getRes, getDocErr := c.GetDocument(fabric, collName, key)
+	getRes, getDocErr := c.Document.GetDocument(fabric, collName, key)
 	utils.CheckError(getDocErr, "Failed to get document: "+key)
 	printJsonRes(getRes)
 
