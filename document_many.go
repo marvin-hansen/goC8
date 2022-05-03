@@ -1,19 +1,19 @@
 package goC8
 
 import (
-	r "github.com/marvin-hansen/goC8/requests/document_req"
+	"github.com/marvin-hansen/goC8/src/requests/document_req"
 )
 
 func (c Client) UpdateManyDocuments(
 	fabric string, collectionName string, jsonDocument []byte,
-	parameters *r.UpdateDocumentParameters) (response *r.ResponseForUpdateManyDocument, err error) {
+	parameters *document_req.UpdateDocumentParameters) (response *document_req.ResponseForUpdateManyDocument, err error) {
 
 	if parameters == nil {
-		parameters = r.GetDefaultUpdateDocumentParameters()
+		parameters = document_req.GetDefaultUpdateDocumentParameters()
 	}
 
-	req := r.NewRequestForUpdateManyDocuments(fabric, collectionName, jsonDocument, parameters)
-	response = r.NewResponseForUpdateManyDocuments()
+	req := document_req.NewRequestForUpdateManyDocuments(fabric, collectionName, jsonDocument, parameters)
+	response = document_req.NewResponseForUpdateManyDocuments()
 	if err = c.request(req, response); err != nil {
 		return nil, err
 	}
@@ -22,14 +22,14 @@ func (c Client) UpdateManyDocuments(
 
 func (c Client) ReplaceManyDocuments(
 	fabric string, collectionName string, jsonDocuments []byte,
-	parameters *r.ReplaceDocumentParameters) (response *r.ResponseForReplaceManyDocument, err error) {
+	parameters *document_req.ReplaceDocumentParameters) (response *document_req.ResponseForReplaceManyDocument, err error) {
 
 	if parameters == nil {
-		parameters = r.GetDefaultReplaceDocumentParameters()
+		parameters = document_req.GetDefaultReplaceDocumentParameters()
 	}
 
-	req := r.NewRequestForReplaceManyDocument(fabric, collectionName, jsonDocuments, parameters)
-	response = r.NewResponseForReplaceManyDocument()
+	req := document_req.NewRequestForReplaceManyDocument(fabric, collectionName, jsonDocuments, parameters)
+	response = document_req.NewResponseForReplaceManyDocument()
 	if err = c.request(req, response); err != nil {
 		return nil, err
 	}
@@ -38,14 +38,14 @@ func (c Client) ReplaceManyDocuments(
 
 func (c Client) DeleteManyDocuments(
 	fabric string, collectionName string, keysToDelete []byte,
-	parameters *r.DeleteDocumentParameters) (response *r.ResponseForDeleteManyDocuments, err error) {
+	parameters *document_req.DeleteDocumentParameters) (response *document_req.ResponseForDeleteManyDocuments, err error) {
 
 	if parameters == nil {
-		parameters = r.GetDefaultDeleteDocumentParameters()
+		parameters = document_req.GetDefaultDeleteDocumentParameters()
 	}
 
-	req := r.NewRequestForDeleteManyDocuments(fabric, collectionName, keysToDelete, parameters)
-	response = r.NewResponseForDeleteManyDocuments()
+	req := document_req.NewRequestForDeleteManyDocuments(fabric, collectionName, keysToDelete, parameters)
+	response = document_req.NewResponseForDeleteManyDocuments()
 	if err = c.request(req, response); err != nil {
 		return nil, err
 	}

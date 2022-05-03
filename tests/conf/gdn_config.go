@@ -1,11 +1,14 @@
 package config
 
-import "github.com/marvin-hansen/goC8"
+import (
+	"github.com/marvin-hansen/goC8"
+	"github.com/marvin-hansen/goC8/acc"
+)
 
 const (
 	defaultEndpoint = "https://api-bigmouth-2265268a-ap-south.paas.macrometa.io/_fabric/"
 	defaultFabric   = "SouthEastAsia"
-	apiKEY          = KEY
+	apiKEY          = acc.KEY
 	timeout         = 5 // http connection timeout in seconds
 )
 

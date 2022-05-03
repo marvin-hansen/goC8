@@ -1,7 +1,7 @@
 package goC8
 
 import (
-	"github.com/marvin-hansen/goC8/requests/document_req"
+	document_req2 "github.com/marvin-hansen/goC8/src/requests/document_req"
 	"strings"
 )
 
@@ -11,14 +11,14 @@ import (
 // jsonDocument the document to store in the collection
 func (c Client) CreateNewDocument(
 	fabric string, collectionName string, silent bool, jsonDocument []byte,
-	parameters *document_req.CreateDocumentParameters) (response *document_req.ResponseForCreateDocument, err error) {
+	parameters *document_req2.CreateDocumentParameters) (response *document_req2.ResponseForCreateDocument, err error) {
 
 	if parameters == nil {
-		parameters = document_req.GetDefaultCreateDocumentParameters()
+		parameters = document_req2.GetDefaultCreateDocumentParameters()
 	}
 
-	req := document_req.NewRequestForCreateDocument(fabric, collectionName, silent, jsonDocument, parameters)
-	response = document_req.NewResponseForCreateDocument()
+	req := document_req2.NewRequestForCreateDocument(fabric, collectionName, silent, jsonDocument, parameters)
+	response = document_req2.NewResponseForCreateDocument()
 	if err = c.request(req, response); err != nil {
 		return nil, err
 	}
@@ -26,10 +26,10 @@ func (c Client) CreateNewDocument(
 }
 
 func (c Client) GetDocument(
-	fabric string, collectionName string, key string) (response *document_req.ResponseForGetJsonDocument, err error) {
+	fabric string, collectionName string, key string) (response *document_req2.ResponseForGetJsonDocument, err error) {
 
-	req := document_req.NewRequestForGetDocument(fabric, collectionName, key)
-	response = document_req.NewResponseForGetJsonDocument()
+	req := document_req2.NewRequestForGetDocument(fabric, collectionName, key)
+	response = document_req2.NewResponseForGetJsonDocument()
 	if err = c.requestJsonResponse(req, response); err != nil {
 		return nil, err
 	}
@@ -39,8 +39,8 @@ func (c Client) GetDocument(
 func (c Client) CheckDocumentExists(
 	fabric string, collectionName string, key string) (exists bool, err error) {
 
-	req := document_req.NewRequestForGetDocument(fabric, collectionName, key)
-	response := document_req.NewResponseForGetJsonDocument()
+	req := document_req2.NewRequestForGetDocument(fabric, collectionName, key)
+	response := document_req2.NewResponseForGetJsonDocument()
 	if err = c.requestJsonResponse(req, response); err != nil {
 
 		if strings.Contains(err.Error(), "1202") { // Number=1202,  Error Message=document not found
@@ -57,15 +57,15 @@ func (c Client) UpdateDocument(
 	fabric string, collectionName string, key string,
 	jsonDocument []byte,
 	silent bool,
-	parameters *document_req.UpdateDocumentParameters,
-) (response *document_req.ResponseForUpdateDocument, err error) {
+	parameters *document_req2.UpdateDocumentParameters,
+) (response *document_req2.ResponseForUpdateDocument, err error) {
 
 	if parameters == nil {
-		parameters = document_req.GetDefaultUpdateDocumentParameters()
+		parameters = document_req2.GetDefaultUpdateDocumentParameters()
 	}
 
-	req := document_req.NewRequestForUpdateDocument(fabric, collectionName, key, jsonDocument, silent, parameters)
-	response = document_req.NewResponseForUpdateDocument()
+	req := document_req2.NewRequestForUpdateDocument(fabric, collectionName, key, jsonDocument, silent, parameters)
+	response = document_req2.NewResponseForUpdateDocument()
 	if err = c.request(req, response); err != nil {
 		return nil, err
 	}
@@ -74,14 +74,14 @@ func (c Client) UpdateDocument(
 
 func (c Client) ReplaceDocument(
 	fabric string, collectionName, key string, jsonDocuments []byte,
-	parameters *document_req.ReplaceDocumentParameters) (response *document_req.ResponseForReplaceDocument, err error) {
+	parameters *document_req2.ReplaceDocumentParameters) (response *document_req2.ResponseForReplaceDocument, err error) {
 
 	if parameters == nil {
-		parameters = document_req.GetDefaultReplaceDocumentParameters()
+		parameters = document_req2.GetDefaultReplaceDocumentParameters()
 	}
 
-	req := document_req.NewRequestForReplaceDocument(fabric, collectionName, key, jsonDocuments, parameters)
-	response = document_req.NewResponseForReplaceDocument()
+	req := document_req2.NewRequestForReplaceDocument(fabric, collectionName, key, jsonDocuments, parameters)
+	response = document_req2.NewResponseForReplaceDocument()
 	if err = c.request(req, response); err != nil {
 		return nil, err
 	}
@@ -90,14 +90,14 @@ func (c Client) ReplaceDocument(
 
 func (c Client) DeleteDocument(
 	fabric string, collectionName string, key string,
-	parameters *document_req.DeleteDocumentParameters) (response *document_req.ResponseForDeleteDocument, err error) {
+	parameters *document_req2.DeleteDocumentParameters) (response *document_req2.ResponseForDeleteDocument, err error) {
 
 	if parameters == nil {
-		parameters = document_req.GetDefaultDeleteDocumentParameters()
+		parameters = document_req2.GetDefaultDeleteDocumentParameters()
 	}
 
-	req := document_req.NewRequestForDeleteDocument(fabric, collectionName, key, parameters)
-	response = document_req.NewResponseForDeleteDocument()
+	req := document_req2.NewRequestForDeleteDocument(fabric, collectionName, key, parameters)
+	response = document_req2.NewResponseForDeleteDocument()
 	if err = c.request(req, response); err != nil {
 		return nil, err
 	}

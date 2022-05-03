@@ -1,20 +1,20 @@
 package goC8
 
 import (
-	"github.com/marvin-hansen/goC8/requests/graph_req"
+	graph_req2 "github.com/marvin-hansen/goC8/src/requests/graph_req"
 	"time"
 )
 
 // GetAllVertices
 // Lists all vertex collections within this graph.
 // https://macrometa.com/docs/api#/operations/ListVertexCollections
-func (c Client) GetAllVertices(fabric, graphName string) (response *graph_req.ResponseForGetAllVertices, err error) {
+func (c Client) GetAllVertices(fabric, graphName string) (response *graph_req2.ResponseForGetAllVertices, err error) {
 	if benchmark {
 		defer TimeTrack(time.Now(), "GetAllVertices")
 	}
 
-	req := graph_req.NewRequestForGetAllVertices(fabric, graphName)
-	response = graph_req.NewResponseForGetAllVertices()
+	req := graph_req2.NewRequestForGetAllVertices(fabric, graphName)
+	response = graph_req2.NewResponseForGetAllVertices()
 	if err = c.request(req, response); err != nil {
 		return nil, err
 	}
@@ -24,13 +24,13 @@ func (c Client) GetAllVertices(fabric, graphName string) (response *graph_req.Re
 // GetVertex
 // Gets a vertex from the given collection.
 // https://macrometa.com/docs/api#/operations/GetAVertex
-func (c Client) GetVertex(fabric, graphName, collectionName, vertexKey string) (response *graph_req.ResponseForGetVertex, err error) {
+func (c Client) GetVertex(fabric, graphName, collectionName, vertexKey string) (response *graph_req2.ResponseForGetVertex, err error) {
 	if benchmark {
 		defer TimeTrack(time.Now(), "GetVertex")
 	}
 
-	req := graph_req.NewRequestForGetVertex(fabric, graphName, collectionName, vertexKey)
-	response = graph_req.NewResponseForGetVertex()
+	req := graph_req2.NewRequestForGetVertex(fabric, graphName, collectionName, vertexKey)
+	response = graph_req2.NewResponseForGetVertex()
 	if err = c.request(req, response); err != nil {
 		return nil, err
 	}

@@ -187,13 +187,12 @@ func checkError(err error, msg string) {
 
 Full code in [KV API example](examples/api/kv)
 
-
 ```Go
 package main
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/requests/kv_req"
+	"github.com/marvin-hansen/goC8/src/requests/kv_req"
 )
 
 const (
@@ -202,7 +201,7 @@ const (
 	endpoint = "https://YOUR-ID-us-west.paas.macrometa.io"
 	fabric   = "SouthEastAsia"
 	timeout  = 5 // http connection timeout in seconds
-    // collection config
+	// collection config
 	delete         = false
 	verbose        = true
 	collectionName = "TestKVCollection"

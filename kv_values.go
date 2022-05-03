@@ -1,7 +1,7 @@
 package goC8
 
 import (
-	"github.com/marvin-hansen/goC8/requests/kv_req"
+	"github.com/marvin-hansen/goC8/src/kv/kv_req"
 	"time"
 )
 

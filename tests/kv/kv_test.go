@@ -2,7 +2,7 @@ package kv
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/requests/kv_req"
+	"github.com/marvin-hansen/goC8/src/kv/kv_req"
 	config "github.com/marvin-hansen/goC8/tests/conf"
 	"github.com/stretchr/testify/assert"
 	"testing"

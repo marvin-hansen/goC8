@@ -1,7 +1,7 @@
 package goC8
 
 import (
-	"github.com/marvin-hansen/goC8/requests/query_req"
+	"github.com/marvin-hansen/goC8/src/requests/query_req"
 	"log"
 	"time"
 )

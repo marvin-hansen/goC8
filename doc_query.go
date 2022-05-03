@@ -1,36 +1,36 @@
 package goC8
 
 import (
-	r "github.com/marvin-hansen/goC8/requests/query_req"
+	"github.com/marvin-hansen/goC8/src/requests/query_req"
 	"time"
 )
 
-func (c Client) Query(fabric, query string, bindVars map[string]interface{}, options *r.CursorOptions) (res *r.Cursor, err error) {
+func (c Client) Query(fabric, query string, bindVars map[string]interface{}, options *query_req.CursorOptions) (res *query_req.Cursor, err error) {
 	if benchmark {
 		defer TimeTrack(time.Now(), "Query")
 	}
 
 	if options == nil {
-		options = r.NewDefaultCursorOptions()
+		options = query_req.NewDefaultCursorOptions()
 	}
 	ttl := c.getQueryTTL()
-	req := r.NewRequestForCreateCursor(fabric, query, bindVars, options, ttl)
+	req := query_req.NewRequestForCreateCursor(fabric, query, bindVars, options, ttl)
 
 	// Create a cursor for the query onfrom the server
-	response := r.NewResponseForCreateCursor()
+	response := query_req.NewResponseForCreateCursor()
 	if err = c.request(req, response); err != nil {
 		return nil, err
 	}
 
 	// We cast into a cursor here to allow for updates from NextCursor
-	res = r.NewCursorFromCreateCursor(response)
+	res = query_req.NewCursorFromCreateCursor(response)
 
 	// check for more to come
 	if response.HasMore {
 		for {
 			// request update for the cursor
-			reqNext := r.NewRequestForReadNextCursor(fabric, res.Id)
-			responseNext := r.NewResponseForReadNextCursor()
+			reqNext := query_req.NewRequestForReadNextCursor(fabric, res.Id)
+			responseNext := query_req.NewResponseForReadNextCursor()
 			if err = c.request(reqNext, responseNext); err != nil {
 				return nil, err
 			}
@@ -42,8 +42,8 @@ func (c Client) Query(fabric, query string, bindVars map[string]interface{}, opt
 			if responseNext.HasMore == false {
 
 				// Delete the cursor from the server
-				reqDel := r.NewRequestForDeleteCursor(fabric, response.Id)
-				resDel := r.NewResponseForDeleteCursor()
+				reqDel := query_req.NewRequestForDeleteCursor(fabric, response.Id)
+				resDel := query_req.NewResponseForDeleteCursor()
 				if err = c.request(reqDel, resDel); err != nil {
 					return nil, err
 				}

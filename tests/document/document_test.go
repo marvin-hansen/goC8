@@ -2,7 +2,7 @@ package document
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/requests/document_req"
+	"github.com/marvin-hansen/goC8/src/requests/document_req"
 	config "github.com/marvin-hansen/goC8/tests/conf"
 	"github.com/stretchr/testify/assert"
 	"testing"
