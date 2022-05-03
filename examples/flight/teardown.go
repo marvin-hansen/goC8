@@ -1,16 +1,19 @@
 package main
 
-import "github.com/marvin-hansen/goC8"
+import (
+	"github.com/marvin-hansen/goC8"
+	"github.com/marvin-hansen/goC8/src/utils"
+)
 
 func teardown(c *goC8.Client) {
 	// test if graph exists
 	exists, err := c.Graph.CheckGraphExists(fabric, graph)
-	checkError(err, "Error CheckGraphExists: ")
+	utils.CheckError(err, "Error CheckGraphExists: ")
 	if exists {
 		// if so delete  graph
 		_, delErr := c.Graph.DeleteGraph(fabric, graph, true)
-		checkError(delErr, "Error DeleteGraph: ")
-		dbgPrint("Deleted graph and all of its collections: " + graph)
+		utils.CheckError(delErr, "Error DeleteGraph: ")
+		utils.DbgPrint("Deleted graph and all of its collections: "+graph, verbose)
 	}
 
 	// It's possible that the graph has been deleted without dropCollections,
@@ -18,21 +21,21 @@ func teardown(c *goC8.Client) {
 
 	// test if city collection exists
 	exists, err = c.Collection.CheckCollectionExists(fabric, collectionID)
-	checkError(err, "Error CheckCollectionExists: ")
+	utils.CheckError(err, "Error CheckCollectionExists: ")
 	if exists {
 		// if so, delete
 		err = c.Collection.DeleteCollection(fabric, collectionID, false)
-		checkError(err, "Error DeleteCollection")
-		dbgPrint("Deleted collection: " + collectionID)
+		utils.CheckError(err, "Error DeleteCollection")
+		utils.DbgPrint("Deleted collection: "+collectionID, verbose)
 	}
 
 	// test if flight collection exists
 	_, err = c.Collection.CheckCollectionExists(fabric, edgeCollectionID)
-	checkError(err, "Error CheckCollectionExists")
+	utils.CheckError(err, "Error CheckCollectionExists")
 	if exists {
 		// if so, delete
 		err = c.Collection.DeleteCollection(fabric, edgeCollectionID, false)
-		checkError(err, "Error DeleteCollection")
-		dbgPrint("Deleted collection: " + edgeCollectionID)
+		utils.CheckError(err, "Error DeleteCollection")
+		utils.DbgPrint("Deleted collection: "+edgeCollectionID, verbose)
 	}
 }
