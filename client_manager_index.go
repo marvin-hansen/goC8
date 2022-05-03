@@ -1,22 +1,30 @@
 package goC8
 
 import (
-	index_req2 "github.com/marvin-hansen/goC8/src/requests/index_req"
+	"github.com/marvin-hansen/goC8/src/requests/index_req"
 	"github.com/marvin-hansen/goC8/src/utils"
 	"time"
 )
 
+type IndexManager struct {
+	client *Client
+}
+
+func NewIndexManager(client *Client) *IndexManager {
+	return &IndexManager{client: client}
+}
+
 // GetIndexes
 // Fetches the list of all indexes of a collection.
 // https://macrometa.com/docs/api#/operations/getIndexes
-func (c Client) GetIndexes(fabric, collectionName string) (response *index_req2.ResponseForGetAllIndices, err error) {
+func (c IndexManager) GetIndexes(fabric, collectionName string) (response *index_req.ResponseForGetAllIndices, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "GetIndexes")
 	}
 
-	req := index_req2.NewRequestForGetAllIndices(fabric, collectionName)
-	response = index_req2.NewResponseForGetAllIndices()
-	if err = c.Request(req, response); err != nil {
+	req := index_req.NewRequestForGetAllIndices(fabric, collectionName)
+	response = index_req.NewResponseForGetAllIndices()
+	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -25,14 +33,14 @@ func (c Client) GetIndexes(fabric, collectionName string) (response *index_req2.
 // GetIndex
 // Fetches the information about index.
 // https://macrometa.com/docs/api#/operations/getIndexes:handle
-func (c Client) GetIndex(fabric, collectionName, indexName string) (response *index_req2.IndexEntry, err error) {
+func (c IndexManager) GetIndex(fabric, collectionName, indexName string) (response *index_req.IndexEntry, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "GetIndex")
 	}
 
-	req := index_req2.NewRequestForGetIndex(fabric, collectionName, indexName)
-	response = index_req2.NewResponseForGetIndex()
-	if err = c.Request(req, response); err != nil {
+	req := index_req.NewRequestForGetIndex(fabric, collectionName, indexName)
+	response = index_req.NewResponseForGetIndex()
+	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -42,14 +50,14 @@ func (c Client) GetIndex(fabric, collectionName, indexName string) (response *in
 // Creates fulltext index, if it does not already exist.
 // field: Attribute to index. Must be of text format.
 // minLength: Minimum character length of words to index.
-func (c Client) CreateFulltextIndex(fabric, collectionName, field string, minLength int) (response *index_req2.IndexEntry, err error) {
+func (c IndexManager) CreateFulltextIndex(fabric, collectionName, field string, minLength int) (response *index_req.IndexEntry, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "CreateFulltextIndex")
 	}
 
-	req := index_req2.NewRequestForCreateFulltextIndex(fabric, collectionName, field, minLength)
-	response = index_req2.NewResponseForCreateFulltextIndex()
-	if err = c.Request(req, response); err != nil {
+	req := index_req.NewRequestForCreateFulltextIndex(fabric, collectionName, field, minLength)
+	response = index_req.NewResponseForCreateFulltextIndex()
+	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -66,14 +74,14 @@ func (c Client) CreateFulltextIndex(fabric, collectionName, field string, minLen
 //In a non-sparse index, these documents will be indexed (for non-present indexed attributes, a value of null will be used) and will be taken into account for uniqueness checks if the unique flag is set.
 //Note: unique indexes on non-shard keys are not supported in a cluster.
 // https://macrometa.com/docs/api#/operations/createIndex:hash
-func (c Client) CreateHashIndex(fabric, collectionName, field string, deduplicate, sparse, unique bool) (response *index_req2.IndexEntry, err error) {
+func (c IndexManager) CreateHashIndex(fabric, collectionName, field string, deduplicate, sparse, unique bool) (response *index_req.IndexEntry, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "CreateHashIndex")
 	}
 
-	req := index_req2.NewRequestForCreateHashIndex(fabric, collectionName, field, deduplicate, sparse, unique)
-	response = index_req2.NewResponseForCreateHashIndex()
-	if err = c.Request(req, response); err != nil {
+	req := index_req.NewRequestForCreateHashIndex(fabric, collectionName, field, deduplicate, sparse, unique)
+	response = index_req.NewResponseForCreateHashIndex()
+	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -82,14 +90,14 @@ func (c Client) CreateHashIndex(fabric, collectionName, field string, deduplicat
 // CreateGeoIndex
 // Creates a geo index.
 // Note: Geo indexes are always sparse, meaning that documents that do not contain the index attributes or have non-numeric values in the index attributes will not be indexed.
-func (c Client) CreateGeoIndex(fabric, collectionName, field string, geoJson bool) (response *index_req2.IndexEntry, err error) {
+func (c IndexManager) CreateGeoIndex(fabric, collectionName, field string, geoJson bool) (response *index_req.IndexEntry, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "CreateGeoIndex")
 	}
 
-	req := index_req2.NewRequestForCreateGeoIndex(fabric, collectionName, field, geoJson)
-	response = index_req2.NewResponseForCreateGeoIndex()
-	if err = c.Request(req, response); err != nil {
+	req := index_req.NewRequestForCreateGeoIndex(fabric, collectionName, field, geoJson)
+	response = index_req.NewResponseForCreateGeoIndex()
+	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -107,14 +115,14 @@ func (c Client) CreateGeoIndex(fabric, collectionName, field string, geoJson boo
 //In a non-sparse index, these documents are indexed (for non-present indexed attributes, a value of null is used) and are taken into account for uniqueness checks if the unique flag is set.
 //unique indexes on non-shard keys are not supported in a cluster.
 // https://macrometa.com/docs/api#/operations/createIndex:persistent
-func (c Client) CreatePersistentIndex(fabric, collectionName, field string, deduplicate, sparse, unique bool) (response *index_req2.IndexEntry, err error) {
+func (c IndexManager) CreatePersistentIndex(fabric, collectionName, field string, deduplicate, sparse, unique bool) (response *index_req.IndexEntry, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "CreatePersistentIndex")
 	}
 
-	req := index_req2.NewRequestForCreatePersistentIndex(fabric, collectionName, field, deduplicate, sparse, unique)
-	response = index_req2.NewResponseForCreatePersistentIndex()
-	if err = c.Request(req, response); err != nil {
+	req := index_req.NewRequestForCreatePersistentIndex(fabric, collectionName, field, deduplicate, sparse, unique)
+	response = index_req.NewResponseForCreatePersistentIndex()
+	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -132,14 +140,14 @@ func (c Client) CreatePersistentIndex(fabric, collectionName, field string, dedu
 // In a non-sparse index, these documents will be indexed (for non-present indexed attributes, a value of null will be used) and will be taken into account for uniqueness checks if the unique flag is set.
 //Note: unique indexes on non-shard keys are not supported in a cluster.
 // https://macrometa.com/docs/api#/operations/createIndex:skiplist
-func (c Client) CreateSkipListIndex(fabric, collectionName, field string, deduplicate, sparse, unique bool) (response *index_req2.IndexEntry, err error) {
+func (c IndexManager) CreateSkipListIndex(fabric, collectionName, field string, deduplicate, sparse, unique bool) (response *index_req.IndexEntry, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "CreateSkipListIndex")
 	}
 
-	req := index_req2.NewRequestForCreateSkipListIndex(fabric, collectionName, field, deduplicate, sparse, unique)
-	response = index_req2.NewResponseForCreateSkipListIndex()
-	if err = c.Request(req, response); err != nil {
+	req := index_req.NewRequestForCreateSkipListIndex(fabric, collectionName, field, deduplicate, sparse, unique)
+	response = index_req.NewResponseForCreateSkipListIndex()
+	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -151,14 +159,14 @@ func (c Client) CreateSkipListIndex(fabric, collectionName, field string, dedupl
 // type: Must be equal to "ttl".
 // expireAfter: The time (in seconds) after a document's creation after which the documents count as "expired".
 // https://macrometa.com/docs/api#/operations/createIndex:ttl
-func (c Client) CreateTTLIndex(fabric, collectionName, field string, expireAfter int) (response *index_req2.IndexEntry, err error) {
+func (c IndexManager) CreateTTLIndex(fabric, collectionName, field string, expireAfter int) (response *index_req.IndexEntry, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "CreateGeoIndex")
 	}
 
-	req := index_req2.NewRequestForCreateTTLIndex(fabric, collectionName, field, expireAfter)
-	response = index_req2.NewResponseForCreateTTLIndex()
-	if err = c.Request(req, response); err != nil {
+	req := index_req.NewRequestForCreateTTLIndex(fabric, collectionName, field, expireAfter)
+	response = index_req.NewResponseForCreateTTLIndex()
+	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -167,14 +175,14 @@ func (c Client) CreateTTLIndex(fabric, collectionName, field string, expireAfter
 // DeleteIndex
 // Remove an index.
 // https://macrometa.com/docs/api#/operations/dropIndex
-func (c Client) DeleteIndex(fabric, collectionName, indexName string) (response *index_req2.ResponseForDeleteIndex, err error) {
+func (c IndexManager) DeleteIndex(fabric, collectionName, indexName string) (response *index_req.ResponseForDeleteIndex, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "DeleteIndex")
 	}
 
-	req := index_req2.NewRequestForDeleteIndex(fabric, collectionName, indexName)
-	response = index_req2.NewResponseForDeleteIndex()
-	if err = c.Request(req, response); err != nil {
+	req := index_req.NewRequestForDeleteIndex(fabric, collectionName, indexName)
+	response = index_req.NewResponseForDeleteIndex()
+	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
