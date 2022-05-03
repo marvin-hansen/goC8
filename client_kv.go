@@ -2,6 +2,7 @@ package goC8
 
 import (
 	"github.com/marvin-hansen/goC8/src/requests/kv_req"
+	"github.com/marvin-hansen/goC8/src/utils"
 	"time"
 )
 
@@ -18,13 +19,13 @@ func NewKVManager(client *Client) *KVManager {
 // https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv/get
 func (c KVManager) GetAllKVCollections(fabric string) (response *kv_req.KVResult, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "GetAllKVCollections")
+		defer utils.TimeTrack(time.Now(), "GetAllKVCollections")
 	}
 
 	req := kv_req.NewRequestForGetAllKVCollections(fabric)
 	response = kv_req.NewKVResponse()
 	err = c.client.Request(req, response)
-	return response, CheckError(err)
+	return response, utils.CheckReturnError(err)
 }
 
 // CreateNewKVCollection
@@ -32,7 +33,7 @@ func (c KVManager) GetAllKVCollections(fabric string) (response *kv_req.KVResult
 // https://macrometa.com/docs/api#/operations/CreateNamespace
 func (c KVManager) CreateNewKVCollection(fabric, collectionName string, expiration bool, options *kv_req.CreateKVOptions) (response *kv_req.KVResult, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "CreateNewKVCollection")
+		defer utils.TimeTrack(time.Now(), "CreateNewKVCollection")
 	}
 
 	if options == nil {
@@ -42,7 +43,7 @@ func (c KVManager) CreateNewKVCollection(fabric, collectionName string, expirati
 	req := kv_req.NewRequestForCreateKVCollection(fabric, collectionName, expiration, options)
 	response = kv_req.NewKVResponse()
 	err = c.client.Request(req, response)
-	return response, CheckError(err)
+	return response, utils.CheckReturnError(err)
 }
 
 // CountKVCollection
@@ -50,13 +51,13 @@ func (c KVManager) CreateNewKVCollection(fabric, collectionName string, expirati
 // https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv--collection--count/get
 func (c KVManager) CountKVCollection(fabric, collectionName string) (response *kv_req.KVResult, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "CountKVCollection")
+		defer utils.TimeTrack(time.Now(), "CountKVCollection")
 	}
 
 	req := kv_req.NewRequestForCount(fabric, collectionName)
 	response = kv_req.NewKVResponse()
 	err = c.client.Request(req, response)
-	return response, CheckError(err)
+	return response, utils.CheckReturnError(err)
 }
 
 // TruncateKVCollection
@@ -64,13 +65,13 @@ func (c KVManager) CountKVCollection(fabric, collectionName string) (response *k
 // https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv--collection--truncate/put
 func (c KVManager) TruncateKVCollection(fabric, collectionName string) (response *kv_req.KVResult, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "TruncateKVCollection")
+		defer utils.TimeTrack(time.Now(), "TruncateKVCollection")
 	}
 
 	req := kv_req.NewRequestForTruncateKVCollection(fabric, collectionName)
 	response = kv_req.NewKVResponse()
 	err = c.client.Request(req, response)
-	return response, CheckError(err)
+	return response, utils.CheckReturnError(err)
 }
 
 // DeleteKVCollection
@@ -78,13 +79,13 @@ func (c KVManager) TruncateKVCollection(fabric, collectionName string) (response
 // https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv--collection/delete
 func (c KVManager) DeleteKVCollection(fabric, collectionName string) (response *kv_req.KVResult, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "DeleteKVCollection")
+		defer utils.TimeTrack(time.Now(), "DeleteKVCollection")
 	}
 
 	req := kv_req.NewRequestForDeleteKVCollection(fabric, collectionName)
 	response = kv_req.NewKVResponse()
 	err = c.client.Request(req, response)
-	return response, CheckError(err)
+	return response, utils.CheckReturnError(err)
 }
 
 // SetKeyValuePairs
@@ -96,13 +97,13 @@ func (c KVManager) DeleteKVCollection(fabric, collectionName string) (response *
 // https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv--collection--value/put
 func (c KVManager) SetKeyValuePairs(fabric, collectionName string, kvPairs kv_req.KVPairCollection) (response *kv_req.KVPairCollection, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "SetKeyValuePairs")
+		defer utils.TimeTrack(time.Now(), "SetKeyValuePairs")
 	}
 
 	req := kv_req.NewRequestForSetKeyValue(fabric, collectionName, kvPairs)
 	response = kv_req.NewKVPairCollection()
 	err = c.client.Request(req, response)
-	return response, CheckError(err)
+	return response, utils.CheckReturnError(err)
 }
 
 // GetAllKeys
@@ -110,13 +111,13 @@ func (c KVManager) SetKeyValuePairs(fabric, collectionName string, kvPairs kv_re
 // https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv--collection--keys/get
 func (c KVManager) GetAllKeys(fabric, collectionName string, offset, limit int, order kv_req.Order) (response *kv_req.ResponseForGetAllKeys, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "GetAllKeys")
+		defer utils.TimeTrack(time.Now(), "GetAllKeys")
 	}
 
 	req := kv_req.NewRequestForGetAllKeys(fabric, collectionName, offset, limit, order)
 	response = kv_req.NewResponseForGetAllKeys()
 	err = c.client.Request(req, response)
-	return response, CheckError(err)
+	return response, utils.CheckReturnError(err)
 }
 
 // GetAllValues
@@ -125,13 +126,13 @@ func (c KVManager) GetAllKeys(fabric, collectionName string, offset, limit int, 
 // https://macrometa.com/docs/api#/operations/GetValues
 func (c KVManager) GetAllValues(fabric, collectionName string, offset, limit int, keys kv_req.KeyCollection) (response *kv_req.ResponseForGetAllValues, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "GetAllValues")
+		defer utils.TimeTrack(time.Now(), "GetAllValues")
 	}
 
 	req := kv_req.NewRequestForGetAllValues(fabric, collectionName, keys, offset, limit)
 	response = kv_req.NewResponseForGetAllValues()
 	err = c.client.Request(req, response)
-	return response, CheckError(err)
+	return response, utils.CheckReturnError(err)
 }
 
 // DeleteKeyValuePairs
@@ -139,13 +140,13 @@ func (c KVManager) GetAllValues(fabric, collectionName string, offset, limit int
 // https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv--collection--values/delete
 func (c KVManager) DeleteKeyValuePairs(fabric, collectionName string, keys kv_req.KeyCollection) (response *kv_req.KVPairCollection, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "DeleteKeyValuePairs")
+		defer utils.TimeTrack(time.Now(), "DeleteKeyValuePairs")
 	}
 
 	req := kv_req.NewRequestForDeleteKeyValue(fabric, collectionName, keys)
 	response = kv_req.NewKVPairCollection()
 	err = c.client.Request(req, response)
-	return response, CheckError(err)
+	return response, utils.CheckReturnError(err)
 }
 
 // GetValue
@@ -153,13 +154,13 @@ func (c KVManager) DeleteKeyValuePairs(fabric, collectionName string, keys kv_re
 // https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv--collection--value--key/get
 func (c KVManager) GetValue(fabric, collectionName, key string) (response *kv_req.KVPair, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "GetValue")
+		defer utils.TimeTrack(time.Now(), "GetValue")
 	}
 
 	req := kv_req.NewRequestForGetValue(fabric, collectionName, key)
 	response = kv_req.NewEmptyKVPair()
 	err = c.client.Request(req, response)
-	return response, CheckError(err)
+	return response, utils.CheckReturnError(err)
 }
 
 // DeleteValue
@@ -167,11 +168,11 @@ func (c KVManager) GetValue(fabric, collectionName, key string) (response *kv_re
 // https://macrometa.com/docs/api#/paths/_fabric-fabric--_api-kv--collection--value--key/delete
 func (c KVManager) DeleteValue(fabric, collectionName, key string) (response *kv_req.KVPair, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "DeleteValue")
+		defer utils.TimeTrack(time.Now(), "DeleteValue")
 	}
 
 	req := kv_req.NewRequestForDeleteValue(fabric, collectionName, key)
 	response = kv_req.NewEmptyKVPair()
 	err = c.client.Request(req, response)
-	return response, CheckError(err)
+	return response, utils.CheckReturnError(err)
 }

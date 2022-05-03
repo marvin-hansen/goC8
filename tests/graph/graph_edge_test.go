@@ -14,7 +14,7 @@ func TestGetAllEdges(t *testing.T) {
 	res, err := c.GetAllEdges(fabric, graphName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestGetEdge(t *testing.T) {
@@ -25,7 +25,7 @@ func TestGetEdge(t *testing.T) {
 	res, err := c.GetEdge(fabric, graphName, collectionID, edgeID)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestCheckEdgeExists(t *testing.T) {

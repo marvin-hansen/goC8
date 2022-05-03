@@ -3,6 +3,7 @@ package index
 import (
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/src/requests/collection_req"
+	"github.com/marvin-hansen/goC8/src/utils"
 	config "github.com/marvin-hansen/goC8/tests/conf"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -44,7 +45,7 @@ func TestGetIndexes(t *testing.T) {
 	res, err := c.GetIndexes(fabric, citiesCollection)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestCreateFulltextIndex(t *testing.T) {
@@ -55,7 +56,7 @@ func TestCreateFulltextIndex(t *testing.T) {
 	res, err := c.CreateFulltextIndex(fabric, textCollection, field, minLength)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestCreateGeoIndex(t *testing.T) {
@@ -66,7 +67,7 @@ func TestCreateGeoIndex(t *testing.T) {
 	res, err := c.CreateGeoIndex(fabric, citiesCollection, field, geoJson)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestCreateHashIndex(t *testing.T) {
@@ -79,7 +80,7 @@ func TestCreateHashIndex(t *testing.T) {
 	res, err := c.CreateHashIndex(fabric, textCollection, field, deduplicate, sparse, unique)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestCreatePersistentIndex(t *testing.T) {
@@ -92,7 +93,7 @@ func TestCreatePersistentIndex(t *testing.T) {
 	res, err := c.CreatePersistentIndex(fabric, textCollection, field, deduplicate, sparse, unique)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestCreateSkipListIndex(t *testing.T) {
@@ -105,7 +106,7 @@ func TestCreateSkipListIndex(t *testing.T) {
 	res, err := c.CreateSkipListIndex(fabric, textCollection, field, deduplicate, sparse, unique)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestCreateTTLIndex(t *testing.T) {
@@ -116,7 +117,7 @@ func TestCreateTTLIndex(t *testing.T) {
 	res, err := c.CreateTTLIndex(fabric, textCollection, field, expiration)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestDeleteIndex(t *testing.T) {
@@ -126,7 +127,7 @@ func TestDeleteIndex(t *testing.T) {
 	res, err := c.DeleteIndex(fabric, textCollection, indexName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestTeardown(t *testing.T) {

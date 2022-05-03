@@ -2,6 +2,7 @@ package goC8
 
 import (
 	graph_req2 "github.com/marvin-hansen/goC8/src/requests/graph_req"
+	"github.com/marvin-hansen/goC8/src/utils"
 	"strings"
 	"time"
 )
@@ -11,7 +12,7 @@ import (
 // https://macrometa.com/docs/api#/operations/ListEdgedefinitions
 func (c Client) GetAllEdges(fabric, graphName string) (response *graph_req2.ResponseForGetAllEdges, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "GetAllEdges")
+		defer utils.TimeTrack(time.Now(), "GetAllEdges")
 	}
 
 	req := graph_req2.NewRequestForGetAllEdges(fabric, graphName)
@@ -31,7 +32,7 @@ func (c Client) GetAllEdges(fabric, graphName string) (response *graph_req2.Resp
 // https://macrometa.com/docs/api#/operations/AddEdgedefinition
 func (c Client) AddEdgeCollection(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex string) (response *graph_req2.ResponseForAddEdgeCollection, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "AddEdgeCollection")
+		defer utils.TimeTrack(time.Now(), "AddEdgeCollection")
 	}
 
 	req := graph_req2.NewRequestForAddEdgeCollection(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex)
@@ -47,7 +48,7 @@ func (c Client) AddEdgeCollection(fabric, graphName, edgeCollectionName, sourceV
 // https://macrometa.com/docs/api#/operations/GetAnEdge
 func (c Client) GetEdge(fabric, graphName, collectionName, edgeKey string) (response *graph_req2.ResponseForGetEdge, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "GetEdge")
+		defer utils.TimeTrack(time.Now(), "GetEdge")
 	}
 
 	req := graph_req2.NewRequestForGetEdge(fabric, graphName, collectionName, edgeKey)
@@ -62,7 +63,7 @@ func (c Client) GetEdge(fabric, graphName, collectionName, edgeKey string) (resp
 // returns true if the edge exists in the given collection
 func (c Client) CheckEdgeExists(fabric, graphName, collectionName, edgeKey string) (exists bool, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "CheckEdgeExists")
+		defer utils.TimeTrack(time.Now(), "CheckEdgeExists")
 	}
 
 	req := graph_req2.NewRequestForGetEdge(fabric, graphName, collectionName, edgeKey)
@@ -83,7 +84,7 @@ func (c Client) CheckEdgeExists(fabric, graphName, collectionName, edgeKey strin
 // destinationVertex: The target vertex of this edge. Has to be valid within the used edge definition.
 func (c Client) CreateEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex string, returnNew bool) (response *graph_req2.ResponseForCreateEdge, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "CreateEdge")
+		defer utils.TimeTrack(time.Now(), "CreateEdge")
 	}
 
 	req := graph_req2.NewRequestForCreateEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex, returnNew)
@@ -96,7 +97,7 @@ func (c Client) CreateEdge(fabric, graphName, edgeCollectionName, sourceVertex, 
 
 func (c Client) ReplaceEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex string, dropCollections bool) (response *graph_req2.ResponseForReplaceEdge, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "ReplaceEdge")
+		defer utils.TimeTrack(time.Now(), "ReplaceEdge")
 	}
 
 	req := graph_req2.NewRequestForReplaceEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex, dropCollections)

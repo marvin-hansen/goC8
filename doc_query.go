@@ -2,12 +2,13 @@ package goC8
 
 import (
 	"github.com/marvin-hansen/goC8/src/requests/query_req"
+	"github.com/marvin-hansen/goC8/src/utils"
 	"time"
 )
 
 func (c Client) Query(fabric, query string, bindVars map[string]interface{}, options *query_req.CursorOptions) (res *query_req.Cursor, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "Query")
+		defer utils.TimeTrack(time.Now(), "Query")
 	}
 
 	if options == nil {

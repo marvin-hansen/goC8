@@ -42,21 +42,21 @@ func main() {
 	println("Get all indices for collection: " + collName)
 	res, getIndexErr := c.GetIndexes(fabric, collName)
 	utils.CheckError(getIndexErr, "Failed to fetch all indices for "+collName)
-	goC8.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 
 	println("Create Fulltext index for: " + collName)
 	fulltextIndexField := "Summary"
 	fulltextMinLength := 3
 	ftRes, createFTErr := c.CreateFulltextIndex(fabric, collName, fulltextIndexField, fulltextMinLength)
 	utils.CheckError(createFTErr, "Failed to create fulltext index for "+collName)
-	goC8.PrintRes(ftRes, verbose)
+	utils.PrintRes(ftRes, verbose)
 
 	println("Create Geo index for: " + collName)
 	geoField := "location"
 	geoJson := true
 	geoRes, geoErr := c.CreateGeoIndex(fabric, collName, geoField, geoJson)
 	utils.CheckError(geoErr, "Failed to create geo index for "+collName)
-	goC8.PrintRes(geoRes, verbose)
+	utils.PrintRes(geoRes, verbose)
 
 	println("Create Hash index for: " + collName)
 	hashField := "Keywords"
@@ -65,25 +65,25 @@ func main() {
 	unique := true
 	hashRes, hashErr := c.CreateHashIndex(fabric, collName, hashField, deduplicate, sparse, unique)
 	utils.CheckError(hashErr, "Failed to create hash index for "+collName)
-	goC8.PrintRes(hashRes, verbose)
+	utils.PrintRes(hashRes, verbose)
 
 	println("Create persistent index for: " + collName)
 	persistentField := "Content"
 	perRes, perErr := c.CreatePersistentIndex(fabric, collName, persistentField, deduplicate, sparse, unique)
 	utils.CheckError(perErr, "Failed to create persistent index for "+collName)
-	goC8.PrintRes(perRes, verbose)
+	utils.PrintRes(perRes, verbose)
 
 	println("Create SkipList index for: " + collName)
 	skipField := "SkipText"
 	skipRes, skipErr := c.CreateSkipListIndex(fabric, collName, skipField, deduplicate, sparse, unique)
 	utils.CheckError(skipErr, "Failed to create SkipList index for "+collName)
-	goC8.PrintRes(skipRes, verbose)
+	utils.PrintRes(skipRes, verbose)
 
 	println("Create TTL index for: " + collName)
 	ttlField := "requests"
 	ttl := 10
 	ttlRes, ttlErr := c.CreateTTLIndex(fabric, collName, ttlField, ttl)
 	utils.CheckError(ttlErr, "Failed to create TTL index for "+collName)
-	goC8.PrintRes(ttlRes, verbose)
+	utils.PrintRes(ttlRes, verbose)
 
 }

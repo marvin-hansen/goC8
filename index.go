@@ -2,6 +2,7 @@ package goC8
 
 import (
 	index_req2 "github.com/marvin-hansen/goC8/src/requests/index_req"
+	"github.com/marvin-hansen/goC8/src/utils"
 	"time"
 )
 
@@ -10,7 +11,7 @@ import (
 // https://macrometa.com/docs/api#/operations/getIndexes
 func (c Client) GetIndexes(fabric, collectionName string) (response *index_req2.ResponseForGetAllIndices, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "GetIndexes")
+		defer utils.TimeTrack(time.Now(), "GetIndexes")
 	}
 
 	req := index_req2.NewRequestForGetAllIndices(fabric, collectionName)
@@ -26,7 +27,7 @@ func (c Client) GetIndexes(fabric, collectionName string) (response *index_req2.
 // https://macrometa.com/docs/api#/operations/getIndexes:handle
 func (c Client) GetIndex(fabric, collectionName, indexName string) (response *index_req2.IndexEntry, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "GetIndex")
+		defer utils.TimeTrack(time.Now(), "GetIndex")
 	}
 
 	req := index_req2.NewRequestForGetIndex(fabric, collectionName, indexName)
@@ -43,7 +44,7 @@ func (c Client) GetIndex(fabric, collectionName, indexName string) (response *in
 // minLength: Minimum character length of words to index.
 func (c Client) CreateFulltextIndex(fabric, collectionName, field string, minLength int) (response *index_req2.IndexEntry, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "CreateFulltextIndex")
+		defer utils.TimeTrack(time.Now(), "CreateFulltextIndex")
 	}
 
 	req := index_req2.NewRequestForCreateFulltextIndex(fabric, collectionName, field, minLength)
@@ -67,7 +68,7 @@ func (c Client) CreateFulltextIndex(fabric, collectionName, field string, minLen
 // https://macrometa.com/docs/api#/operations/createIndex:hash
 func (c Client) CreateHashIndex(fabric, collectionName, field string, deduplicate, sparse, unique bool) (response *index_req2.IndexEntry, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "CreateHashIndex")
+		defer utils.TimeTrack(time.Now(), "CreateHashIndex")
 	}
 
 	req := index_req2.NewRequestForCreateHashIndex(fabric, collectionName, field, deduplicate, sparse, unique)
@@ -83,7 +84,7 @@ func (c Client) CreateHashIndex(fabric, collectionName, field string, deduplicat
 // Note: Geo indexes are always sparse, meaning that documents that do not contain the index attributes or have non-numeric values in the index attributes will not be indexed.
 func (c Client) CreateGeoIndex(fabric, collectionName, field string, geoJson bool) (response *index_req2.IndexEntry, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "CreateGeoIndex")
+		defer utils.TimeTrack(time.Now(), "CreateGeoIndex")
 	}
 
 	req := index_req2.NewRequestForCreateGeoIndex(fabric, collectionName, field, geoJson)
@@ -108,7 +109,7 @@ func (c Client) CreateGeoIndex(fabric, collectionName, field string, geoJson boo
 // https://macrometa.com/docs/api#/operations/createIndex:persistent
 func (c Client) CreatePersistentIndex(fabric, collectionName, field string, deduplicate, sparse, unique bool) (response *index_req2.IndexEntry, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "CreatePersistentIndex")
+		defer utils.TimeTrack(time.Now(), "CreatePersistentIndex")
 	}
 
 	req := index_req2.NewRequestForCreatePersistentIndex(fabric, collectionName, field, deduplicate, sparse, unique)
@@ -133,7 +134,7 @@ func (c Client) CreatePersistentIndex(fabric, collectionName, field string, dedu
 // https://macrometa.com/docs/api#/operations/createIndex:skiplist
 func (c Client) CreateSkipListIndex(fabric, collectionName, field string, deduplicate, sparse, unique bool) (response *index_req2.IndexEntry, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "CreateSkipListIndex")
+		defer utils.TimeTrack(time.Now(), "CreateSkipListIndex")
 	}
 
 	req := index_req2.NewRequestForCreateSkipListIndex(fabric, collectionName, field, deduplicate, sparse, unique)
@@ -152,7 +153,7 @@ func (c Client) CreateSkipListIndex(fabric, collectionName, field string, dedupl
 // https://macrometa.com/docs/api#/operations/createIndex:ttl
 func (c Client) CreateTTLIndex(fabric, collectionName, field string, expireAfter int) (response *index_req2.IndexEntry, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "CreateGeoIndex")
+		defer utils.TimeTrack(time.Now(), "CreateGeoIndex")
 	}
 
 	req := index_req2.NewRequestForCreateTTLIndex(fabric, collectionName, field, expireAfter)
@@ -168,7 +169,7 @@ func (c Client) CreateTTLIndex(fabric, collectionName, field string, expireAfter
 // https://macrometa.com/docs/api#/operations/dropIndex
 func (c Client) DeleteIndex(fabric, collectionName, indexName string) (response *index_req2.ResponseForDeleteIndex, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "DeleteIndex")
+		defer utils.TimeTrack(time.Now(), "DeleteIndex")
 	}
 
 	req := index_req2.NewRequestForDeleteIndex(fabric, collectionName, indexName)

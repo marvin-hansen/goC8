@@ -2,6 +2,7 @@ package graph
 
 import (
 	"github.com/marvin-hansen/goC8"
+	"github.com/marvin-hansen/goC8/src/utils"
 	config "github.com/marvin-hansen/goC8/tests/conf"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -19,7 +20,7 @@ func TestGetAllGraphs(t *testing.T) {
 	res, err := c.GetAllGraphs(fabric)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestCreateGraph(t *testing.T) {
@@ -28,7 +29,7 @@ func TestCreateGraph(t *testing.T) {
 	res, err := c.CreateGraph(fabric, graphDef)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestGetGraph(t *testing.T) {
@@ -37,7 +38,7 @@ func TestGetGraph(t *testing.T) {
 	res, err := c.GetGraph(fabric, graphName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestCheckGraphExists(t *testing.T) {
@@ -64,5 +65,5 @@ func TestDeleteGraph(t *testing.T) {
 	res, err := c.DeleteGraph(fabric, graphName, dropCollections)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }

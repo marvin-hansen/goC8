@@ -39,7 +39,6 @@ func NewClient(config *ClientConfig) *Client {
 	c.KV = NewKVManager(c)
 
 	return c
-
 }
 
 // getApiKey is used internally to pass key to the Request handler

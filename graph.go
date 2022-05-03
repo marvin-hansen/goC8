@@ -2,6 +2,7 @@ package goC8
 
 import (
 	graph_req2 "github.com/marvin-hansen/goC8/src/requests/graph_req"
+	"github.com/marvin-hansen/goC8/src/utils"
 	"strings"
 	"time"
 )
@@ -11,7 +12,7 @@ import (
 // https://macrometa.com/docs/api#/operations/ListAllGraphs
 func (c Client) GetAllGraphs(fabric string) (response *graph_req2.ResponseForGetAllGraphs, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "GetAllGraphs")
+		defer utils.TimeTrack(time.Now(), "GetAllGraphs")
 	}
 
 	req := graph_req2.NewRequestForGetAllGraphs(fabric)
@@ -43,7 +44,7 @@ func (c Client) GetAllGraphs(fabric string) (response *graph_req2.ResponseForGet
 // https://macrometa.com/docs/api#/operations/CreateAGraph
 func (c Client) CreateGraph(fabric string, jsonGraph []byte) (response *graph_req2.ResponseForCreateGraph, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "CreateGraph")
+		defer utils.TimeTrack(time.Now(), "CreateGraph")
 	}
 
 	req := graph_req2.NewRequestForCreateGraph(fabric, jsonGraph)
@@ -59,7 +60,7 @@ func (c Client) CreateGraph(fabric string, jsonGraph []byte) (response *graph_re
 // https://macrometa.com/docs/api#/operations/GetAGraph
 func (c Client) GetGraph(fabric, graphName string) (response *graph_req2.ResponseForGetGraph, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "GetGraph")
+		defer utils.TimeTrack(time.Now(), "GetGraph")
 	}
 
 	req := graph_req2.NewRequestForGetGraph(fabric, graphName)
@@ -75,7 +76,7 @@ func (c Client) GetGraph(fabric, graphName string) (response *graph_req2.Respons
 // returns true if a graph for the given name exists
 func (c Client) CheckGraphExists(fabric, graphName string) (exists bool, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "CheckGraphExists")
+		defer utils.TimeTrack(time.Now(), "CheckGraphExists")
 	}
 
 	req := graph_req2.NewRequestForGetGraph(fabric, graphName)
@@ -96,7 +97,7 @@ func (c Client) CheckGraphExists(fabric, graphName string) (exists bool, err err
 // https://macrometa.com/docs/api#/operations/DropAGraph
 func (c Client) DeleteGraph(fabric, graphName string, dropCollections bool) (response *graph_req2.ResponseForDeleteGraph, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "DeleteGraph")
+		defer utils.TimeTrack(time.Now(), "DeleteGraph")
 	}
 
 	req := graph_req2.NewRequestForDeleteGraph(fabric, graphName, dropCollections)

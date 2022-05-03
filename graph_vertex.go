@@ -2,6 +2,7 @@ package goC8
 
 import (
 	graph_req2 "github.com/marvin-hansen/goC8/src/requests/graph_req"
+	"github.com/marvin-hansen/goC8/src/utils"
 	"time"
 )
 
@@ -10,7 +11,7 @@ import (
 // https://macrometa.com/docs/api#/operations/ListVertexCollections
 func (c Client) GetAllVertices(fabric, graphName string) (response *graph_req2.ResponseForGetAllVertices, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "GetAllVertices")
+		defer utils.TimeTrack(time.Now(), "GetAllVertices")
 	}
 
 	req := graph_req2.NewRequestForGetAllVertices(fabric, graphName)
@@ -26,7 +27,7 @@ func (c Client) GetAllVertices(fabric, graphName string) (response *graph_req2.R
 // https://macrometa.com/docs/api#/operations/GetAVertex
 func (c Client) GetVertex(fabric, graphName, collectionName, vertexKey string) (response *graph_req2.ResponseForGetVertex, err error) {
 	if benchmark {
-		defer TimeTrack(time.Now(), "GetVertex")
+		defer utils.TimeTrack(time.Now(), "GetVertex")
 	}
 
 	req := graph_req2.NewRequestForGetVertex(fabric, graphName, collectionName, vertexKey)
