@@ -16,7 +16,8 @@ const (
 	collName = "TestCollection"
 )
 
-//
+// we need a shared variable here to store the key of inserted doc
+// to test deletion of the same doc later.
 var SharedKey string = ""
 
 func TestSetup(t *testing.T) {

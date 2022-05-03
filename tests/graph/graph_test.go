@@ -14,19 +14,19 @@ const (
 	graphName = "lectureteacher"
 )
 
-func TestGetAllGraphs(t *testing.T) {
+func TestCreateGraph(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-
-	res, err := c.Graph.GetAllGraphs(fabric)
+	graphDef := getGraphDefinition()
+	res, err := c.Graph.CreateGraph(fabric, graphDef)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	utils.PrintRes(res, verbose)
 }
 
-func TestCreateGraph(t *testing.T) {
+func TestGetAllGraphs(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-	graphDef := getGraphDefinition()
-	res, err := c.Graph.CreateGraph(fabric, graphDef)
+
+	res, err := c.Graph.GetAllGraphs(fabric)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	utils.PrintRes(res, verbose)

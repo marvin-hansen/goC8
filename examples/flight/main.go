@@ -5,16 +5,13 @@ import (
 	"github.com/marvin-hansen/goC8/src/utils"
 )
 
-// client config
 const (
+	// client config
 	apiKey   = "email.root.secretkey"
 	endpoint = "https://YOUR-ID-us-west.paas.macrometa.io"
 	fabric   = "SouthEastAsia"
 	timeout  = 5 // http connection timeout in seconds
-)
-
-// collection & graph config
-const (
+	// collection & graph config
 	delete           = false
 	verbose          = true
 	graph            = "airline"
