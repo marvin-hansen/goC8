@@ -17,29 +17,28 @@ const (
 
 func TestGetAllCollections(t *testing.T) {
 	c := goC8.NewClient(nil)
-	res, err := c.GetAllCollections(fabric)
+	res, err := c.Collection.GetAllCollections(fabric)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	utils.PrintRes(res, verbose)
-
 }
 
 func TestCreateCollection(t *testing.T) {
 	c := goC8.NewClient(nil)
-	err := c.CreateNewCollection(fabric, collName, false, collType)
+	err := c.Collection.CreateNewCollection(fabric, collName, false, collType)
 	assert.NoError(t, err)
 }
 
 func TestCheckCollectionExists(t *testing.T) {
 	c := goC8.NewClient(nil)
-	exists, err := c.CheckCollectionExists(fabric, collName)
+	exists, err := c.Collection.CheckCollectionExists(fabric, collName)
 	assert.NoError(t, err)
 	expected := true
 	actual := exists
 	assert.Equal(t, expected, actual, "Should be equal")
 
 	noCollName := "DoesNotExistsCollection"
-	exists, err = c.CheckCollectionExists(fabric, noCollName)
+	exists, err = c.Collection.CheckCollectionExists(fabric, noCollName)
 	assert.NoError(t, err)
 	expected = false
 	actual = exists
@@ -49,7 +48,7 @@ func TestCheckCollectionExists(t *testing.T) {
 
 func TestGetCollectionInfo(t *testing.T) {
 	c := goC8.NewClient(nil)
-	res, err := c.GetCollectionInfo(fabric, collName)
+	res, err := c.Collection.GetCollectionInfo(fabric, collName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	utils.PrintRes(res, verbose)
@@ -63,7 +62,7 @@ func TestUpdateCollection(t *testing.T) {
 		WaitForSync: true,
 	}
 
-	res, err := c.UpdateCollectionProperties(fabric, collName, properties)
+	res, err := c.Collection.UpdateCollectionProperties(fabric, collName, properties)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	utils.PrintRes(res, verbose)
@@ -71,7 +70,7 @@ func TestUpdateCollection(t *testing.T) {
 
 func TestTruncateCollection(t *testing.T) {
 	c := goC8.NewClient(nil)
-	res, err := c.TruncateCollection(fabric, collName)
+	res, err := c.Collection.TruncateCollection(fabric, collName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	utils.PrintRes(res, verbose)
@@ -79,6 +78,6 @@ func TestTruncateCollection(t *testing.T) {
 
 func TestDeleteCollection(t *testing.T) {
 	c := goC8.NewClient(nil)
-	err := c.DeleteCollection(fabric, collName, false)
+	err := c.Collection.DeleteCollection(fabric, collName, false)
 	assert.NoError(t, err)
 }

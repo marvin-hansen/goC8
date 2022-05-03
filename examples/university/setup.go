@@ -14,13 +14,13 @@ func setup(c *goC8.Client) {
 }
 
 func setupTeachers(c *goC8.Client) {
-	exists, err := c.CheckCollectionExists(fabric, collectionTeachers)
+	exists, err := c.Collection.CheckCollectionExists(fabric, collectionTeachers)
 	utils.CheckError(err, "Error CheckCollectionExists: ")
 	if !exists {
 		// if not create collection
 		collType := collection_req.DocumentCollectionType
 		allowUserKeys := true
-		err = c.CreateNewCollection(fabric, collectionTeachers, allowUserKeys, collType)
+		err = c.Collection.CreateNewCollection(fabric, collectionTeachers, allowUserKeys, collType)
 		utils.CheckError(err, "Error CreateNewCollection")
 
 		// import city data
@@ -32,14 +32,14 @@ func setupTeachers(c *goC8.Client) {
 }
 
 func setupCourses(c *goC8.Client) {
-	exists, err := c.CheckCollectionExists(fabric, collectionLectures)
+	exists, err := c.Collection.CheckCollectionExists(fabric, collectionLectures)
 	utils.CheckError(err, "Error CheckCollectionExists: ")
 
 	if !exists {
 		// if not create collection
 		collType := collection_req.DocumentCollectionType
 		allowUserKeys := false
-		err = c.CreateNewCollection(fabric, collectionLectures, allowUserKeys, collType)
+		err = c.Collection.CreateNewCollection(fabric, collectionLectures, allowUserKeys, collType)
 		utils.CheckError(err, "Error CreateNewCollection")
 
 		// import  data
@@ -51,14 +51,14 @@ func setupCourses(c *goC8.Client) {
 }
 
 func setupEdges(c *goC8.Client) {
-	exists, err := c.CheckCollectionExists(fabric, edgeCollectionTeach)
+	exists, err := c.Collection.CheckCollectionExists(fabric, edgeCollectionTeach)
 	utils.CheckError(err, "Error CheckCollectionExists: ")
 
 	if !exists {
 		// if not create collection
 		collType := collection_req.EdgeCollectionType
 		allowUserKeys := false
-		err = c.CreateNewCollection(fabric, edgeCollectionTeach, allowUserKeys, collType)
+		err = c.Collection.CreateNewCollection(fabric, edgeCollectionTeach, allowUserKeys, collType)
 		utils.CheckError(err, "Error CreateNewCollection")
 
 		// import  data

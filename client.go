@@ -17,7 +17,8 @@ type Client struct {
 	HTTPC       *fasthttp.Client
 	HTTPTimeout time.Duration
 	//
-	KV *KVManager
+	Collection *CollectionManager
+	KV         *KVManager
 }
 
 func NewClient(config *ClientConfig) *Client {
@@ -37,6 +38,9 @@ func NewClient(config *ClientConfig) *Client {
 
 	// construct KV manager
 	c.KV = NewKVManager(c)
+
+	// construct Collection manager
+	c.Collection = NewCollectionManager(c)
 
 	return c
 }

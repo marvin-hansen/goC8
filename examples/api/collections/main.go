@@ -25,16 +25,16 @@ func main() {
 	c := goC8.NewClient(config)
 
 	println("Create new collection: " + collName)
-	createCollErr := c.CreateNewCollection(fabric, collName, false, collType)
+	createCollErr := c.Collection.CreateNewCollection(fabric, collName, false, collType)
 	checkError(createCollErr, "Failed to create a new collection. "+collName)
 
 	println("Get collection Info: " + collName)
-	res, getCollErr := c.GetCollectionInfo(fabric, collName)
+	res, getCollErr := c.Collection.GetCollectionInfo(fabric, collName)
 	checkError(getCollErr, "Failed to get a new collection. ")
 	println(res.String())
 
 	println("Delete collection Info: " + collName)
-	delErr := c.DeleteCollection(fabric, collName, false)
+	delErr := c.Collection.DeleteCollection(fabric, collName, false)
 	checkError(delErr, "Failed to delete collection: "+collName)
 
 }
