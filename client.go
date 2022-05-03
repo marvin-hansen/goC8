@@ -18,6 +18,7 @@ type Client struct {
 	HTTPTimeout time.Duration
 	//
 	Collection *CollectionManager
+	Document   *DocumentManager
 	KV         *KVManager
 }
 
@@ -36,11 +37,10 @@ func NewClient(config *ClientConfig) *Client {
 		HTTPC:       new(fasthttp.Client),
 	}
 
-	// construct KV manager
+	// construct API managers
 	c.KV = NewKVManager(c)
-
-	// construct Collection manager
 	c.Collection = NewCollectionManager(c)
+	c.Document = NewDocumentManager(c)
 
 	return c
 }
