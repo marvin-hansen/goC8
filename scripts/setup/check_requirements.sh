@@ -35,22 +35,6 @@ command curl --version >/dev/null 2>&1 || {
 }
 echo "* Curl installed"
 
-command docker --version >/dev/null 2>&1 || {
-  # command sudo apt-get -qqq -y install docker.io
-  echo "Please install Docker"
-  echo "https://docs.docker.com/engine/install/"
-  exit
-}
-echo "* Docker installed"
-
-
-command bazel version >/dev/null 2>&1 || {
-      echo "Please install Bazel"
-      echo "https://docs.bazel.build/versions/main/install.html"
-      exit
-}
-echo "* Bazel installed"
-
 command go version >/dev/null 2>&1 || {
    echo "Please install Golang"
        echo "https://go.dev/doc/install"
@@ -60,6 +44,6 @@ echo "* Golang installed"
 
 echo ""
 echo "==============================="
-echo "All OMX dependencies installed."
+echo "All dependencies installed."
 echo "==============================="
 echo ""

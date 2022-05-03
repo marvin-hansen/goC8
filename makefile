@@ -11,12 +11,14 @@ CC=clang # required by bazel
 help:
 	@echo ' '
 	@echo 'Setup: '
-	@echo '    make check        	    	  Checks whether all project requirements are present.'
+	@echo '    make check        	    	Checks all requirements.'
 	@echo ' '
-	@echo 'Dev: '
-	@echo '    make build   		Builds the code base incrementally (fast). Use for coding.'
-	@echo '    make rebuild   		Rebuilds all dependencies & the code base (slow). Use after go mod changes. '
-	@echo '    make stats   		Crunches & shows the latest project stats. '
+	@echo 'Test: '
+	@echo '    make test-all   		Runs all API tests in order.'
+	@echo '    make test-collection   	Tests collection API. '
+	@echo '    make test-document   	Tests document API. '
+	@echo '    make test-index   		Tests index API. '
+	@echo '    make test-kv   		Tests key-value API. '
 
 # "---------------------------------------------------------"
 # Setup
@@ -26,16 +28,25 @@ check:
 	@source scripts/setup/check_requirements.sh
 
 # "---------------------------------------------------------"
-# Development
+# Test
 # "---------------------------------------------------------"
-.PHONY: build
-build:
-	@source scripts/dev/build_all.sh
 
-.PHONY: rebuild
-rebuild:
-	@source scripts/dev/rebuild_all.sh
+.PHONY: test-all
+test-all:
+	@source scripts/test/test-all.sh
 
-.PHONY: stats
-stats:
-	@source scripts/dev/project-stats.sh
+.PHONY: test-collection
+test-collection:
+	@source scripts/test/test-collection.sh
+
+.PHONY: test-document
+test-document:
+	@source scripts/test/test-document.sh
+
+.PHONY: test-index
+test-index:
+	@source scripts/test/test-index.sh
+
+.PHONY: test-kv
+test-kv:
+	@source scripts/test/test-kv.sh
