@@ -19,6 +19,7 @@ type Client struct {
 	//
 	Collection *CollectionManager
 	Document   *DocumentManager
+	Graph      *GraphManager
 	KV         *KVManager
 }
 
@@ -38,9 +39,10 @@ func NewClient(config *ClientConfig) *Client {
 	}
 
 	// construct API managers
-	c.KV = NewKVManager(c)
 	c.Collection = NewCollectionManager(c)
 	c.Document = NewDocumentManager(c)
+	c.Graph = NewGraphManager(c)
+	c.KV = NewKVManager(c)
 
 	return c
 }

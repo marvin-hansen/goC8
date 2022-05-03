@@ -9,14 +9,14 @@ import (
 // GetAllVertices
 // Lists all vertex collections within this graph.
 // https://macrometa.com/docs/api#/operations/ListVertexCollections
-func (c Client) GetAllVertices(fabric, graphName string) (response *graph_req2.ResponseForGetAllVertices, err error) {
+func (c GraphManager) GetAllVertices(fabric, graphName string) (response *graph_req2.ResponseForGetAllVertices, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "GetAllVertices")
 	}
 
 	req := graph_req2.NewRequestForGetAllVertices(fabric, graphName)
 	response = graph_req2.NewResponseForGetAllVertices()
-	if err = c.Request(req, response); err != nil {
+	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -25,14 +25,14 @@ func (c Client) GetAllVertices(fabric, graphName string) (response *graph_req2.R
 // GetVertex
 // Gets a vertex from the given collection.
 // https://macrometa.com/docs/api#/operations/GetAVertex
-func (c Client) GetVertex(fabric, graphName, collectionName, vertexKey string) (response *graph_req2.ResponseForGetVertex, err error) {
+func (c GraphManager) GetVertex(fabric, graphName, collectionName, vertexKey string) (response *graph_req2.ResponseForGetVertex, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "GetVertex")
 	}
 
 	req := graph_req2.NewRequestForGetVertex(fabric, graphName, collectionName, vertexKey)
 	response = graph_req2.NewResponseForGetVertex()
-	if err = c.Request(req, response); err != nil {
+	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
