@@ -13,13 +13,13 @@ func setup(c *goC8.Client) {
 
 func setupCities(c *goC8.Client) {
 	// test if city collection exists
-	exists, err := c.CheckCollectionExists(fabric, collectionID)
+	exists, err := c.Collection.CheckCollectionExists(fabric, collectionID)
 	checkError(err, "Error CheckCollectionExists: ")
 	if !exists {
 		// if not create collection
 		collType := collection_req.DocumentCollectionType
 		allowUserKeys := false
-		err = c.CreateNewCollection(fabric, collectionID, allowUserKeys, collType)
+		err = c.Collection.CreateNewCollection(fabric, collectionID, allowUserKeys, collType)
 		checkError(err, "Error CreateNewCollection")
 		dbgPrint("Create collection: " + collectionID)
 
@@ -42,12 +42,12 @@ func setupCities(c *goC8.Client) {
 
 func setupFlights(c *goC8.Client) {
 	// test if flight collection exists
-	exists, err := c.CheckCollectionExists(fabric, edgeCollectionID)
+	exists, err := c.Collection.CheckCollectionExists(fabric, edgeCollectionID)
 	checkError(err, "Error CheckCollectionExists")
 	if !exists {
 		// if not create edge collection
 		collType := collection_req.EdgeCollectionType
-		err = c.CreateNewCollection(fabric, edgeCollectionID, false, collType)
+		err = c.Collection.CreateNewCollection(fabric, edgeCollectionID, false, collType)
 		checkError(err, "Error CreateNewCollection")
 		dbgPrint("Create collection: " + edgeCollectionID)
 

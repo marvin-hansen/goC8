@@ -17,21 +17,21 @@ func teardown(c *goC8.Client) {
 	// but the underlying collections still exists. Let's check one by one.
 
 	// test if city collection exists
-	exists, err = c.CheckCollectionExists(fabric, collectionID)
+	exists, err = c.Collection.CheckCollectionExists(fabric, collectionID)
 	checkError(err, "Error CheckCollectionExists: ")
 	if exists {
 		// if so, delete
-		err = c.DeleteCollection(fabric, collectionID, false)
+		err = c.Collection.DeleteCollection(fabric, collectionID, false)
 		checkError(err, "Error DeleteCollection")
 		dbgPrint("Deleted collection: " + collectionID)
 	}
 
 	// test if flight collection exists
-	_, err = c.CheckCollectionExists(fabric, edgeCollectionID)
+	_, err = c.Collection.CheckCollectionExists(fabric, edgeCollectionID)
 	checkError(err, "Error CheckCollectionExists")
 	if exists {
 		// if so, delete
-		err = c.DeleteCollection(fabric, edgeCollectionID, false)
+		err = c.Collection.DeleteCollection(fabric, edgeCollectionID, false)
 		checkError(err, "Error DeleteCollection")
 		dbgPrint("Deleted collection: " + edgeCollectionID)
 	}
