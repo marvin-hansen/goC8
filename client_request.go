@@ -3,7 +3,7 @@ package goC8
 import (
 	"fmt"
 	jsoniter "github.com/json-iterator/go"
-	"github.com/marvin-hansen/goC8/utils"
+	"github.com/marvin-hansen/goC8/src/utils"
 	"github.com/valyala/fasthttp"
 	"net/url"
 	"time"
@@ -23,7 +23,7 @@ func (c *Client) requestJsonResponse(req Requester, results JsonResponder) error
 	return nil
 }
 
-func (c *Client) request(req Requester, results Responder) error {
+func (c *Client) Request(req Requester, results Responder) error {
 	res, reqErr := c.do(req)
 	if reqErr != nil {
 		utils.DbgPrint("Request error", debug)
@@ -41,7 +41,7 @@ func (c *Client) request(req Requester, results Responder) error {
 	return nil
 }
 
-// do build & executes the actual request from the rquester
+// do build & executes the actual Request from the rquester
 // requester - implementation
 // targetStatusCode the expected http status code i.e. 200
 func (c *Client) do(r Requester) (*fasthttp.Response, *APIError) {

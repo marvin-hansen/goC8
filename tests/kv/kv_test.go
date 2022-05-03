@@ -2,7 +2,7 @@ package kv
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/src/kv/kv_req"
+	kv_req2 "github.com/marvin-hansen/goC8/src/requests/kv_req"
 	config "github.com/marvin-hansen/goC8/tests/conf"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -17,7 +17,7 @@ const (
 
 func TestCreateKVCollection(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-	res, err := c.CreateNewKVCollection(fabric, collectionName, expiration, nil)
+	res, err := c.KV.CreateNewKVCollection(fabric, collectionName, expiration, nil)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	goC8.PrintRes(res, verbose)
@@ -25,7 +25,7 @@ func TestCreateKVCollection(t *testing.T) {
 
 func TestGetAllKVCollections(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-	res, err := c.GetAllKVCollections(fabric)
+	res, err := c.KV.GetAllKVCollections(fabric)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	goC8.PrintRes(res, verbose)
@@ -34,15 +34,15 @@ func TestGetAllKVCollections(t *testing.T) {
 func TestSetKeyValuePairs(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 
-	kvPair1 := kv_req.NewKVPair("key1", "value1", -1)
-	kvPair2 := kv_req.NewKVPair("key2", "value2", -1)
-	kvPair3 := kv_req.NewKVPair("key3", "value3", -1)
-	kvPair4 := kv_req.NewKVPair("key4", "value4", -1)
-	kvPair5 := kv_req.NewKVPair("key5", "value5", -1)
+	kvPair1 := kv_req2.NewKVPair("key1", "value1", -1)
+	kvPair2 := kv_req2.NewKVPair("key2", "value2", -1)
+	kvPair3 := kv_req2.NewKVPair("key3", "value3", -1)
+	kvPair4 := kv_req2.NewKVPair("key4", "value4", -1)
+	kvPair5 := kv_req2.NewKVPair("key5", "value5", -1)
 
-	kvCollection := kv_req.NewKVPairCollection(*kvPair1, *kvPair2, *kvPair3, *kvPair4, *kvPair5)
+	kvCollection := kv_req2.NewKVPairCollection(*kvPair1, *kvPair2, *kvPair3, *kvPair4, *kvPair5)
 
-	res, err := c.SetKeyValuePairs(fabric, collectionName, *kvCollection)
+	res, err := c.KV.SetKeyValuePairs(fabric, collectionName, *kvCollection)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	goC8.PrintRes(res, verbose)
@@ -52,9 +52,9 @@ func TestGetAllKeys(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	offset := 0
 	limit := 20
-	order := kv_req.Ascending
+	order := kv_req2.Ascending
 
-	res, err := c.GetAllKeys(fabric, collectionName, offset, limit, order)
+	res, err := c.KV.GetAllKeys(fabric, collectionName, offset, limit, order)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	goC8.PrintRes(res, verbose)
@@ -65,7 +65,7 @@ func TestGetAllValues(t *testing.T) {
 	offset := 0
 	limit := 20
 
-	res, err := c.GetAllValues(fabric, collectionName, offset, limit, nil)
+	res, err := c.KV.GetAllValues(fabric, collectionName, offset, limit, nil)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	goC8.PrintRes(res, verbose)
@@ -74,7 +74,7 @@ func TestGetAllValues(t *testing.T) {
 func TestGetValue(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	key := "key1"
-	res, err := c.GetValue(fabric, collectionName, key)
+	res, err := c.KV.GetValue(fabric, collectionName, key)
 
 	expected := "value1"
 	actual := res.Value
@@ -86,7 +86,7 @@ func TestGetValue(t *testing.T) {
 
 func TestCountKVCollections(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-	res, err := c.CountKVCollection(fabric, collectionName)
+	res, err := c.KV.CountKVCollection(fabric, collectionName)
 
 	expected := 5
 	actual := res.Count
@@ -99,7 +99,7 @@ func TestCountKVCollections(t *testing.T) {
 func TestDeleteValue(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	key := "key5"
-	res, err := c.DeleteValue(fabric, collectionName, key)
+	res, err := c.KV.DeleteValue(fabric, collectionName, key)
 
 	expected := key
 	actual := res.Key
@@ -107,7 +107,7 @@ func TestDeleteValue(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 
-	resC, errC := c.CountKVCollection(fabric, collectionName)
+	resC, errC := c.KV.CountKVCollection(fabric, collectionName)
 	assert.NoError(t, errC)
 
 	expectedCount := 4
@@ -119,9 +119,9 @@ func TestDeleteValue(t *testing.T) {
 
 func TestDeleteKeyValuePairs(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-	keyPairs := kv_req.KeyCollection{"key1", "key2", "key3"}
+	keyPairs := kv_req2.KeyCollection{"key1", "key2", "key3"}
 
-	res, err := c.DeleteKeyValuePairs(fabric, collectionName, keyPairs)
+	res, err := c.KV.DeleteKeyValuePairs(fabric, collectionName, keyPairs)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	goC8.PrintRes(res, verbose)
@@ -129,7 +129,7 @@ func TestDeleteKeyValuePairs(t *testing.T) {
 
 func TestTruncateKVCollection(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-	res, err := c.TruncateKVCollection(fabric, collectionName)
+	res, err := c.KV.TruncateKVCollection(fabric, collectionName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	goC8.PrintRes(res, verbose)
@@ -137,7 +137,7 @@ func TestTruncateKVCollection(t *testing.T) {
 
 func TestDeleteKVCollection(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-	res, err := c.DeleteKVCollection(fabric, collectionName)
+	res, err := c.KV.DeleteKVCollection(fabric, collectionName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	goC8.PrintRes(res, verbose)

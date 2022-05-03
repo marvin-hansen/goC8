@@ -16,7 +16,7 @@ func (c Client) GetAllGraphs(fabric string) (response *graph_req2.ResponseForGet
 
 	req := graph_req2.NewRequestForGetAllGraphs(fabric)
 	response = graph_req2.NewResponseForGetAllGraphs()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -48,7 +48,7 @@ func (c Client) CreateGraph(fabric string, jsonGraph []byte) (response *graph_re
 
 	req := graph_req2.NewRequestForCreateGraph(fabric, jsonGraph)
 	response = graph_req2.NewResponseForCreateGraph()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -64,7 +64,7 @@ func (c Client) GetGraph(fabric, graphName string) (response *graph_req2.Respons
 
 	req := graph_req2.NewRequestForGetGraph(fabric, graphName)
 	response = graph_req2.NewResponseForGetGraph()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 
@@ -80,7 +80,7 @@ func (c Client) CheckGraphExists(fabric, graphName string) (exists bool, err err
 
 	req := graph_req2.NewRequestForGetGraph(fabric, graphName)
 	response := graph_req2.NewResponseForGetGraph()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		if strings.Contains(err.Error(), "1924") { //  Number=1924,  Error Message=graph 'graphName' not found
 			return false, nil
 		} else {
@@ -101,7 +101,7 @@ func (c Client) DeleteGraph(fabric, graphName string, dropCollections bool) (res
 
 	req := graph_req2.NewRequestForDeleteGraph(fabric, graphName, dropCollections)
 	response = graph_req2.NewResponseForDeleteGraph()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil

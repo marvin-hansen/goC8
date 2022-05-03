@@ -16,6 +16,8 @@ type Client struct {
 	Endpoint    string
 	HTTPC       *fasthttp.Client
 	HTTPTimeout time.Duration
+	//
+	KV *KVManager
 }
 
 func NewClient(config *ClientConfig) *Client {
@@ -26,15 +28,21 @@ func NewClient(config *ClientConfig) *Client {
 
 	timeOut := time.Duration(config.Timeout) * time.Second
 
-	return &Client{
+	c := &Client{
 		config:      config,
 		Endpoint:    config.GetConnectionString(),
 		HTTPTimeout: timeOut,
 		HTTPC:       new(fasthttp.Client),
 	}
+
+	// construct KV manager
+	c.KV = NewKVManager(c)
+
+	return c
+
 }
 
-// getApiKey is used internally to pass key to the request handler
+// getApiKey is used internally to pass key to the Request handler
 func (c Client) getApiKey() string {
 	return c.config.GetApiKey()
 }

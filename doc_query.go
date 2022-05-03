@@ -18,7 +18,7 @@ func (c Client) Query(fabric, query string, bindVars map[string]interface{}, opt
 
 	// Create a cursor for the query onfrom the server
 	response := query_req.NewResponseForCreateCursor()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 
@@ -31,7 +31,7 @@ func (c Client) Query(fabric, query string, bindVars map[string]interface{}, opt
 			// request update for the cursor
 			reqNext := query_req.NewRequestForReadNextCursor(fabric, res.Id)
 			responseNext := query_req.NewResponseForReadNextCursor()
-			if err = c.request(reqNext, responseNext); err != nil {
+			if err = c.Request(reqNext, responseNext); err != nil {
 				return nil, err
 			}
 
@@ -44,7 +44,7 @@ func (c Client) Query(fabric, query string, bindVars map[string]interface{}, opt
 				// Delete the cursor from the server
 				reqDel := query_req.NewRequestForDeleteCursor(fabric, response.Id)
 				resDel := query_req.NewResponseForDeleteCursor()
-				if err = c.request(reqDel, resDel); err != nil {
+				if err = c.Request(reqDel, resDel); err != nil {
 					return nil, err
 				}
 

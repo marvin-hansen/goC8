@@ -16,7 +16,7 @@ func (c Client) GetAllEdges(fabric, graphName string) (response *graph_req2.Resp
 
 	req := graph_req2.NewRequestForGetAllEdges(fabric, graphName)
 	response = graph_req2.NewResponseForGetAllEdges()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -36,7 +36,7 @@ func (c Client) AddEdgeCollection(fabric, graphName, edgeCollectionName, sourceV
 
 	req := graph_req2.NewRequestForAddEdgeCollection(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex)
 	response = graph_req2.NewResponseForAddEdgeCollection()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -52,7 +52,7 @@ func (c Client) GetEdge(fabric, graphName, collectionName, edgeKey string) (resp
 
 	req := graph_req2.NewRequestForGetEdge(fabric, graphName, collectionName, edgeKey)
 	response = graph_req2.NewResponseForGetEdge()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -67,7 +67,7 @@ func (c Client) CheckEdgeExists(fabric, graphName, collectionName, edgeKey strin
 
 	req := graph_req2.NewRequestForGetEdge(fabric, graphName, collectionName, edgeKey)
 	response := graph_req2.NewResponseForGetEdge()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		if strings.Contains(err.Error(), "1202") { //  Code=404, Number=1202,  Error Message=document not found
 			return false, nil
 		} else {
@@ -88,7 +88,7 @@ func (c Client) CreateEdge(fabric, graphName, edgeCollectionName, sourceVertex, 
 
 	req := graph_req2.NewRequestForCreateEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex, returnNew)
 	response = graph_req2.NewResponseForCreateEdge()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -101,7 +101,7 @@ func (c Client) ReplaceEdge(fabric, graphName, edgeCollectionName, sourceVertex,
 
 	req := graph_req2.NewRequestForReplaceEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex, dropCollections)
 	response = graph_req2.NewResponseForReplaceEdge()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil

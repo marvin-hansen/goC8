@@ -14,7 +14,7 @@ func (c Client) UpdateManyDocuments(
 
 	req := document_req.NewRequestForUpdateManyDocuments(fabric, collectionName, jsonDocument, parameters)
 	response = document_req.NewResponseForUpdateManyDocuments()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -30,7 +30,7 @@ func (c Client) ReplaceManyDocuments(
 
 	req := document_req.NewRequestForReplaceManyDocument(fabric, collectionName, jsonDocuments, parameters)
 	response = document_req.NewResponseForReplaceManyDocument()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -46,7 +46,7 @@ func (c Client) DeleteManyDocuments(
 
 	req := document_req.NewRequestForDeleteManyDocuments(fabric, collectionName, keysToDelete, parameters)
 	response = document_req.NewResponseForDeleteManyDocuments()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil

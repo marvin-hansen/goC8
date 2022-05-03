@@ -19,7 +19,7 @@ func (c Client) CreateNewDocument(
 
 	req := document_req2.NewRequestForCreateDocument(fabric, collectionName, silent, jsonDocument, parameters)
 	response = document_req2.NewResponseForCreateDocument()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -66,7 +66,7 @@ func (c Client) UpdateDocument(
 
 	req := document_req2.NewRequestForUpdateDocument(fabric, collectionName, key, jsonDocument, silent, parameters)
 	response = document_req2.NewResponseForUpdateDocument()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -82,7 +82,7 @@ func (c Client) ReplaceDocument(
 
 	req := document_req2.NewRequestForReplaceDocument(fabric, collectionName, key, jsonDocuments, parameters)
 	response = document_req2.NewResponseForReplaceDocument()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -98,7 +98,7 @@ func (c Client) DeleteDocument(
 
 	req := document_req2.NewRequestForDeleteDocument(fabric, collectionName, key, parameters)
 	response = document_req2.NewResponseForDeleteDocument()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil

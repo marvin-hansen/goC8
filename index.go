@@ -15,7 +15,7 @@ func (c Client) GetIndexes(fabric, collectionName string) (response *index_req2.
 
 	req := index_req2.NewRequestForGetAllIndices(fabric, collectionName)
 	response = index_req2.NewResponseForGetAllIndices()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -31,7 +31,7 @@ func (c Client) GetIndex(fabric, collectionName, indexName string) (response *in
 
 	req := index_req2.NewRequestForGetIndex(fabric, collectionName, indexName)
 	response = index_req2.NewResponseForGetIndex()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -48,7 +48,7 @@ func (c Client) CreateFulltextIndex(fabric, collectionName, field string, minLen
 
 	req := index_req2.NewRequestForCreateFulltextIndex(fabric, collectionName, field, minLength)
 	response = index_req2.NewResponseForCreateFulltextIndex()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -72,7 +72,7 @@ func (c Client) CreateHashIndex(fabric, collectionName, field string, deduplicat
 
 	req := index_req2.NewRequestForCreateHashIndex(fabric, collectionName, field, deduplicate, sparse, unique)
 	response = index_req2.NewResponseForCreateHashIndex()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -88,7 +88,7 @@ func (c Client) CreateGeoIndex(fabric, collectionName, field string, geoJson boo
 
 	req := index_req2.NewRequestForCreateGeoIndex(fabric, collectionName, field, geoJson)
 	response = index_req2.NewResponseForCreateGeoIndex()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -113,7 +113,7 @@ func (c Client) CreatePersistentIndex(fabric, collectionName, field string, dedu
 
 	req := index_req2.NewRequestForCreatePersistentIndex(fabric, collectionName, field, deduplicate, sparse, unique)
 	response = index_req2.NewResponseForCreatePersistentIndex()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -138,7 +138,7 @@ func (c Client) CreateSkipListIndex(fabric, collectionName, field string, dedupl
 
 	req := index_req2.NewRequestForCreateSkipListIndex(fabric, collectionName, field, deduplicate, sparse, unique)
 	response = index_req2.NewResponseForCreateSkipListIndex()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -157,7 +157,7 @@ func (c Client) CreateTTLIndex(fabric, collectionName, field string, expireAfter
 
 	req := index_req2.NewRequestForCreateTTLIndex(fabric, collectionName, field, expireAfter)
 	response = index_req2.NewResponseForCreateTTLIndex()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -173,7 +173,7 @@ func (c Client) DeleteIndex(fabric, collectionName, indexName string) (response 
 
 	req := index_req2.NewRequestForDeleteIndex(fabric, collectionName, indexName)
 	response = index_req2.NewResponseForDeleteIndex()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil

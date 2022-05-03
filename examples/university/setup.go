@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/src/requests/collection_req"
-	"github.com/marvin-hansen/goC8/utils"
+	"github.com/marvin-hansen/goC8/src/utils"
 )
 
 func setup(c *goC8.Client) {

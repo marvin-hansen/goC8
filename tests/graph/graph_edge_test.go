@@ -2,8 +2,8 @@ package graph
 
 import (
 	"github.com/marvin-hansen/goC8"
+	"github.com/marvin-hansen/goC8/src/utils"
 	config "github.com/marvin-hansen/goC8/tests/conf"
-	"github.com/marvin-hansen/goC8/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

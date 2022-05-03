@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/src/kv/kv_req"
+	kv_req2 "github.com/marvin-hansen/goC8/src/requests/kv_req"
 )
 
 const (
@@ -36,13 +36,13 @@ func main() {
 	goC8.PrintRes(res, verbose)
 
 	println("Insert values into KV collection: ")
-	kvPair1 := kv_req.NewKVPair("key1", "value1", -1)
-	kvPair2 := kv_req.NewKVPair("key2", "value2", -1)
-	kvPair3 := kv_req.NewKVPair("key3", "value3", -1)
-	kvPair4 := kv_req.NewKVPair("key4", "value4", -1)
-	kvPair5 := kv_req.NewKVPair("key5", "value5", -1)
+	kvPair1 := kv_req2.NewKVPair("key1", "value1", -1)
+	kvPair2 := kv_req2.NewKVPair("key2", "value2", -1)
+	kvPair3 := kv_req2.NewKVPair("key3", "value3", -1)
+	kvPair4 := kv_req2.NewKVPair("key4", "value4", -1)
+	kvPair5 := kv_req2.NewKVPair("key5", "value5", -1)
 
-	kvCollection := kv_req.NewKVPairCollection(*kvPair1, *kvPair2, *kvPair3, *kvPair4, *kvPair5)
+	kvCollection := kv_req2.NewKVPairCollection(*kvPair1, *kvPair2, *kvPair3, *kvPair4, *kvPair5)
 	resSet, errSet := c.SetKeyValuePairs(fabric, collectionName, *kvCollection)
 	goC8.CheckErrorLog(errSet, "Error setting values into KV collection"+collectionName)
 	goC8.PrintRes(resSet, verbose)
@@ -55,7 +55,7 @@ func main() {
 	println("Get all keys from KV collection: ")
 	offset := 0
 	limit := 20
-	order := kv_req.Ascending
+	order := kv_req2.Ascending
 
 	resGetKeys, errGetKeys := c.GetAllKeys(fabric, collectionName, offset, limit, order)
 	goC8.CheckErrorLog(errGetKeys, "Error getting all keys from KV collection"+collectionName)
@@ -78,10 +78,10 @@ func main() {
 	goC8.PrintRes(resOneDel, verbose)
 
 	println("Update values into KV collection: ")
-	kvPairUpdate1 := kv_req.NewKVPair("key1", "value42", -1)
-	kvPairUpdate2 := kv_req.NewKVPair("key2", "value23", -1)
+	kvPairUpdate1 := kv_req2.NewKVPair("key1", "value42", -1)
+	kvPairUpdate2 := kv_req2.NewKVPair("key2", "value23", -1)
 
-	kvCollectionUpdate := kv_req.NewKVPairCollection(*kvPairUpdate1, *kvPairUpdate2)
+	kvCollectionUpdate := kv_req2.NewKVPairCollection(*kvPairUpdate1, *kvPairUpdate2)
 	resUpd, errUpd := c.SetKeyValuePairs(fabric, collectionName, *kvCollectionUpdate)
 	goC8.CheckErrorLog(errUpd, "Error updating values into KV collection"+collectionName)
 	goC8.PrintRes(resUpd, verbose)

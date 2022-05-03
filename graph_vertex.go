@@ -15,7 +15,7 @@ func (c Client) GetAllVertices(fabric, graphName string) (response *graph_req2.R
 
 	req := graph_req2.NewRequestForGetAllVertices(fabric, graphName)
 	response = graph_req2.NewResponseForGetAllVertices()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil
@@ -31,7 +31,7 @@ func (c Client) GetVertex(fabric, graphName, collectionName, vertexKey string) (
 
 	req := graph_req2.NewRequestForGetVertex(fabric, graphName, collectionName, vertexKey)
 	response = graph_req2.NewResponseForGetVertex()
-	if err = c.request(req, response); err != nil {
+	if err = c.Request(req, response); err != nil {
 		return nil, err
 	}
 	return response, nil

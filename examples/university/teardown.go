@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/utils"
+	"github.com/marvin-hansen/goC8/src/utils"
 )
 
 func teardown(c *goC8.Client) {
