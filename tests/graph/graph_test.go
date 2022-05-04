@@ -2,15 +2,17 @@ package graph
 
 import (
 	"github.com/marvin-hansen/goC8"
+	"github.com/marvin-hansen/goC8/examples/sample_data"
 	config "github.com/marvin-hansen/goC8/tests/conf"
 	"github.com/marvin-hansen/goC8/types"
-	utils2 "github.com/marvin-hansen/goC8/utils"
+	"github.com/marvin-hansen/goC8/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 const (
 	verbose             = true
+	silent              = true
 	fabric              = "SouthEastAsia"
 	graphName           = "lectureteacher"
 	collectionTeachers  = "teachers"
@@ -20,13 +22,12 @@ const (
 
 func TestSetup(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-
 	goC8.CreateCollection(c, fabric, collectionTeachers, types.DocumentCollectionType, false)
-	//goC8.ImportData(c, fabric, collectionTeachers, GetTeacherData(), silent)
+	goC8.ImportData(c, fabric, collectionTeachers, sample_data.GetTeacherData(), silent)
 	goC8.CreateCollection(c, fabric, collectionLectures, types.DocumentCollectionType, false)
-	//goC8.ImportData(c, fabric, collectionLectures, GetLecturesData(), silent)
+	goC8.ImportData(c, fabric, collectionLectures, sample_data.GetLecturesData(), silent)
 	goC8.CreateCollection(c, fabric, edgeCollectionTeach, types.EdgeCollectionType, false)
-	// goC8.ImportData(c, fabric, edgeCollectionTeach, GetLecturesData(), silent)
+	goC8.ImportData(c, fabric, edgeCollectionTeach, sample_data.GetTeachEdgeData(), silent)
 }
 
 func TestCreateGraph(t *testing.T) {
@@ -35,7 +36,7 @@ func TestCreateGraph(t *testing.T) {
 	res, err := c.Graph.CreateGraph(fabric, graphDef)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils2.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestGetAllGraphs(t *testing.T) {
@@ -44,7 +45,7 @@ func TestGetAllGraphs(t *testing.T) {
 	res, err := c.Graph.GetAllGraphs(fabric)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils2.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestGetGraph(t *testing.T) {
@@ -53,7 +54,7 @@ func TestGetGraph(t *testing.T) {
 	res, err := c.Graph.GetGraph(fabric, graphName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils2.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestCheckGraphExists(t *testing.T) {
@@ -79,7 +80,7 @@ func TestGetAllEdges(t *testing.T) {
 	res, err := c.Graph.GetAllEdges(fabric, graphName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils2.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestGetEdge(t *testing.T) {
@@ -90,7 +91,7 @@ func TestGetEdge(t *testing.T) {
 	res, err := c.Graph.GetEdge(fabric, graphName, collectionID, edgeID)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils2.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestCheckEdgeExists(t *testing.T) {
@@ -114,13 +115,13 @@ func TestAddEdge(t *testing.T) {
 
 	// check if edge already exits
 	exists, err := c.Graph.CheckEdgeExists(fabric, graphName, collectionID, edgeID)
-	utils2.CheckError(err, "Error CheckEdgeExists")
+	utils.CheckError(err, "Error CheckEdgeExists")
 	if !exists {
 		// if not, add a new edge to the edge collection
 		from := "teachers/Bruce"
 		to := "lectures/CSC105"
 		_, createErr := c.Graph.CreateEdge(fabric, graphName, collectionID, from, to, returnNew)
-		utils2.CheckError(createErr, "Error CreateEdge")
+		utils.CheckError(createErr, "Error CreateEdge")
 	}
 }
 
@@ -132,13 +133,13 @@ func TestReplaceEdge(t *testing.T) {
 
 	// check if edge exits
 	exists, err := c.Graph.CheckEdgeExists(fabric, graphName, collectionID, edgeID)
-	utils2.CheckError(err, "Error CheckEdgeExists")
+	utils.CheckError(err, "Error CheckEdgeExists")
 	if exists {
 		// if exists, replace edge with a new edge to the edge collection
 		from := "teachers/Bruce"
 		to := "lectures/CSC105"
 		_, createErr := c.Graph.ReplaceEdge(fabric, graphName, collectionID, from, to, dropCollections)
-		utils2.CheckError(createErr, "Error CreateEdge")
+		utils.CheckError(createErr, "Error CreateEdge")
 	}
 }
 
@@ -148,7 +149,7 @@ func TestGetAllVertices(t *testing.T) {
 	res, err := c.Graph.GetAllVertices(fabric, graphName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils2.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestGetVertex(t *testing.T) {
@@ -159,19 +160,22 @@ func TestGetVertex(t *testing.T) {
 	res, err := c.Graph.GetVertex(fabric, graphName, collectionID, edgeID)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils2.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestDeleteGraph(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-	dropCollections := false
-
+	dropCollections := true
 	res, err := c.Graph.DeleteGraph(fabric, graphName, dropCollections)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils2.PrintRes(res, verbose)
+	utils.PrintRes(res, verbose)
 }
 
 func TestTeardown(t *testing.T) {
-
+	c := goC8.NewClient(config.GetDefaultConfig())
+	goC8.TeardownGraph(c, fabric, graphName, true)
+	goC8.TeardownCollection(c, fabric, collectionTeachers)
+	goC8.TeardownCollection(c, fabric, collectionLectures)
+	goC8.TeardownCollection(c, fabric, edgeCollectionTeach)
 }
