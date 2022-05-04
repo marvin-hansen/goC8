@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/marvin-hansen/goC8"
+	"github.com/marvin-hansen/goC8/examples/sample_data"
 	"github.com/marvin-hansen/goC8/types"
 	"github.com/marvin-hansen/goC8/utils"
 )
@@ -44,27 +45,27 @@ func query(c *goC8.Client) {
 	var q = ""
 	var msg = ""
 
-	q = GetAllCitiesQuery()
+	q = sample_data.GetAllCitiesQuery()
 	msg = "Get all cities."
 	runQuery(c, q, msg)
 
-	q = GetBreadthFirstQuery()
+	q = sample_data.GetBreadthFirstQuery()
 	msg = "Get all cities with a direct flight to New York."
 	runQuery(c, q, msg)
 
-	q = GetShortestPathQuery()
+	q = sample_data.GetShortestPathQuery()
 	msg = "Get the shortest path from San Francisco to Paris."
 	runQuery(c, q, msg)
 
-	q = GetShortestDistanceQuery()
+	q = sample_data.GetShortestDistanceQuery()
 	msg = "Get the distance on the shortest path from San Francisco to Paris."
 	runQuery(c, q, msg)
 
-	q = GetNearestCities()
+	q = sample_data.GetNearestCities()
 	msg = "Get the 2 nearest cities to a specified latitude and longitude."
 	runQuery(c, q, msg)
 
-	q = GetCitiesMaxDistance()
+	q = sample_data.GetCitiesMaxDistance()
 	msg = "Get the cities that are no more than 2500km away from houston."
 	runQuery(c, q, msg)
 
@@ -86,10 +87,10 @@ func setup(c *goC8.Client) {
 	utils.CheckError(err, "Error CreateNewDocument")
 	utils.DbgPrint("Create GeoIndex on: "+field, verbose)
 
-	goC8.ImportData(c, fabric, collectionID, GetCityData(), silent)
+	goC8.ImportData(c, fabric, collectionID, sample_data.GetCityData(), silent)
 	goC8.CreateCollection(c, fabric, edgeCollectionID, types.EdgeCollectionType, false)
-	goC8.ImportData(c, fabric, edgeCollectionID, GetFlightData(), silent)
-	goC8.CreateGraph(c, fabric, graph, GetAirlineGraph())
+	goC8.ImportData(c, fabric, edgeCollectionID, sample_data.GetFlightData(), silent)
+	goC8.CreateGraph(c, fabric, graph, sample_data.GetAirlineGraph())
 }
 
 func teardown(c *goC8.Client) {

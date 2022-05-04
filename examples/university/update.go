@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/marvin-hansen/goC8"
+	"github.com/marvin-hansen/goC8/examples/sample_data"
 	"github.com/marvin-hansen/goC8/types"
 	"github.com/marvin-hansen/goC8/utils"
 )
@@ -24,8 +25,7 @@ func addTutorials(c *goC8.Client) {
 		utils.CheckError(err, "Error CreateNewCollection")
 
 		// import data
-		silent := false
-		jsonDocument := GetTutorialsData()
+		jsonDocument := sample_data.GetTutorialsData()
 		_, err = c.Document.CreateNewDocument(fabric, collectionTutorials, silent, jsonDocument, nil)
 		utils.CheckError(err, "Error CreateNewDocument")
 	}
@@ -43,8 +43,7 @@ func addTutorEdge(c *goC8.Client) {
 		utils.CheckError(err, "Error CreateNewCollection")
 
 		// import data
-		silent := false
-		jsonDocument := GetTutorsEdgeData()
+		jsonDocument := sample_data.GetTutorsEdgeData()
 		_, err = c.Document.CreateNewDocument(fabric, edgeCollectionTutors, silent, jsonDocument, nil)
 		utils.CheckError(err, "Error CreateNewCollection")
 	}

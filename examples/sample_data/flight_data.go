@@ -1,4 +1,4 @@
-package main
+package sample_data
 
 func GetCityData() []byte {
 	// Document collection named cities.

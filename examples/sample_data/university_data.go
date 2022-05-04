@@ -1,4 +1,4 @@
-package main
+package sample_data
 
 func GetTeacherData() []byte {
 	// Document collection named teachers.

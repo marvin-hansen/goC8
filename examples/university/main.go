@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/marvin-hansen/goC8"
+	"github.com/marvin-hansen/goC8/examples/sample_data"
 	"github.com/marvin-hansen/goC8/types"
 )
 
@@ -45,12 +46,13 @@ func main() {
 
 func setup(c *goC8.Client) {
 	goC8.CreateCollection(c, fabric, collectionTeachers, types.DocumentCollectionType, false)
-	goC8.ImportData(c, fabric, collectionTeachers, GetTeacherData(), silent)
+	goC8.ImportData(c, fabric, collectionTeachers, sample_data.GetTeacherData(), silent)
 	goC8.CreateCollection(c, fabric, collectionLectures, types.DocumentCollectionType, false)
-	goC8.ImportData(c, fabric, collectionLectures, GetLecturesData(), silent)
+	goC8.ImportData(c, fabric, collectionLectures, sample_data.GetLecturesData(), silent)
+
 	goC8.CreateCollection(c, fabric, edgeCollectionTeach, types.EdgeCollectionType, false)
-	goC8.ImportData(c, fabric, edgeCollectionTeach, GetLecturesData(), silent)
-	goC8.CreateGraph(c, fabric, graph, GetUniversityGraphDefinition())
+	goC8.ImportData(c, fabric, edgeCollectionTeach, sample_data.GetTeachEdgeData(), silent)
+	goC8.CreateGraph(c, fabric, graph, sample_data.GetUniversityGraphDefinition())
 }
 
 func teardown(c *goC8.Client) {
