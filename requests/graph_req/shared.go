@@ -3,16 +3,16 @@ package graph_req
 import "fmt"
 
 type Graph struct {
-	Id                   string            `json:"_id"`
-	Key                  string            `json:"_key"`
-	Rev                  string            `json:"_rev"`
-	EdgeDefinitions      []EdgeDefinitions `json:"edgeDefinitions"`
-	IsSmart              bool              `json:"isSmart"`
-	MinReplicationFactor int               `json:"minReplicationFactor"`
-	Name                 string            `json:"name"`
-	NumberOfShards       int               `json:"numberOfShards"`
-	OrphanCollections    []interface{}     `json:"orphanCollections"`
-	ReplicationFactor    int               `json:"replicationFactor"`
+	Id                   string            `json:"_id,omitempty"`
+	Key                  string            `json:"_key,omitempty"`
+	Rev                  string            `json:"_rev,omitempty"`
+	EdgeDefinitions      []EdgeDefinitions `json:"edgeDefinitions,omitempty"`
+	IsSmart              bool              `json:"isSmart,omitempty"`
+	MinReplicationFactor int               `json:"minReplicationFactor,omitempty"`
+	Name                 string            `json:"name,omitempty"`
+	NumberOfShards       int               `json:"numberOfShards,omitempty"`
+	OrphanCollections    []interface{}     `json:"orphanCollections,omitempty"`
+	ReplicationFactor    int               `json:"replicationFactor,omitempty"`
 }
 
 func (r Graph) String() string {
@@ -31,9 +31,9 @@ func (r Graph) String() string {
 }
 
 type EdgeDefinitions struct {
-	Collection string   `json:"collection"`
-	From       []string `json:"from"`
-	To         []string `json:"to"`
+	Collection string   `json:"collection,omitempty"`
+	From       []string `json:"from,omitempty"`
+	To         []string `json:"to,omitempty"`
 }
 
 func (r EdgeDefinitions) String() string {
@@ -44,12 +44,35 @@ func (r EdgeDefinitions) String() string {
 	)
 }
 
+func NewEdgeResponse() *EdgeResponse {
+	return new(EdgeResponse)
+}
+
+type EdgeResponse struct {
+	Code    int  `json:"code"`
+	Error   bool `json:"error"`
+	Edge    Edge `json:"edge,omitempty"`
+	Old     Edge `json:"old"`
+	Removed bool `json:"removed"`
+}
+
+func (r *EdgeResponse) IsResponse() {}
+
+func (r EdgeResponse) String() string {
+	return fmt.Sprintf(" Code: %v \n Error: %v \n Edge: %v",
+		r.Code,
+		r.Error,
+		r.Edge,
+	)
+}
+
 type Edge struct {
-	Id   string `json:"_id"`
-	Key  string `json:"_key"`
-	Rev  string `json:"_rev"`
-	From string `json:"_from"`
-	To   string `json:"_to"`
+	Id     string `json:"_id,omitempty"`
+	Key    string `json:"_key,omitempty"`
+	Rev    string `json:"_rev,omitempty"`
+	From   string `json:"_from,omitempty"`
+	To     string `json:"_to,omitempty"`
+	Online bool   `json:"online,omitempty"`
 }
 
 func (r Edge) String() string {

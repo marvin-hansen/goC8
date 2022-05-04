@@ -47,22 +47,4 @@ func (req *RequestForGetEdge) ResponseCode() int {
 
 //**// Response //**//
 
-func NewResponseForGetEdge() *ResponseForGetEdge {
-	return new(ResponseForGetEdge)
-}
-
-type ResponseForGetEdge struct {
-	Code  int  `json:"code,omitempty"`
-	Error bool `json:"error,omitempty"`
-	Edge  Edge `json:"edge,omitempty"`
-}
-
-func (r *ResponseForGetEdge) IsResponse() {}
-
-func (r ResponseForGetEdge) String() string {
-	return fmt.Sprintf(" Code: %v \n Error: %v \n Edge: %v",
-		r.Code,
-		r.Error,
-		r.Edge,
-	)
-}
+// call NewEdgeResponse() instead

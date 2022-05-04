@@ -135,6 +135,15 @@ func TestReplaceEdge(t *testing.T) {
 	}
 }
 
+func TestDeleteEdge(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	collectionID := "teach"
+	edgeID := "Jean-CSC101"
+	res, err := c.Graph.DeleteEdge(fabric, graphName, collectionID, edgeID, false)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
 func TestGetAllVertices(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	res, err := c.Graph.GetAllVertices(fabric, graphName)

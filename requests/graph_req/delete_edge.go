@@ -7,15 +7,16 @@ import (
 
 //**// Request //**//
 
-func NewRequestForDeleteEdge(fabric string) *RequestForDeleteEdge {
-  // @FIXME: Add correct API path
+func NewRequestForDeleteEdge(fabric, graphName, collectionName, edgeKey string, returnOld bool) *RequestForDeleteEdge {
 	return &RequestForDeleteEdge{
-			path: fmt.Sprintf("_fabric/%v/_api/NAME", fabric),
+		path:       fmt.Sprintf("_fabric/%v/_api/graph/%v/edge/%v/%v", fabric, graphName, collectionName, edgeKey),
+		parameters: fmt.Sprintf("?returnOld=%v", returnOld),
 	}
 }
 
 type RequestForDeleteEdge struct {
-	path string
+	path       string
+	parameters string
 }
 
 func (req *RequestForDeleteEdge) Path() string {
@@ -23,7 +24,7 @@ func (req *RequestForDeleteEdge) Path() string {
 }
 
 func (req *RequestForDeleteEdge) Method() string {
-	return http.MethodGet
+	return http.MethodDelete
 }
 
 func (req *RequestForDeleteEdge) Query() string {
@@ -31,11 +32,11 @@ func (req *RequestForDeleteEdge) Query() string {
 }
 
 func (req *RequestForDeleteEdge) HasQueryParameter() bool {
-	return false
+	return true
 }
 
 func (req *RequestForDeleteEdge) GetQueryParameter() string {
-	return ""
+	return req.parameters
 }
 
 func (req *RequestForDeleteEdge) Payload() []byte {
@@ -48,20 +49,4 @@ func (req *RequestForDeleteEdge) ResponseCode() int {
 
 //**// Response //**//
 
-func NewResponseForDeleteEdge() *ResponseForDeleteEdge {
-	return new(ResponseForDeleteEdge)
-}
-
-type ResponseForDeleteEdge struct {
-  // @FIXME
-	Field string 
-}
-
-func (r *ResponseForDeleteEdge) IsResponse() {}
-
-func (r ResponseForDeleteEdge) String() string {
-  // @FIXME
-	return fmt.Sprintf("Bootfile: %v", r.Field)
-}
-
-
+// call NewEdgeResponse() instead
