@@ -87,9 +87,9 @@ func setup(c *goC8.Client) {
 	utils.CheckError(err, "Error CreateNewDocument")
 	utils.DbgPrint("Create GeoIndex on: "+field, verbose)
 
-	goC8.ImportData(c, fabric, collectionID, sample_data.GetCityData(), silent)
+	goC8.ImportCollectionData(c, fabric, collectionID, sample_data.GetCityData(), silent)
 	goC8.CreateCollection(c, fabric, edgeCollectionID, types.EdgeCollectionType, false)
-	goC8.ImportData(c, fabric, edgeCollectionID, sample_data.GetFlightData(), silent)
+	goC8.ImportCollectionData(c, fabric, edgeCollectionID, sample_data.GetFlightData(), silent)
 	goC8.CreateGraph(c, fabric, graph, sample_data.GetAirlineGraph())
 }
 

@@ -23,11 +23,11 @@ const (
 func TestSetup(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	goC8.CreateCollection(c, fabric, collectionTeachers, types.DocumentCollectionType, false)
-	goC8.ImportData(c, fabric, collectionTeachers, sample_data.GetTeacherData(), silent)
+	goC8.ImportCollectionData(c, fabric, collectionTeachers, sample_data.GetTeacherData(), silent)
 	goC8.CreateCollection(c, fabric, collectionLectures, types.DocumentCollectionType, false)
-	goC8.ImportData(c, fabric, collectionLectures, sample_data.GetLecturesData(), silent)
+	goC8.ImportCollectionData(c, fabric, collectionLectures, sample_data.GetLecturesData(), silent)
 	goC8.CreateCollection(c, fabric, edgeCollectionTeach, types.EdgeCollectionType, false)
-	goC8.ImportData(c, fabric, edgeCollectionTeach, sample_data.GetTeachEdgeData(), silent)
+	goC8.ImportCollectionData(c, fabric, edgeCollectionTeach, sample_data.GetTeachEdgeData(), silent)
 }
 
 func TestCreateGraph(t *testing.T) {

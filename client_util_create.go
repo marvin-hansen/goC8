@@ -14,7 +14,7 @@ func CreateCollection(c *Client, fabric, collectionName string, collectionType t
 	}
 }
 
-func ImportData(c *Client, fabric, collectionName string, jsonDocument []byte, silent bool) {
+func ImportCollectionData(c *Client, fabric, collectionName string, jsonDocument []byte, silent bool) {
 	exists, err := c.Collection.CheckCollectionExists(fabric, collectionName)
 	utils.CheckError(err, "Error CheckCollectionExists: ")
 	if exists {
