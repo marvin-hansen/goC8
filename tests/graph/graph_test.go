@@ -80,7 +80,7 @@ func TestGetAllEdges(t *testing.T) {
 func TestGetEdge(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	collectionID := "teach"
-	edgeID := "Jean-CSC101"
+	edgeID := "Jean-CSC102"
 	res, err := c.Graph.GetEdge(fabric, graphName, collectionID, edgeID)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
