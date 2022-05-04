@@ -15,6 +15,7 @@ help:
 	@echo '    make test-all   		Runs all API tests in order.'
 	@echo '    make test-collection   	Tests collection API. '
 	@echo '    make test-document   	Tests document API. '
+	@echo '    make test-graph   		Tests graph API. '
 	@echo '    make test-index   		Tests index API. '
 	@echo '    make test-kv   		Tests key-value API. '
 
@@ -39,6 +40,10 @@ test-collection:
 .PHONY: test-document
 test-document:
 	@source scripts/test/test-document.sh
+
+.PHONY: test-graph
+test-graph:
+	@source scripts/test/test-graph.sh
 
 .PHONY: test-index
 test-index:

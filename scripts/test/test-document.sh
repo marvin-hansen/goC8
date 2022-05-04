@@ -5,7 +5,6 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-# RUN KV Test suite
 command cd tests/document
 command go test -count=1 ./...
 

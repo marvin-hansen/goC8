@@ -5,6 +5,5 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-command cd tests/collection
+command cd tests/graph
 command go test -count=1 ./...
-
