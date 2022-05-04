@@ -50,7 +50,7 @@
 | Post   | /graph/{graph}/edge                         | Adds an additional edge definition to the graph. | Yes         | Yes    | Yes  |
 | Post   | /graph/{graph}/edge/{edgeCollection}        | Creates a new edge in the collection.            | Yes         | Yes    | Yes  |
 | Put    | /graph/{graph}/edge/{edgeCollection}        | Replace an edge definition                       | Yes         | Yes    | Yes  |
-| Delete | /graph/{graph}/edge/{edgeCollection}        | Remove an edge definition                        |             |        |      |
+| Delete | /graph/{graph}/edge/{edgeCollection}        | Remove an edge definition                        | Yes         | Yes    | Yes  |
 | Delete | /graph/{graph}/edge/{collection}/{edge}     | Remove an edge                                   | Yes         | Yes    | Yes  |
 | Get    | /graph/{graph}/edge/{collection}/{edge}     | Get an Edge                                      | Yes         | Yes    | Yes  |
 | Patch  | /graph/{graph}/edge/{collection}/{edge}     | Modify an edge                                   |             |        |      |

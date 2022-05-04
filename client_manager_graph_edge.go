@@ -63,13 +63,13 @@ func (c GraphManager) CreateEdge(fabric, graphName, edgeCollectionName, sourceVe
 // GetEdge
 // Gets an edge from the given collection.
 // https://macrometa.com/docs/api#/operations/GetAnEdge
-func (c GraphManager) GetEdge(fabric, graphName, collectionName, edgeKey string) (response *graph_req.EdgeResponse, err error) {
+func (c GraphManager) GetEdge(fabric, graphName, collectionName, edgeKey string) (response *graph_req.ResponseForEdge, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "GetEdge")
 	}
 
 	req := graph_req.NewRequestForGetEdge(fabric, graphName, collectionName, edgeKey)
-	response = graph_req.NewEdgeResponse()
+	response = graph_req.NewResponseForEdge()
 	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
@@ -84,7 +84,7 @@ func (c GraphManager) CheckEdgeExists(fabric, graphName, collectionName, edgeKey
 	}
 
 	req := graph_req.NewRequestForGetEdge(fabric, graphName, collectionName, edgeKey)
-	response := graph_req.NewEdgeResponse()
+	response := graph_req.NewResponseForEdge()
 	if err = c.client.Request(req, response); err != nil {
 		if strings.Contains(err.Error(), "1202") { //  Code=404, Number=1202,  Error Message=document not found
 			return false, nil
@@ -111,16 +111,29 @@ func (c GraphManager) ReplaceEdge(fabric, graphName, edgeCollectionName, sourceV
 	return response, nil
 }
 
+func (c GraphManager) UpdateEdge(fabric, graphName, edgeCollectionName, edgeKey string, jsonUpdate []byte, keepNull, returnOld, returnNew bool) (response *graph_req.ResponseForEdge, err error) {
+	if benchmark {
+		defer utils.TimeTrack(time.Now(), "UpdateEdge")
+	}
+
+	req := graph_req.NewRequestForUpdateEdge(fabric, graphName, edgeCollectionName, edgeKey, jsonUpdate, keepNull, returnOld, returnNew)
+	response = graph_req.NewResponseForEdge()
+	if err = c.client.Request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
 // DeleteEdge
 // Removes an edge from the collection.
 // https://macrometa.com/docs/api#/operations/RemoveAnEdge
-func (c GraphManager) DeleteEdge(fabric, graphName, collectionName, edgeKey string, returnOld bool) (response *graph_req.EdgeResponse, err error) {
+func (c GraphManager) DeleteEdge(fabric, graphName, collectionName, edgeKey string, returnOld bool) (response *graph_req.ResponseForEdge, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "DeleteEdge")
 	}
 
 	req := graph_req.NewRequestForDeleteEdge(fabric, graphName, collectionName, edgeKey, returnOld)
-	response = graph_req.NewEdgeResponse()
+	response = graph_req.NewResponseForEdge()
 	err = c.client.Request(req, response)
 	return response, CheckReturnError(err)
 }
@@ -131,7 +144,7 @@ func (c GraphManager) DeleteEdge(fabric, graphName, collectionName, edgeKey stri
 // https://macrometa.com/docs/api#/operations/RemoveAnEdgedefinitionFromTheGraph
 func (c GraphManager) DeleteEdgeCollection(fabric, graphName, collectionName string, dropCollections bool) (response *graph_req.ResponseForGraph, err error) {
 	if benchmark {
-		defer utils.TimeTrack(time.Now(), "DeleteEdge")
+		defer utils.TimeTrack(time.Now(), "DeleteEdgeCollection")
 	}
 
 	req := graph_req.NewRequestForDeleteEdgeCollection(fabric, graphName, collectionName, dropCollections)

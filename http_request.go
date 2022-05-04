@@ -102,12 +102,17 @@ func getApiError(res *fasthttp.Response) *APIError {
 
 func getUri(endpoint string, r types.Requester) *url.URL {
 	var u = new(url.URL)
+
 	if r.HasQueryParameter() {
+		utils.DbgPrint("Has Parameters: ", debug)
+		utils.DbgPrint("Parameters: "+r.GetQueryParameter(), debug)
 		u, _ = url.ParseRequestURI(endpoint + r.GetQueryParameter())
 	} else {
 		u, _ = url.ParseRequestURI(endpoint)
 	}
+
 	u.Path = r.Path()
+
 	return u
 }
 

@@ -49,4 +49,4 @@ func (req *RequestForDeleteEdge) ResponseCode() int {
 
 //**// Response //**//
 
-// call NewEdgeResponse() instead
+// call NewResponseForEdge() instead

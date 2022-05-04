@@ -64,25 +64,29 @@ func (r EdgeDefinitions) String() string {
 	)
 }
 
-func NewEdgeResponse() *EdgeResponse {
-	return new(EdgeResponse)
+func NewResponseForEdge() *ResponseForEdge {
+	return new(ResponseForEdge)
 }
 
-type EdgeResponse struct {
-	Code    int  `json:"code"`
-	Error   bool `json:"error"`
+type ResponseForEdge struct {
+	Code    int  `json:"code,omitempty"`
+	Error   bool `json:"error,omitempty"`
 	Edge    Edge `json:"edge,omitempty"`
-	Old     Edge `json:"old"`
-	Removed bool `json:"removed"`
+	Old     Edge `json:"old,omitempty"`
+	New     Edge `json:"new,omitempty"`
+	Removed bool `json:"removed,omitempty"`
 }
 
-func (r *EdgeResponse) IsResponse() {}
+func (r *ResponseForEdge) IsResponse() {}
 
-func (r EdgeResponse) String() string {
-	return fmt.Sprintf(" Code: %v \n Error: %v \n Edge: %v",
+func (r ResponseForEdge) String() string {
+	return fmt.Sprintf(" Code: %v\n Error: %v\n Edge: %v\n Old: %v\n New: %v\n Removed: %v\n",
 		r.Code,
 		r.Error,
 		r.Edge,
+		r.Old,
+		r.New,
+		r.Removed,
 	)
 }
 

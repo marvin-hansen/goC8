@@ -47,4 +47,4 @@ func (req *RequestForGetEdge) ResponseCode() int {
 
 //**// Response //**//
 
-// call NewEdgeResponse() instead
+// call NewResponseForEdge() instead
