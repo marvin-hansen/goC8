@@ -124,3 +124,18 @@ func (c GraphManager) DeleteEdge(fabric, graphName, collectionName, edgeKey stri
 	err = c.client.Request(req, response)
 	return response, CheckReturnError(err)
 }
+
+// DeleteEdgeCollection
+// Remove one edge definition from the graph.
+// This only removes the edge collection, the vertex collections remain untouched and can still be used in your queries.
+// https://macrometa.com/docs/api#/operations/RemoveAnEdgedefinitionFromTheGraph
+func (c GraphManager) DeleteEdgeCollection(fabric, graphName, collectionName string, dropCollections bool) (response *graph_req.ResponseForGraph, err error) {
+	if benchmark {
+		defer utils.TimeTrack(time.Now(), "DeleteEdge")
+	}
+
+	req := graph_req.NewRequestForDeleteEdgeCollection(fabric, graphName, collectionName, dropCollections)
+	response = graph_req.NewResponseForGraph()
+	err = c.client.Request(req, response)
+	return response, CheckReturnError(err)
+}

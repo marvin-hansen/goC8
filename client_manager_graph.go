@@ -67,13 +67,13 @@ func (c GraphManager) CreateGraph(fabric string, jsonGraph []byte) (response *gr
 // GetGraph
 // Retrieve information for a graph. Returns the edge definitions and orphan collections.
 // https://macrometa.com/docs/api#/operations/GetAGraph
-func (c GraphManager) GetGraph(fabric, graphName string) (response *graph_req2.ResponseForGetGraph, err error) {
+func (c GraphManager) GetGraph(fabric, graphName string) (response *graph_req2.ResponseForGraph, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "GetGraph")
 	}
 
 	req := graph_req2.NewRequestForGetGraph(fabric, graphName)
-	response = graph_req2.NewResponseForGetGraph()
+	response = graph_req2.NewResponseForGraph()
 	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ func (c GraphManager) CheckGraphExists(fabric, graphName string) (exists bool, e
 	}
 
 	req := graph_req2.NewRequestForGetGraph(fabric, graphName)
-	response := graph_req2.NewResponseForGetGraph()
+	response := graph_req2.NewResponseForGraph()
 	if err = c.client.Request(req, response); err != nil {
 		if strings.Contains(err.Error(), "1924") { //  Number=1924,  Error Message=graph 'graphName' not found
 			return false, nil

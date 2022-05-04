@@ -135,15 +135,6 @@ func TestReplaceEdge(t *testing.T) {
 	}
 }
 
-func TestDeleteEdge(t *testing.T) {
-	c := goC8.NewClient(config.GetDefaultConfig())
-	collectionID := "teach"
-	edgeID := "Jean-CSC101"
-	res, err := c.Graph.DeleteEdge(fabric, graphName, collectionID, edgeID, false)
-	assert.NoError(t, err)
-	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
-}
 func TestGetAllVertices(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	res, err := c.Graph.GetAllVertices(fabric, graphName)
@@ -157,6 +148,26 @@ func TestGetVertex(t *testing.T) {
 	collectionID := "teachers"
 	edgeID := "Jean"
 	res, err := c.Graph.GetVertex(fabric, graphName, collectionID, edgeID)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
+func TestDeleteEdge(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	collectionID := "teach"
+	edgeID := "Jean-CSC101"
+	res, err := c.Graph.DeleteEdge(fabric, graphName, collectionID, edgeID, false)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
+func TestDeleteEdgeCollection(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	collectionID := "teach"
+
+	res, err := c.Graph.DeleteEdgeCollection(fabric, graphName, collectionID, false)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	goC8.PrintRes(res, verbose)

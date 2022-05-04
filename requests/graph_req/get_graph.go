@@ -47,22 +47,4 @@ func (req *RequestForGetGraph) ResponseCode() int {
 
 //**// Response //**//
 
-func NewResponseForGetGraph() *ResponseForGetGraph {
-	return new(ResponseForGetGraph)
-}
-
-type ResponseForGetGraph struct {
-	Code   int   `json:"code,omitempty"`
-	Error  bool  `json:"error,omitempty"`
-	Graphs Graph `json:"graph,omitempty"`
-}
-
-func (r *ResponseForGetGraph) IsResponse() {}
-
-func (r ResponseForGetGraph) String() string {
-	return fmt.Sprintf(" Code: %v \n Error: %v \n Graphs: %v",
-		r.Code,
-		r.Error,
-		r.Graphs,
-	)
-}
+// call  NewResponseForGraph()

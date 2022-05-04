@@ -2,6 +2,26 @@ package graph_req
 
 import "fmt"
 
+func NewResponseForGraph() *ResponseForGraph {
+	return new(ResponseForGraph)
+}
+
+type ResponseForGraph struct {
+	Code   int   `json:"code,omitempty"`
+	Error  bool  `json:"error,omitempty"`
+	Graphs Graph `json:"graph,omitempty"`
+}
+
+func (r *ResponseForGraph) IsResponse() {}
+
+func (r ResponseForGraph) String() string {
+	return fmt.Sprintf(" Code: %v \n Error: %v \n Graphs: %v",
+		r.Code,
+		r.Error,
+		r.Graphs,
+	)
+}
+
 type Graph struct {
 	Id                   string            `json:"_id,omitempty"`
 	Key                  string            `json:"_key,omitempty"`
