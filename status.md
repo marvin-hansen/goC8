@@ -53,7 +53,7 @@
 | Delete | /graph/{graph}/edge/{edgeCollection}        | Remove an edge definition                        |             |        |      |
 | Delete | /graph/{graph}/edge/{collection}/{edge}     | Remove an edge                                   |             |        |      |
 | Get    | /graph/{graph}/edge/{collection}/{edge}     | Get an Edge                                      | Yes         | Yes    | Yes  |
-| Path   | /graph/{graph}/edge/{collection}/{edge}     | Modify an edge                                   |             |        |      |
+| Patch  | /graph/{graph}/edge/{collection}/{edge}     | Modify an edge                                   |             |        |      |
 | Put    | /graph/{graph}/edge/{collection}/{edge}     | Replace an edge                                  | Yes         | Yes    | Yes  |
 | Get    | /graph/{graph}/vertex                       | List vertex collections                          | Yes         | Yes    | Yes  |
 | Post   | /graph/{graph}/vertex                       | Add vertex collection                            |             |        |      |

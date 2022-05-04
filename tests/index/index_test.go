@@ -2,9 +2,9 @@ package index
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/src/requests/collection_req"
-	"github.com/marvin-hansen/goC8/src/utils"
+	"github.com/marvin-hansen/goC8/requests/collection_req"
 	config "github.com/marvin-hansen/goC8/tests/conf"
+	"github.com/marvin-hansen/goC8/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

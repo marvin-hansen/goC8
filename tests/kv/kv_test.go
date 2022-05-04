@@ -2,9 +2,9 @@ package kv
 
 import (
 	"github.com/marvin-hansen/goC8"
-	kv_req2 "github.com/marvin-hansen/goC8/src/requests/kv_req"
-	"github.com/marvin-hansen/goC8/src/utils"
+	"github.com/marvin-hansen/goC8/requests/kv_req"
 	config "github.com/marvin-hansen/goC8/tests/conf"
+	"github.com/marvin-hansen/goC8/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -35,13 +35,13 @@ func TestGetAllKVCollections(t *testing.T) {
 func TestSetKeyValuePairs(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 
-	kvPair1 := kv_req2.NewKVPair("key1", "value1", -1)
-	kvPair2 := kv_req2.NewKVPair("key2", "value2", -1)
-	kvPair3 := kv_req2.NewKVPair("key3", "value3", -1)
-	kvPair4 := kv_req2.NewKVPair("key4", "value4", -1)
-	kvPair5 := kv_req2.NewKVPair("key5", "value5", -1)
+	kvPair1 := kv_req.NewKVPair("key1", "value1", -1)
+	kvPair2 := kv_req.NewKVPair("key2", "value2", -1)
+	kvPair3 := kv_req.NewKVPair("key3", "value3", -1)
+	kvPair4 := kv_req.NewKVPair("key4", "value4", -1)
+	kvPair5 := kv_req.NewKVPair("key5", "value5", -1)
 
-	kvCollection := kv_req2.NewKVPairCollection(*kvPair1, *kvPair2, *kvPair3, *kvPair4, *kvPair5)
+	kvCollection := kv_req.NewKVPairCollection(*kvPair1, *kvPair2, *kvPair3, *kvPair4, *kvPair5)
 
 	res, err := c.KV.SetKeyValuePairs(fabric, collectionName, *kvCollection)
 	assert.NoError(t, err)
@@ -53,7 +53,7 @@ func TestGetAllKeys(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	offset := 0
 	limit := 20
-	order := kv_req2.Ascending
+	order := kv_req.Ascending
 
 	res, err := c.KV.GetAllKeys(fabric, collectionName, offset, limit, order)
 	assert.NoError(t, err)
@@ -120,7 +120,7 @@ func TestDeleteValue(t *testing.T) {
 
 func TestDeleteKeyValuePairs(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-	keyPairs := kv_req2.KeyCollection{"key1", "key2", "key3"}
+	keyPairs := kv_req.KeyCollection{"key1", "key2", "key3"}
 
 	res, err := c.KV.DeleteKeyValuePairs(fabric, collectionName, keyPairs)
 	assert.NoError(t, err)

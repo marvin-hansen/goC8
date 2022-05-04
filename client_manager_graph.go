@@ -1,8 +1,8 @@
 package goC8
 
 import (
-	"github.com/marvin-hansen/goC8/src/requests/graph_req"
-	"github.com/marvin-hansen/goC8/src/utils"
+	graph_req2 "github.com/marvin-hansen/goC8/requests/graph_req"
+	"github.com/marvin-hansen/goC8/utils"
 	"strings"
 	"time"
 )
@@ -18,13 +18,13 @@ func NewGraphManager(client *Client) *GraphManager {
 // GetAllGraphs
 // Lists all graphs stored in this GeoFabric.
 // https://macrometa.com/docs/api#/operations/ListAllGraphs
-func (c GraphManager) GetAllGraphs(fabric string) (response *graph_req.ResponseForGetAllGraphs, err error) {
+func (c GraphManager) GetAllGraphs(fabric string) (response *graph_req2.ResponseForGetAllGraphs, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "GetAllGraphs")
 	}
 
-	req := graph_req.NewRequestForGetAllGraphs(fabric)
-	response = graph_req.NewResponseForGetAllGraphs()
+	req := graph_req2.NewRequestForGetAllGraphs(fabric)
+	response = graph_req2.NewResponseForGetAllGraphs()
 	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
@@ -51,13 +51,13 @@ func (c GraphManager) GetAllGraphs(fabric string) (response *graph_req.ResponseF
 //  "options": {}
 //}
 // https://macrometa.com/docs/api#/operations/CreateAGraph
-func (c GraphManager) CreateGraph(fabric string, jsonGraph []byte) (response *graph_req.ResponseForCreateGraph, err error) {
+func (c GraphManager) CreateGraph(fabric string, jsonGraph []byte) (response *graph_req2.ResponseForCreateGraph, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "CreateGraph")
 	}
 
-	req := graph_req.NewRequestForCreateGraph(fabric, jsonGraph)
-	response = graph_req.NewResponseForCreateGraph()
+	req := graph_req2.NewRequestForCreateGraph(fabric, jsonGraph)
+	response = graph_req2.NewResponseForCreateGraph()
 	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
@@ -67,13 +67,13 @@ func (c GraphManager) CreateGraph(fabric string, jsonGraph []byte) (response *gr
 // GetGraph
 // Retrieve information for a graph. Returns the edge definitions and orphan collections.
 // https://macrometa.com/docs/api#/operations/GetAGraph
-func (c GraphManager) GetGraph(fabric, graphName string) (response *graph_req.ResponseForGetGraph, err error) {
+func (c GraphManager) GetGraph(fabric, graphName string) (response *graph_req2.ResponseForGetGraph, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "GetGraph")
 	}
 
-	req := graph_req.NewRequestForGetGraph(fabric, graphName)
-	response = graph_req.NewResponseForGetGraph()
+	req := graph_req2.NewRequestForGetGraph(fabric, graphName)
+	response = graph_req2.NewResponseForGetGraph()
 	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
@@ -88,8 +88,8 @@ func (c GraphManager) CheckGraphExists(fabric, graphName string) (exists bool, e
 		defer utils.TimeTrack(time.Now(), "CheckGraphExists")
 	}
 
-	req := graph_req.NewRequestForGetGraph(fabric, graphName)
-	response := graph_req.NewResponseForGetGraph()
+	req := graph_req2.NewRequestForGetGraph(fabric, graphName)
+	response := graph_req2.NewResponseForGetGraph()
 	if err = c.client.Request(req, response); err != nil {
 		if strings.Contains(err.Error(), "1924") { //  Number=1924,  Error Message=graph 'graphName' not found
 			return false, nil
@@ -104,13 +104,13 @@ func (c GraphManager) CheckGraphExists(fabric, graphName string) (exists bool, e
 // DeleteGraph
 // Remove an existing graph object by name. Optionally all collections not used by other graphs can be removed as well.
 // https://macrometa.com/docs/api#/operations/DropAGraph
-func (c GraphManager) DeleteGraph(fabric, graphName string, dropCollections bool) (response *graph_req.ResponseForDeleteGraph, err error) {
+func (c GraphManager) DeleteGraph(fabric, graphName string, dropCollections bool) (response *graph_req2.ResponseForDeleteGraph, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "DeleteGraph")
 	}
 
-	req := graph_req.NewRequestForDeleteGraph(fabric, graphName, dropCollections)
-	response = graph_req.NewResponseForDeleteGraph()
+	req := graph_req2.NewRequestForDeleteGraph(fabric, graphName, dropCollections)
+	response = graph_req2.NewResponseForDeleteGraph()
 	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}

@@ -3,8 +3,8 @@ package goC8
 import (
 	"fmt"
 	jsoniter "github.com/json-iterator/go"
-	"github.com/marvin-hansen/goC8/src"
-	"github.com/marvin-hansen/goC8/src/utils"
+	"github.com/marvin-hansen/goC8/types"
+	"github.com/marvin-hansen/goC8/utils"
 	"github.com/valyala/fasthttp"
 	"net/url"
 	"time"
@@ -13,7 +13,7 @@ import (
 // used for JSON unmarshaling
 var json = jsoniter.ConfigCompatibleWithStandardLibrary
 
-func (c *Client) requestJsonResponse(req src.Requester, results src.JsonResponder) error {
+func (c *Client) requestJsonResponse(req types.Requester, results types.JsonResponder) error {
 	res, reqErr := c.do(req)
 	if reqErr != nil {
 		//println("Request error")
@@ -24,7 +24,7 @@ func (c *Client) requestJsonResponse(req src.Requester, results src.JsonResponde
 	return nil
 }
 
-func (c *Client) Request(req src.Requester, results src.Responder) error {
+func (c *Client) Request(req types.Requester, results types.Responder) error {
 	res, reqErr := c.do(req)
 	if reqErr != nil {
 		utils.DbgPrint("Request error", debug)
@@ -45,7 +45,7 @@ func (c *Client) Request(req src.Requester, results src.Responder) error {
 // do build & executes the actual Request from the rquester
 // requester - implementation
 // targetStatusCode the expected http status code i.e. 200
-func (c *Client) do(r src.Requester) (*fasthttp.Response, *APIError) {
+func (c *Client) do(r types.Requester) (*fasthttp.Response, *APIError) {
 	req := c.newRequest(r)
 
 	utils.DbgPrint("URI:"+req.URI().String(), debug)
@@ -100,7 +100,7 @@ func getApiError(res *fasthttp.Response) *APIError {
 	return apiErr
 }
 
-func getUri(endpoint string, r src.Requester) *url.URL {
+func getUri(endpoint string, r types.Requester) *url.URL {
 	var u = new(url.URL)
 	if r.HasQueryParameter() {
 		u, _ = url.ParseRequestURI(endpoint + r.GetQueryParameter())
@@ -111,7 +111,7 @@ func getUri(endpoint string, r src.Requester) *url.URL {
 	return u
 }
 
-func (c *Client) newRequest(r src.Requester) *fasthttp.Request {
+func (c *Client) newRequest(r types.Requester) *fasthttp.Request {
 	u := getUri(c.Endpoint, r)
 	req := fasthttp.AcquireRequest()
 	req.Header.SetMethod(r.Method())

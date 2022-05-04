@@ -3,9 +3,9 @@ package collection
 import (
 	"fmt"
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/src/requests/collection_req"
-	"github.com/marvin-hansen/goC8/src/utils"
+	collection_req2 "github.com/marvin-hansen/goC8/requests/collection_req"
 	config "github.com/marvin-hansen/goC8/tests/conf"
+	"github.com/marvin-hansen/goC8/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -13,7 +13,7 @@ import (
 const (
 	verbose  = true
 	fabric   = "SouthEastAsia"
-	collType = collection_req.DocumentCollectionType
+	collType = collection_req2.DocumentCollectionType
 	collName = "TestCollection"
 )
 
@@ -66,7 +66,7 @@ func TestGetCollectionInfo(t *testing.T) {
 
 func TestUpdateCollection(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-	properties := &collection_req.UpdateOptions{
+	properties := &collection_req2.UpdateOptions{
 		// Note: except for waitForSync and hasStream, collection properties cannot be changed once a collection is created.
 		HasStream:   true,
 		WaitForSync: true,

@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/src/requests/collection_req"
-	"github.com/marvin-hansen/goC8/src/utils"
+	"github.com/marvin-hansen/goC8/requests/collection_req"
+	utils2 "github.com/marvin-hansen/goC8/utils"
 )
 
 const (
@@ -28,21 +28,21 @@ func main() {
 
 	// test if city collection exists
 	exists, err := c.Collection.CheckCollectionExists(fabric, collectionID)
-	utils.CheckError(err, "Error CheckCollectionExists: ")
+	utils2.CheckError(err, "Error CheckCollectionExists: ")
 	if !exists {
 		// if not create collection
 		collType := collection_req.DocumentCollectionType
 		allowUserKeys := false
 		err = c.Collection.CreateNewCollection(fabric, collectionID, allowUserKeys, collType)
-		utils.CheckError(err, "Error CreateNewCollection")
-		utils.DbgPrint("Create collection: "+collectionID, verbose)
+		utils2.CheckError(err, "Error CreateNewCollection")
+		utils2.DbgPrint("Create collection: "+collectionID, verbose)
 
 		// Create a geo index
 		field := "location"
 		geoJson := true
 		_, err = c.Index.CreateGeoIndex(fabric, collectionID, field, geoJson)
-		utils.CheckError(err, "Error CreateNewDocument")
-		utils.DbgPrint("Create GeoIndex on: "+field, verbose)
+		utils2.CheckError(err, "Error CreateNewDocument")
+		utils2.DbgPrint("Create GeoIndex on: "+field, verbose)
 	}
 
 }

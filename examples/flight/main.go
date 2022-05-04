@@ -2,7 +2,8 @@ package main
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/src/utils"
+	"github.com/marvin-hansen/goC8/requests/collection_req"
+	utils2 "github.com/marvin-hansen/goC8/utils"
 )
 
 const (
@@ -14,6 +15,7 @@ const (
 	// collection & graph config
 	delete           = false
 	verbose          = true
+	silent           = false
 	graph            = "airline"
 	collectionID     = "cities"
 	edgeCollectionID = "flights"
@@ -71,6 +73,27 @@ func query(c *goC8.Client) {
 func runQuery(c *goC8.Client, q, msg string) {
 	println(msg)
 	res, err := c.Query(fabric, q, nil, nil)
-	utils.CheckError(err, "Error Query: "+q)
-	utils.PrintQuery(res, verbose)
+	utils2.CheckError(err, "Error Query: "+q)
+	utils2.PrintQuery(res, verbose)
+}
+
+func setup(c *goC8.Client) {
+	goC8.CreateCollection(c, fabric, collectionID, collection_req.DocumentCollectionType, false)
+	// We have to create a geo index before importing geoJson
+	field := "location"
+	geoJson := true
+	_, err := c.Index.CreateGeoIndex(fabric, collectionID, field, geoJson)
+	utils2.CheckError(err, "Error CreateNewDocument")
+	utils2.DbgPrint("Create GeoIndex on: "+field, verbose)
+
+	goC8.ImportData(c, fabric, collectionID, GetCityData(), silent)
+	goC8.CreateCollection(c, fabric, edgeCollectionID, collection_req.EdgeCollectionType, false)
+	goC8.ImportData(c, fabric, edgeCollectionID, GetFlightData(), silent)
+	goC8.CreateGraph(c, fabric, graph, GetAirlineGraph())
+}
+
+func teardown(c *goC8.Client) {
+	goC8.TeardownGraph(c, fabric, graph, true)
+	goC8.TeardownCollection(c, fabric, collectionID)
+	goC8.TeardownCollection(c, fabric, edgeCollectionID)
 }

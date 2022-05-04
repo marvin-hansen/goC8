@@ -2,9 +2,9 @@ package main
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/src"
-	"github.com/marvin-hansen/goC8/src/requests/collection_req"
-	"github.com/marvin-hansen/goC8/src/utils"
+	"github.com/marvin-hansen/goC8/requests/collection_req"
+	"github.com/marvin-hansen/goC8/types"
+	"github.com/marvin-hansen/goC8/utils"
 )
 
 const (
@@ -53,7 +53,7 @@ func main() {
 
 }
 
-func printJsonRes(res src.JsonResponder) {
+func printJsonRes(res types.JsonResponder) {
 	if verbose {
 		println(res.String())
 	}

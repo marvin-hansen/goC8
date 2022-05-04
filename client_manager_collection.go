@@ -1,7 +1,7 @@
 package goC8
 
 import (
-	"github.com/marvin-hansen/goC8/src/requests/collection_req"
+	collection_req2 "github.com/marvin-hansen/goC8/requests/collection_req"
 	"strings"
 )
 
@@ -18,9 +18,9 @@ func NewCollectionManager(client *Client) *CollectionManager {
 // The same information is also available in the names as an object with the collection names as keys.
 // By providing the optional query parameter excludeSystem with a value of true, all system collections will be excluded from the response.
 // https://macrometa.com/docs/api#/operations/handleCommandGet
-func (c CollectionManager) GetAllCollections(fabric string) (response *collection_req.ResponseForGetAllCollections, err error) {
-	req := collection_req.NewRequestForGetAllCollections(fabric)
-	response = collection_req.NewResponseForGetAllCollections()
+func (c CollectionManager) GetAllCollections(fabric string) (response *collection_req2.ResponseForGetAllCollections, err error) {
+	req := collection_req2.NewRequestForGetAllCollections(fabric)
+	response = collection_req2.NewResponseForGetAllCollections()
 	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
@@ -48,9 +48,9 @@ func (c CollectionManager) GetAllCollections(fabric string) (response *collectio
 //stream: If true, create a local stream for collection. (The default is false)
 //shardKeys: The specified shard key determines in which shard a given document is to be stored. Choosing the right shard key can have significant impact on your performance can reduce network traffic and increase performance.
 // https://macrometa.com/docs/api#/operations/handleCommandPost:CreateCollection
-func (c CollectionManager) CreateNewCollection(fabric, collectionName string, allowUserKeys bool, collectionType collection_req.CollectionType) (err error) {
-	req := collection_req.NewRequestForCreateNewCollection(fabric, collectionName, allowUserKeys, collectionType)
-	response := collection_req.NewResponseForCreateNewCollection()
+func (c CollectionManager) CreateNewCollection(fabric, collectionName string, allowUserKeys bool, collectionType collection_req2.CollectionType) (err error) {
+	req := collection_req2.NewRequestForCreateNewCollection(fabric, collectionName, allowUserKeys, collectionType)
+	response := collection_req2.NewResponseForCreateNewCollection()
 	if err = c.client.Request(req, response); err != nil {
 		return err
 	}
@@ -60,9 +60,9 @@ func (c CollectionManager) CreateNewCollection(fabric, collectionName string, al
 // GetCollectionInfo
 // Fetches the information about collection.
 // https://macrometa.com/docs/api#/operations/handleCommandGet:collectionGetProperties
-func (c CollectionManager) GetCollectionInfo(fabric, collectionName string) (response *collection_req.ResponseForGetCollectionInfo, err error) {
-	req := collection_req.NewRequestForGetCollectionInfo(fabric, collectionName)
-	response = collection_req.NewResponseForGetCollectionInfo()
+func (c CollectionManager) GetCollectionInfo(fabric, collectionName string) (response *collection_req2.ResponseForGetCollectionInfo, err error) {
+	req := collection_req2.NewRequestForGetCollectionInfo(fabric, collectionName)
+	response = collection_req2.NewResponseForGetCollectionInfo()
 	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
@@ -72,8 +72,8 @@ func (c CollectionManager) GetCollectionInfo(fabric, collectionName string) (res
 // CheckCollectionExists
 // Returns true if the collection of the name exists. False otherwise.
 func (c CollectionManager) CheckCollectionExists(fabric, collectionName string) (exists bool, err error) {
-	req := collection_req.NewRequestForGetCollectionInfo(fabric, collectionName)
-	response := collection_req.NewResponseForGetCollectionInfo()
+	req := collection_req2.NewRequestForGetCollectionInfo(fabric, collectionName)
+	response := collection_req2.NewResponseForGetCollectionInfo()
 	if err = c.client.Request(req, response); err != nil {
 		if strings.Contains(err.Error(), "1203") { // Number=1203,  Error Message=collection or view not found
 			return false, nil
@@ -97,9 +97,9 @@ func (c CollectionManager) CheckCollectionExists(fabric, collectionName string) 
 //searchEnabled: True if the collection is searchable.
 //globallyUniqueId: Global unique identifier as string.
 // https://macrometa.com/docs/api#/operations/handleCommandGet:getCollectionCount
-func (c CollectionManager) CountCollection(fabric, collectionName string) (response *collection_req.ResultFromCollection, err error) {
-	req := collection_req.NewRequestForCountCollection(fabric, collectionName)
-	response = collection_req.NewResultFromCollection()
+func (c CollectionManager) CountCollection(fabric, collectionName string) (response *collection_req2.ResultFromCollection, err error) {
+	req := collection_req2.NewRequestForCountCollection(fabric, collectionName)
+	response = collection_req2.NewResultFromCollection()
 	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
@@ -131,9 +131,9 @@ func (c CollectionManager) CountCollection(fabric, collectionName string) (respo
 //stream: True if the collection has a local streams associate with it.
 //Note: except for waitForSync and hasStream, collection properties cannot be changed once a collection is created.
 // https://macrometa.com/docs/api#/operations/handleCommandPut:stream
-func (c CollectionManager) UpdateCollectionProperties(fabric, collectionName string, properties *collection_req.UpdateOptions) (response *collection_req.ResponseForUpdateCollection, err error) {
-	req := collection_req.NewRequestForUpdateCollection(fabric, collectionName, properties)
-	response = collection_req.NewResponseForUpdateCollection()
+func (c CollectionManager) UpdateCollectionProperties(fabric, collectionName string, properties *collection_req2.UpdateOptions) (response *collection_req2.ResponseForUpdateCollection, err error) {
+	req := collection_req2.NewRequestForUpdateCollection(fabric, collectionName, properties)
+	response = collection_req2.NewResponseForUpdateCollection()
 	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
@@ -143,9 +143,9 @@ func (c CollectionManager) UpdateCollectionProperties(fabric, collectionName str
 // TruncateCollection
 // Remove all documents from the collection but leaves the indexes intact.
 // https://macrometa.com/docs/api#/operations/handleCommandPut:truncateCollection
-func (c CollectionManager) TruncateCollection(fabric, collectionName string) (response *collection_req.ResponseForTruncateCollection, err error) {
-	req := collection_req.NewRequestForTruncateCollection(fabric, collectionName)
-	response = collection_req.NewResponseForTruncateCollection()
+func (c CollectionManager) TruncateCollection(fabric, collectionName string) (response *collection_req2.ResponseForTruncateCollection, err error) {
+	req := collection_req2.NewRequestForTruncateCollection(fabric, collectionName)
+	response = collection_req2.NewResponseForTruncateCollection()
 	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
@@ -158,8 +158,8 @@ func (c CollectionManager) TruncateCollection(fabric, collectionName string) (re
 //id: The identifier of the dropped collection.
 // https://macrometa.com/docs/api#/operations/handleCommandDelete:collection
 func (c CollectionManager) DeleteCollection(fabric, collectionName string, isSystem bool) (err error) {
-	req := collection_req.NewRequestForDeleteCollection(fabric, collectionName, isSystem)
-	response := collection_req.NewResponseForDeleteCollection()
+	req := collection_req2.NewRequestForDeleteCollection(fabric, collectionName, isSystem)
+	response := collection_req2.NewResponseForDeleteCollection()
 	if err = c.client.Request(req, response); err != nil {
 		return err
 	}
