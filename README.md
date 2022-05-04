@@ -134,28 +134,33 @@ func query(c *goC8.Client) {
 	q = sample_data.GetCitiesMaxDistance()
 	msg = "Get the cities that are no more than 2500km away from houston."
 	runQuery(c, q, msg)
-
-}
-
-func setup(c *goC8.Client) {
-	// see examples/flight for details 
-	setupCities(c)
-	setupFlights(c)
-	setupGraph(c)
 }
 
 func runQuery(c *goC8.Client, q, msg string) {
 	println(msg)
 	res, err := c.Query(fabric, q, nil, nil)
-	checkError(err, "Error Query: "+q)
+	utils.CheckError(err, "Error Query: "+q)
 	utils.PrintQuery(res, verbose)
 }
 
-func checkError(err error, msg string) {
-	if err != nil {
-		log.Println("error: " + err.Error())
-		log.Fatalf(msg)
-	}
+func setup(c *goC8.Client) {
+	goC8.CreateCollection(c, fabric, collectionID, types.DocumentCollectionType, false)
+	// We have to create a geo index before importing geoJson
+	field := "location"
+	geoJson := true
+	_, err := c.Index.CreateGeoIndex(fabric, collectionID, field, geoJson)
+	utils.CheckError(err, "Error CreateNewDocument")
+	utils.DbgPrint("Create GeoIndex on: "+field, verbose)
+	goC8.ImportData(c, fabric, collectionID, sample_data.GetCityData(), silent)
+	goC8.CreateCollection(c, fabric, edgeCollectionID, types.EdgeCollectionType, false)
+	goC8.ImportData(c, fabric, edgeCollectionID, sample_data.GetFlightData(), silent)
+	goC8.CreateGraph(c, fabric, graph, sample_data.GetAirlineGraph())
+}
+
+func teardown(c *goC8.Client) {
+	goC8.TeardownGraph(c, fabric, graph, true)
+	goC8.TeardownCollection(c, fabric, collectionID)
+	goC8.TeardownCollection(c, fabric, edgeCollectionID)
 }
 ```
 
