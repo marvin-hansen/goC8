@@ -1,4 +1,4 @@
-package collection_req
+package types
 
 type CollectionType uint8 // 255 possible values
 

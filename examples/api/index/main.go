@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/requests/collection_req"
+	"github.com/marvin-hansen/goC8/types"
 	utils2 "github.com/marvin-hansen/goC8/utils"
 )
 
@@ -14,7 +14,7 @@ const (
 	collName = "TestCollection"
 	// Chose between document collection for storing JSON
 	// and edge collections that are used for storing graphs edges.
-	collType = collection_req.DocumentCollectionType
+	collType = types.DocumentCollectionType
 	verbose  = true // set to false to disable console printout
 )
 

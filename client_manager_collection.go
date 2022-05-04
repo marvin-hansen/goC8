@@ -2,6 +2,7 @@ package goC8
 
 import (
 	collection_req2 "github.com/marvin-hansen/goC8/requests/collection_req"
+	"github.com/marvin-hansen/goC8/types"
 	"strings"
 )
 
@@ -48,7 +49,7 @@ func (c CollectionManager) GetAllCollections(fabric string) (response *collectio
 //stream: If true, create a local stream for collection. (The default is false)
 //shardKeys: The specified shard key determines in which shard a given document is to be stored. Choosing the right shard key can have significant impact on your performance can reduce network traffic and increase performance.
 // https://macrometa.com/docs/api#/operations/handleCommandPost:CreateCollection
-func (c CollectionManager) CreateNewCollection(fabric, collectionName string, allowUserKeys bool, collectionType collection_req2.CollectionType) (err error) {
+func (c CollectionManager) CreateNewCollection(fabric, collectionName string, allowUserKeys bool, collectionType types.CollectionType) (err error) {
 	req := collection_req2.NewRequestForCreateNewCollection(fabric, collectionName, allowUserKeys, collectionType)
 	response := collection_req2.NewResponseForCreateNewCollection()
 	if err = c.client.Request(req, response); err != nil {

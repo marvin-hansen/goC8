@@ -2,12 +2,13 @@ package collection_req
 
 import (
 	"fmt"
+	"github.com/marvin-hansen/goC8/types"
 	"net/http"
 )
 
 //**// Request //**//
 
-func NewRequestForCreateNewCollection(fabric, collectionName string, allowUserKeys bool, collectionType CollectionType) *RequestForCreateNewCollection {
+func NewRequestForCreateNewCollection(fabric, collectionName string, allowUserKeys bool, collectionType types.CollectionType) *RequestForCreateNewCollection {
 	return &RequestForCreateNewCollection{
 		path:    fmt.Sprintf("_fabric/%v/_api/collection", fabric),
 		payload: getCreatePayload(collectionName, allowUserKeys, collectionType),
@@ -19,7 +20,7 @@ type RequestForCreateNewCollection struct {
 	payload []byte
 }
 
-func getCreatePayload(collectionName string, allowUserKeys bool, collectionType CollectionType) []byte {
+func getCreatePayload(collectionName string, allowUserKeys bool, collectionType types.CollectionType) []byte {
 	// https://macrometa.com/docs/collections/documents/tutorials/using_rest_api/
 	s := fmt.Sprintf(`{
       "name": "%v",

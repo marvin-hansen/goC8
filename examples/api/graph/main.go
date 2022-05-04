@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/requests/collection_req"
+	"github.com/marvin-hansen/goC8/types"
 	utils2 "github.com/marvin-hansen/goC8/utils"
 )
 
@@ -31,7 +31,7 @@ func main() {
 	utils2.CheckError(err, "Error CheckCollectionExists: ")
 	if !exists {
 		// if not create collection
-		collType := collection_req.DocumentCollectionType
+		collType := types.DocumentCollectionType
 		allowUserKeys := false
 		err = c.Collection.CreateNewCollection(fabric, collectionID, allowUserKeys, collType)
 		utils2.CheckError(err, "Error CreateNewCollection")

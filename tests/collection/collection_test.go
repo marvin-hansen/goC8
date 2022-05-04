@@ -5,6 +5,7 @@ import (
 	"github.com/marvin-hansen/goC8"
 	collection_req2 "github.com/marvin-hansen/goC8/requests/collection_req"
 	config "github.com/marvin-hansen/goC8/tests/conf"
+	"github.com/marvin-hansen/goC8/types"
 	"github.com/marvin-hansen/goC8/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -13,7 +14,7 @@ import (
 const (
 	verbose  = true
 	fabric   = "SouthEastAsia"
-	collType = collection_req2.DocumentCollectionType
+	collType = types.DocumentCollectionType
 	collName = "TestCollection"
 )
 

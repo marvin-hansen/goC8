@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/requests/collection_req"
+	"github.com/marvin-hansen/goC8/types"
 	"github.com/marvin-hansen/goC8/utils"
 	"strconv"
 )
@@ -16,7 +16,7 @@ const (
 
 func main() {
 	// Chose between document collection for storing JSON and edge collections that are used for graphs.
-	collType := collection_req.DocumentCollectionType
+	collType := types.DocumentCollectionType
 	collName := "TestCollection"
 
 	println("Create new config ")

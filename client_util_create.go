@@ -1,11 +1,11 @@
 package goC8
 
 import (
-	"github.com/marvin-hansen/goC8/requests/collection_req"
+	"github.com/marvin-hansen/goC8/types"
 	"github.com/marvin-hansen/goC8/utils"
 )
 
-func CreateCollection(c *Client, fabric, collectionName string, collectionType collection_req.CollectionType, allowUserKeys bool) {
+func CreateCollection(c *Client, fabric, collectionName string, collectionType types.CollectionType, allowUserKeys bool) {
 	exists, err := c.Collection.CheckCollectionExists(fabric, collectionName)
 	utils.CheckError(err, "Error CheckCollectionExists: ")
 	if !exists {

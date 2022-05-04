@@ -2,9 +2,9 @@ package document
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/requests/collection_req"
 	"github.com/marvin-hansen/goC8/requests/document_req"
 	config "github.com/marvin-hansen/goC8/tests/conf"
+	"github.com/marvin-hansen/goC8/types"
 	"github.com/marvin-hansen/goC8/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -22,7 +22,7 @@ var SharedKey string = ""
 
 func TestSetup(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-	collType := collection_req.DocumentCollectionType
+	collType := types.DocumentCollectionType
 	err := c.Collection.CreateNewCollection(fabric, collName, false, collType)
 	assert.NoError(t, err)
 }

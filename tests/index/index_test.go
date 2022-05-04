@@ -2,8 +2,8 @@ package index
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/requests/collection_req"
 	config "github.com/marvin-hansen/goC8/tests/conf"
+	"github.com/marvin-hansen/goC8/types"
 	"github.com/marvin-hansen/goC8/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
@@ -15,7 +15,7 @@ const (
 	graph            = "airline"
 	citiesCollection = "cities"
 	textCollection   = "textCollection"
-	collType         = collection_req.DocumentCollectionType
+	collType         = types.DocumentCollectionType
 )
 
 // We need to store the index name when creating it to delete it later

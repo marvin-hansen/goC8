@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/marvin-hansen/goC8"
-	"github.com/marvin-hansen/goC8/requests/collection_req"
+	"github.com/marvin-hansen/goC8/types"
 	"github.com/marvin-hansen/goC8/utils"
 )
 
@@ -18,7 +18,7 @@ func addTutorials(c *goC8.Client) {
 	utils.CheckError(err, "Error CheckCollectionExists: ")
 	if !exists {
 		// if not create collection
-		collType := collection_req.DocumentCollectionType
+		collType := types.DocumentCollectionType
 		allowUserKeys := false
 		err = c.Collection.CreateNewCollection(fabric, collectionTutorials, allowUserKeys, collType)
 		utils.CheckError(err, "Error CreateNewCollection")
@@ -38,7 +38,7 @@ func addTutorEdge(c *goC8.Client) {
 
 	if !exists {
 		// if not create edge collection
-		collType := collection_req.EdgeCollectionType
+		collType := types.EdgeCollectionType
 		err = c.Collection.CreateNewCollection(fabric, edgeCollectionTutors, false, collType)
 		utils.CheckError(err, "Error CreateNewCollection")
 
