@@ -41,7 +41,6 @@ func TestCreateGraph(t *testing.T) {
 
 func TestGetAllGraphs(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-
 	res, err := c.Graph.GetAllGraphs(fabric)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -50,7 +49,6 @@ func TestGetAllGraphs(t *testing.T) {
 
 func TestGetGraph(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-
 	res, err := c.Graph.GetGraph(fabric, graphName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -59,7 +57,6 @@ func TestGetGraph(t *testing.T) {
 
 func TestCheckGraphExists(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-
 	exists, err := c.Graph.CheckGraphExists(fabric, graphName)
 	assert.NoError(t, err)
 	expected := true
@@ -68,7 +65,6 @@ func TestCheckGraphExists(t *testing.T) {
 	noneExistingGraphName := "noneExistingGraphName"
 	exists, err = c.Graph.CheckGraphExists(fabric, noneExistingGraphName)
 	assert.NoError(t, err)
-
 	expected = false
 	actual = exists
 	assert.Equal(t, expected, actual, "Should exists")
@@ -76,7 +72,6 @@ func TestCheckGraphExists(t *testing.T) {
 
 func TestGetAllEdges(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-
 	res, err := c.Graph.GetAllEdges(fabric, graphName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -87,7 +82,6 @@ func TestGetEdge(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	collectionID := "teach"
 	edgeID := "Jean-CSC101"
-
 	res, err := c.Graph.GetEdge(fabric, graphName, collectionID, edgeID)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -98,7 +92,6 @@ func TestCheckEdgeExists(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	collectionID := "teach"
 	edgeID := "Jean-CSC101"
-
 	res, err := c.Graph.CheckEdgeExists(fabric, graphName, collectionID, edgeID)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -145,7 +138,6 @@ func TestReplaceEdge(t *testing.T) {
 
 func TestGetAllVertices(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-
 	res, err := c.Graph.GetAllVertices(fabric, graphName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -156,7 +148,6 @@ func TestGetVertex(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	collectionID := "teachers"
 	edgeID := "Jean"
-
 	res, err := c.Graph.GetVertex(fabric, graphName, collectionID, edgeID)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
