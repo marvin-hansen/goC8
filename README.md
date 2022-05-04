@@ -143,17 +143,14 @@ func runQuery(c *goC8.Client, q, msg string) {
 	utils.PrintQuery(res, verbose)
 }
 
+// setup uses the built-in low-code utilities to create a collection, index, graph & import data.
 func setup(c *goC8.Client) {
 	goC8.CreateCollection(c, fabric, collectionID, types.DocumentCollectionType, false)
-	// We have to create a geo index before importing geoJson
-	field := "location"
-	geoJson := true
-	_, err := c.Index.CreateGeoIndex(fabric, collectionID, field, geoJson)
-	utils.CheckError(err, "Error CreateNewDocument")
-	utils.DbgPrint("Create GeoIndex on: "+field, verbose)
-	goC8.ImportData(c, fabric, collectionID, sample_data.GetCityData(), silent)
+	field := "location" // We have to create a geo index with geoJson enabled on field location before importing data
+	goC8.CreateIndex(c, fabric, collectionID, field, types.GeoIndex, true, true, true, true)
+	goC8.ImportCollectionData(c, fabric, collectionID, sample_data.GetCityData(), silent)
 	goC8.CreateCollection(c, fabric, edgeCollectionID, types.EdgeCollectionType, false)
-	goC8.ImportData(c, fabric, edgeCollectionID, sample_data.GetFlightData(), silent)
+	goC8.ImportCollectionData(c, fabric, edgeCollectionID, sample_data.GetFlightData(), silent)
 	goC8.CreateGraph(c, fabric, graph, sample_data.GetAirlineGraph())
 }
 

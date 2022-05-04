@@ -48,7 +48,7 @@ func main() {
 	}
 }
 
-// setup uses the built-in / low-code utilities to create a collection & import data.
+// setup uses the built-in low-code utilities to create a collection & import data.
 // These utils were written to accelerate developer velocity on standard API operations
 func setup(c *goC8.Client) {
 	goC8.CreateCollection(c, fabric, collectionTeachers, types.DocumentCollectionType, false)
