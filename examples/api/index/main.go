@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/types"
-	utils2 "github.com/marvin-hansen/goC8/utils"
 )
 
 const (
@@ -20,11 +19,11 @@ const (
 
 func setup(c *goC8.Client) {
 	exists, err := c.Collection.CheckCollectionExists(fabric, collName)
-	utils2.CheckError(err, "Error CheckCollectionExists: ")
+	goC8.CheckError(err, "Error CheckCollectionExists: ")
 	if !exists {
 		println("Create new collection: " + collName)
 		createCollErr := c.Collection.CreateNewCollection(fabric, collName, false, collType)
-		utils2.CheckError(createCollErr, "Failed to create a new collection. "+collName)
+		goC8.CheckError(createCollErr, "Failed to create a new collection. "+collName)
 	}
 
 }
@@ -41,22 +40,22 @@ func main() {
 
 	println("Get all indices for collection: " + collName)
 	res, getIndexErr := c.Index.GetIndexes(fabric, collName)
-	utils2.CheckError(getIndexErr, "Failed to fetch all indices for "+collName)
-	utils2.PrintRes(res, verbose)
+	goC8.CheckError(getIndexErr, "Failed to fetch all indices for "+collName)
+	goC8.PrintRes(res, verbose)
 
 	println("Create Fulltext index for: " + collName)
 	fulltextIndexField := "Summary"
 	fulltextMinLength := 3
 	ftRes, createFTErr := c.Index.CreateFulltextIndex(fabric, collName, fulltextIndexField, fulltextMinLength)
-	utils2.CheckError(createFTErr, "Failed to create fulltext index for "+collName)
-	utils2.PrintRes(ftRes, verbose)
+	goC8.CheckError(createFTErr, "Failed to create fulltext index for "+collName)
+	goC8.PrintRes(ftRes, verbose)
 
 	println("Create Geo index for: " + collName)
 	geoField := "location"
 	geoJson := true
 	geoRes, geoErr := c.Index.CreateGeoIndex(fabric, collName, geoField, geoJson)
-	utils2.CheckError(geoErr, "Failed to create geo index for "+collName)
-	utils2.PrintRes(geoRes, verbose)
+	goC8.CheckError(geoErr, "Failed to create geo index for "+collName)
+	goC8.PrintRes(geoRes, verbose)
 
 	println("Create Hash index for: " + collName)
 	hashField := "Keywords"
@@ -64,26 +63,26 @@ func main() {
 	sparse := true
 	unique := true
 	hashRes, hashErr := c.Index.CreateHashIndex(fabric, collName, hashField, deduplicate, sparse, unique)
-	utils2.CheckError(hashErr, "Failed to create hash index for "+collName)
-	utils2.PrintRes(hashRes, verbose)
+	goC8.CheckError(hashErr, "Failed to create hash index for "+collName)
+	goC8.PrintRes(hashRes, verbose)
 
 	println("Create persistent index for: " + collName)
 	persistentField := "Content"
 	perRes, perErr := c.Index.CreatePersistentIndex(fabric, collName, persistentField, deduplicate, sparse, unique)
-	utils2.CheckError(perErr, "Failed to create persistent index for "+collName)
-	utils2.PrintRes(perRes, verbose)
+	goC8.CheckError(perErr, "Failed to create persistent index for "+collName)
+	goC8.PrintRes(perRes, verbose)
 
 	println("Create SkipList index for: " + collName)
 	skipField := "SkipText"
 	skipRes, skipErr := c.Index.CreateSkipListIndex(fabric, collName, skipField, deduplicate, sparse, unique)
-	utils2.CheckError(skipErr, "Failed to create SkipList index for "+collName)
-	utils2.PrintRes(skipRes, verbose)
+	goC8.CheckError(skipErr, "Failed to create SkipList index for "+collName)
+	goC8.PrintRes(skipRes, verbose)
 
 	println("Create TTL index for: " + collName)
 	ttlField := "requests"
 	ttl := 10
 	ttlRes, ttlErr := c.Index.CreateTTLIndex(fabric, collName, ttlField, ttl)
-	utils2.CheckError(ttlErr, "Failed to create TTL index for "+collName)
-	utils2.PrintRes(ttlRes, verbose)
+	goC8.CheckError(ttlErr, "Failed to create TTL index for "+collName)
+	goC8.PrintRes(ttlRes, verbose)
 
 }

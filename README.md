@@ -32,7 +32,7 @@ Currently, only API key authentication is supported.
 
 ## Configuration
 
-If you have not worked with macrometa's plattform before, you have to do a one-time setup. See this [guide](setup.md)
+If you have not worked with macrometa's plattform before, you have to do a one-time setup. See this [guide](doc/setup.md)
 for details about creating a data fabric for your project.
 
 The client config requires the following settings:
@@ -43,7 +43,7 @@ The client config requires the following settings:
 * Timeout
 
 Api Key refers to the generated api access key. Endpoint refers to the POP provided by the GDN. Fabric refers to the GDN
-Geo Fabric. Timeout refers to the http connection timeout in seconds. If you do not have these value at hand, please read the [setup guide](setup.md) for details.
+Geo Fabric. Timeout refers to the http connection timeout in seconds. If you do not have these value at hand, please read the [setup guide](doc/setup.md) for details.
 
 ## Code examples
 
@@ -139,11 +139,11 @@ func query(c *goC8.Client) {
 func runQuery(c *goC8.Client, q, msg string) {
 	println(msg)
 	res, err := c.Query(fabric, q, nil, nil)
-	utils.CheckError(err, "Error Query: "+q)
-	utils.PrintQuery(res, verbose)
+	goC8.CheckError(err, "Error Query: "+q)
+	goC8.PrintQuery(res, verbose)
 }
 
-// setup uses the built-in low-code utilities to create a collection, index, graph & import data.
+// setup & teardown use the built-in utilities to create collection, index, graph & import data.
 func setup(c *goC8.Client) {
 	goC8.CreateCollection(c, fabric, collectionID, types.DocumentCollectionType, false)
 	field := "location" // We have to create a geo index with geoJson enabled on field location before importing data
@@ -183,12 +183,12 @@ Test:
 This error means that the provided key, name, or identifier in question does not adhere to the established convention.
 Names for collections, documents, graphs, and edges follow the same convention as keys,
 there is a high chance that the identifier contains a blank or non-allowed character triggering this error.
-When writing insert functions with custom primary keys, it is paramount to stick to the [naming convention](README_KEYS.md)
+When writing insert functions with custom primary keys, it is paramount to stick to the [naming convention](doc/README_KEYS.md)
 to prevent runtime errors.
 
 For details, please look at the
 
-* [key naming convention](README_KEYS.md)
+* [key naming convention](doc/README_KEYS.md)
 * [Official Arango Docs](https://www.arangodb.com/docs/stable/data-modeling-naming-conventions-document-keys.html)
 * [Stack Overflow](https://stackoverflow.com/questions/68118693/arangodb-illegal-document-key-error-while-creating-graph)
 

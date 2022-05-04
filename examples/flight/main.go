@@ -4,7 +4,6 @@ import (
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/examples/sample_data"
 	"github.com/marvin-hansen/goC8/types"
-	"github.com/marvin-hansen/goC8/utils"
 )
 
 const (
@@ -73,11 +72,11 @@ func query(c *goC8.Client) {
 func runQuery(c *goC8.Client, q, msg string) {
 	println(msg)
 	res, err := c.Query(fabric, q, nil, nil)
-	utils.CheckError(err, "Error Query: "+q)
-	utils.PrintQuery(res, verbose)
+	goC8.CheckError(err, "Error Query: "+q)
+	goC8.PrintQuery(res, verbose)
 }
 
-// setup uses the built-in low-code utilities to create a collection, index, graph & import data.
+// setup & teardown use the built-in utilities to create collection, index, graph & import data.
 func setup(c *goC8.Client) {
 	goC8.CreateCollection(c, fabric, collectionID, types.DocumentCollectionType, false)
 	field := "location" // We have to create a geo index with geoJson enabled on field location before importing data

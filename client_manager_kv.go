@@ -25,7 +25,7 @@ func (c KVManager) GetAllKVCollections(fabric string) (response *kv_req2.KVResul
 	req := kv_req2.NewRequestForGetAllKVCollections(fabric)
 	response = kv_req2.NewKVResponse()
 	err = c.client.Request(req, response)
-	return response, utils2.CheckReturnError(err)
+	return response, CheckReturnError(err)
 }
 
 // CreateNewKVCollection
@@ -43,7 +43,7 @@ func (c KVManager) CreateNewKVCollection(fabric, collectionName string, expirati
 	req := kv_req2.NewRequestForCreateKVCollection(fabric, collectionName, expiration, options)
 	response = kv_req2.NewKVResponse()
 	err = c.client.Request(req, response)
-	return response, utils2.CheckReturnError(err)
+	return response, CheckReturnError(err)
 }
 
 // CountKVCollection
@@ -57,7 +57,7 @@ func (c KVManager) CountKVCollection(fabric, collectionName string) (response *k
 	req := kv_req2.NewRequestForCount(fabric, collectionName)
 	response = kv_req2.NewKVResponse()
 	err = c.client.Request(req, response)
-	return response, utils2.CheckReturnError(err)
+	return response, CheckReturnError(err)
 }
 
 // TruncateKVCollection
@@ -71,7 +71,7 @@ func (c KVManager) TruncateKVCollection(fabric, collectionName string) (response
 	req := kv_req2.NewRequestForTruncateKVCollection(fabric, collectionName)
 	response = kv_req2.NewKVResponse()
 	err = c.client.Request(req, response)
-	return response, utils2.CheckReturnError(err)
+	return response, CheckReturnError(err)
 }
 
 // DeleteKVCollection
@@ -85,7 +85,7 @@ func (c KVManager) DeleteKVCollection(fabric, collectionName string) (response *
 	req := kv_req2.NewRequestForDeleteKVCollection(fabric, collectionName)
 	response = kv_req2.NewKVResponse()
 	err = c.client.Request(req, response)
-	return response, utils2.CheckReturnError(err)
+	return response, CheckReturnError(err)
 }
 
 // SetKeyValuePairs
@@ -103,7 +103,7 @@ func (c KVManager) SetKeyValuePairs(fabric, collectionName string, kvPairs kv_re
 	req := kv_req2.NewRequestForSetKeyValue(fabric, collectionName, kvPairs)
 	response = kv_req2.NewKVPairCollection()
 	err = c.client.Request(req, response)
-	return response, utils2.CheckReturnError(err)
+	return response, CheckReturnError(err)
 }
 
 // GetAllKeys
@@ -117,7 +117,7 @@ func (c KVManager) GetAllKeys(fabric, collectionName string, offset, limit int, 
 	req := kv_req2.NewRequestForGetAllKeys(fabric, collectionName, offset, limit, order)
 	response = kv_req2.NewResponseForGetAllKeys()
 	err = c.client.Request(req, response)
-	return response, utils2.CheckReturnError(err)
+	return response, CheckReturnError(err)
 }
 
 // GetAllValues
@@ -132,7 +132,7 @@ func (c KVManager) GetAllValues(fabric, collectionName string, offset, limit int
 	req := kv_req2.NewRequestForGetAllValues(fabric, collectionName, keys, offset, limit)
 	response = kv_req2.NewResponseForGetAllValues()
 	err = c.client.Request(req, response)
-	return response, utils2.CheckReturnError(err)
+	return response, CheckReturnError(err)
 }
 
 // DeleteKeyValuePairs
@@ -146,7 +146,7 @@ func (c KVManager) DeleteKeyValuePairs(fabric, collectionName string, keys kv_re
 	req := kv_req2.NewRequestForDeleteKeyValue(fabric, collectionName, keys)
 	response = kv_req2.NewKVPairCollection()
 	err = c.client.Request(req, response)
-	return response, utils2.CheckReturnError(err)
+	return response, CheckReturnError(err)
 }
 
 // GetValue
@@ -160,7 +160,7 @@ func (c KVManager) GetValue(fabric, collectionName, key string) (response *kv_re
 	req := kv_req2.NewRequestForGetValue(fabric, collectionName, key)
 	response = kv_req2.NewEmptyKVPair()
 	err = c.client.Request(req, response)
-	return response, utils2.CheckReturnError(err)
+	return response, CheckReturnError(err)
 }
 
 // DeleteValue
@@ -174,5 +174,5 @@ func (c KVManager) DeleteValue(fabric, collectionName, key string) (response *kv
 	req := kv_req2.NewRequestForDeleteValue(fabric, collectionName, key)
 	response = kv_req2.NewEmptyKVPair()
 	err = c.client.Request(req, response)
-	return response, utils2.CheckReturnError(err)
+	return response, CheckReturnError(err)
 }

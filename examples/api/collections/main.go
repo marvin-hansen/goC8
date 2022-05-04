@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/types"
-	"github.com/marvin-hansen/goC8/utils"
 	"strconv"
 )
 
@@ -27,25 +26,25 @@ func main() {
 
 	println("Create new collection: " + collName)
 	createCollErr := c.Collection.CreateNewCollection(fabric, collName, false, collType)
-	utils.CheckError(createCollErr, "Failed to create a new collection. "+collName)
+	goC8.CheckError(createCollErr, "Failed to create a new collection. "+collName)
 
 	println("Test if collection exists: " + collName)
 	exists, checkErr := c.Collection.CheckCollectionExists(fabric, collName)
-	utils.CheckError(checkErr, "Failed to check collection exists. ")
+	goC8.CheckError(checkErr, "Failed to check collection exists. ")
 	println("Collection exists: " + strconv.FormatBool(exists))
 
 	println("Get collection Info: " + collName)
 	res, getCollErr := c.Collection.GetCollectionInfo(fabric, collName)
-	utils.CheckError(getCollErr, "Failed to get a new collection. ")
+	goC8.CheckError(getCollErr, "Failed to get a new collection. ")
 	println(res.String())
 
 	println("Get all collections in the fabric: " + fabric)
 	resGetAll, errGetAll := c.Collection.GetAllCollections(fabric)
-	utils.CheckError(errGetAll, "Failed to get all collections. ")
+	goC8.CheckError(errGetAll, "Failed to get all collections. ")
 	println(resGetAll.String())
 
 	println("Delete collection: " + collName)
 	delErr := c.Collection.DeleteCollection(fabric, collName, false)
-	utils.CheckError(delErr, "Failed to delete collection: "+collName)
+	goC8.CheckError(delErr, "Failed to delete collection: "+collName)
 
 }

@@ -5,7 +5,6 @@ import (
 	"github.com/marvin-hansen/goC8/examples/sample_data"
 	config "github.com/marvin-hansen/goC8/tests/conf"
 	"github.com/marvin-hansen/goC8/types"
-	"github.com/marvin-hansen/goC8/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -36,7 +35,7 @@ func TestCreateGraph(t *testing.T) {
 	res, err := c.Graph.CreateGraph(fabric, graphDef)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 }
 
 func TestGetAllGraphs(t *testing.T) {
@@ -44,7 +43,7 @@ func TestGetAllGraphs(t *testing.T) {
 	res, err := c.Graph.GetAllGraphs(fabric)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 }
 
 func TestGetGraph(t *testing.T) {
@@ -52,7 +51,7 @@ func TestGetGraph(t *testing.T) {
 	res, err := c.Graph.GetGraph(fabric, graphName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 }
 
 func TestCheckGraphExists(t *testing.T) {
@@ -75,7 +74,7 @@ func TestGetAllEdges(t *testing.T) {
 	res, err := c.Graph.GetAllEdges(fabric, graphName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 }
 
 func TestGetEdge(t *testing.T) {
@@ -85,7 +84,7 @@ func TestGetEdge(t *testing.T) {
 	res, err := c.Graph.GetEdge(fabric, graphName, collectionID, edgeID)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 }
 
 func TestCheckEdgeExists(t *testing.T) {
@@ -108,13 +107,13 @@ func TestAddEdge(t *testing.T) {
 
 	// check if edge already exits
 	exists, err := c.Graph.CheckEdgeExists(fabric, graphName, collectionID, edgeID)
-	utils.CheckError(err, "Error CheckEdgeExists")
+	goC8.CheckError(err, "Error CheckEdgeExists")
 	if !exists {
 		// if not, add a new edge to the edge collection
 		from := "teachers/Bruce"
 		to := "lectures/CSC105"
 		_, createErr := c.Graph.CreateEdge(fabric, graphName, collectionID, from, to, returnNew)
-		utils.CheckError(createErr, "Error CreateEdge")
+		goC8.CheckError(createErr, "Error CreateEdge")
 	}
 }
 
@@ -126,13 +125,13 @@ func TestReplaceEdge(t *testing.T) {
 
 	// check if edge exits
 	exists, err := c.Graph.CheckEdgeExists(fabric, graphName, collectionID, edgeID)
-	utils.CheckError(err, "Error CheckEdgeExists")
+	goC8.CheckError(err, "Error CheckEdgeExists")
 	if exists {
 		// if exists, replace edge with a new edge to the edge collection
 		from := "teachers/Bruce"
 		to := "lectures/CSC105"
 		_, createErr := c.Graph.ReplaceEdge(fabric, graphName, collectionID, from, to, dropCollections)
-		utils.CheckError(createErr, "Error CreateEdge")
+		goC8.CheckError(createErr, "Error CreateEdge")
 	}
 }
 
@@ -141,7 +140,7 @@ func TestGetAllVertices(t *testing.T) {
 	res, err := c.Graph.GetAllVertices(fabric, graphName)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 }
 
 func TestGetVertex(t *testing.T) {
@@ -151,7 +150,7 @@ func TestGetVertex(t *testing.T) {
 	res, err := c.Graph.GetVertex(fabric, graphName, collectionID, edgeID)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 }
 
 func TestDeleteGraph(t *testing.T) {
@@ -160,7 +159,7 @@ func TestDeleteGraph(t *testing.T) {
 	res, err := c.Graph.DeleteGraph(fabric, graphName, dropCollections)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 }
 
 func TestTeardown(t *testing.T) {

@@ -3,7 +3,6 @@ package main
 import (
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/types"
-	"github.com/marvin-hansen/goC8/utils"
 )
 
 const (
@@ -27,14 +26,14 @@ func main() {
 
 	println("Create new collection: " + collName)
 	createCollErr := c.Collection.CreateNewCollection(fabric, collName, false, collType)
-	utils.CheckError(createCollErr, "Failed to create a new collection. "+collName)
+	goC8.CheckError(createCollErr, "Failed to create a new collection. "+collName)
 
 	println("Create new document! ")
 	silent := false // When true, an empty reply will be retruned. If false, the document ID will be returned
 	jsonDocument := getTestInsertData()
 
 	res, createDocErr := c.Document.CreateNewDocument(fabric, collName, silent, jsonDocument, nil)
-	utils.CheckError(createDocErr, "Failed to create a new document. "+collName)
+	goC8.CheckError(createDocErr, "Failed to create a new document. "+collName)
 
 	if verbose {
 		if res != nil {
@@ -47,7 +46,7 @@ func main() {
 	println("Get a document! ")
 	key := "4"
 	getRes, getDocErr := c.Document.GetDocument(fabric, collName, key)
-	utils.CheckError(getDocErr, "Failed to get document: "+key)
+	goC8.CheckError(getDocErr, "Failed to get document: "+key)
 	printJsonRes(getRes)
 
 }

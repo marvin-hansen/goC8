@@ -28,20 +28,20 @@ func main() {
 
 	// test if city collection exists
 	exists, err := c.Collection.CheckCollectionExists(fabric, collectionID)
-	utils2.CheckError(err, "Error CheckCollectionExists: ")
+	goC8.CheckError(err, "Error CheckCollectionExists: ")
 	if !exists {
 		// if not create collection
 		collType := types.DocumentCollectionType
 		allowUserKeys := false
 		err = c.Collection.CreateNewCollection(fabric, collectionID, allowUserKeys, collType)
-		utils2.CheckError(err, "Error CreateNewCollection")
+		goC8.CheckError(err, "Error CreateNewCollection")
 		utils2.DbgPrint("Create collection: "+collectionID, verbose)
 
 		// Create a geo index
 		field := "location"
 		geoJson := true
 		_, err = c.Index.CreateGeoIndex(fabric, collectionID, field, geoJson)
-		utils2.CheckError(err, "Error CreateNewDocument")
+		goC8.CheckError(err, "Error CreateNewDocument")
 		utils2.DbgPrint("Create GeoIndex on: "+field, verbose)
 	}
 

@@ -1,4 +1,4 @@
-package utils
+package goC8
 
 import (
 	"github.com/marvin-hansen/goC8/requests/query_req"

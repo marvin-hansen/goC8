@@ -5,7 +5,6 @@ import (
 	"github.com/marvin-hansen/goC8/requests/document_req"
 	config "github.com/marvin-hansen/goC8/tests/conf"
 	"github.com/marvin-hansen/goC8/types"
-	"github.com/marvin-hansen/goC8/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -57,7 +56,7 @@ func TestGetDocument(t *testing.T) {
 	res, err := c.Document.GetDocument(fabric, collName, key)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintJsonRes(res, verbose)
+	goC8.PrintJsonRes(res, verbose)
 }
 
 func TestCheckDocumentExists(t *testing.T) {
@@ -93,7 +92,7 @@ func TestUpdateDocument(t *testing.T) {
 	res, err = c.Document.UpdateDocument(fabric, collName, key, jsonDocument, silent, nil)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 
 }
 
@@ -105,7 +104,7 @@ func TestReplaceDocuments(t *testing.T) {
 
 	res, err := c.Document.ReplaceDocument(fabric, collName, key, jsonDocument, nil)
 	assert.NoError(t, err)
-	utils.PrintRes(res, verbose)
+	goC8.PrintRes(res, verbose)
 
 }
 

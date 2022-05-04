@@ -4,7 +4,6 @@ import (
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/examples/sample_data"
 	config "github.com/marvin-hansen/goC8/tests/conf"
-	"github.com/marvin-hansen/goC8/utils"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -20,5 +19,5 @@ func TestGetIndexes(t *testing.T) {
 	res, err := c.Query(fabric, query, nil, nil)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	utils.PrintQuery(res, verbose)
+	goC8.PrintQuery(res, verbose)
 }

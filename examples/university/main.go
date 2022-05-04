@@ -4,7 +4,6 @@ import (
 	"github.com/marvin-hansen/goC8"
 	"github.com/marvin-hansen/goC8/examples/sample_data"
 	"github.com/marvin-hansen/goC8/types"
-	"github.com/marvin-hansen/goC8/utils"
 )
 
 // client config
@@ -65,43 +64,43 @@ func setup(c *goC8.Client) {
 // However, in non-standard cases direction API usage may be preferred for customization
 func addTutorials(c *goC8.Client) {
 	exists, err := c.Collection.CheckCollectionExists(fabric, collectionTutorials)
-	utils.CheckError(err, "Error CheckCollectionExists: ")
+	goC8.CheckError(err, "Error CheckCollectionExists: ")
 	if !exists {
 		// if not create collection
 		collType := types.DocumentCollectionType
 		allowUserKeys := false
 		err = c.Collection.CreateNewCollection(fabric, collectionTutorials, allowUserKeys, collType)
-		utils.CheckError(err, "Error CreateNewCollection")
+		goC8.CheckError(err, "Error CreateNewCollection")
 
 		// import data
 		jsonDocument := sample_data.GetTutorialsData()
 		_, err = c.Document.CreateNewDocument(fabric, collectionTutorials, silent, jsonDocument, nil)
-		utils.CheckError(err, "Error CreateNewDocument")
+		goC8.CheckError(err, "Error CreateNewDocument")
 	}
 }
 
 func addTutorEdge(c *goC8.Client) {
 	// test if flight collection exists
 	exists, err := c.Collection.CheckCollectionExists(fabric, edgeCollectionTutors)
-	utils.CheckError(err, "Error CheckCollectionExists")
+	goC8.CheckError(err, "Error CheckCollectionExists")
 
 	if !exists {
 		// if not create edge collection
 		collType := types.EdgeCollectionType
 		err = c.Collection.CreateNewCollection(fabric, edgeCollectionTutors, false, collType)
-		utils.CheckError(err, "Error CreateNewCollection")
+		goC8.CheckError(err, "Error CreateNewCollection")
 
 		// import data
 		jsonDocument := sample_data.GetTutorsEdgeData()
 		_, err = c.Document.CreateNewDocument(fabric, edgeCollectionTutors, silent, jsonDocument, nil)
-		utils.CheckError(err, "Error CreateNewCollection")
+		goC8.CheckError(err, "Error CreateNewCollection")
 	}
 }
 
 func addEdgeCollection(c *goC8.Client) {
 	// check if collection exists. It should, just in case
 	exists, err := c.Collection.CheckCollectionExists(fabric, edgeCollectionTutors)
-	utils.CheckError(err, "Error CheckCollectionExists")
+	goC8.CheckError(err, "Error CheckCollectionExists")
 	if exists {
 		// if exists, update graph with new edge collection
 		collectionName := edgeCollectionTutors
@@ -122,13 +121,13 @@ func addSingleEdge(c *goC8.Client) {
 	edgeID := "Bruce-CSC105"
 	// check if edge exits
 	exists, err := c.Graph.CheckEdgeExists(fabric, graph, collectionID, edgeID)
-	utils.CheckError(err, "Error CheckEdgeExists")
+	goC8.CheckError(err, "Error CheckEdgeExists")
 	if !exists {
 		// if not, add a new edge to the edge collection
 		from := "teachers/Bruce"
 		to := "lectures/CSC105"
 		_, createErr := c.Graph.CreateEdge(fabric, graph, collectionID, from, to, false)
-		utils.CheckError(createErr, "Error CreateEdge")
+		goC8.CheckError(createErr, "Error CreateEdge")
 	}
 }
 
