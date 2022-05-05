@@ -49,7 +49,7 @@
 | Get    | graph/{graph}/edge                          | Lists all edge collections within this graph.    | Yes         | Yes    | Yes  |
 | Post   | /graph/{graph}/edge                         | Adds an additional edge definition to the graph. | Yes         | Yes    | Yes  |
 | Post   | /graph/{graph}/edge/{edgeCollection}        | Creates a new edge in the collection.            | Yes         | Yes    | Yes  |
-| Put    | /graph/{graph}/edge/{edgeCollection}        | Replace an edge definition                       | Yes         | Yes    | Yes  |
+| Put    | /graph/{graph}/edge/{edgeCollection}        | Replace an edge definition                       |             |        |      |
 | Delete | /graph/{graph}/edge/{edgeCollection}        | Remove an edge definition                        | Yes         | Yes    | Yes  |
 | Delete | /graph/{graph}/edge/{collection}/{edge}     | Remove an edge                                   | Yes         | Yes    | Yes  |
 | Get    | /graph/{graph}/edge/{collection}/{edge}     | Get an Edge                                      | Yes         | Yes    | Yes  |
@@ -63,7 +63,7 @@
 | Get    | /graph/{graph}/vertex/{collection}/{vertex} | Get a vertex                                     | Yes         | Yes    | Yes  |
 | patch  | /graph/{graph}/vertex/{collection}/{vertex} | Update a vertex                                  | Yes         | Yes    | Yes  |
 | Put    | /graph/{graph}/vertex/{collection}/{vertex} | Replace a vertex                                 | Yes         | Yes    | Yes  |
-| Get    | /edges/{collection-id}                      | Read in- or outbound edges                       |             |        |      |
+| Get    | /edges/{collection-id}                      | Read in- or outbound edges                       | Yes         | Yes    | Yes  |
 | Post   | /graphs/traversal                           | executes a traversal                             |             |        |      |
 
 ## KV API 

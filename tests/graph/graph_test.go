@@ -14,6 +14,7 @@ const (
 	silent               = true
 	fabric               = "SouthEastAsia"
 	graphName            = "lectureteacher"
+	collectionClassrooms = "classrooms"
 	collectionTeachers   = "teachers"
 	collectionLectures   = "lectures"
 	collectionTutorials  = "tutorials"
@@ -97,7 +98,7 @@ func TestGetVertex(t *testing.T) {
 
 func TestAddVertexCollection(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-	collectionID := "classrooms"
+	collectionID := collectionClassrooms
 	res, err := c.Graph.AddVertexCollection(fabric, graphName, collectionID)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -106,7 +107,7 @@ func TestAddVertexCollection(t *testing.T) {
 
 func TestDeleteVertexCollection(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
-	collectionID := "classrooms"
+	collectionID := collectionClassrooms
 	dropCollection := true
 	res, err := c.Graph.DeleteVertexCollection(fabric, graphName, collectionID, dropCollection)
 	assert.NoError(t, err)
@@ -266,6 +267,18 @@ func TestGetEdge(t *testing.T) {
 	goC8.PrintRes(res, verbose)
 }
 
+func TestGetGetAllInOutEdges(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	edgeCollectionName := "teach"
+	vertexKey := "lectures/CSC101"
+	direction := types.IN
+
+	res, err := c.Graph.GetGetAllInOutEdges(fabric, edgeCollectionName, vertexKey, direction)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
 func TestCheckEdgeExists(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	collectionID := "teach"
@@ -344,6 +357,7 @@ func TestTeardown(t *testing.T) {
 	goC8.TeardownCollection(c, fabric, collectionTeachers)
 	goC8.TeardownCollection(c, fabric, collectionLectures)
 	goC8.TeardownCollection(c, fabric, collectionTutorials)
+	goC8.TeardownCollection(c, fabric, collectionClassrooms)
 	goC8.TeardownCollection(c, fabric, edgeCollectionTeach)
 	goC8.TeardownCollection(c, fabric, edgeCollectionTutors)
 }

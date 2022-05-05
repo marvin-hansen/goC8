@@ -4,10 +4,27 @@ import (
 	"github.com/marvin-hansen/goC8/requests/collection_req"
 	"github.com/marvin-hansen/goC8/requests/graph_req"
 	"github.com/marvin-hansen/goC8/requests/graph_req/edge_req"
+	"github.com/marvin-hansen/goC8/types"
 	"github.com/marvin-hansen/goC8/utils"
 	"strings"
 	"time"
 )
+
+// GetEdge
+// Gets an edge from the given collection.
+// https://macrometa.com/docs/api#/operations/GetAnEdge
+func (c GraphManager) GetEdge(fabric, graphName, collectionName, edgeKey string) (response *graph_req.ResponseForEdge, err error) {
+	if benchmark {
+		defer utils.TimeTrack(time.Now(), "GetEdge")
+	}
+
+	req := edge_req.NewRequestForGetEdge(fabric, graphName, collectionName, edgeKey)
+	response = graph_req.NewResponseForEdge()
+	if err = c.client.Request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
 
 // GetAllEdges
 // Lists all edge collections within this graph.
@@ -19,6 +36,22 @@ func (c GraphManager) GetAllEdges(fabric, graphName string) (response *edge_req.
 
 	req := edge_req.NewRequestForGetAllEdges(fabric, graphName)
 	response = edge_req.NewResponseForGetAllEdges()
+	if err = c.client.Request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
+// GetGetAllInOutEdges
+// Returns an array of edges starting or ending in the vertex identified by vertex.
+// direction - Select in or out direction for edges. If ANY is set, all edges are returned.
+func (c GraphManager) GetGetAllInOutEdges(fabric, edgeCollectionName, vertexKey string, direction types.EdgeDirection) (response *edge_req.ResponseForGetAllInOutEdges, err error) {
+	if benchmark {
+		defer utils.TimeTrack(time.Now(), "GetEdge")
+	}
+
+	req := edge_req.NewRequestForGetAllInOutEdges(fabric, edgeCollectionName, vertexKey, direction)
+	response = edge_req.NewResponseForGetAllInOutEdges()
 	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
@@ -79,22 +112,6 @@ func (c GraphManager) CreateEdge(fabric, graphName, edgeCollectionName, sourceVe
 
 	req := edge_req.NewRequestForCreateEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex, jsonPayload, returnNew)
 	response = edge_req.NewResponseForCreateEdge()
-	if err = c.client.Request(req, response); err != nil {
-		return nil, err
-	}
-	return response, nil
-}
-
-// GetEdge
-// Gets an edge from the given collection.
-// https://macrometa.com/docs/api#/operations/GetAnEdge
-func (c GraphManager) GetEdge(fabric, graphName, collectionName, edgeKey string) (response *graph_req.ResponseForEdge, err error) {
-	if benchmark {
-		defer utils.TimeTrack(time.Now(), "GetEdge")
-	}
-
-	req := edge_req.NewRequestForGetEdge(fabric, graphName, collectionName, edgeKey)
-	response = graph_req.NewResponseForEdge()
 	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
