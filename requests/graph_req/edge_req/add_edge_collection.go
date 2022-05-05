@@ -1,7 +1,8 @@
-package graph_req
+package edge_req
 
 import (
 	"fmt"
+	"github.com/marvin-hansen/goC8/requests/graph_req"
 	"net/http"
 )
 
@@ -67,9 +68,9 @@ func NewResponseForAddEdgeCollection() *ResponseForAddEdgeCollection {
 }
 
 type ResponseForAddEdgeCollection struct {
-	Code  int      `json:"code,omitempty"`
-	Error bool     `json:"error,omitempty"`
-	Graph NewGraph `json:"graph,omitempty"`
+	Code  int                `json:"code,omitempty"`
+	Error bool               `json:"error,omitempty"`
+	Graph graph_req.NewGraph `json:"graph,omitempty"`
 }
 
 func (r *ResponseForAddEdgeCollection) IsResponse() {}

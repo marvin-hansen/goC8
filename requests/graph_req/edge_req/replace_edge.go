@@ -1,7 +1,8 @@
-package graph_req
+package edge_req
 
 import (
 	"fmt"
+	"github.com/marvin-hansen/goC8/requests/graph_req/shared"
 	"net/http"
 )
 
@@ -56,9 +57,9 @@ func NewResponseForReplaceEdge() *ResponseForReplaceEdge {
 }
 
 type ResponseForReplaceEdge struct {
-	Code   int   `json:"code,omitempty"`
-	Error  bool  `json:"error,omitempty"`
-	Graphs Graph `json:"graph,omitempty"`
+	Code   int          `json:"code,omitempty"`
+	Error  bool         `json:"error,omitempty"`
+	Graphs shared.Graph `json:"graph,omitempty"`
 }
 
 func (r *ResponseForReplaceEdge) IsResponse() {}

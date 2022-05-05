@@ -1,7 +1,8 @@
-package graph_req
+package vertex_req
 
 import (
 	"fmt"
+	"github.com/marvin-hansen/goC8/requests/graph_req/shared"
 	"net/http"
 )
 
@@ -52,9 +53,9 @@ func NewResponseForGetVertex() *ResponseForGetVertex {
 }
 
 type ResponseForGetVertex struct {
-	Code   int    `json:"code"`
-	Error  bool   `json:"error"`
-	Vertex Vertex `json:"vertex"`
+	Code   int           `json:"code"`
+	Error  bool          `json:"error"`
+	Vertex shared.Vertex `json:"vertex"`
 }
 
 func (r *ResponseForGetVertex) IsResponse() {}

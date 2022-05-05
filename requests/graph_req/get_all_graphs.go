@@ -2,6 +2,7 @@ package graph_req
 
 import (
 	"fmt"
+	"github.com/marvin-hansen/goC8/requests/graph_req/shared"
 	"net/http"
 )
 
@@ -52,9 +53,9 @@ func NewResponseForGetAllGraphs() *ResponseForGetAllGraphs {
 }
 
 type ResponseForGetAllGraphs struct {
-	Code   int     `json:"code"`
-	Error  bool    `json:"error"`
-	Graphs []Graph `json:"graphs"`
+	Code   int            `json:"code"`
+	Error  bool           `json:"error"`
+	Graphs []shared.Graph `json:"graphs"`
 }
 
 func (r *ResponseForGetAllGraphs) IsResponse() {}
