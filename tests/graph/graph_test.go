@@ -143,7 +143,24 @@ func TestUpdateVertex(t *testing.T) {
 	res, updateErr := c.Graph.UpdateVertex(fabric, graphName, collectionID, vertixID, updateJSON, returnOld, returnNew)
 	assert.NoError(t, updateErr)
 	assert.NotNil(t, res)
+}
 
+func TestReplaceVertex(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+
+	collectionID := "lectures"
+	returnOld := false
+	returnNew := true
+	vertixID := "CSC2040"
+	updateJSON := []byte(`{
+		"_id": "lectures/CSC2040", 
+		"difficulty": "extreme", 
+		"_key":"CSC2040","firstname":"Jean Claude Van Damme"
+	}`)
+
+	res, updateErr := c.Graph.ReplaceVertex(fabric, graphName, collectionID, vertixID, updateJSON, returnOld, returnNew)
+	assert.NoError(t, updateErr)
+	assert.NotNil(t, res)
 }
 
 func TestDeleteVertex(t *testing.T) {

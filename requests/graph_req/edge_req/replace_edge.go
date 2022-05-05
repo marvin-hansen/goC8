@@ -8,11 +8,13 @@ import (
 
 //**// Request //**//
 
-func NewRequestForReplaceEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex string, dropCollections bool) *RequestForReplaceEdge {
+// Not used due to mystery error from server
+
+func NewRequestForReplaceEdge(fabric, graphName, edgeCollectionName, edgeKey, jsonReplace []byte, keepNull, returnOld, returnNew bool) *RequestForReplaceEdge {
 	return &RequestForReplaceEdge{
-		path:       fmt.Sprintf("_fabric/%v/_api/graph/%v/edge", fabric, graphName),
-		parameters: fmt.Sprintf("?dropCollections=%v", dropCollections),
-		payload:    getEdgePayload(edgeCollectionName, sourceVertex, destinationVertex),
+		path:       fmt.Sprintf("_fabric/%v/_api/graph/%v/edge/%v/%v", fabric, graphName, edgeCollectionName, edgeKey),
+		parameters: fmt.Sprintf("?keepNull=%v&returnOld=%v&returnNew=%v", keepNull, returnOld, returnNew),
+		payload:    jsonReplace,
 	}
 }
 

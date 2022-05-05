@@ -11,7 +11,8 @@ func NewRequestForUpdateVertex(fabric, graphName, collectionName, vertexKey stri
 	return &RequestForUpdateVertex{
 		path:       fmt.Sprintf("_fabric/%v/_api/graph/%v/vertex/%v/%v", fabric, graphName, collectionName, vertexKey),
 		parameters: fmt.Sprintf("?keepNull=%v&returnOld=%v&returnNew=%v", keepNull, returnOld, returnNew),
-		payload:    jsonUpdate}
+		payload:    jsonUpdate,
+	}
 }
 
 type RequestForUpdateVertex struct {

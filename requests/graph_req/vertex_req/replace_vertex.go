@@ -7,10 +7,11 @@ import (
 
 //**// Request //**//
 
-func NewRequestForReplaceVertex(fabric string) *RequestForReplaceVertex {
-	// @FIXME: Add correct API path
+func NewRequestForReplaceVertex(fabric, graphName, collectionName, vertexKey string, jsonReplace []byte, keepNull, returnOld, returnNew bool) *RequestForReplaceVertex {
 	return &RequestForReplaceVertex{
-		path: fmt.Sprintf("_fabric/%v/_api/NAME", fabric),
+		path:       fmt.Sprintf("_fabric/%v/_api/graph/%v/vertex/%v/%v", fabric, graphName, collectionName, vertexKey),
+		parameters: fmt.Sprintf("?keepNull=%v&returnOld=%v&returnNew=%v", keepNull, returnOld, returnNew),
+		payload:    jsonReplace,
 	}
 }
 
@@ -50,18 +51,4 @@ func (req *RequestForReplaceVertex) ResponseCode() int {
 
 //**// Response //**//
 
-func NewResponseForReplaceVertex() *ResponseForReplaceVertex {
-	return new(ResponseForReplaceVertex)
-}
-
-type ResponseForReplaceVertex struct {
-	// @FIXME
-	Field string
-}
-
-func (r *ResponseForReplaceVertex) IsResponse() {}
-
-func (r ResponseForReplaceVertex) String() string {
-	// @FIXME
-	return fmt.Sprintf("Bootfile: %v", r.Field)
-}
+// call NewResponseForVertex()

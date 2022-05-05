@@ -104,6 +104,21 @@ func (c GraphManager) UpdateVertex(fabric, graphName, edgeCollectionName, vertex
 	return response, nil
 }
 
+// ReplaceVertex
+// Replaces the data of an edge in the collection.
+func (c GraphManager) ReplaceVertex(fabric, graphName, collectionName, vertexKey string, jsonReplace []byte, returnOld, returnNew bool) (response *graph_req.ResponseForVertex, err error) {
+	if benchmark {
+		defer utils.TimeTrack(time.Now(), "UpdateVertex")
+	}
+	// keepNull bool - Define if values set to null should be stored. By default (true) the given documents attribute(s) will be set to null. If this parameter is false the attribute(s) will instead be delete from the document
+	req := vertex_req.NewRequestForReplaceVertex(fabric, graphName, collectionName, vertexKey, jsonReplace, true, returnOld, returnNew)
+	response = graph_req.NewResponseForVertex()
+	if err = c.client.Request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
 // DeleteVertex
 // Removes a vertex from the collection.
 // returnOld boolean - Define if a presentation of the deleted document should be returned
