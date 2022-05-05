@@ -33,6 +33,8 @@ func TestSetup(t *testing.T) {
 	goC8.ImportCollectionData(c, fabric, edgeCollectionTeach, sample_data.GetTeachEdgeData(), silent)
 }
 
+//**// Graph tests //**//
+
 func TestCreateGraph(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	graphDef := getGraphDefinition()
@@ -71,6 +73,74 @@ func TestCheckGraphExists(t *testing.T) {
 	expected = false
 	actual = exists
 	assert.Equal(t, expected, actual, "Should exists")
+}
+
+//**// Vertex tests //**//
+
+func TestGetAllVertices(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	res, err := c.Graph.GetAllVertices(fabric, graphName)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
+func TestGetVertex(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	collectionID := "teachers"
+	edgeID := "Jean"
+	res, err := c.Graph.GetVertex(fabric, graphName, collectionID, edgeID)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
+func TestAddVertexCollection(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	collectionID := "classrooms"
+	res, err := c.Graph.AddVertexCollection(fabric, graphName, collectionID)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
+func TestDeleteVertexCollection(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	collectionID := "classrooms"
+	dropCollection := true
+	res, err := c.Graph.DeleteVertexCollection(fabric, graphName, collectionID, dropCollection)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
+func TestCreateVertex(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+
+	collectionID := "lectures"
+	returnNew := true
+	jsonPayload := []byte(`{
+		"_id": "lectures/CSC2040", 
+		"difficulty": "hard", 
+		"_key":"CSC2040","firstname":"Jean"
+	}
+`)
+
+	res, err := c.Graph.CreateVertex(fabric, graphName, collectionID, jsonPayload, returnNew)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
+func TestDeleteVertex(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	collectionID := "lectures"
+	vertexKey := "CSC2040"
+	returnOld := true
+	res, err := c.Graph.DeleteVertex(fabric, graphName, collectionID, vertexKey, returnOld)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
 }
 
 func TestAddEdge(t *testing.T) {
@@ -144,6 +214,8 @@ func TestAddEdgeCollection(t *testing.T) {
 		goC8.PrintRes(res, verbose)
 	}
 }
+
+//**// Edge tests //**//
 
 func TestGetAllEdges(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
@@ -222,72 +294,6 @@ func TestUpdateEdge(t *testing.T) {
 		actual := res.New.Online
 		assert.Equal(t, expected, actual)
 	}
-}
-
-func TestGetAllVertices(t *testing.T) {
-	c := goC8.NewClient(config.GetDefaultConfig())
-	res, err := c.Graph.GetAllVertices(fabric, graphName)
-	assert.NoError(t, err)
-	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
-}
-
-func TestGetVertex(t *testing.T) {
-	c := goC8.NewClient(config.GetDefaultConfig())
-	collectionID := "teachers"
-	edgeID := "Jean"
-	res, err := c.Graph.GetVertex(fabric, graphName, collectionID, edgeID)
-	assert.NoError(t, err)
-	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
-}
-
-func TestAddVertexCollection(t *testing.T) {
-	c := goC8.NewClient(config.GetDefaultConfig())
-	collectionID := "classrooms"
-	res, err := c.Graph.AddVertexCollection(fabric, graphName, collectionID)
-	assert.NoError(t, err)
-	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
-}
-
-func TestDeleteVertexCollection(t *testing.T) {
-	c := goC8.NewClient(config.GetDefaultConfig())
-	collectionID := "classrooms"
-	dropCollection := true
-	res, err := c.Graph.DeleteVertexCollection(fabric, graphName, collectionID, dropCollection)
-	assert.NoError(t, err)
-	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
-}
-
-func TestCreateVertex(t *testing.T) {
-	c := goC8.NewClient(config.GetDefaultConfig())
-
-	collectionID := "lectures"
-	returnNew := true
-	jsonPayload := []byte(`{
-		"_id": "lectures/CSC2040", 
-		"difficulty": "hard", 
-		"_key":"CSC2040","firstname":"Jean"
-	}
-`)
-
-	res, err := c.Graph.CreateVertex(fabric, graphName, collectionID, jsonPayload, returnNew)
-	assert.NoError(t, err)
-	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
-}
-
-func TestDeleteVertex(t *testing.T) {
-	c := goC8.NewClient(config.GetDefaultConfig())
-	collectionID := "lectures"
-	vertexKey := "CSC2040"
-	returnOld := true
-	res, err := c.Graph.DeleteVertex(fabric, graphName, collectionID, vertexKey, returnOld)
-	assert.NoError(t, err)
-	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
 }
 
 func TestDeleteEdge(t *testing.T) {
