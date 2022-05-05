@@ -117,6 +117,7 @@ type ResponseForVertex struct {
 	Code    int    `json:"code"`
 	Error   bool   `json:"error"`
 	New     Vertex `json:"new"`
+	Old     Vertex `json:"old"`
 	Vertex  Vertex `json:"vertex"`
 	Removed bool   `json:"removed,omitempty"`
 }
@@ -124,11 +125,12 @@ type ResponseForVertex struct {
 func (r *ResponseForVertex) IsResponse() {}
 
 func (r ResponseForVertex) String() string {
-	return fmt.Sprintf(" Code: %v\n Error: %v\n Vertex: %v\n New: %v\n Removed: %v\n",
+	return fmt.Sprintf(" Code: %v\n Error: %v\n Vertex: %v\n New: %v\n Old: %v\n Removed: %v\n",
 		r.Code,
 		r.Error,
 		r.Vertex,
 		r.New,
+		r.Old,
 		r.Removed,
 	)
 }

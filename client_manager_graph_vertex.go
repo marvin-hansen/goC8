@@ -45,7 +45,7 @@ func (c GraphManager) GetVertex(fabric, graphName, collectionName, vertexKey str
 // https://macrometa.com/docs/api#/operations/CreateAVertex
 func (c GraphManager) CreateVertex(fabric, graphName, collectionName string, jsonDef []byte, returnNew bool) (response *graph_req.ResponseForVertex, err error) {
 	if benchmark {
-		defer utils.TimeTrack(time.Now(), "GetVertex")
+		defer utils.TimeTrack(time.Now(), "CreateVertex")
 	}
 
 	req := vertex_req.NewRequestForCreateVertex(fabric, graphName, collectionName, jsonDef, returnNew)
@@ -60,7 +60,7 @@ func (c GraphManager) CreateVertex(fabric, graphName, collectionName string, jso
 // Adds a vertex collection to the set of orphan collections of the graph. If the collection does not exist, it will be created.
 func (c GraphManager) AddVertexCollection(fabric, graphName, vertexCollectionName string) (response *graph_req.ResponseForGraph, err error) {
 	if benchmark {
-		defer utils.TimeTrack(time.Now(), "GetVertex")
+		defer utils.TimeTrack(time.Now(), "AddVertexCollection")
 	}
 
 	req := vertex_req.NewRequestForAddVertexCollection(fabric, graphName, vertexCollectionName)
@@ -78,11 +78,26 @@ func (c GraphManager) AddVertexCollection(fabric, graphName, vertexCollectionNam
 // https://macrometa.com/docs/api#/operations/RemoveVertexCollection
 func (c GraphManager) DeleteVertexCollection(fabric, graphName, collectionName string, dropCollections bool) (response *graph_req.ResponseForGraph, err error) {
 	if benchmark {
-		defer utils.TimeTrack(time.Now(), "DeleteEdgeCollection")
+		defer utils.TimeTrack(time.Now(), "DeleteVertexCollection")
 	}
 
 	req := vertex_req.NewRequestForDeleteVertexCollection(fabric, graphName, collectionName, dropCollections)
 	response = graph_req.NewResponseForGraph()
+	err = c.client.Request(req, response)
+	return response, CheckReturnError(err)
+}
+
+// DeleteVertex
+// Removes a vertex from the collection.
+// returnOld boolean - Define if a presentation of the deleted document should be returned
+// https://macrometa.com/docs/api#/operations/RemoveAVertex
+func (c GraphManager) DeleteVertex(fabric, graphName, collectionName, vertexKey string, returnOld bool) (response *graph_req.ResponseForVertex, err error) {
+	if benchmark {
+		defer utils.TimeTrack(time.Now(), "DeleteVertex")
+	}
+
+	req := vertex_req.NewRequestForDeleteVertex(fabric, graphName, collectionName, vertexKey, returnOld)
+	response = graph_req.NewResponseForVertex()
 	err = c.client.Request(req, response)
 	return response, CheckReturnError(err)
 }
