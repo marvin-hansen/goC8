@@ -10,21 +10,25 @@ import (
 )
 
 const (
-	verbose             = true
-	silent              = true
-	fabric              = "SouthEastAsia"
-	graphName           = "lectureteacher"
-	collectionTeachers  = "teachers"
-	collectionLectures  = "lectures"
-	edgeCollectionTeach = "teach"
+	verbose              = true
+	silent               = true
+	fabric               = "SouthEastAsia"
+	graphName            = "lectureteacher"
+	collectionTeachers   = "teachers"
+	collectionLectures   = "lectures"
+	collectionTutorials  = "tutorials"
+	edgeCollectionTeach  = "teach"
+	edgeCollectionTutors = "tutors"
 )
 
 func TestSetup(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	goC8.CreateCollection(c, fabric, collectionTeachers, types.DocumentCollectionType, false)
 	goC8.ImportCollectionData(c, fabric, collectionTeachers, sample_data.GetTeacherData(), silent)
+
 	goC8.CreateCollection(c, fabric, collectionLectures, types.DocumentCollectionType, false)
 	goC8.ImportCollectionData(c, fabric, collectionLectures, sample_data.GetLecturesData(), silent)
+
 	goC8.CreateCollection(c, fabric, edgeCollectionTeach, types.EdgeCollectionType, false)
 	goC8.ImportCollectionData(c, fabric, edgeCollectionTeach, sample_data.GetTeachEdgeData(), silent)
 }
@@ -69,6 +73,72 @@ func TestCheckGraphExists(t *testing.T) {
 	assert.Equal(t, expected, actual, "Should exists")
 }
 
+func TestAddEdgeCollection(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+
+	exists, err := c.Collection.CheckCollectionExists(fabric, collectionTutorials)
+	goC8.CheckError(err, "Error CheckCollectionExists: ")
+	if !exists {
+		// if not create collection
+		collType := types.DocumentCollectionType
+		allowUserKeys := false
+		err = c.Collection.CreateNewCollection(fabric, collectionTutorials, allowUserKeys, collType)
+		goC8.CheckError(err, "Error CreateNewCollection")
+
+		// import data
+		jsonDocument := sample_data.GetTutorialsData()
+		_, err = c.Document.CreateNewDocument(fabric, collectionTutorials, silent, jsonDocument, nil)
+		goC8.CheckError(err, "Error CreateNewDocument")
+	}
+
+	exists, err = c.Collection.CheckCollectionExists(fabric, edgeCollectionTutors)
+	goC8.CheckError(err, "Error CheckCollectionExists")
+
+	if !exists {
+		// if not create edge collection
+		collType := types.EdgeCollectionType
+		err = c.Collection.CreateNewCollection(fabric, edgeCollectionTutors, false, collType)
+		goC8.CheckError(err, "Error CreateNewCollection")
+
+		// import data
+		jsonDocument := sample_data.GetTutorsEdgeData()
+		_, err = c.Document.CreateNewDocument(fabric, edgeCollectionTutors, silent, jsonDocument, nil)
+		goC8.CheckError(err, "Error CreateNewCollection")
+	}
+
+	// check if edge collection exits
+	exists, _ = c.Collection.CheckCollectionExists(fabric, edgeCollectionTutors)
+	if !exists {
+		collectionName := edgeCollectionTutors
+		sourceVertex := "teachers"
+		destinationVertex := "tutorials"
+
+		res, createErr := c.Graph.AddEdgeCollection(fabric, graphName, collectionName, sourceVertex, destinationVertex)
+		assert.NoError(t, createErr)
+		assert.NotNil(t, res)
+		goC8.PrintRes(res, verbose)
+
+	}
+}
+
+func TestAddEdge(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	collectionID := "teach"
+	edgeID := "Bruce-CSC105"
+	returnNew := false
+
+	// check if edge already exits
+	exists, err := c.Graph.CheckEdgeExists(fabric, graphName, collectionID, edgeID)
+	goC8.CheckError(err, "Error CheckEdgeExists")
+	if !exists {
+		// if not, add a new edge to the edge collection
+		from := "teachers/Bruce"
+		to := "lectures/CSC105"
+		_, createErr := c.Graph.CreateEdge(fabric, graphName, collectionID, from, to, returnNew)
+		assert.NoError(t, createErr)
+	}
+}
+
 func TestGetAllEdges(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	res, err := c.Graph.GetAllEdges(fabric, graphName)
@@ -97,24 +167,6 @@ func TestCheckEdgeExists(t *testing.T) {
 	expected := true
 	actual := res
 	assert.Equal(t, expected, actual)
-}
-
-func TestAddEdge(t *testing.T) {
-	c := goC8.NewClient(config.GetDefaultConfig())
-	collectionID := "teach"
-	edgeID := "Bruce-CSC105"
-	returnNew := false
-
-	// check if edge already exits
-	exists, err := c.Graph.CheckEdgeExists(fabric, graphName, collectionID, edgeID)
-	goC8.CheckError(err, "Error CheckEdgeExists")
-	if !exists {
-		// if not, add a new edge to the edge collection
-		from := "teachers/Bruce"
-		to := "lectures/CSC105"
-		_, createErr := c.Graph.CreateEdge(fabric, graphName, collectionID, from, to, returnNew)
-		assert.NoError(t, createErr)
-	}
 }
 
 func TestReplaceEdge(t *testing.T) {
@@ -184,6 +236,15 @@ func TestGetVertex(t *testing.T) {
 	goC8.PrintRes(res, verbose)
 }
 
+func TestAddVertexCollection(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	collectionID := "classrooms"
+	res, err := c.Graph.AddVertexCollection(fabric, graphName, collectionID)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
 func TestDeleteEdge(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	collectionID := "teach"
@@ -218,5 +279,7 @@ func TestTeardown(t *testing.T) {
 	goC8.TeardownGraph(c, fabric, graphName, true)
 	goC8.TeardownCollection(c, fabric, collectionTeachers)
 	goC8.TeardownCollection(c, fabric, collectionLectures)
+	goC8.TeardownCollection(c, fabric, collectionTutorials)
 	goC8.TeardownCollection(c, fabric, edgeCollectionTeach)
+	goC8.TeardownCollection(c, fabric, edgeCollectionTutors)
 }

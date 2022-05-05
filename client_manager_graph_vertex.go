@@ -1,6 +1,7 @@
 package goC8
 
 import (
+	"github.com/marvin-hansen/goC8/requests/graph_req"
 	"github.com/marvin-hansen/goC8/requests/graph_req/vertex_req"
 	"github.com/marvin-hansen/goC8/utils"
 	"time"
@@ -38,13 +39,15 @@ func (c GraphManager) GetVertex(fabric, graphName, collectionName, vertexKey str
 	return response, nil
 }
 
-func (c GraphManager) AddVertex(fabric, graphName, vertexCollectionName string) (response *vertex_req.ResponseForGetVertex, err error) {
+// AddVertexCollection
+// Adds a vertex collection to the set of orphan collections of the graph. If the collection does not exist, it will be created.
+func (c GraphManager) AddVertexCollection(fabric, graphName, vertexCollectionName string) (response *graph_req.ResponseForGraph, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "GetVertex")
 	}
 
 	req := vertex_req.NewRequestForAddVertexCollection(fabric, graphName, vertexCollectionName)
-	response = vertex_req.NewResponseForGetVertex()
+	response = graph_req.NewResponseForGraph()
 	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}

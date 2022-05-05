@@ -1,4 +1,4 @@
-package shared
+package graph_req
 
 import "fmt"
 

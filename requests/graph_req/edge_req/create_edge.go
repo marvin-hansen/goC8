@@ -2,7 +2,7 @@ package edge_req
 
 import (
 	"fmt"
-	"github.com/marvin-hansen/goC8/requests/graph_req/shared"
+	"github.com/marvin-hansen/goC8/requests/graph_req"
 	"net/http"
 )
 
@@ -65,10 +65,10 @@ func NewResponseForCreateEdge() *ResponseForCreateEdge {
 }
 
 type ResponseForCreateEdge struct {
-	Code  int         `json:"code,omitempty"`
-	Error bool        `json:"error,omitempty"`
-	Edge  shared.Edge `json:"edge,omitempty"`
-	New   shared.Edge `json:"new,omitempty"`
+	Code  int            `json:"code,omitempty"`
+	Error bool           `json:"error,omitempty"`
+	Edge  graph_req.Edge `json:"edge,omitempty"`
+	New   graph_req.Edge `json:"new,omitempty"`
 }
 
 func (r *ResponseForCreateEdge) IsResponse() {}

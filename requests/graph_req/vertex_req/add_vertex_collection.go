@@ -15,7 +15,7 @@ func NewRequestForAddVertexCollection(fabric, graphName, vertexCollectionName st
 }
 
 func getVertexPayload(vertexCollectionName string) []byte {
-	str := fmt.Sprintf(`{'collection': %v}`, vertexCollectionName)
+	str := fmt.Sprintf(`{"collection": "%v"}`, vertexCollectionName)
 	return []byte(str)
 }
 
@@ -54,18 +54,4 @@ func (req *RequestForAddVertexCollection) ResponseCode() int {
 
 //**// Response //**//
 
-func NewResponseForAddVertexCollection() *ResponseForAddVertexCollection {
-	return new(ResponseForAddVertexCollection)
-}
-
-type ResponseForAddVertexCollection struct {
-	// @FIXME
-	Field string
-}
-
-func (r *ResponseForAddVertexCollection) IsResponse() {}
-
-func (r ResponseForAddVertexCollection) String() string {
-	// @FIXME
-	return fmt.Sprintf("Bootfile: %v", r.Field)
-}
+// Call NewResponseForGraph()

@@ -2,7 +2,6 @@ package graph_req
 
 import (
 	"fmt"
-	"github.com/marvin-hansen/goC8/requests/graph_req/shared"
 	"net/http"
 )
 
@@ -71,12 +70,12 @@ func (r ResponseForCreateGraph) String() string {
 }
 
 type NewGraph struct {
-	Id                string                   `json:"_id"`
-	Key               string                   `json:"_key"`
-	Rev               string                   `json:"_rev"`
-	Edgedefinitions   []shared.EdgeDefinitions `json:"edgedefinitions"`
-	Name              string                   `json:"name"`
-	OrphanCollections []string                 `json:"orphanCollections"`
+	Id                string            `json:"_id"`
+	Key               string            `json:"_key"`
+	Rev               string            `json:"_rev"`
+	Edgedefinitions   []EdgeDefinitions `json:"edgedefinitions"`
+	Name              string            `json:"name"`
+	OrphanCollections []string          `json:"orphanCollections"`
 }
 
 func (r NewGraph) String() string {
