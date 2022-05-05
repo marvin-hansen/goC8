@@ -87,6 +87,23 @@ func (c GraphManager) DeleteVertexCollection(fabric, graphName, collectionName s
 	return response, CheckReturnError(err)
 }
 
+// UpdateVertex
+// Updates the data of the specific vertex in the collection.
+// returnNew bool - Define if a presentation of the new document should be returned within the response object.
+// returnOld bool - Define if a presentation of the deleted document should be returned within the response object.
+func (c GraphManager) UpdateVertex(fabric, graphName, edgeCollectionName, vertexKey string, jsonUpdate []byte, returnOld, returnNew bool) (response *graph_req.ResponseForVertex, err error) {
+	if benchmark {
+		defer utils.TimeTrack(time.Now(), "UpdateVertex")
+	}
+	// keepNull bool - Define if values set to null should be stored. By default (true) the given documents attribute(s) will be set to null. If this parameter is false the attribute(s) will instead be delete from the document
+	req := vertex_req.NewRequestForUpdateVertex(fabric, graphName, edgeCollectionName, vertexKey, jsonUpdate, true, returnOld, returnNew)
+	response = graph_req.NewResponseForVertex()
+	if err = c.client.Request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
 // DeleteVertex
 // Removes a vertex from the collection.
 // returnOld boolean - Define if a presentation of the deleted document should be returned

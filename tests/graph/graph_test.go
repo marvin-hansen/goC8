@@ -123,13 +123,27 @@ func TestCreateVertex(t *testing.T) {
 		"_id": "lectures/CSC2040", 
 		"difficulty": "hard", 
 		"_key":"CSC2040","firstname":"Jean"
-	}
-`)
+	}`)
 
 	res, err := c.Graph.CreateVertex(fabric, graphName, collectionID, jsonPayload, returnNew)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	goC8.PrintRes(res, verbose)
+}
+
+func TestUpdateVertex(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+
+	collectionID := "lectures"
+	returnOld := false
+	returnNew := true
+	vertixID := "CSC2040"
+	updateJSON := []byte(`{"difficulty": "hardcore"}`)
+
+	res, updateErr := c.Graph.UpdateVertex(fabric, graphName, collectionID, vertixID, updateJSON, returnOld, returnNew)
+	assert.NoError(t, updateErr)
+	assert.NotNil(t, res)
+
 }
 
 func TestDeleteVertex(t *testing.T) {
@@ -142,6 +156,8 @@ func TestDeleteVertex(t *testing.T) {
 	assert.NotNil(t, res)
 	goC8.PrintRes(res, verbose)
 }
+
+//**// Edge tests //**//
 
 func TestAddEdge(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
@@ -214,8 +230,6 @@ func TestAddEdgeCollection(t *testing.T) {
 		goC8.PrintRes(res, verbose)
 	}
 }
-
-//**// Edge tests //**//
 
 func TestGetAllEdges(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
