@@ -109,6 +109,30 @@ func (r Edge) String() string {
 	)
 }
 
+func NewResponseForVertex() *ResponseForVertex {
+	return new(ResponseForVertex)
+}
+
+type ResponseForVertex struct {
+	Code    int    `json:"code"`
+	Error   bool   `json:"error"`
+	New     Vertex `json:"new"`
+	Vertex  Vertex `json:"vertex"`
+	Removed bool   `json:"removed,omitempty"`
+}
+
+func (r *ResponseForVertex) IsResponse() {}
+
+func (r ResponseForVertex) String() string {
+	return fmt.Sprintf(" Code: %v\n Error: %v\n Vertex: %v\n New: %v\n Removed: %v\n",
+		r.Code,
+		r.Error,
+		r.Vertex,
+		r.New,
+		r.Removed,
+	)
+}
+
 type Vertex struct {
 	Id  string `json:"_id"`
 	Key string `json:"_key"`

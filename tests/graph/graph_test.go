@@ -232,6 +232,24 @@ func TestGetAllVertices(t *testing.T) {
 	goC8.PrintRes(res, verbose)
 }
 
+func TestCreateVertex(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+
+	collectionID := "teachers"
+	returnNew := true
+	jsonPayload := []byte(`{
+		"_id": "lectures/CSC2040", 
+		"difficulty": "hard", 
+		"_key":"CSC2040","firstname":"Jean"
+	}
+`)
+
+	res, err := c.Graph.CreateVertex(fabric, graphName, collectionID, jsonPayload, returnNew)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
 func TestGetVertex(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	collectionID := "teachers"

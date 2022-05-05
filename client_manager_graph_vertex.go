@@ -26,13 +26,30 @@ func (c GraphManager) GetAllVertices(fabric, graphName string) (response *vertex
 // GetVertex
 // Gets a vertex from the given collection.
 // https://macrometa.com/docs/api#/operations/GetAVertex
-func (c GraphManager) GetVertex(fabric, graphName, collectionName, vertexKey string) (response *vertex_req.ResponseForGetVertex, err error) {
+func (c GraphManager) GetVertex(fabric, graphName, collectionName, vertexKey string) (response *graph_req.ResponseForVertex, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "GetVertex")
 	}
 
 	req := vertex_req.NewRequestForGetVertex(fabric, graphName, collectionName, vertexKey)
-	response = vertex_req.NewResponseForGetVertex()
+	response = graph_req.NewResponseForVertex()
+	if err = c.client.Request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
+// CreateVertex
+// Adds a vertex to the given collection.
+// returnNew - boolean  Define if the response should contain the complete new version of the document.Show all...
+// https://macrometa.com/docs/api#/operations/CreateAVertex
+func (c GraphManager) CreateVertex(fabric, graphName, collectionName string, jsonDef []byte, returnNew bool) (response *graph_req.ResponseForVertex, err error) {
+	if benchmark {
+		defer utils.TimeTrack(time.Now(), "GetVertex")
+	}
+
+	req := vertex_req.NewRequestForCreateVertex(fabric, graphName, collectionName, jsonDef, returnNew)
+	response = graph_req.NewResponseForVertex()
 	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
