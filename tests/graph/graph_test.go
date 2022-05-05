@@ -84,9 +84,13 @@ func TestAddEdge(t *testing.T) {
 	goC8.CheckError(err, "Error CheckEdgeExists")
 	if !exists {
 		// if not, add a new edge to the edge collection
-		from := "teachers/Bruce"
-		to := "lectures/CSC105"
-		_, createErr := c.Graph.CreateEdge(fabric, graphName, collectionID, from, to, returnNew)
+		jsonPayload := []byte(`{
+            "_key": "Bruce-CSC105",
+            "_from": "teachers/Bruce",
+            "_to": "lectures/CSC105",
+            "online": false
+        }`)
+		_, createErr := c.Graph.CreateEdge(fabric, graphName, collectionID, "", "", jsonPayload, returnNew)
 		assert.NoError(t, createErr)
 	}
 }
@@ -94,40 +98,41 @@ func TestAddEdge(t *testing.T) {
 func TestAddEdgeCollection(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 
+	// check if collection already exists
 	exists, err := c.Collection.CheckCollectionExists(fabric, collectionTutorials)
 	goC8.CheckError(err, "Error CheckCollectionExists: ")
 	if !exists {
-		// if not create collection
+		// 1. if not create collection
 		collType := types.DocumentCollectionType
 		allowUserKeys := false
 		err = c.Collection.CreateNewCollection(fabric, collectionTutorials, allowUserKeys, collType)
 		assert.NoError(t, err)
 
-		// import data
+		// 2. import data
 		jsonDocument := sample_data.GetTutorialsData()
 		_, err = c.Document.CreateNewDocument(fabric, collectionTutorials, silent, jsonDocument, nil)
 		assert.NoError(t, err)
 
-		// Add vertex collection to graph
+		// 3. Add vertex collection to graph
 		_, err = c.Graph.AddVertexCollection(fabric, graphName, collectionTutorials)
 		assert.NoError(t, err)
 	}
 
+	// check if collection already exists
 	exists, err = c.Collection.CheckCollectionExists(fabric, edgeCollectionTutors)
 	goC8.CheckError(err, "Error CheckCollectionExists")
-
 	if !exists {
-		// if not create edge collection
+		// 1. if not create edge collection
 		collType := types.EdgeCollectionType
 		err = c.Collection.CreateNewCollection(fabric, edgeCollectionTutors, false, collType)
 		assert.NoError(t, err)
 
-		// import data
+		// 2. import data
 		jsonDocument := sample_data.GetTutorsEdgeData()
 		_, err = c.Document.CreateNewDocument(fabric, edgeCollectionTutors, silent, jsonDocument, nil)
 		assert.NoError(t, err)
 
-		// add edge collection to graph
+		// 3. add edge collection to graph
 		collectionName := edgeCollectionTutors
 		sourceVertex := "teachers"
 		destinationVertex := "tutorials"
@@ -137,7 +142,6 @@ func TestAddEdgeCollection(t *testing.T) {
 		assert.NotNil(t, res)
 		goC8.PrintRes(res, verbose)
 	}
-
 }
 
 func TestGetAllEdges(t *testing.T) {

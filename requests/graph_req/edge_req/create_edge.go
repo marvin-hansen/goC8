@@ -8,20 +8,25 @@ import (
 
 //**// Request //**//
 
-func NewRequestForCreateEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex string, returnNew bool) *RequestForCreateEdge {
+func NewRequestForCreateEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex string, jsonDef []byte, returnNew bool) *RequestForCreateEdge {
+
 	return &RequestForCreateEdge{
 		path:       fmt.Sprintf("_fabric/%v/_api/graph/%v/edge/%v", fabric, graphName, edgeCollectionName),
 		parameters: fmt.Sprintf("?returnNew=%v", returnNew),
-		payload:    getCreateEdgePayload(sourceVertex, destinationVertex),
+		payload:    getCreateEdgePayload(sourceVertex, destinationVertex, jsonDef),
 	}
 }
 
-func getCreateEdgePayload(sourceVertex, destinationVertex string) []byte {
-	str := fmt.Sprintf(`{
+func getCreateEdgePayload(sourceVertex, destinationVertex string, jsonDef []byte) []byte {
+	if jsonDef == nil {
+		str := fmt.Sprintf(`{
   "_from": "%v",
   "_to": "%v"
 }`, sourceVertex, destinationVertex)
-	return []byte(str)
+		return []byte(str)
+	} else {
+		return jsonDef
+	}
 }
 
 type RequestForCreateEdge struct {

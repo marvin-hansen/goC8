@@ -124,9 +124,15 @@ func addSingleEdge(c *goC8.Client) {
 	goC8.CheckError(err, "Error CheckEdgeExists")
 	if !exists {
 		// if not, add a new edge to the edge collection
-		from := "teachers/Bruce"
-		to := "lectures/CSC105"
-		_, createErr := c.Graph.CreateEdge(fabric, graph, collectionID, from, to, false)
+
+		// we use a custom payload here to set a custom key & custom field "online"
+		jsonPayload := []byte(`{
+            "_key": "Bruce-CSC105",
+            "_from": "teachers/Bruce",
+            "_to": "lectures/CSC105",
+            "online": false
+        }`)
+		_, createErr := c.Graph.CreateEdge(fabric, graph, collectionID, "", "", jsonPayload, false)
 		goC8.CheckError(createErr, "Error CreateEdge")
 	}
 }
