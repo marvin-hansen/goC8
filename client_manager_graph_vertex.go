@@ -54,6 +54,11 @@ func (c GraphManager) AddVertexCollection(fabric, graphName, vertexCollectionNam
 	return response, nil
 }
 
+// DeleteVertexCollection
+// Removes a vertex collection from the graph and optionally removes the collection, if it is not used in any other graph.
+// It only removes vertex collections that are no longer part of edge definitions.
+// dropCollection - Remove the collection as well. Collection is only removed if it is not used in other graphs.
+// https://macrometa.com/docs/api#/operations/RemoveVertexCollection
 func (c GraphManager) DeleteVertexCollection(fabric, graphName, collectionName string, dropCollections bool) (response *graph_req.ResponseForGraph, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "DeleteEdgeCollection")
