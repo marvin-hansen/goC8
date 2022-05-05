@@ -61,8 +61,8 @@
 | Post   | /graph/{graph}/vertex/{collection}          | Create a vertex                                  | Yes         | Yes    | Yes  |
 | Delete | /graph/{graph}/vertex/{collection}/{vertex} | Remove a vertex                                  | Yes         | Yes    | Yes  |
 | Get    | /graph/{graph}/vertex/{collection}/{vertex} | Get a vertex                                     | Yes         | Yes    | Yes  |
-| patch  | /graph/{graph}/vertex/{collection}/{vertex} | Update a vertex                                  |             |        |      |
-| Put    | /graph/{graph}/vertex/{collection}/{vertex} | Replace a vertex                                 |             |        |      |
+| patch  | /graph/{graph}/vertex/{collection}/{vertex} | Update a vertex                                  | Yes         | Yes    | Yes  |
+| Put    | /graph/{graph}/vertex/{collection}/{vertex} | Replace a vertex                                 | Yes         | Yes    | Yes  |
 | Get    | /edges/{collection-id}                      | Read in- or outbound edges                       |             |        |      |
 | Post   | /graphs/traversal                           | executes a traversal                             |             |        |      |
 
