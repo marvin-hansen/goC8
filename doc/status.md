@@ -28,7 +28,7 @@
 
 ## Collection API
 
-| http   | Endpoint                                 | Function                                           | Implemented | Tested | Done |
+| Http   | Endpoint                                 | Function                                           | Implemented | Tested | Done |
 |--------|------------------------------------------|----------------------------------------------------|-------------|--------|------|
 | Get    | /collection                              | Fetches the list of all collections.               | Yes         | Yes    | Yes  |
 | Post   | /collection                              | Create collection.                                 | Yes         | Yes    | Yes  |
@@ -39,8 +39,24 @@
 | Put    | /collection/{collection-name}/properties | Changes the properties of a collection.            | Yes         | Yes    | Yes  |
 
 
+## Document API
+
+| Http   | Endpoint                     | Function                                     | Implemented | Tested | Done  |
+|--------|------------------------------|----------------------------------------------|-------------|--------|-------|
+| Delete | /document/{collection}       | Removes multiple documents                   | Yes         | Yes    | Yes   |
+| Patch  | /document/{collection}       | Updates multiple documents                   | Yes         | Yes    | Yes   |
+| Put    | /document/{collection}       | Replaces multiple documents                  | Yes         | Yes    | Yes   |
+| Post   | /document/{collection}       | Create document                              | Yes         | Yes    | Yes   |
+| Delete | /document/{collection}/{key} | Deletes one document                         | Yes         | Yes    | Yes   |
+| Get    | /document/{collection}/{key} | Gets one document                            | Yes         | Yes    | Yes   |
+| Head   | /document/{collection}/{key} | Like GET, but only returns the header fields | No          | No     | No[1] |
+| Patch  | /document/{collection}/{key} | Updated one document                         | Yes         | Yes    | Yes   |
+| Put    | /document/{collection}/{key} | Replace one document                         | Yes         | Yes    | Yes   |
+
+[1] Custom HEAD method not supported in Golang http client
+
 ## Graph API
-| http   | Endpoint                                    | Function                                         | Implemented | Tested | Done  |
+| Http   | Endpoint                                    | Function                                         | Implemented | Tested | Done  |
 |--------|---------------------------------------------|--------------------------------------------------|-------------|--------|-------|
 | Get    | /graph                                      | Lists all graphs stored in this database.        | Yes         | Yes    | Yes   |
 | Post   | /graph                                      | Create a graph                                   | Yes         | Yes    | Yes   |
@@ -49,7 +65,7 @@
 | Get    | graph/{graph}/edge                          | Lists all edge collections within this graph.    | Yes         | Yes    | Yes   |
 | Post   | /graph/{graph}/edge                         | Adds an additional edge definition to the graph. | Yes         | Yes    | Yes   |
 | Post   | /graph/{graph}/edge/{edgeCollection}        | Creates a new edge in the collection.            | Yes         | Yes    | Yes   |
-| Put    | /graph/{graph}/edge/{edgeCollection}        | Replace an edge definition                       |             |        |       |
+| Put    | /graph/{graph}/edge/{edgeCollection}        | Replace an edge definition                       | Yes         | Yes    | Yes   |
 | Delete | /graph/{graph}/edge/{edgeCollection}        | Remove an edge definition                        | Yes         | Yes    | Yes   |
 | Delete | /graph/{graph}/edge/{collection}/{edge}     | Remove an edge                                   | Yes         | Yes    | Yes   |
 | Get    | /graph/{graph}/edge/{collection}/{edge}     | Get an Edge                                      | Yes         | Yes    | Yes   |
@@ -68,6 +84,24 @@
 
 [1] use query instead 
 
+
+## Index API
+
+| Http   | Endpoint                        | Function                          | Implemented | Tested | Done  |
+|--------|---------------------------------|-----------------------------------|-------------|--------|-------|
+| Get    | /index                          | Read all indexes of a collection  | Yes         | Yes    | Yes   |
+| Get    | /index/{collection}/{indexName} | Read one index of a collection    | Yes         | Yes    | Yes   |
+| Post   | /index/fulltext                 | Creates fulltext index            | Yes         | Yes    | Yes   |
+| Post   | /index/general                  | Creates a new index in collection | No          | No     | No[1] |
+| Post   | /index/geo                      | Creates geo index                 | Yes         | Yes    | Yes   |
+| Post   | /index/hash                     | Creates hash index                | Yes         | Yes    | Yes   |
+| Post   | /index/persistent               | Creates a persistent index        | Yes         | Yes    | Yes   |
+| Post   | /index/skiplist                 | Creates skip list index           | Yes         | Yes    | Yes   |
+| Post   | /index/ttl                      | Creates TTl index                 | Yes         | Yes    | Yes   |
+| Delete | /index/{collection}/{indexName} | Deletes index                     | Yes         | Yes    | Yes   |
+
+[1] Non fixable error. Possible legacy endpoint that wasn't removed. 
+
 ## KV API 
 
 | Http   | Endpoint                | Function                                                 | Implemented | Tested | Done |
@@ -85,5 +119,10 @@
 | Put    | /kv/collection/truncate | Remove all key-value pairs in a collection.              | Yes         | Yes    | Yes  |
 
 
+## Query API
+
+Query API was aggregated in one singele "Query" method that combined all the bits and pieces of the API.
+
+Note, query is stateful and as such not thread safe. 
 
 Tables generated with [tablesgenerator.com](https://www.tablesgenerator.com/markdown_tables#)
