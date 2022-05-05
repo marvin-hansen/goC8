@@ -47,7 +47,7 @@ func (c GraphManager) GetAllEdges(fabric, graphName string) (response *edge_req.
 // direction - Select in or out direction for edges. If ANY is set, all edges are returned.
 func (c GraphManager) GetGetAllInOutEdges(fabric, edgeCollectionName, vertexKey string, direction types.EdgeDirection) (response *edge_req.ResponseForGetAllInOutEdges, err error) {
 	if benchmark {
-		defer utils.TimeTrack(time.Now(), "GetEdge")
+		defer utils.TimeTrack(time.Now(), "GetGetAllInOutEdges")
 	}
 
 	req := edge_req.NewRequestForGetAllInOutEdges(fabric, edgeCollectionName, vertexKey, direction)
@@ -135,6 +135,22 @@ func (c GraphManager) CheckEdgeExists(fabric, graphName, collectionName, edgeKey
 		}
 	}
 	return true, nil
+}
+
+// ReplaceEdge
+// Replaces the data of an edge in the collection.
+// https://macrometa.com/docs/api#/operations/ReplaceAnEdge
+func (c GraphManager) ReplaceEdge(fabric, graphName, edgeCollectionName, edgeKey string, jsonReplace []byte, returnOld, returnNew bool) (response *edge_req.ResponseForReplaceEdge, err error) {
+	if benchmark {
+		defer utils.TimeTrack(time.Now(), "ReplaceEdge")
+	}
+
+	req := edge_req.NewRequestForReplaceEdge(fabric, graphName, edgeCollectionName, edgeKey, jsonReplace, true, returnOld, returnNew)
+	response = edge_req.NewResponseForReplaceEdge()
+	if err = c.client.Request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
 }
 
 func (c GraphManager) UpdateEdge(fabric, graphName, edgeCollectionName, edgeKey string, jsonUpdate []byte, keepNull, returnOld, returnNew bool) (response *graph_req.ResponseForEdge, err error) {

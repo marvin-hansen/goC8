@@ -153,13 +153,13 @@ func TestReplaceVertex(t *testing.T) {
 	returnOld := false
 	returnNew := true
 	vertixID := "CSC2040"
-	updateJSON := []byte(`{
+	replaceJSON := []byte(`{
 		"_id": "lectures/CSC2040", 
 		"difficulty": "extreme", 
 		"_key":"CSC2040","firstname":"Jean Claude Van Damme"
 	}`)
 
-	res, updateErr := c.Graph.ReplaceVertex(fabric, graphName, collectionID, vertixID, updateJSON, returnOld, returnNew)
+	res, updateErr := c.Graph.ReplaceVertex(fabric, graphName, collectionID, vertixID, replaceJSON, returnOld, returnNew)
 	assert.NoError(t, updateErr)
 	assert.NotNil(t, res)
 }
@@ -289,6 +289,30 @@ func TestCheckEdgeExists(t *testing.T) {
 	expected := true
 	actual := res
 	assert.Equal(t, expected, actual)
+}
+
+func TestReplaceEdge(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	collectionID := "teach"
+	edgeID := "Bruce-CSC105"
+
+	// check if edge exits
+	exists, err := c.Graph.CheckEdgeExists(fabric, graphName, collectionID, edgeID)
+	goC8.CheckError(err, "Error CheckEdgeExists")
+	if exists {
+		// if exists, replace edge with a new edge to the edge collection
+		returnOld := false
+		returnNew := true
+		replaceJSON := []byte(`{
+            "_key": "Bruce-CSC105",
+            "_from": "teachers/Bruce",
+            "_to": "lectures/CSC105",
+            "online": true
+        }`)
+
+		_, createErr := c.Graph.ReplaceEdge(fabric, graphName, collectionID, edgeID, replaceJSON, returnOld, returnNew)
+		goC8.CheckError(createErr, "Error CreateEdge")
+	}
 }
 
 func TestUpdateEdge(t *testing.T) {

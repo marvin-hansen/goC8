@@ -10,7 +10,7 @@ import (
 
 // Not used due to mystery error from server
 
-func NewRequestForReplaceEdge(fabric, graphName, edgeCollectionName, edgeKey, jsonReplace []byte, keepNull, returnOld, returnNew bool) *RequestForReplaceEdge {
+func NewRequestForReplaceEdge(fabric, graphName, edgeCollectionName, edgeKey string, jsonReplace []byte, keepNull, returnOld, returnNew bool) *RequestForReplaceEdge {
 	return &RequestForReplaceEdge{
 		path:       fmt.Sprintf("_fabric/%v/_api/graph/%v/edge/%v/%v", fabric, graphName, edgeCollectionName, edgeKey),
 		parameters: fmt.Sprintf("?keepNull=%v&returnOld=%v&returnNew=%v", keepNull, returnOld, returnNew),
