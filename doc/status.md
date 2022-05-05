@@ -56,7 +56,7 @@
 | Patch  | /graph/{graph}/edge/{collection}/{edge}     | Modify an edge                                   | Yes         | Yes    | Yes  |
 | Put    | /graph/{graph}/edge/{collection}/{edge}     | Replace an edge                                  | Yes         | Yes    | Yes  |
 | Get    | /graph/{graph}/vertex                       | List vertex collections                          | Yes         | Yes    | Yes  |
-| Post   | /graph/{graph}/vertex                       | Add vertex collection                            |             |        |      |
+| Post   | /graph/{graph}/vertex                       | Add vertex collection                            | Yes         | Yes    | Yes  |
 | Delete | /graph/{graph}/vertex/{collection}          | Remove vertex collection                         |             |        |      |
 | Post   | /graph/{graph}/vertex/{collection}          | Create a vertex                                  |             |        |      |
 | Delete | /graph/{graph}/vertex/{collection}/{vertex} | Remove a vertex                                  |             |        |      |

@@ -84,6 +84,7 @@ func TestAddEdge(t *testing.T) {
 	goC8.CheckError(err, "Error CheckEdgeExists")
 	if !exists {
 		// if not, add a new edge to the edge collection
+		// we use a custom payload here to set a custom key & custom field "online"
 		jsonPayload := []byte(`{
             "_key": "Bruce-CSC105",
             "_from": "teachers/Bruce",
@@ -245,6 +246,16 @@ func TestAddVertexCollection(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	collectionID := "classrooms"
 	res, err := c.Graph.AddVertexCollection(fabric, graphName, collectionID)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
+func TestDeleteVertexCollection(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	collectionID := "classrooms"
+	dropCollection := true
+	res, err := c.Graph.DeleteVertexCollection(fabric, graphName, collectionID, dropCollection)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	goC8.PrintRes(res, verbose)

@@ -9,7 +9,7 @@ import (
 
 // GetAllVertices
 // Lists all vertex collections within this graph.
-// https://macrometa.com/docs/api#/operations/ListVertexCollections
+// https://macrometa.com/do    cs/api#/operations/ListVertexCollections
 func (c GraphManager) GetAllVertices(fabric, graphName string) (response *vertex_req.ResponseForGetAllVertices, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "GetAllVertices")
@@ -52,4 +52,15 @@ func (c GraphManager) AddVertexCollection(fabric, graphName, vertexCollectionNam
 		return nil, err
 	}
 	return response, nil
+}
+
+func (c GraphManager) DeleteVertexCollection(fabric, graphName, collectionName string, dropCollections bool) (response *graph_req.ResponseForGraph, err error) {
+	if benchmark {
+		defer utils.TimeTrack(time.Now(), "DeleteEdgeCollection")
+	}
+
+	req := vertex_req.NewRequestForDeleteVertexCollection(fabric, graphName, collectionName, dropCollections)
+	response = graph_req.NewResponseForGraph()
+	err = c.client.Request(req, response)
+	return response, CheckReturnError(err)
 }
