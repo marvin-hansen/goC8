@@ -60,7 +60,7 @@ type ResponseForGetAllGraphs struct {
 func (r *ResponseForGetAllGraphs) IsResponse() {}
 
 func (r ResponseForGetAllGraphs) String() string {
-	return fmt.Sprintf(" Code: %v \n Error: %v \n Graphs: %v",
+	return fmt.Sprintf(" Code: %v \n Error: %v \n Graph: %v",
 		r.Code,
 		r.Error,
 		r.Graphs,

@@ -261,24 +261,6 @@ func TestCheckEdgeExists(t *testing.T) {
 	assert.Equal(t, expected, actual)
 }
 
-func TestReplaceEdge(t *testing.T) {
-	c := goC8.NewClient(config.GetDefaultConfig())
-	collectionID := "teach"
-	edgeID := "Bruce-CSC105"
-	dropCollections := false
-
-	// check if edge exits
-	exists, err := c.Graph.CheckEdgeExists(fabric, graphName, collectionID, edgeID)
-	goC8.CheckError(err, "Error CheckEdgeExists")
-	if exists {
-		// if exists, replace edge with a new edge to the edge collection
-		from := "teachers/Bruce"
-		to := "lectures/CSC105"
-		_, createErr := c.Graph.ReplaceEdge(fabric, graphName, collectionID, from, to, dropCollections)
-		goC8.CheckError(createErr, "Error CreateEdge")
-	}
-}
-
 func TestUpdateEdge(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	collectionID := "teach"

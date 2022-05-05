@@ -7,18 +7,18 @@ func NewResponseForGraph() *ResponseForGraph {
 }
 
 type ResponseForGraph struct {
-	Code   int   `json:"code,omitempty"`
-	Error  bool  `json:"error,omitempty"`
-	Graphs Graph `json:"graph,omitempty"`
+	Code  int   `json:"code,omitempty"`
+	Error bool  `json:"error,omitempty"`
+	Graph Graph `json:"graph,omitempty"`
 }
 
 func (r *ResponseForGraph) IsResponse() {}
 
 func (r ResponseForGraph) String() string {
-	return fmt.Sprintf(" Code: %v \n Error: %v \n Graphs: %v",
+	return fmt.Sprintf(" Code: %v \n Error: %v \n Graph: %v",
 		r.Code,
 		r.Error,
-		r.Graphs,
+		r.Graph,
 	)
 }
 

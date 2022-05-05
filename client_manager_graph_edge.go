@@ -120,22 +120,6 @@ func (c GraphManager) CheckEdgeExists(fabric, graphName, collectionName, edgeKey
 	return true, nil
 }
 
-// ReplaceEdge
-// Replaces the data of an edge in the collection.
-// https://macrometa.com/docs/api#/operations/ReplaceAnEdge
-func (c GraphManager) ReplaceEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex string, dropCollections bool) (response *edge_req.ResponseForReplaceEdge, err error) {
-	if benchmark {
-		defer utils.TimeTrack(time.Now(), "ReplaceEdge")
-	}
-
-	req := edge_req.NewRequestForReplaceEdge(fabric, graphName, edgeCollectionName, sourceVertex, destinationVertex, dropCollections)
-	response = edge_req.NewResponseForReplaceEdge()
-	if err = c.client.Request(req, response); err != nil {
-		return nil, err
-	}
-	return response, nil
-}
-
 func (c GraphManager) UpdateEdge(fabric, graphName, edgeCollectionName, edgeKey string, jsonUpdate []byte, keepNull, returnOld, returnNew bool) (response *graph_req.ResponseForEdge, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "UpdateEdge")

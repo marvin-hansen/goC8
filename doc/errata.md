@@ -15,3 +15,7 @@ JSON Body:
 
 See 
 https://github.com/Macrometacorp/pyC8/blob/c18fa188e1e19168e6de3f50e2b5a5598ea1505d/c8/graph.py#L152
+
+## ReplaceEdge
+
+Throws  error: APIError: Code=500, Number=405,  Error Message=method not supported
