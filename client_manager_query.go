@@ -6,7 +6,27 @@ import (
 	"time"
 )
 
-func (c Client) Query(fabric, query string, bindVars map[string]interface{}, options *query_req.CursorOptions) (res *query_req.Cursor, err error) {
+type QueryManager struct {
+	client *Client
+}
+
+func NewQueryManagerManager(client *Client) *QueryManager {
+	return &QueryManager{client: client}
+}
+
+func (c QueryManager) ValidateQuery(fabric, query string) (res *query_req.ResponseForValidateQuery, err error) {
+	if benchmark {
+		defer utils.TimeTrack(time.Now(), "ValidateQuery")
+	}
+
+	req := query_req.NewRequestForValidateQuery(fabric, query)
+	res = query_req.NewResponseForValidateQuery()
+	err = c.client.Request(req, res)
+	return res, CheckReturnError(err)
+
+}
+
+func (c QueryManager) Query(fabric, query string, bindVars map[string]interface{}, options *query_req.CursorOptions) (res *query_req.Cursor, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "Query")
 	}
@@ -14,12 +34,12 @@ func (c Client) Query(fabric, query string, bindVars map[string]interface{}, opt
 	if options == nil {
 		options = query_req.NewDefaultCursorOptions()
 	}
-	ttl := c.getQueryTTL()
+	ttl := c.client.getQueryTTL()
 	req := query_req.NewRequestForCreateCursor(fabric, query, bindVars, options, ttl)
 
 	// Create a cursor for the query onfrom the server
 	response := query_req.NewResponseForCreateCursor()
-	if err = c.Request(req, response); err != nil {
+	if err = c.client.Request(req, response); err != nil {
 		return nil, err
 	}
 
@@ -32,7 +52,7 @@ func (c Client) Query(fabric, query string, bindVars map[string]interface{}, opt
 			// request update for the cursor
 			reqNext := query_req.NewRequestForReadNextCursor(fabric, res.Id)
 			responseNext := query_req.NewResponseForReadNextCursor()
-			if err = c.Request(reqNext, responseNext); err != nil {
+			if err = c.client.Request(reqNext, responseNext); err != nil {
 				return nil, err
 			}
 
@@ -45,7 +65,7 @@ func (c Client) Query(fabric, query string, bindVars map[string]interface{}, opt
 				// Delete the cursor from the server
 				reqDel := query_req.NewRequestForDeleteCursor(fabric, response.Id)
 				resDel := query_req.NewResponseForDeleteCursor()
-				if err = c.Request(reqDel, resDel); err != nil {
+				if err = c.client.Request(reqDel, resDel); err != nil {
 					return nil, err
 				}
 

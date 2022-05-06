@@ -22,6 +22,7 @@ type Client struct {
 	Graph      *GraphManager
 	Index      *IndexManager
 	KV         *KVManager
+	Query      *QueryManager
 }
 
 func NewClient(config *ClientConfig) *Client {
@@ -45,6 +46,7 @@ func NewClient(config *ClientConfig) *Client {
 	c.Graph = NewGraphManager(c)
 	c.Index = NewIndexManager(c)
 	c.KV = NewKVManager(c)
+	c.Query = NewQueryManagerManager(c)
 
 	return c
 }

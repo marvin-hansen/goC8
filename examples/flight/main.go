@@ -71,7 +71,7 @@ func query(c *goC8.Client) {
 
 func runQuery(c *goC8.Client, q, msg string) {
 	println(msg)
-	res, err := c.Query(fabric, q, nil, nil)
+	res, err := c.Query.Query(fabric, q, nil, nil)
 	goC8.CheckError(err, "Error Query: "+q)
 	goC8.PrintQuery(res, verbose)
 }
