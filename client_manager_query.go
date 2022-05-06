@@ -10,13 +10,13 @@ type QueryManager struct {
 	client *Client
 }
 
-func NewQueryManagerManager(client *Client) *QueryManager {
+func NewQueryManager(client *Client) *QueryManager {
 	return &QueryManager{client: client}
 }
 
 func (c QueryManager) ExplainQuery(fabric, query string) (res *query_req.ResponseForExplainQuery, err error) {
 	if benchmark {
-		defer utils.TimeTrack(time.Now(), "ValidateQuery")
+		defer utils.TimeTrack(time.Now(), "ExplainQuery")
 	}
 
 	req := query_req.NewRequestForExplainQuery(fabric, query)
