@@ -17,13 +17,13 @@ type Client struct {
 	HTTPC       *fasthttp.Client
 	HTTPTimeout time.Duration
 	//
-	Collection *CollectionManager
-	Document   *DocumentManager
-	Graph      *GraphManager
-	Index      *IndexManager
-	KV         *KVManager
-	Query      *QueryManager
-	//QueryWorker *QueryWorkerManager
+	Collection  *CollectionManager
+	Document    *DocumentManager
+	Graph       *GraphManager
+	Index       *IndexManager
+	KV          *KVManager
+	Query       *QueryManager
+	QueryWorker *QueryWorkerManager
 }
 
 func NewClient(config *ClientConfig) *Client {
@@ -48,7 +48,7 @@ func NewClient(config *ClientConfig) *Client {
 	c.Index = NewIndexManager(c)
 	c.KV = NewKVManager(c)
 	c.Query = NewQueryManager(c)
-	//c.QueryWorker = NewQueryWorkerManager(c)
+	c.QueryWorker = NewQueryWorkerManager(c)
 
 	return c
 }
