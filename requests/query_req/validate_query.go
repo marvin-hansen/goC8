@@ -10,12 +10,8 @@ import (
 func NewRequestForValidateQuery(fabric, queryString string) *RequestForValidateQuery {
 	return &RequestForValidateQuery{
 		path:    fmt.Sprintf("_fabric/%v/_api/query", fabric),
-		payload: getValidatePayload(queryString),
+		payload: getQueryPayload(queryString),
 	}
-}
-
-func getValidatePayload(query string) []byte {
-	return []byte(fmt.Sprintf(`{"query": "%v"}`, query))
 }
 
 type RequestForValidateQuery struct {
@@ -40,7 +36,7 @@ func (req *RequestForValidateQuery) HasQueryParameter() bool {
 }
 
 func (req *RequestForValidateQuery) GetQueryParameter() string {
-	return "" //"?excludeSystem=true"
+	return ""
 }
 
 func (req *RequestForValidateQuery) Payload() []byte {

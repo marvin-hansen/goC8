@@ -34,6 +34,15 @@ func TestValidateQuery(t *testing.T) {
 	goC8.PrintRes(res, verbose)
 }
 
+func TestExplainQuery(t *testing.T) {
+	c := goC8.NewClient(config.GetDefaultConfig())
+	query := "for t in teachers return t"
+	res, err := c.Query.ExplainQuery(fabric, query)
+	assert.NoError(t, err)
+	assert.NotNil(t, res)
+	goC8.PrintRes(res, verbose)
+}
+
 func TestQuery(t *testing.T) {
 	c := goC8.NewClient(config.GetDefaultConfig())
 	query := "for t in teachers return t"

@@ -116,3 +116,109 @@ func (r Warnings) String() string {
 		return s.String()
 	}
 }
+
+type Plan struct {
+	Nodes       []Node        `json:"nodes,omitempty"`
+	Rules       []interface{} `json:"rules,omitempty"`
+	Collections []struct {
+		Name string `json:"name"`
+		Type string `json:"type"`
+	} `json:"collections,omitempty"`
+	Variables []struct {
+		Id   int    `json:"id"`
+		Name string `json:"name"`
+	} `json:"variables,omitempty"`
+	EstimatedCost       int  `json:"estimatedCost,omitempty"`
+	EstimatedNrItems    int  `json:"estimatedNrItems,omitempty"`
+	Initialize          bool `json:"initialize,omitempty"`
+	IsModificationQuery bool `json:"isModificationQuery,omitempty"`
+}
+
+func (s Plan) String() string {
+	return fmt.Sprintf("\n Nodes: %v\n Rules: %v\n Collections: %v\n Variables: %v\n EstimatedCost: %v\n EstimatedNrItems: %v\n Initialize: %v\n IsModificationQuery: %v",
+		s.Nodes,
+		s.Rules,
+		s.Collections,
+		s.Variables,
+		s.EstimatedCost,
+		s.EstimatedNrItems,
+		s.Initialize,
+		s.IsModificationQuery,
+	)
+}
+
+type Node struct {
+	Type             string        `json:"type"`
+	Dependencies     []int         `json:"dependencies"`
+	Id               int           `json:"id"`
+	EstimatedCost    int           `json:"estimatedCost"`
+	EstimatedNrItems int           `json:"estimatedNrItems"`
+	Random           bool          `json:"random,omitempty"`
+	IndexHint        IndexHint     `json:"indexHint,omitempty"`
+	OutVariable      Variable      `json:"outVariable,omitempty"`
+	Projections      []interface{} `json:"projections,omitempty"`
+	ProducesResult   bool          `json:"producesResult,omitempty"`
+	Database         string        `json:"database,omitempty"`
+	Collection       string        `json:"collection,omitempty"`
+	Satellite        bool          `json:"satellite,omitempty"`
+	InVariable       Variable      `json:"inVariable,omitempty"`
+	Count            bool          `json:"count,omitempty"`
+}
+
+func (s Node) String() string {
+	return fmt.Sprintf(" \n Node: \n Type: %v\n Dependencies: %v\n Id: %v\n EstimatedCost: %v\n EstimatedNrItems: %v\n Random: %v\n IndexHint: %v\n OutVariable: %v\n Projections: %v\n ProducesResult: %v\n Database: %v\n Collection: %v\n Satellite: %v\n InVariable: %v\n Count: %v\n",
+		s.Type,
+		s.Dependencies,
+		s.Id,
+		s.EstimatedCost,
+		s.EstimatedNrItems,
+		s.Random,
+		s.IndexHint,
+		s.OutVariable,
+		s.Projections,
+		s.ProducesResult,
+		s.Database,
+		s.Collection,
+		s.Satellite,
+		s.InVariable,
+		s.Count,
+	)
+}
+
+type ExplainStats struct {
+	RulesExecuted int `json:"rulesExecuted"`
+	RulesSkipped  int `json:"rulesSkipped"`
+	PlansCreated  int `json:"plansCreated"`
+}
+
+func (s ExplainStats) String() string {
+	return fmt.Sprintf("\n RulesExecuted: %v\n RulesSkipped: %v\n PlansCreated: %v\n",
+		s.RulesExecuted,
+		s.RulesSkipped,
+		s.PlansCreated,
+	)
+}
+
+type IndexHint struct {
+	Forced bool   `json:"forced"`
+	Type   string `json:"type"`
+}
+
+func (s IndexHint) String() string {
+	return fmt.Sprintf("Forced: %v Type: %v",
+		s.Forced,
+		s.Type,
+	)
+}
+
+type Variable struct {
+	Id   int    `json:"id"`
+	Name string `json:"name"`
+}
+
+func (s Variable) String() string {
+	return fmt.Sprintf("ID: %v Name: %v",
+		s.Id,
+		s.Name,
+	)
+}

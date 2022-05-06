@@ -14,6 +14,20 @@ func NewQueryManagerManager(client *Client) *QueryManager {
 	return &QueryManager{client: client}
 }
 
+func (c QueryManager) ExplainQuery(fabric, query string) (res *query_req.ResponseForExplainQuery, err error) {
+	if benchmark {
+		defer utils.TimeTrack(time.Now(), "ValidateQuery")
+	}
+
+	req := query_req.NewRequestForExplainQuery(fabric, query)
+	res = query_req.NewResponseForExplainQuery()
+	err = c.client.Request(req, res)
+	return res, CheckReturnError(err)
+}
+
+// ValidateQuery
+// validates a C8QL query. To actually query the database, see Query
+// https://macrometa.com/docs/api#/operations/parseQuery
 func (c QueryManager) ValidateQuery(fabric, query string) (res *query_req.ResponseForValidateQuery, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "ValidateQuery")
@@ -23,9 +37,10 @@ func (c QueryManager) ValidateQuery(fabric, query string) (res *query_req.Respon
 	res = query_req.NewResponseForValidateQuery()
 	err = c.client.Request(req, res)
 	return res, CheckReturnError(err)
-
 }
 
+// Query
+// Queries database / graph
 func (c QueryManager) Query(fabric, query string, bindVars map[string]interface{}, options *query_req.CursorOptions) (res *query_req.Cursor, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "Query")
