@@ -18,6 +18,7 @@ help:
 	@echo '    make test-graph   		Tests graph API. '
 	@echo '    make test-index   		Tests index API. '
 	@echo '    make test-kv   		Tests key-value API. '
+	@echo '    make test-query   		Tests query API. '
 
 # "---------------------------------------------------------"
 # Setup
@@ -52,3 +53,7 @@ test-index:
 .PHONY: test-kv
 test-kv:
 	@source scripts/test/test-kv.sh
+
+.PHONY: test-query
+test-query:
+	@source scripts/test/test-query.sh

@@ -8,7 +8,7 @@ import (
 const (
 	debug     = false
 	benchmark = false
-	version   = "v1.4"
+	version   = "v1.4.5"
 )
 
 type Client struct {
