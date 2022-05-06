@@ -47,11 +47,15 @@ Geo Fabric. Timeout refers to the http connection timeout in seconds. If you do 
 
 ## Code examples
 
+### API 
 * Collections [code example](examples/api/collections/main.go) and [tests](tests/collection)
 * Documents [code example](examples/api/documentstore/main.go) and [tests](tests/document)
 * Graph [code example](examples/api/graph/main.go) and [tests](tests/graph)
 * Index [code example](examples/api/index/main.go) and [tests](tests/index)
 * KeyValue [code example](examples/api/kv/main.go) and [tests](tests/kv)
+* Query [code example](examples/flight) and [tests](tests/query)
+
+### Examples 
 * [Flight example](examples/flight)
 * [University example](examples/university)
 
