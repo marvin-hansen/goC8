@@ -48,16 +48,16 @@ Geo Fabric. Timeout refers to the http connection timeout in seconds. If you do 
 ## Code examples
 
 ### API 
-* Collections [code example](examples/api/collections/main.go) and [tests](tests/collection)
+* Collections [code example](examples/api/collections/main.go) and [tests](tests/collection/collection_test.go)
 * Documents [code example](examples/api/documentstore/main.go) and [tests](tests/document)
-* Graph [code example](examples/api/graph/main.go) and [tests](tests/graph)
-* Index [code example](examples/api/index/main.go) and [tests](tests/index)
-* KeyValue [code example](examples/api/kv/main.go) and [tests](tests/kv)
-* Query [code example](examples/flight) and [tests](tests/query)
+* Graph [code example](examples/api/graph/main.go) and [tests](tests/graph/graph_test.go)
+* Index [code example](examples/api/index/main.go) and [tests](tests/index/index_test.go)
+* KeyValue [code example](examples/api/kv/main.go) and [tests](tests/kv/kv_test.go)
+* Query [code example](examples/flight/main.go) and [tests](tests/query/query_test.go)
 
 ### Examples 
-* [Flight example](examples/flight)
-* [University example](examples/university)
+* [Flight example](examples/flight/main.go)
+* [University example](examples/university/main.go)
 
 Golang demo apps from Macrometa
 * [Salesforce PII](https://github.com/Macrometacorp/demo-salesforce-pii)
@@ -66,7 +66,7 @@ Golang demo apps from Macrometa
 
 ## Usage: Graph, collection, & document API
 
-Full code in [Flight example](examples/flight)
+Full code in [Flight example](examples/flight/main.go)
 
 ```Go
 package main
