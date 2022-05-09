@@ -48,7 +48,6 @@ func TestRunQueryWorker(t *testing.T) {
 
 func TestReadAllQueryWorkers(t *testing.T) {
 	c := goC8.NewClient(conf.GetDefaultConfig())
-	//query := "for t in teachers return t"
 	res, err := c.QueryWorker.ReadAllQueryWorkers(fabric)
 
 	assert.NoError(t, err)

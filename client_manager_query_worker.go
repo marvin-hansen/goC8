@@ -60,10 +60,14 @@ func (c QueryWorkerManager) RunQueryWorker(fabric, workerName, bindVars string) 
 	return res, CheckReturnError(err)
 }
 
-func (c QueryWorkerManager) ReadAllQueryWorkers(fabric string) (res *query_req.ResponseForExplainQuery, err error) {
+func (c QueryWorkerManager) ReadAllQueryWorkers(fabric string) (res *qw_req.ResponseForReadAllQueryWorkers, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "ReadAllQueryWorkers")
 	}
+
+	req := qw_req.NewRequestForReadAllQueryWorkers(fabric)
+	res = qw_req.NewResponseForReadAllQueryWorkers()
+	err = c.client.Request(req, res)
 
 	return res, CheckReturnError(err)
 }
