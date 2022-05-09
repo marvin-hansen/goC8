@@ -15,13 +15,13 @@ func NewQueryWorkerManager(client *Client) *QueryWorkerManager {
 	return &QueryWorkerManager{client: client}
 }
 
-func (c QueryWorkerManager) CreateQueryWorker(fabric, workerName, queryString, bindVars string) (res *qw_req.ResponseForCreateQueryWorker, err error) {
+func (c QueryWorkerManager) CreateQueryWorker(fabric, workerName, queryString, bindVars string) (res *qw_req.ResponseForQueryWorker, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "CreateQueryWorker")
 	}
 
 	req := qw_req.NewRequestForCreateQueryWorker(fabric, workerName, queryString, bindVars)
-	res = qw_req.NewResponseForCreateQueryWorker()
+	res = qw_req.NewResponseForQueryWorker()
 	err = c.client.Request(req, res)
 	return res, CheckReturnError(err)
 }
@@ -72,10 +72,14 @@ func (c QueryWorkerManager) ReadAllQueryWorkers(fabric string) (res *qw_req.Resp
 	return res, CheckReturnError(err)
 }
 
-func (c QueryWorkerManager) UpdateQueryWorker(fabric, workerName string) (res *query_req.ResponseForExplainQuery, err error) {
+func (c QueryWorkerManager) UpdateQueryWorker(fabric, workerName, queryString, bindVars string) (res *qw_req.ResponseForQueryWorker, err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "UpdateQueryWorker")
 	}
+
+	req := qw_req.NewRequestForUpdateQueryWorker(fabric, workerName, queryString, bindVars)
+	res = qw_req.NewResponseForQueryWorker()
+	err = c.client.Request(req, res)
 
 	return res, CheckReturnError(err)
 }

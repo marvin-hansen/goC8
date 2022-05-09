@@ -2,15 +2,24 @@ package qw_req
 
 import "fmt"
 
-func getQueryWorkerPayload(workerName, queryString, parameterString string) []byte {
-	str := fmt.Sprintf(`{
-  "query": {
-    "name": "%v",
-    "parameter": {%v},
-    "value": "%v"
-  }
-}`, workerName, parameterString, queryString)
-	return []byte(str)
+func NewResponseForQueryWorker() *ResponseForQueryWorker {
+	return new(ResponseForQueryWorker)
+}
+
+type ResponseForQueryWorker struct {
+	Code   int         `json:"code"`
+	Error  bool        `json:"error"`
+	Result QueryWorker `json:"result"`
+}
+
+func (r *ResponseForQueryWorker) IsResponse() {}
+
+func (r ResponseForQueryWorker) String() string {
+	return fmt.Sprintf("Code: %v\n Error: %v\n Result: %v\n",
+		r.Code,
+		r.Error,
+		r.Result,
+	)
 }
 
 type Extra struct {

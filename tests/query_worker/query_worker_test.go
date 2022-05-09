@@ -7,6 +7,7 @@ import (
 	"github.com/marvin-hansen/goC8/types"
 	"github.com/stretchr/testify/assert"
 	"testing"
+	"time"
 )
 
 const (
@@ -29,6 +30,7 @@ func TestCreateQueryWorker(t *testing.T) {
 	bindVars := ""
 
 	res, err := c.QueryWorker.CreateQueryWorker(fabric, workerName, query, bindVars)
+	wait()
 
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -40,6 +42,8 @@ func TestRunQueryWorker(t *testing.T) {
 	bindVars := ""
 
 	res, err := c.QueryWorker.RunQueryWorker(fabric, workerName, bindVars)
+	wait()
+
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	goC8.PrintRes(res, verbose)
@@ -48,6 +52,7 @@ func TestRunQueryWorker(t *testing.T) {
 func TestReadAllQueryWorkers(t *testing.T) {
 	c := goC8.NewClient(conf.GetDefaultConfig())
 	res, err := c.QueryWorker.ReadAllQueryWorkers(fabric)
+	wait()
 
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -56,8 +61,11 @@ func TestReadAllQueryWorkers(t *testing.T) {
 
 func TestUpdateQueryWorker(t *testing.T) {
 	c := goC8.NewClient(conf.GetDefaultConfig())
-	//query := "for t in teachers return t"
-	res, err := c.QueryWorker.UpdateQueryWorker(fabric, workerName)
+	newQuery := "for t in testCollection return t"
+	newBindVars := ""
+
+	res, err := c.QueryWorker.UpdateQueryWorker(fabric, workerName, newQuery, newBindVars)
+	wait()
 
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -67,10 +75,17 @@ func TestUpdateQueryWorker(t *testing.T) {
 func TestDeleteQueryWorker(t *testing.T) {
 	c := goC8.NewClient(conf.GetDefaultConfig())
 	err := c.QueryWorker.DeleteQueryWorker(fabric, workerName)
+	wait()
+
 	assert.NoError(t, err)
 }
 
 func TestTeardown(t *testing.T) {
 	c := goC8.NewClient(conf.GetDefaultConfig())
 	goC8.TeardownCollection(c, fabric, collectionTeachers)
+}
+
+func wait() {
+	// tests randomly fail without the wait time.
+	time.Sleep(time.Millisecond * 250)
 }

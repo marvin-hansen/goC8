@@ -10,8 +10,19 @@ import (
 func NewRequestForCreateQueryWorker(fabric, workerName, queryString, parameterString string) *RequestForCreateQueryWorker {
 	return &RequestForCreateQueryWorker{
 		path:    fmt.Sprintf("_fabric/%v/_api/restql", fabric),
-		payload: getQueryWorkerPayload(workerName, queryString, parameterString),
+		payload: getCreateWorkerPayload(workerName, queryString, parameterString),
 	}
+}
+
+func getCreateWorkerPayload(workerName, queryString, parameterString string) []byte {
+	str := fmt.Sprintf(`{
+  "query": {
+    "name": "%v",
+    "parameter": {%v},
+    "value": "%v"
+  }
+}`, workerName, parameterString, queryString)
+	return []byte(str)
 }
 
 type RequestForCreateQueryWorker struct {
@@ -49,22 +60,4 @@ func (req *RequestForCreateQueryWorker) ResponseCode() int {
 
 //**// Response //**//
 
-func NewResponseForCreateQueryWorker() *ResponseForCreateQueryWorker {
-	return new(ResponseForCreateQueryWorker)
-}
-
-type ResponseForCreateQueryWorker struct {
-	Code   int         `json:"code"`
-	Error  bool        `json:"error"`
-	Result QueryWorker `json:"result"`
-}
-
-func (r *ResponseForCreateQueryWorker) IsResponse() {}
-
-func (r ResponseForCreateQueryWorker) String() string {
-	return fmt.Sprintf("Code: %v\n Error: %v\n Result: %v\n",
-		r.Code,
-		r.Error,
-		r.Result,
-	)
-}
+// Call NewResponseForQueryWorker()
