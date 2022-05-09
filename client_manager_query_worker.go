@@ -80,10 +80,13 @@ func (c QueryWorkerManager) UpdateQueryWorker(fabric, workerName string) (res *q
 	return res, CheckReturnError(err)
 }
 
-func (c QueryWorkerManager) DeleteQueryWorker(fabric, workerName string) (res *query_req.ResponseForExplainQuery, err error) {
+func (c QueryWorkerManager) DeleteQueryWorker(fabric, workerName string) (err error) {
 	if benchmark {
 		defer utils.TimeTrack(time.Now(), "DeleteQueryWorker")
 	}
 
-	return res, CheckReturnError(err)
+	req := qw_req.NewRequestForDeleteQueryWorker(fabric, workerName)
+	res := qw_req.NewResponseForDeleteQueryWorker()
+	err = c.client.Request(req, res)
+	return CheckReturnError(err)
 }

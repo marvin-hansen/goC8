@@ -14,6 +14,7 @@ const (
 	silent             = true
 	fabric             = "SouthEastAsia"
 	collectionTeachers = "teachers"
+	workerName         = "getAllTeachers"
 )
 
 func TestSetup(t *testing.T) {
@@ -24,7 +25,6 @@ func TestSetup(t *testing.T) {
 
 func TestCreateQueryWorker(t *testing.T) {
 	c := goC8.NewClient(conf.GetDefaultConfig())
-	workerName := "getAllTeachers"
 	query := "for t in teachers return t"
 	bindVars := ""
 
@@ -37,7 +37,6 @@ func TestCreateQueryWorker(t *testing.T) {
 
 func TestRunQueryWorker(t *testing.T) {
 	c := goC8.NewClient(conf.GetDefaultConfig())
-	workerName := "getAllTeachers"
 	bindVars := ""
 
 	res, err := c.QueryWorker.RunQueryWorker(fabric, workerName, bindVars)
@@ -58,7 +57,6 @@ func TestReadAllQueryWorkers(t *testing.T) {
 func TestUpdateQueryWorker(t *testing.T) {
 	c := goC8.NewClient(conf.GetDefaultConfig())
 	//query := "for t in teachers return t"
-	workerName := "name"
 	res, err := c.QueryWorker.UpdateQueryWorker(fabric, workerName)
 
 	assert.NoError(t, err)
@@ -68,13 +66,8 @@ func TestUpdateQueryWorker(t *testing.T) {
 
 func TestDeleteQueryWorker(t *testing.T) {
 	c := goC8.NewClient(conf.GetDefaultConfig())
-	//query := "for t in teachers return t"
-	workerName := "name"
-	res, err := c.QueryWorker.DeleteQueryWorker(fabric, workerName)
-
+	err := c.QueryWorker.DeleteQueryWorker(fabric, workerName)
 	assert.NoError(t, err)
-	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
 }
 
 func TestTeardown(t *testing.T) {
