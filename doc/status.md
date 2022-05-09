@@ -9,7 +9,7 @@
 | Documents     | Yes         | Yes    |
 | Collections   | Yes         | Yes    |
 | Query         | Yes         | Yes    |
-| Query Workers | No          | No     |
+| Query Workers | Yes         | Yes    |
 | Indexes       | Yes         | Yes    |
 | Graphs        | Yes         | No     |
 | Streams       | No          | No     |
@@ -100,7 +100,7 @@
 | Post   | /index/ttl                      | Creates TTl index                 | Yes         | Yes    | Yes   |
 | Delete | /index/{collection}/{indexName} | Deletes index                     | Yes         | Yes    | Yes   |
 
-[1] Non fixable error. Possible legacy endpoint that wasn't removed. 
+[1] Non-fixable error during request. Possible legacy endpoint that wasn't removed. 
 
 ## KV API 
 
@@ -121,8 +121,22 @@
 
 ## Query API
 
-Query API was aggregated in one singele "Query" method that combined all the bits and pieces of the API.
+| Http | Endpoint       | Function      | Implemented | Tested | Done |
+|------|----------------|---------------|-------------|--------|------|
+| Post | /query         | ValidateQuery | Yes         | Yes    | Yes  |
+| Post | /cursor        | Query[1]      | yes         | Yes    | Yes  |
+| Post | /query/explain | ExplainQuery  | Yes         | Yes    | Yes  |
 
-Note, query is stateful and as such not thread safe. 
+[1] Note, query is stateful and as such not thread safe. 
+
+## Query Worker API
+
+| Http   | Endpoint               | Function            | Implemented | Tested | Done |
+|--------|------------------------|---------------------|-------------|--------|------|
+| Post   | /restql                | CreateQueryWorker   | Yes         | Yes    | Yes  |
+| Post   | /restql/execute/{name} | RunQueryWorker      | yes         | Yes    | Yes  |
+| Get    | /restql/user           | ReadAllQueryWorkers | Yes         | Yes    | Yes  |
+| Put    | /restql/{name}         | UpdateQueryWorker   | Yes         | Yes    | Yes  |
+| Delete | /restql/{name}         | DeleteQueryWorker   | Yes         | Yes    | Yes  |
 
 Tables generated with [tablesgenerator.com](https://www.tablesgenerator.com/markdown_tables#)

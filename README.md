@@ -45,7 +45,7 @@ The client config requires the following settings:
 Api Key refers to the generated api access key. Endpoint refers to the POP provided by the GDN. Fabric refers to the GDN
 Geo Fabric. Timeout refers to the http connection timeout in seconds. If you do not have these value at hand, please read the [setup guide](doc/setup.md) for details.
 
-## Code examples
+## API
 
 ### Data API 
 * Collections [code example](examples/api/collections/main.go) and [tests](tests/collection/collection_test.go)
@@ -58,8 +58,11 @@ Geo Fabric. Timeout refers to the http connection timeout in seconds. If you do 
 * Query [code example](examples/flight/main.go) and [tests](tests/query/query_test.go)
 * QueryWorker [tests](tests/query_worker/query_worker_test.go)
 
+Consult the [status document](doc/status.md) for details about which API implementation. 
+Note, the bulk of the data & query API has been completed, but the admin API has not been implemented.
+Feel free to contribute a PR to close some gaps. 
 
-### Examples 
+## Code Examples 
 * [Flight example](examples/flight/main.go)
 * [University example](examples/university/main.go)
 
