@@ -16,7 +16,6 @@ type Client struct {
 	Endpoint    string
 	HTTPC       *fasthttp.Client
 	HTTPTimeout time.Duration
-	//
 	Collection  *CollectionManager
 	Document    *DocumentManager
 	Graph       *GraphManager
