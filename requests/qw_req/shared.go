@@ -13,6 +13,14 @@ func getQueryWorkerPayload(workerName, queryString, parameterString string) []by
 	return []byte(str)
 }
 
+type Extra struct {
+	Warnings Warnings `json:"warnings"`
+}
+
+type Warnings []interface{}
+
+type Result []interface{}
+
 type QueryWorker struct {
 	Name      string   `json:"name,omitempty"`
 	Key       string   `json:"_key,omitempty"`

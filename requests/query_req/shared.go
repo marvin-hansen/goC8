@@ -5,19 +5,6 @@ import (
 	"strings"
 )
 
-func NewCursorFromCreateCursor(r *ResponseForCreateCursor) *Cursor {
-	return &Cursor{
-		Code:    r.Code,
-		Error:   r.Error,
-		Count:   r.Count,
-		Extra:   r.Extra,
-		HasMore: r.HasMore,
-		Id:      r.Id,
-		Cached:  r.Cached,
-		Result:  r.Result,
-	}
-}
-
 type Cursor struct {
 	Code    int    `json:"code"`
 	Error   bool   `json:"error"`
@@ -29,7 +16,9 @@ type Cursor struct {
 	Result  Result `json:"result"`
 }
 
-func (c Cursor) Update(r *ResponseForReadNextCursor) {
+func (r *Cursor) IsResponse() {}
+
+func (c Cursor) Update(r *Cursor) {
 	c.Code = r.Code
 	c.Error = r.Error
 	c.Count = r.Count

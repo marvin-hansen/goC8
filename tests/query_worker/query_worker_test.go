@@ -26,9 +26,9 @@ func TestCreateQueryWorker(t *testing.T) {
 	c := goC8.NewClient(conf.GetDefaultConfig())
 	workerName := "getAllTeachers"
 	query := "for t in teachers return t"
-	parameter := ""
+	bindVars := ""
 
-	res, err := c.QueryWorker.CreateQueryWorker(fabric, workerName, query, parameter)
+	res, err := c.QueryWorker.CreateQueryWorker(fabric, workerName, query, bindVars)
 
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
@@ -37,10 +37,10 @@ func TestCreateQueryWorker(t *testing.T) {
 
 func TestRunQueryWorker(t *testing.T) {
 	c := goC8.NewClient(conf.GetDefaultConfig())
-	//query := "for t in teachers return t"
-	workerName := "name"
-	res, err := c.QueryWorker.RunQueryWorker(fabric, workerName)
+	workerName := "getAllTeachers"
+	bindVars := ""
 
+	res, err := c.QueryWorker.RunQueryWorker(fabric, workerName, bindVars)
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	goC8.PrintRes(res, verbose)

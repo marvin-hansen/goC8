@@ -52,17 +52,14 @@ func (c QueryManager) Query(fabric, query string, bindVars map[string]interface{
 	ttl := c.client.getQueryTTL()
 	req := query_req.NewRequestForCreateCursor(fabric, query, bindVars, options, ttl)
 
-	// Create a cursor for the query onfrom the server
-	response := query_req.NewResponseForCreateCursor()
-	if err = c.client.Request(req, response); err != nil {
+	// Create a cursor for the query from the server
+	res = query_req.NewResponseForCreateCursor()
+	if err = c.client.Request(req, res); err != nil {
 		return nil, err
 	}
 
-	// We cast into a cursor here to allow for updates from NextCursor
-	res = query_req.NewCursorFromCreateCursor(response)
-
 	// check for more to come
-	if response.HasMore {
+	if res.HasMore {
 		for {
 			// request update for the cursor
 			reqNext := query_req.NewRequestForReadNextCursor(fabric, res.Id)
@@ -78,7 +75,7 @@ func (c QueryManager) Query(fabric, query string, bindVars map[string]interface{
 			if responseNext.HasMore == false {
 
 				// Delete the cursor from the server
-				reqDel := query_req.NewRequestForDeleteCursor(fabric, response.Id)
+				reqDel := query_req.NewRequestForDeleteCursor(fabric, res.Id)
 				resDel := query_req.NewResponseForDeleteCursor()
 				if err = c.client.Request(reqDel, resDel); err != nil {
 					return nil, err

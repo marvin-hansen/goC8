@@ -1,7 +1,8 @@
-package query_req
+package qw_req
 
 import (
 	"fmt"
+	"github.com/marvin-hansen/goC8/requests/query_req"
 	"net/http"
 )
 
@@ -9,7 +10,7 @@ import (
 
 func NewRequestForReadNextCursor(fabric, cursorID string) *RequestForReadNextCursor {
 	return &RequestForReadNextCursor{
-		path: fmt.Sprintf("_fabric/%v/_api/cursor/%v", fabric, cursorID),
+		path: fmt.Sprintf("_fabric/%v/_api/restql/fetch/%v", fabric, cursorID),
 	}
 }
 
@@ -34,7 +35,7 @@ func (req *RequestForReadNextCursor) HasQueryParameter() bool {
 }
 
 func (req *RequestForReadNextCursor) GetQueryParameter() string {
-	return ""
+	return "" //"?excludeSystem=true"
 }
 
 func (req *RequestForReadNextCursor) Payload() []byte {
@@ -47,6 +48,6 @@ func (req *RequestForReadNextCursor) ResponseCode() int {
 
 //**// Response //**//
 
-func NewResponseForReadNextCursor() *Cursor {
-	return new(Cursor)
+func NewResponseForReadNextCursor() *query_req.Cursor {
+	return new(query_req.Cursor)
 }

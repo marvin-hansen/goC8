@@ -80,24 +80,6 @@ func (req *RequestForCreateCursor) ResponseCode() int {
 
 //**// Response //**//
 
-func NewResponseForCreateCursor() *ResponseForCreateCursor {
-	return new(ResponseForCreateCursor)
-}
-
-// ResponseForCreateCursor see query_req/shared/Cursor for spec
-type ResponseForCreateCursor Cursor
-
-func (r *ResponseForCreateCursor) IsResponse() {}
-
-func (r ResponseForCreateCursor) String() string {
-	return fmt.Sprintf("Code: %v\n Error: %v\n Count: %v\n Extra: %v\n HasMore: %v\n Id: %v\n Cached: %v\n Result: %v\n",
-		r.Code,
-		r.Error,
-		r.Count,
-		r.Extra,
-		r.HasMore,
-		r.Id,
-		r.Cached,
-		r.Result,
-	)
+func NewResponseForCreateCursor() *Cursor {
+	return new(Cursor)
 }
