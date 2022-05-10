@@ -63,7 +63,7 @@ func (c Client) getQueryTTL() int {
 
 func (c Client) Info() {
 	println("Golang driver for the Macrometa global data platform (GDN). "+
-		"\n Version: %v", version)
+		"\n Version: ", version)
 }
 
 func (c Client) Version() string {
