@@ -7,6 +7,37 @@ import (
 	"time"
 )
 
+// AddVertexCollection
+// Adds a vertex collection to the set of orphan collections of the graph. If the collection does not exist, it will be created.
+func (c GraphManager) AddVertexCollection(fabric, graphName, vertexCollectionName string) (response *graph_req.ResponseForGraph, err error) {
+	if benchmark {
+		defer utils.TimeTrack(time.Now(), "AddVertexCollection")
+	}
+
+	req := vertex_req.NewRequestForAddVertexCollection(fabric, graphName, vertexCollectionName)
+	response = graph_req.NewResponseForGraph()
+	if err = c.client.Request(req, response); err != nil {
+		return nil, err
+	}
+	return response, nil
+}
+
+// DeleteVertexCollection
+// Removes a vertex collection from the graph and optionally removes the collection, if it is not used in any other graph.
+// It only removes vertex collections that are no longer part of edge definitions.
+// dropCollection - Remove the collection as well. Collection is only removed if it is not used in other graphs.
+// https://macrometa.com/docs/api#/operations/RemoveVertexCollection
+func (c GraphManager) DeleteVertexCollection(fabric, graphName, collectionName string, dropCollections bool) (response *graph_req.ResponseForGraph, err error) {
+	if benchmark {
+		defer utils.TimeTrack(time.Now(), "DeleteVertexCollection")
+	}
+
+	req := vertex_req.NewRequestForDeleteVertexCollection(fabric, graphName, collectionName, dropCollections)
+	response = graph_req.NewResponseForGraph()
+	err = c.client.Request(req, response)
+	return response, CheckReturnError(err)
+}
+
 // GetAllVertices
 // Lists all vertex collections within this graph.
 // https://macrometa.com/do    cs/api#/operations/ListVertexCollections
@@ -54,37 +85,6 @@ func (c GraphManager) CreateVertex(fabric, graphName, collectionName string, jso
 		return nil, err
 	}
 	return response, nil
-}
-
-// AddVertexCollection
-// Adds a vertex collection to the set of orphan collections of the graph. If the collection does not exist, it will be created.
-func (c GraphManager) AddVertexCollection(fabric, graphName, vertexCollectionName string) (response *graph_req.ResponseForGraph, err error) {
-	if benchmark {
-		defer utils.TimeTrack(time.Now(), "AddVertexCollection")
-	}
-
-	req := vertex_req.NewRequestForAddVertexCollection(fabric, graphName, vertexCollectionName)
-	response = graph_req.NewResponseForGraph()
-	if err = c.client.Request(req, response); err != nil {
-		return nil, err
-	}
-	return response, nil
-}
-
-// DeleteVertexCollection
-// Removes a vertex collection from the graph and optionally removes the collection, if it is not used in any other graph.
-// It only removes vertex collections that are no longer part of edge definitions.
-// dropCollection - Remove the collection as well. Collection is only removed if it is not used in other graphs.
-// https://macrometa.com/docs/api#/operations/RemoveVertexCollection
-func (c GraphManager) DeleteVertexCollection(fabric, graphName, collectionName string, dropCollections bool) (response *graph_req.ResponseForGraph, err error) {
-	if benchmark {
-		defer utils.TimeTrack(time.Now(), "DeleteVertexCollection")
-	}
-
-	req := vertex_req.NewRequestForDeleteVertexCollection(fabric, graphName, collectionName, dropCollections)
-	response = graph_req.NewResponseForGraph()
-	err = c.client.Request(req, response)
-	return response, CheckReturnError(err)
 }
 
 // UpdateVertex
