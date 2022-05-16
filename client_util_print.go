@@ -19,6 +19,6 @@ func PrintRes(res types.Responder, verbose bool) {
 
 func PrintJsonRes(res types.JsonResponder, verbose bool) {
 	if verbose {
-		println(res.String())
+		println(string(res.GetJsonMessage()))
 	}
 }

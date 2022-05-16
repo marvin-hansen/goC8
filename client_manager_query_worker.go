@@ -43,7 +43,7 @@ func (c QueryWorkerManager) RunQueryWorker(fabric, workerName, bindVars string) 
 
 	req := qw_req.NewRequestForRunQueryWorker(fabric, workerName, bindVars)
 	res = qw_req.NewResponseForRunQueryWorker()
-	if err = c.client.Request(req, res); err != nil {
+	if err = c.client.requestJsonResponse(req, res); err != nil {
 		return nil, err
 	}
 
@@ -53,7 +53,7 @@ func (c QueryWorkerManager) RunQueryWorker(fabric, workerName, bindVars string) 
 			// request update for the cursor
 			reqNext := qw_req.NewRequestForReadNextCursor(fabric, res.Id)
 			responseNext := qw_req.NewResponseForReadNextCursor()
-			if err = c.client.Request(reqNext, responseNext); err != nil {
+			if err = c.client.requestJsonResponse(reqNext, responseNext); err != nil {
 				return nil, err
 			}
 

@@ -46,7 +46,7 @@ func TestRunQueryWorker(t *testing.T) {
 
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
-	goC8.PrintRes(res, verbose)
+	goC8.PrintJsonRes(res, verbose)
 }
 
 func TestReadAllQueryWorkers(t *testing.T) {

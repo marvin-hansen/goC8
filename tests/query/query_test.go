@@ -50,6 +50,7 @@ func TestQuery(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, res)
 	goC8.PrintQuery(res, verbose)
+	goC8.PrintJsonRes(res, verbose)
 }
 
 func TestTeardown(t *testing.T) {

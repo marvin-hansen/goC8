@@ -14,9 +14,18 @@ type Cursor struct {
 	Id      string `json:"id"`
 	Cached  bool   `json:"cached"`
 	Result  Result `json:"result"`
+	json    []byte `json:"raw"`
 }
 
-func (r *Cursor) IsResponse() {}
+func (c *Cursor) IsJsonResponse() {}
+
+func (c *Cursor) SetJsonMessage(rawJson []byte) {
+	c.json = rawJson
+}
+
+func (c *Cursor) GetJsonMessage() []byte {
+	return c.json
+}
 
 func (c Cursor) Update(r *Cursor) {
 	c.Code = r.Code

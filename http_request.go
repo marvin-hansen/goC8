@@ -21,6 +21,11 @@ func (c *Client) requestJsonResponse(req types.Requester, results types.JsonResp
 	}
 	// println(string(res.Body()))
 	results.SetJsonMessage(res.Body())
+	decErr := decode(res.Body(), results)
+	if decErr != nil {
+		// println("Decode error")
+		return decErr
+	}
 	return nil
 }
 

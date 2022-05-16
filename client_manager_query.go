@@ -54,7 +54,7 @@ func (c QueryManager) Query(fabric, query string, bindVars map[string]interface{
 
 	// Create a cursor for the query from the server
 	res = query_req.NewResponseForCreateCursor()
-	if err = c.client.Request(req, res); err != nil {
+	if err = c.client.requestJsonResponse(req, res); err != nil {
 		return nil, err
 	}
 
@@ -64,7 +64,7 @@ func (c QueryManager) Query(fabric, query string, bindVars map[string]interface{
 			// request update for the cursor
 			reqNext := query_req.NewRequestForReadNextCursor(fabric, res.Id)
 			responseNext := query_req.NewResponseForReadNextCursor()
-			if err = c.client.Request(reqNext, responseNext); err != nil {
+			if err = c.client.requestJsonResponse(reqNext, responseNext); err != nil {
 				return nil, err
 			}
 
